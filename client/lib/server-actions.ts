@@ -11,6 +11,46 @@ export async function verifyCaptcha(token: string): Promise<boolean> {
   return res.data.success;
 }
 
+export async function login(identifier: string, password: string) {
+  const res = await fetch(
+    `${process.env.STRAPI_URL}/api/auth/local?populate=role&populate=avatar`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        identifier,
+        password,
+      }),
+    },
+  );
+  const data = await res.json();
+
+  return data;
+}
+
+export async function register(
+  username: string,
+  email: string,
+  password: string,
+) {
+  const res = await fetch(`${process.env.STRAPI_URL}/api/auth/local/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username,
+      email,
+      password,
+    }),
+  });
+  const data = await res.json();
+
+  return data;
+}
+
 export async function getUserByUsername(
   username: string,
 ): Promise<UserType | undefined> {

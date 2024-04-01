@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { registerSchema } from "@/lib/form-schema";
-import { verifyCaptcha } from "@/lib/server-actions";
+import { register, verifyCaptcha } from "@/lib/server-actions";
 import { jsonResponse } from "@/lib/json-response";
 import { serializeJwt } from "@/lib/serialize-jwt";
 import { formatUser } from "../../../../lib/format-user";
@@ -54,21 +54,12 @@ export async function POST(req: NextRequest) {
     }
 
     // Creating a new user
-    const res = await fetch(
-      `${process.env.STRAPI_URL}/api/auth/local/register`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
-          email,
-          password,
-        }),
-      },
-    );
-    const data = await res.json();
+    const data = await register(username, email, password);
+
+    // Handling user creation error
+    if (data.error) {
+      return jsonResponse("An error occurred while creating a new user", 400);
+    }
 
     // Serializing jwt token
     const serialized = serializeJwt(data.jwt);

@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { loginSchema } from "@/lib/form-schema";
-import { verifyCaptcha } from "@/lib/server-actions";
+import { login, verifyCaptcha } from "@/lib/server-actions";
 import { jsonResponse } from "@/lib/json-response";
 import { serializeJwt } from "@/lib/serialize-jwt";
 import { formatUser } from "@/lib/format-user";
@@ -29,20 +29,7 @@ export async function POST(req: NextRequest) {
     const itsEmail = emailOrUsername.includes("@");
 
     // Fetching the user from the database
-    const res = await fetch(
-      `${process.env.STRAPI_URL}/api/auth/local?populate=role&populate=avatar`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          identifier: emailOrUsername,
-          password,
-        }),
-      },
-    );
-    const data = await res.json();
+    const data = await login(emailOrUsername, password);
 
     // Handling non-existent user error
     if (data.error) {
