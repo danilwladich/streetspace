@@ -3,6 +3,7 @@ import { registerSchema } from "@/lib/form-schema";
 import { verifyCaptcha } from "@/lib/server-actions";
 import { jsonResponse } from "@/lib/json-response";
 import { serializeJwt } from "@/lib/serialize-jwt";
+import { formatUser } from "../../../../lib/format-user";
 
 export async function POST(req: NextRequest) {
   try {
@@ -70,10 +71,10 @@ export async function POST(req: NextRequest) {
     const data = await res.json();
 
     // Serializing jwt token
-    const serialized = await serializeJwt(data.jwt);
+    const serialized = serializeJwt(data.jwt);
 
     // Returning a JSON response with user information and set cookie header
-    return jsonResponse(data.user, 201, {
+    return jsonResponse(formatUser(data.user), 201, {
       headers: { "Set-Cookie": serialized },
     });
   } catch (error) {

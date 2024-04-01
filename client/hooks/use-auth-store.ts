@@ -1,18 +1,10 @@
+import type { UserType } from "@/types/UserType";
 import { create } from "zustand";
 
-export type UserType = {
-  id: number;
-  username: string;
-  email: string;
-  role?: {
-    type: "admin";
-  };
-} | null;
-
 interface AuthStore {
-  user: UserType;
+  user: UserType | null;
   isChecked: boolean;
-  setUser: (user: UserType) => void;
+  setUser: (user: UserType | null) => void;
 }
 
 export const useAuthStore = create<AuthStore>((set) => ({

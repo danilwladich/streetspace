@@ -1,10 +1,11 @@
 "use client";
 
-import { type UserType, useAuthStore } from "@/hooks/use-auth-store";
+import { useAuthStore } from "@/hooks/use-auth-store";
 import { useClientFetching } from "@/hooks/use-client-fetching";
+import { useLayoutEffect } from "react";
+import type { UserType } from "@/types/UserType";
 
 import { AppLoader } from "@/components/ui/app-loader";
-import { useEffect } from "react";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { data, isLoading, error } = useClientFetching<UserType>(
@@ -15,7 +16,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
   const { isChecked, setUser } = useAuthStore();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!error && data) {
       setUser(data);
     } else {

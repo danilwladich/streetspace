@@ -3,6 +3,7 @@ import { loginSchema } from "@/lib/form-schema";
 import { verifyCaptcha } from "@/lib/server-actions";
 import { jsonResponse } from "@/lib/json-response";
 import { serializeJwt } from "@/lib/serialize-jwt";
+import { formatUser } from "@/lib/format-user";
 
 export async function POST(req: NextRequest) {
   try {
@@ -28,16 +29,19 @@ export async function POST(req: NextRequest) {
     const itsEmail = emailOrUsername.includes("@");
 
     // Fetching the user from the database
-    const res = await fetch(`${process.env.STRAPI_URL}/api/auth/local`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const res = await fetch(
+      `${process.env.STRAPI_URL}/api/auth/local?populate=role&populate=avatar`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          identifier: emailOrUsername,
+          password,
+        }),
       },
-      body: JSON.stringify({
-        identifier: emailOrUsername,
-        password,
-      }),
-    });
+    );
     const data = await res.json();
 
     // Handling non-existent user error
@@ -52,10 +56,10 @@ export async function POST(req: NextRequest) {
     }
 
     // Serializing jwt token
-    const serialized = await serializeJwt(data.jwt);
+    const serialized = serializeJwt(data.jwt);
 
     // Returning a JSON response with user information and set cookie header
-    return jsonResponse(data.user, 200, {
+    return jsonResponse(formatUser(data.user), 200, {
       headers: { "Set-Cookie": serialized },
     });
   } catch (error) {
