@@ -1,0 +1,16 @@
+{
+	"name": "2rnik",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"server": "npm run develop --prefix strapi",
+		"client": "npm run dev --prefix client",
+		"dev": "NODE_ENV=development concurrently \"npm run server\" \"npm run client\""
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"concurrently": "^8.2.2"
+	}
+}
