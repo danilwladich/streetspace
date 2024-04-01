@@ -1,18 +1,12 @@
 import type { NextRequest } from "next/server";
-import { getJwt } from "@/lib/get-jwt";
 import { jsonResponse } from "@/lib/json-response";
 import { emptyJwt } from "@/lib/serialize-jwt";
 import { formatUser } from "@/lib/format-user";
+import { getMe } from "@/lib/server-actions";
 
 export async function GET(req: NextRequest) {
   try {
-    const res = await fetch(
-      `${process.env.STRAPI_URL}/api/users/me?populate=role&populate=avatar`,
-      {
-        headers: { Authorization: `Bearer ${getJwt()}` },
-      },
-    );
-    const data = await res.json();
+    const data = await getMe();
 
     // If the user is not authenticated
     if (data.error) {
