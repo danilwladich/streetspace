@@ -3,7 +3,6 @@ import { registerSchema } from "@/lib/form-schema";
 import { register, verifyCaptcha } from "@/lib/server-actions";
 import { jsonResponse } from "@/lib/json-response";
 import { serializeJwt } from "@/lib/serialize-jwt";
-import { formatUser } from "../../../../lib/format-user";
 
 export async function POST(req: NextRequest) {
   try {
@@ -57,7 +56,7 @@ export async function POST(req: NextRequest) {
     const data = await register(username, email, password);
 
     // Handling user creation error
-    if (data.error) {
+    if (!data) {
       return jsonResponse("An error occurred while creating a new user", 400);
     }
 
@@ -65,7 +64,7 @@ export async function POST(req: NextRequest) {
     const serialized = serializeJwt(data.jwt);
 
     // Returning a JSON response with user information and set cookie header
-    return jsonResponse(formatUser(data.user), 201, {
+    return jsonResponse(data.user, 201, {
       headers: { "Set-Cookie": serialized },
     });
   } catch (error) {

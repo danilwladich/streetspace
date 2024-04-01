@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * follower service
+ * follow service
  */
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::follower.follower');
+module.exports = createCoreService('api::follow.follow');

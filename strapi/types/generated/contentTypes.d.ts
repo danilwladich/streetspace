@@ -362,12 +362,12 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiFollowerFollower extends Schema.CollectionType {
-  collectionName: 'followers';
+export interface ApiFollowFollow extends Schema.CollectionType {
+  collectionName: 'follows';
   info: {
-    singularName: 'follower';
-    pluralName: 'followers';
-    displayName: 'Follower';
+    singularName: 'follow';
+    pluralName: 'follows';
+    displayName: 'Follow';
     description: '';
   };
   options: {
@@ -375,12 +375,12 @@ export interface ApiFollowerFollower extends Schema.CollectionType {
   };
   attributes: {
     whomFollow: Attribute.Relation<
-      'api::follower.follower',
-      'oneToOne',
+      'api::follow.follow',
+      'manyToOne',
       'plugin::users-permissions.user'
     >;
     whoFollow: Attribute.Relation<
-      'api::follower.follower',
+      'api::follow.follow',
       'manyToOne',
       'plugin::users-permissions.user'
     >;
@@ -388,13 +388,13 @@ export interface ApiFollowerFollower extends Schema.CollectionType {
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::follower.follower',
+      'api::follow.follow',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::follower.follower',
+      'api::follow.follow',
       'oneToOne',
       'admin::user'
     > &
@@ -767,7 +767,12 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     followers: Attribute.Relation<
       'plugin::users-permissions.user',
       'oneToMany',
-      'api::follower.follower'
+      'api::follow.follow'
+    >;
+    followings: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::follow.follow'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -843,7 +848,7 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::follower.follower': ApiFollowerFollower;
+      'api::follow.follow': ApiFollowFollow;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;

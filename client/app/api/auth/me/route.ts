@@ -1,20 +1,14 @@
 import type { NextRequest } from "next/server";
 import { jsonResponse } from "@/lib/json-response";
 import { emptyJwt } from "@/lib/serialize-jwt";
-import { formatUser } from "@/lib/format-user";
-import { getMe } from "@/lib/server-actions";
+import { getAuthUser } from "@/lib/get-auth-user";
 
 export async function GET(req: NextRequest) {
   try {
-    const data = await getMe();
-
-    // If the user is not authenticated
-    if (data.error) {
-      return jsonResponse("Unauthorized", 401);
-    }
+    const user = getAuthUser(req);
 
     // Returning a JSON response with user information
-    return jsonResponse(formatUser(data), 200);
+    return jsonResponse(user, 200);
   } catch (error) {
     // Handling internal error
     console.log("[AUTH_ME_GET]", error);

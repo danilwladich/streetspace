@@ -1,5 +1,9 @@
 import { getAppTitle } from "@/lib/get-app-title";
-import { getUserByUsername } from "@/lib/server-actions";
+import {
+  getFollowersByUsername,
+  getFollowingsByUsername,
+  getUserByUsername,
+} from "@/lib/server-actions";
 import type { Metadata } from "next";
 
 import User from "@/components/pages/profile/user";
@@ -10,10 +14,10 @@ export async function generateMetadata({
 }: {
   params: { username: string };
 }): Promise<Metadata> {
-  const data = await getUserByUsername(params.username);
+  const user = await getUserByUsername(params.username);
 
   return {
-    title: getAppTitle(data?.username || "User not found"),
+    title: getAppTitle(user?.username || "User not found"),
   };
 }
 
@@ -22,9 +26,11 @@ export default async function Profile({
 }: {
   params: { username: string };
 }) {
-  const data = await getUserByUsername(params.username);
+  const user = await getUserByUsername(params.username);
+  const followers = await getFollowersByUsername(params.username);
+  const followings = await getFollowingsByUsername(params.username);
 
-  if (!data) {
+  if (!user) {
     return (
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
         <h2 className="text-xl">User not found</h2>
@@ -36,7 +42,7 @@ export default async function Profile({
     <div className="flex flex-col gap-4 pt-2 md:pt-0">
       <Card>
         <CardContent>
-          <User {...data} />
+          <User user={user} followers={followers} followings={followings} />
         </CardContent>
       </Card>
     </div>

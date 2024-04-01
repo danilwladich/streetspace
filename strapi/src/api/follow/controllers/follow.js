@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * follower controller
+ * follow controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::follower.follower');
+module.exports = createCoreController('api::follow.follow');

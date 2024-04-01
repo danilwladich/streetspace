@@ -66,16 +66,23 @@
       "configurable": false
     },
     "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "followers": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::follower.follower",
+      "target": "api::follow.follow",
+      "mappedBy": "whomFollow"
+    },
+    "followings": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::follow.follow",
       "mappedBy": "whoFollow"
     }
   }

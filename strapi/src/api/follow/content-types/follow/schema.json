@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "followers",
+  "collectionName": "follows",
   "info": {
-    "singularName": "follower",
-    "pluralName": "followers",
-    "displayName": "Follower",
+    "singularName": "follow",
+    "pluralName": "follows",
+    "displayName": "Follow",
     "description": ""
   },
   "options": {
@@ -14,14 +14,15 @@
   "attributes": {
     "whomFollow": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "followers"
     },
     "whoFollow": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "followers"
+      "inversedBy": "followings"
     }
   }
 }

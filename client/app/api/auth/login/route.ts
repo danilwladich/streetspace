@@ -3,7 +3,6 @@ import { loginSchema } from "@/lib/form-schema";
 import { login, verifyCaptcha } from "@/lib/server-actions";
 import { jsonResponse } from "@/lib/json-response";
 import { serializeJwt } from "@/lib/serialize-jwt";
-import { formatUser } from "@/lib/format-user";
 
 export async function POST(req: NextRequest) {
   try {
@@ -32,7 +31,7 @@ export async function POST(req: NextRequest) {
     const data = await login(emailOrUsername, password);
 
     // Handling non-existent user error
-    if (data.error) {
+    if (!data) {
       return jsonResponse(
         {
           field: "password",
@@ -46,7 +45,7 @@ export async function POST(req: NextRequest) {
     const serialized = serializeJwt(data.jwt);
 
     // Returning a JSON response with user information and set cookie header
-    return jsonResponse(formatUser(data.user), 200, {
+    return jsonResponse(data.user, 200, {
       headers: { "Set-Cookie": serialized },
     });
   } catch (error) {
