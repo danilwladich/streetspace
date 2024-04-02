@@ -1,28 +1,30 @@
 import Link from "next/link";
-import type { FollowType } from "@/types/FollowType";
+import {
+  getFollowersCountByUsername,
+  getFollowingsCountByUsername,
+} from "@/lib/server-actions";
 
 import { Button } from "@/components/ui/button";
 
-export default function UserFollowers({
+export default async function UserFollowers({
   username,
-  followers,
-  followings,
 }: {
   username: string;
-  followers: FollowType;
-  followings: FollowType;
 }) {
+  const followersCount = await getFollowersCountByUsername(username);
+  const followingsCount = await getFollowingsCountByUsername(username);
+
   return (
     <>
       <Link href={`/followers/${username}`} className="flex-1">
         <Button tabIndex={-1} variant="outline" className="w-full">
-          Followers {followers.pagination.total}
+          Followers {followersCount}
         </Button>
       </Link>
 
       <Link href={`/followings/${username}`} className="flex-1">
         <Button tabIndex={-1} variant="outline" className="w-full">
-          Followings {followings.pagination.total}
+          Followings {followingsCount}
         </Button>
       </Link>
     </>

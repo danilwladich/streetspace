@@ -5,6 +5,7 @@ import { formatFollow, formatUser } from "@/lib/format-data";
 import { getJwt } from "./get-jwt";
 import type { NonFormattedUserType, UserType } from "@/types/UserType";
 import type { NonFormattedFollowType } from "@/types/FollowType";
+import type { StrapiError } from "@/types/StrapiError";
 
 export async function verifyCaptcha(token: string): Promise<boolean> {
   const res = await axios.post(
@@ -34,26 +35,24 @@ export async function login(
   identifier: string,
   password: string,
 ): Promise<{ user: UserType; jwt: string } | null> {
-  const res = await fetch(
-    `${process.env.STRAPI_URL}/api/auth/local?populate=role,avatar`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+  try {
+    const { data } = await axios.post<{
+      user: NonFormattedUserType;
+      jwt: string;
+    }>(
+      `${process.env.STRAPI_URL}/api/auth/local?populate=role,avatar`,
+      { identifier, password },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-      body: JSON.stringify({
-        identifier,
-        password,
-      }),
-    },
-  );
-  const data = await res.json();
+    );
 
-  if (data.error) {
+    return { user: formatUser(data.user), jwt: data.jwt };
+  } catch (error) {
     return null;
   }
-
-  return { user: formatUser(data.user), jwt: data.jwt };
 }
 
 export async function register(
@@ -61,24 +60,24 @@ export async function register(
   email: string,
   password: string,
 ): Promise<{ user: UserType; jwt: string } | null> {
-  const res = await fetch(`${process.env.STRAPI_URL}/api/auth/local/register`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username,
-      email,
-      password,
-    }),
-  });
-  const data = await res.json();
+  try {
+    const { data } = await axios.post<{
+      user: NonFormattedUserType;
+      jwt: string;
+    }>(
+      `${process.env.STRAPI_URL}/api/auth/local/register`,
+      { username, email, password },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
 
-  if (data.error) {
+    return { user: formatUser(data.user), jwt: data.jwt };
+  } catch (error) {
     return null;
   }
-
-  return { user: formatUser(data.user), jwt: data.jwt };
 }
 
 export async function changePassword(
@@ -86,28 +85,24 @@ export async function changePassword(
   password: string,
   passwordConfirmation: string,
 ): Promise<{ error?: string; success: boolean }> {
-  const res = await fetch(
-    `${process.env.STRAPI_URL}/api/auth/change-password`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getJwt()}`,
+  try {
+    await axios.post(
+      `${process.env.STRAPI_URL}/api/auth/change-password`,
+      { currentPassword, password, passwordConfirmation },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getJwt()}`,
+        },
       },
-      body: JSON.stringify({
-        currentPassword,
-        password,
-        passwordConfirmation,
-      }),
-    },
-  );
-  const data = await res.json();
-
-  if (data.error) {
-    return { error: data.error.message, success: false };
+    );
+    return { success: true };
+  } catch (e: any) {
+    const error = e.response?.data?.error as StrapiError | undefined;
+    const message =
+      error?.message || "An error occurred while changing the password";
+    return { error: message, success: false };
   }
-
-  return { success: true };
 }
 
 export async function getUserByUsername(
@@ -129,8 +124,8 @@ export async function getUserByUsername(
 }
 
 export async function getUserById(id: number): Promise<UserType | undefined> {
-  const res = await axios.get<(NonFormattedUserType | undefined)[]>(
-    `${process.env.STRAPI_URL}/api/user/${id}`,
+  const res = await axios.get<NonFormattedUserType | undefined>(
+    `${process.env.STRAPI_URL}/api/users/${id}`,
     {
       params: {
         populate: "avatar",
@@ -138,7 +133,7 @@ export async function getUserById(id: number): Promise<UserType | undefined> {
     },
   );
 
-  const data = res.data[0];
+  const data = res.data;
 
   return data ? formatUser(data) : undefined;
 }
@@ -181,4 +176,145 @@ export async function getFollowingsByUsername(
   );
 
   return formatFollow(res.data);
+}
+
+export async function getFollowersCountByUsername(
+  username: string,
+): Promise<number> {
+  const res = await axios.get<number>(
+    `${process.env.STRAPI_URL}/api/follows/count/followers`,
+    {
+      params: {
+        username,
+      },
+    },
+  );
+
+  return res.data;
+}
+
+export async function getFollowingsCountByUsername(
+  username: string,
+): Promise<number> {
+  const res = await axios.get<number>(
+    `${process.env.STRAPI_URL}/api/follows/count/followings`,
+    {
+      params: {
+        username,
+      },
+    },
+  );
+
+  return res.data;
+}
+
+export async function getFollowByUsername(
+  whomFollow: string,
+  whoFollow?: string,
+): Promise<number | null> {
+  if (!whoFollow) {
+    const authUser = await getMe();
+
+    if (!authUser || authUser.username === whomFollow) {
+      return null;
+    }
+
+    whoFollow = authUser.username;
+  }
+
+  const res = await axios.get<NonFormattedFollowType>(
+    `${process.env.STRAPI_URL}/api/follows`,
+    {
+      params: {
+        "filters[whoFollow][username][$eq]": whoFollow,
+        "filters[whomFollow][username][$eq]": whomFollow,
+      },
+    },
+  );
+
+  const data = res.data.data;
+
+  if (data.length === 0) {
+    return null;
+  }
+
+  const followId = data[0].id;
+
+  return followId;
+}
+
+export async function getFollowById(
+  whomFollow: number,
+  whoFollow?: number,
+): Promise<number | null> {
+  if (!whoFollow) {
+    const authUser = await getMe();
+
+    if (!authUser || authUser.id === whomFollow) {
+      return null;
+    }
+
+    whoFollow = authUser.id;
+  }
+
+  const res = await axios.get<NonFormattedFollowType>(
+    `${process.env.STRAPI_URL}/api/follows`,
+    {
+      params: {
+        "filters[whoFollow][id][$eq]": whoFollow,
+        "filters[whomFollow][id][$eq]": whomFollow,
+      },
+    },
+  );
+
+  const data = res.data.data;
+
+  if (data.length === 0) {
+    return null;
+  }
+
+  const followId = data[0].id;
+
+  return followId;
+}
+
+export async function followUser(
+  whomFollow: number,
+  whoFollow: number,
+): Promise<boolean> {
+  try {
+    await axios.post(
+      `${process.env.STRAPI_URL}/api/follows`,
+      { data: { whoFollow, whomFollow } },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getJwt()}`,
+        },
+      },
+    );
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+export async function unfollowUser(
+  whomFollow: number,
+  whoFollow: number,
+): Promise<boolean> {
+  try {
+    const id = await getFollowById(whomFollow, whoFollow);
+
+    if (!id) {
+      return false;
+    }
+
+    await axios.delete(`${process.env.STRAPI_URL}/api/follows/${id}`, {
+      headers: { Authorization: `Bearer ${getJwt()}` },
+    });
+    return true;
+  } catch (error) {
+    return false;
+  }
 }

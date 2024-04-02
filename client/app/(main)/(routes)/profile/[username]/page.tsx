@@ -1,9 +1,5 @@
 import { getAppTitle } from "@/lib/get-app-title";
-import {
-  getFollowersByUsername,
-  getFollowingsByUsername,
-  getUserByUsername,
-} from "@/lib/server-actions";
+import { getUserByUsername } from "@/lib/server-actions";
 import type { Metadata } from "next";
 
 import User from "@/components/pages/profile/user";
@@ -27,8 +23,6 @@ export default async function Profile({
   params: { username: string };
 }) {
   const user = await getUserByUsername(params.username);
-  const followers = await getFollowersByUsername(params.username);
-  const followings = await getFollowingsByUsername(params.username);
 
   if (!user) {
     return (
@@ -42,7 +36,7 @@ export default async function Profile({
     <div className="flex flex-col gap-4 pt-2 md:pt-0">
       <Card>
         <CardContent>
-          <User user={user} followers={followers} followings={followings} />
+          <User user={user} />
         </CardContent>
       </Card>
     </div>

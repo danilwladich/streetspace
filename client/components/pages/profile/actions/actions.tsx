@@ -3,7 +3,6 @@
 import { useAuthStore } from "@/hooks/use-auth-store";
 import { useModalStore } from "@/hooks/use-modal-store";
 import { getAppTitle } from "@/lib/get-app-title";
-import type { FollowType } from "@/types/FollowType";
 
 import ShareButton from "@/components/pages/profile/actions/share-button";
 import LogOutButton from "@/components/pages/profile/actions/log-out-button";
@@ -23,20 +22,16 @@ import { MoreHorizontal, Pencil, ImagePlus } from "lucide-react";
 export default function UserActions({
   id,
   username,
-  followers,
+  isFollowing,
 }: {
   id: number;
   username: string;
-  followers: FollowType;
+  isFollowing: boolean;
 }) {
   const { user: authUser } = useAuthStore();
   const { onOpen } = useModalStore();
 
   const isOwner = id === authUser?.id;
-
-  const isFollowing = followers.data.some(
-    (f) => f.whoFollow.id === authUser?.id,
-  );
 
   return (
     <DropdownMenu>
