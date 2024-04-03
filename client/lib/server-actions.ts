@@ -6,6 +6,7 @@ import { getJwt } from "./get-jwt";
 import type { NonFormattedUserType, UserType } from "@/types/UserType";
 import type { NonFormattedFollowType } from "@/types/FollowType";
 import type { StrapiError } from "@/types/StrapiError";
+import type { NonFormattedStrapiImage } from "@/types/StrapiImage";
 
 export async function verifyCaptcha(token: string): Promise<boolean> {
   const res = await axios.post(
@@ -124,12 +125,12 @@ export async function changePassword(
 }
 
 export async function changeUsername(
-  id: number,
+  userId: number,
   username: string,
 ): Promise<UserType | null> {
   try {
     const { data } = await axios.put<NonFormattedUserType>(
-      `${process.env.STRAPI_URL}/api/users/${id}`,
+      `${process.env.STRAPI_URL}/api/users/${userId}`,
       { username },
       {
         headers: {
@@ -140,6 +141,60 @@ export async function changeUsername(
     );
 
     return formatUser(data);
+  } catch (error) {
+    return null;
+  }
+}
+
+export async function deleteAvatar(id: number): Promise<boolean> {
+  try {
+    await axios.delete(`${process.env.STRAPI_URL}/api/upload/files/${id}`, {
+      headers: {
+        Authorization: `Bearer ${getJwt()}`,
+      },
+    });
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+export async function changeAvatar(
+  userId: number,
+  image: File,
+): Promise<UserType | null> {
+  try {
+    const formData = new FormData();
+
+    const fileName = `avatar_${userId}_${Date.now()}`;
+    formData.append(`files`, image, fileName);
+
+    const { data: avatarData } = await axios.post<NonFormattedStrapiImage[]>(
+      `${process.env.STRAPI_URL}/api/upload`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${getJwt()}`,
+        },
+      },
+    );
+
+    const avatarId = avatarData[0].id;
+
+    const { data: userData } = await axios.put(
+      `${process.env.STRAPI_URL}/api/users/${userId}`,
+      { avatar: avatarId },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getJwt()}`,
+        },
+      },
+    );
+
+    return formatUser(userData);
   } catch (error) {
     return null;
   }

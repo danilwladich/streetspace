@@ -50,9 +50,8 @@ export default function EditAvatarForm() {
   const { user: authUser, setUser } = useAuthStore();
   const { onClose } = useModalStore();
 
-  const defaultImageSrc = useUserImageSrc(
-    authUser?.avatar?.formats.thumbnail.url,
-  );
+  const avatarUrl = authUser?.avatar?.formats.thumbnail.url;
+  const defaultImageSrc = useUserImageSrc(avatarUrl);
 
   // Handler for form submission
   async function onSubmit(values: z.infer<typeof formSchema>) {
