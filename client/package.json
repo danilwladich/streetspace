@@ -23,6 +23,7 @@
     "clsx": "^2.1.0",
     "cmdk": "^1.0.0",
     "cookie": "^0.6.0",
+    "leaflet": "^1.9.4",
     "lucide-react": "^0.363.0",
     "moment": "^2.30.1",
     "next": "14.1.4",
@@ -30,6 +31,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-google-recaptcha": "^3.1.0",
+    "react-leaflet": "^4.2.1",
     "sonner": "^1.4.41",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.2.2",
@@ -39,6 +41,7 @@
   },
   "devDependencies": {
     "@types/cookie": "^0.6.0",
+    "@types/leaflet": "^1.9.8",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
