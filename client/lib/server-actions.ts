@@ -80,6 +80,24 @@ export async function register(
   }
 }
 
+export async function checkEmail(email: string): Promise<boolean> {
+  const { data } = await axios.get<NonFormattedUserType[]>(
+    `${process.env.STRAPI_URL}/api/users`,
+    { params: { "filters[email][$eq]": email } },
+  );
+
+  return data.length > 0;
+}
+
+export async function checkUsername(username: string): Promise<boolean> {
+  const { data } = await axios.get<NonFormattedUserType[]>(
+    `${process.env.STRAPI_URL}/api/users`,
+    { params: { "filters[username][$eq]": username } },
+  );
+
+  return data.length > 0;
+}
+
 export async function changePassword(
   currentPassword: string,
   password: string,
@@ -102,6 +120,28 @@ export async function changePassword(
     const message =
       error?.message || "An error occurred while changing the password";
     return { error: message, success: false };
+  }
+}
+
+export async function changeUsername(
+  id: number,
+  username: string,
+): Promise<UserType | null> {
+  try {
+    const { data } = await axios.put<NonFormattedUserType>(
+      `${process.env.STRAPI_URL}/api/users/${id}`,
+      { username },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getJwt()}`,
+        },
+      },
+    );
+
+    return formatUser(data);
+  } catch (error) {
+    return null;
   }
 }
 

@@ -1,4 +1,4 @@
-import EditUsernameForm from "@/components/forms/user/edit-username-form";
+import ChangeUsernameForm from "@/components/forms/user/change-username-form";
 
 import {
   DialogContent,
@@ -7,15 +7,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-export default function EditProfileModal() {
+export default function ChangeProfileModal() {
   return (
     <DialogContent className="sm:max-w-[425px]">
       <DialogHeader>
-        <DialogTitle>Edit username</DialogTitle>
+        <DialogTitle>Change username</DialogTitle>
         <DialogDescription>Make your username unique</DialogDescription>
       </DialogHeader>
 
-      <EditUsernameForm />
+      <ChangeUsernameForm />
     </DialogContent>
   );
 }

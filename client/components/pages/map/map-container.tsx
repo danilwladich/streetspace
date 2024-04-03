@@ -5,7 +5,6 @@ import { type LatLng } from "leaflet";
 import Markers from "./markers";
 import "leaflet/dist/leaflet.css";
 
-
 export interface Bounds {
   latMin: number;
   latMax: number;

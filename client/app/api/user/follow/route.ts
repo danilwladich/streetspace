@@ -43,10 +43,7 @@ export async function POST(req: NextRequest) {
     const isSuccess = await followUser(userId, authUser.id);
 
     if (!isSuccess) {
-      return jsonResponse(
-        "An error occurred while creating a new follow ",
-        400,
-      );
+      return jsonResponse("An error occurred while creating a new follow", 400);
     }
 
     return jsonResponse("User followed successfully", 201);

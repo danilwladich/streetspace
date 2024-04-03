@@ -1,6 +1,11 @@
 import type { NextRequest } from "next/server";
 import { registerSchema } from "@/lib/form-schema";
-import { register, verifyCaptcha } from "@/lib/server-actions";
+import {
+  checkEmail,
+  checkUsername,
+  register,
+  verifyCaptcha,
+} from "@/lib/server-actions";
 import { jsonResponse } from "@/lib/json-response";
 import { serializeJwt } from "@/lib/serialize-jwt";
 
@@ -72,22 +77,4 @@ export async function POST(req: NextRequest) {
     console.log("[REGISTER_POST]", error);
     return jsonResponse("Internal Error", 500);
   }
-}
-
-async function checkEmail(email: string) {
-  const res = await fetch(
-    `${process.env.STRAPI_URL}/api/users?filters[email][$eq]=${email}`,
-  );
-  const data = await res.json();
-
-  return data.length > 0;
-}
-
-async function checkUsername(username: string) {
-  const res = await fetch(
-    `${process.env.STRAPI_URL}/api/users?filters[username][$eq]=${username}`,
-  );
-  const data = await res.json();
-
-  return data.length > 0;
 }

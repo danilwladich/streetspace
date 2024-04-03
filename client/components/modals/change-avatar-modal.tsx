@@ -1,4 +1,4 @@
-import EditAvatarForm from "@/components/forms/user/edit-avatar-form";
+import ChangeAvatarForm from "@/components/forms/user/change-avatar-form";
 
 import {
   DialogContent,
@@ -7,15 +7,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-export default function EditAvatarModal() {
+export default function ChangeAvatarModal() {
   return (
     <DialogContent className="sm:max-w-[425px]">
       <DialogHeader>
-        <DialogTitle>Edit avatar</DialogTitle>
+        <DialogTitle>Change avatar</DialogTitle>
         <DialogDescription>Upload new profile image</DialogDescription>
       </DialogHeader>
 
-      <EditAvatarForm />
+      <ChangeAvatarForm />
     </DialogContent>
   );
 }

@@ -1,16 +1,16 @@
 "use client";
 
 import { useModalStore, ModalType } from "@/hooks/use-modal-store";
-import EditUsernameModal from "@/components/modals/edit-username-modal";
+import ChangeUsernameModal from "@/components/modals/change-username-modal";
 import ChangePasswordModal from "../modals/change-password-modal";
-import EditAvatarModal from "../modals/edit-avatar-modal";
+import ChangeAvatarModal from "../modals/change-avatar-modal";
 
 import { Dialog } from "@/components/ui/dialog";
 
 const modalsMap: { [key in ModalType]: JSX.Element } = {
-  "edit username": <EditUsernameModal />,
+  "change username": <ChangeUsernameModal />,
   "change password": <ChangePasswordModal />,
-  "edit avatar": <EditAvatarModal />,
+  "change avatar": <ChangeAvatarModal />,
 };
 
 export function ModalProvider() {

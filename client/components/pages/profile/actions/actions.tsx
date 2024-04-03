@@ -70,14 +70,14 @@ export default function UserActions({
             <DropdownMenuSeparator />
 
             <DropdownMenuGroup>
-              <DropdownMenuItem onClick={() => onOpen("edit username")}>
+              <DropdownMenuItem onClick={() => onOpen("change username")}>
                 <Pencil className="mr-2 h-4 w-4" />
-                <span>Edit username</span>
+                <span>Change username</span>
               </DropdownMenuItem>
 
-              <DropdownMenuItem onClick={() => onOpen("edit avatar")}>
+              <DropdownMenuItem onClick={() => onOpen("change avatar")}>
                 <ImagePlus className="mr-2 h-4 w-4" />
-                <span>Edit avatar</span>
+                <span>Change avatar</span>
               </DropdownMenuItem>
             </DropdownMenuGroup>
 
