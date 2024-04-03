@@ -1,7 +1,7 @@
 import cookie from "cookie";
 
 const JWT_TOKEN = "jwtToken";
-const COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
+const COOKIE_MAX_AGE = 60 * 60 * 24 * 28;
 
 export function serializeJwt(jwt: string) {
   // Serializing the JWT token as a cookie and setting the response headers
