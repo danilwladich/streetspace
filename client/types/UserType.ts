@@ -1,4 +1,4 @@
-import type { StrapiImage } from "./StrapiImage";
+import type { NonFormattedStrapiImage, StrapiImage } from "./StrapiImage";
 
 export interface NonFormattedUserType {
   id: number;
@@ -7,7 +7,7 @@ export interface NonFormattedUserType {
   role?: {
     type: RoleTypes;
   };
-  avatar?: any;
+  avatar: NonFormattedStrapiImage | null;
 }
 
 export interface UserType {
