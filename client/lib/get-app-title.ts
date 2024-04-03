@@ -1,3 +1,9 @@
+const APP_TITLE = "2rnik";
+
 export function getAppTitle(pageName: string = "") {
-  return `${pageName} | 2rnik`;
+  if (pageName) {
+    return `${pageName} | ${APP_TITLE}`;
+  }
+
+  return APP_TITLE;
 }
