@@ -9,6 +9,42 @@ function authRedirect(req: NextRequest) {
 }
 
 export async function middleware(req: NextRequest) {
+  if (req.nextUrl.pathname.startsWith("/api/admin")) {
+    // Checking authentication status
+    const authUser = await getMe();
+
+    // If not authenticated or not admin, return an Unauthorized response
+    if (!authUser || authUser.role !== "admin") {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    // If user is authenticated
+    const reqHeaders = new Headers(req.headers);
+
+    // Adding header with the authenticated user data
+    reqHeaders.set("x-auth-user", JSON.stringify(authUser));
+
+    // Allowing the request to proceed with the updated headers
+    return NextResponse.next({
+      request: {
+        headers: reqHeaders,
+      },
+    });
+  }
+
+  if (req.nextUrl.pathname.startsWith("/admin")) {
+    // Checking authentication status
+    const authUser = await getMe();
+
+    // If authenticated and user is admin allow the request to proceed
+    if (authUser && authUser.role === "admin") {
+      return NextResponse.next();
+    }
+
+    // If not authenticated, redirect to the login page and store the original URL
+    return authRedirect(req);
+  }
+
   if (req.nextUrl.pathname.startsWith("/api")) {
     // Checking authentication status
     const authUser = await getMe();
@@ -79,17 +115,24 @@ export async function middleware(req: NextRequest) {
     // Checking authentication status
     const authUser = await getMe();
 
-    // If authenticated but searched user not provided, redirect to the auth user followings page
+    // If authenticated allow the request to proceed
     if (authUser) {
       return NextResponse.next();
     }
 
-    // If not authenticated and searched user not provided, redirect to the login page and store the original URL
+    // If not authenticated, redirect to the login page and store the original URL
     return authRedirect(req);
   }
 }
 
 // Configuration for the middleware, specifying the routes to apply the middleware to
 export const config = {
-  matcher: ["/auth", "/profile/:path?", "/api/auth/me", "/api/user/:path*"],
+  matcher: [
+    "/auth",
+    "/profile/:path?",
+    "/api/auth/me",
+    "/api/admin/:path*",
+    "/admin",
+    "/api/user/:path*",
+  ],
 };
