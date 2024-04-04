@@ -5,6 +5,8 @@ import { useUserImageSrc } from "@/hooks/use-user-image-src";
 import { useAuthStore } from "@/hooks/use-auth-store";
 import { type LatLng, Icon, Point } from "leaflet";
 
+const ICON_SIZE = 40;
+
 export default function UserMarker({ position }: { position: LatLng }) {
   const { user } = useAuthStore();
   const avatarUrl = user?.avatar?.formats.thumbnail.url;
@@ -13,9 +15,9 @@ export default function UserMarker({ position }: { position: LatLng }) {
   const icon = new Icon({
     iconUrl: src,
     iconRetinaUrl: src,
-    iconSize: new Point(50, 50),
-    iconAnchor: new Point(25, 25),
-    popupAnchor: new Point(0, -25),
+    iconSize: new Point(ICON_SIZE, ICON_SIZE),
+    iconAnchor: new Point(ICON_SIZE / 2, ICON_SIZE / 2),
+    popupAnchor: new Point(0, -(ICON_SIZE / 2)),
     className: "object-cover rounded-full",
   });
 
