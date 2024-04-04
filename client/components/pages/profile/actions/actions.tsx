@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal, Pencil, ImagePlus } from "lucide-react";
 
-export default function UserActions({
+export default function Actions({
   id,
   username,
   isFollowing,

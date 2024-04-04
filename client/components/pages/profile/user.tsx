@@ -1,6 +1,6 @@
-import UserInfo from "./user-info";
-import UserFollowers from "./user-followers";
-import UserActions from "./actions/actions";
+import Info from "./info/info";
+import Followers from "./followers";
+import Actions from "./actions/actions";
 import { getFollowByUsername } from "@/lib/server-actions";
 import type { UserType } from "@/types/UserType";
 
@@ -11,16 +11,12 @@ export default async function User({ user }: { user: UserType }) {
 
   return (
     <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-      <UserInfo username={username} avatar={avatar} />
+      <Info id={id} username={username} avatar={avatar} />
 
       <div className="flex w-full items-center gap-2">
-        <UserFollowers username={username} />
+        <Followers username={username} />
 
-        <UserActions
-          id={id}
-          username={username}
-          isFollowing={followId !== null}
-        />
+        <Actions id={id} username={username} isFollowing={followId !== null} />
       </div>
     </div>
   );

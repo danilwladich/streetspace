@@ -6,7 +6,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 
-export default async function UserFollowers({
+export default async function Followers({
   username,
 }: {
   username: string;
