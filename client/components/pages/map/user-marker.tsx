@@ -16,7 +16,7 @@ export default function UserMarker({ position }: { position: LatLng }) {
     iconSize: new Point(50, 50),
     iconAnchor: new Point(25, 25),
     popupAnchor: new Point(0, -25),
-    className: "object-contain rounded-full",
+    className: "object-cover rounded-full",
   });
 
   return (
