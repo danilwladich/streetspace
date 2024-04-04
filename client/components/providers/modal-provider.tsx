@@ -4,6 +4,7 @@ import { useModalStore, ModalType } from "@/hooks/use-modal-store";
 import ChangeUsernameModal from "@/components/modals/change-username-modal";
 import ChangePasswordModal from "../modals/change-password-modal";
 import ChangeAvatarModal from "../modals/change-avatar-modal";
+import ImageModal from "../modals/image-modal";
 
 import { Dialog } from "@/components/ui/dialog";
 
@@ -11,6 +12,7 @@ const modalsMap: { [key in ModalType]: JSX.Element } = {
   "change username": <ChangeUsernameModal />,
   "change password": <ChangePasswordModal />,
   "change avatar": <ChangeAvatarModal />,
+  image: <ImageModal />,
 };
 
 export function ModalProvider() {

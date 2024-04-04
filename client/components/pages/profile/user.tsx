@@ -6,13 +6,12 @@ import type { UserType } from "@/types/UserType";
 
 export default async function User({ user }: { user: UserType }) {
   const { id, username, avatar } = user;
-  const avatarUrl = avatar?.formats.thumbnail.url;
 
   const followId = await getFollowByUsername(username);
 
   return (
     <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-      <UserInfo username={username} avatarUrl={avatarUrl} />
+      <UserInfo username={username} avatar={avatar} />
 
       <div className="flex w-full items-center gap-2">
         <UserFollowers username={username} />

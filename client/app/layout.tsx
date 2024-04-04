@@ -11,38 +11,38 @@ import { getAppTitle } from "@/lib/get-app-title";
 const font = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: getAppTitle(),
-	description: "2rnik union",
-	authors: [
-		{ name: "Daniel Władyczewski", url: "https://github.com/danilwladich" },
-	],
-	icons: [
-		{
-			rel: "icon",
-			url: "/icon?<generated>",
-			sizes: "32x32",
-			type: "image/png",
-		},
-	],
+  title: getAppTitle(),
+  description: "2rnik union",
+  authors: [
+    { name: "Daniel Władyczewski", url: "https://github.com/danilwladich" },
+  ],
+  icons: [
+    {
+      rel: "icon",
+      url: "/icon?<generated>",
+      sizes: "32x32",
+      type: "image/png",
+    },
+  ],
 };
 
 export default function RootLayout({
-	children,
+  children,
 }: {
-	children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-	return (
-		<html lang="en">
-			<body className={font.className}>
-				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-					<AuthProvider>
-						<ModalProvider />
-						<AlertDialogProvider />
-						{children}
-						<Toaster />
-					</AuthProvider>
-				</ThemeProvider>
-			</body>
-		</html>
-	);
+  return (
+    <html lang="en">
+      <body className={font.className}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <AuthProvider>
+            <ModalProvider />
+            <AlertDialogProvider />
+            {children}
+            <Toaster />
+          </AuthProvider>
+        </ThemeProvider>
+      </body>
+    </html>
+  );
 }
