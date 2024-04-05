@@ -29,6 +29,7 @@ export function formatUser(user: NonFormattedUserType): UserType {
     id: user.id,
     username: user.username,
     email: user.email,
+    blocked: user.blocked,
     role: user.role?.type || "user",
     avatar: user.avatar ? formatStrapiImage(user.avatar) : null,
   };

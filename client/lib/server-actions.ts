@@ -8,6 +8,9 @@ import type { NonFormattedFollowType } from "@/types/FollowType";
 import type { StrapiError } from "@/types/StrapiError";
 import type { NonFormattedStrapiImage } from "@/types/StrapiImage";
 
+const STRAPI_URL = process.env.STRAPI_URL;
+const API_TOKEN = process.env.API_TOKEN;
+
 export async function verifyCaptcha(token: string): Promise<boolean> {
   const res = await axios.post(
     `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
@@ -16,13 +19,10 @@ export async function verifyCaptcha(token: string): Promise<boolean> {
 }
 
 export async function getMe(): Promise<UserType | null> {
-  const res = await fetch(
-    `${process.env.STRAPI_URL}/api/users/me?populate=role,avatar`,
-    {
-      method: "GET",
-      headers: { Authorization: `Bearer ${getJwt()}` },
-    },
-  );
+  const res = await fetch(`${STRAPI_URL}/api/users/me?populate=role,avatar`, {
+    method: "GET",
+    headers: { Authorization: `Bearer ${getJwt()}` },
+  });
   const data = await res.json();
 
   if (data.error) {
@@ -41,7 +41,7 @@ export async function login(
       user: NonFormattedUserType;
       jwt: string;
     }>(
-      `${process.env.STRAPI_URL}/api/auth/local?populate=role,avatar`,
+      `${STRAPI_URL}/api/auth/local?populate=role,avatar`,
       { identifier, password },
       {
         headers: {
@@ -66,7 +66,7 @@ export async function register(
       user: NonFormattedUserType;
       jwt: string;
     }>(
-      `${process.env.STRAPI_URL}/api/auth/local/register`,
+      `${STRAPI_URL}/api/auth/local/register`,
       { username, email, password },
       {
         headers: {
@@ -83,7 +83,7 @@ export async function register(
 
 export async function checkEmail(email: string): Promise<boolean> {
   const { data } = await axios.get<NonFormattedUserType[]>(
-    `${process.env.STRAPI_URL}/api/users`,
+    `${STRAPI_URL}/api/users`,
     { params: { "filters[email][$eq]": email } },
   );
 
@@ -92,11 +92,33 @@ export async function checkEmail(email: string): Promise<boolean> {
 
 export async function checkUsername(username: string): Promise<boolean> {
   const { data } = await axios.get<NonFormattedUserType[]>(
-    `${process.env.STRAPI_URL}/api/users`,
+    `${STRAPI_URL}/api/users`,
     { params: { "filters[username][$eq]": username } },
   );
 
   return data.length > 0;
+}
+
+export async function blockUser(
+  userId: number,
+  bool: boolean,
+): Promise<boolean> {
+  try {
+    await axios.put<NonFormattedUserType>(
+      `${STRAPI_URL}/api/users/${userId}`,
+      { blocked: bool },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${API_TOKEN}`,
+        },
+      },
+    );
+
+    return true;
+  } catch (error) {
+    return false;
+  }
 }
 
 export async function changePassword(
@@ -106,7 +128,7 @@ export async function changePassword(
 ): Promise<{ error?: string; success: boolean }> {
   try {
     await axios.post(
-      `${process.env.STRAPI_URL}/api/auth/change-password`,
+      `${STRAPI_URL}/api/auth/change-password`,
       { currentPassword, password, passwordConfirmation },
       {
         headers: {
@@ -130,12 +152,12 @@ export async function changeUsername(
 ): Promise<UserType | null> {
   try {
     const { data } = await axios.put<NonFormattedUserType>(
-      `${process.env.STRAPI_URL}/api/users/${userId}`,
+      `${STRAPI_URL}/api/users/${userId}`,
       { username },
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${getJwt()}`,
+          Authorization: `Bearer ${API_TOKEN}`,
         },
       },
     );
@@ -148,9 +170,9 @@ export async function changeUsername(
 
 export async function deleteAvatar(id: number): Promise<boolean> {
   try {
-    await axios.delete(`${process.env.STRAPI_URL}/api/upload/files/${id}`, {
+    await axios.delete(`${STRAPI_URL}/api/upload/files/${id}`, {
       headers: {
-        Authorization: `Bearer ${getJwt()}`,
+        Authorization: `Bearer ${API_TOKEN}`,
       },
     });
 
@@ -171,12 +193,12 @@ export async function changeAvatar(
     formData.append(`files`, image, fileName);
 
     const { data: avatarData } = await axios.post<NonFormattedStrapiImage[]>(
-      `${process.env.STRAPI_URL}/api/upload`,
+      `${STRAPI_URL}/api/upload`,
       formData,
       {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${getJwt()}`,
+          Authorization: `Bearer ${API_TOKEN}`,
         },
       },
     );
@@ -184,12 +206,12 @@ export async function changeAvatar(
     const avatarId = avatarData[0].id;
 
     const { data: userData } = await axios.put(
-      `${process.env.STRAPI_URL}/api/users/${userId}`,
+      `${STRAPI_URL}/api/users/${userId}`,
       { avatar: avatarId },
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${getJwt()}`,
+          Authorization: `Bearer ${API_TOKEN}`,
         },
       },
     );
@@ -204,7 +226,7 @@ export async function getUserByUsername(
   username: string,
 ): Promise<UserType | undefined> {
   const res = await axios.get<(NonFormattedUserType | undefined)[]>(
-    `${process.env.STRAPI_URL}/api/users`,
+    `${STRAPI_URL}/api/users`,
     {
       params: {
         "filters[username][$eq]": username,
@@ -220,7 +242,7 @@ export async function getUserByUsername(
 
 export async function getUserById(id: number): Promise<UserType | undefined> {
   const res = await axios.get<NonFormattedUserType | undefined>(
-    `${process.env.STRAPI_URL}/api/users/${id}`,
+    `${STRAPI_URL}/api/users/${id}`,
     {
       params: {
         populate: "avatar",
@@ -239,7 +261,7 @@ export async function getFollowersByUsername(
   pageSize: number = 25,
 ) {
   const res = await axios.get<NonFormattedFollowType>(
-    `${process.env.STRAPI_URL}/api/follows`,
+    `${STRAPI_URL}/api/follows`,
     {
       params: {
         "filters[whomFollow][username][$eq]": username,
@@ -259,7 +281,7 @@ export async function getFollowingsByUsername(
   pageSize: number = 25,
 ) {
   const res = await axios.get<NonFormattedFollowType>(
-    `${process.env.STRAPI_URL}/api/follows`,
+    `${STRAPI_URL}/api/follows`,
     {
       params: {
         "filters[whoFollow][username][$eq]": username,
@@ -277,7 +299,7 @@ export async function getFollowersCountByUsername(
   username: string,
 ): Promise<number> {
   const res = await axios.get<number>(
-    `${process.env.STRAPI_URL}/api/follows/count/followers`,
+    `${STRAPI_URL}/api/follows/count/followers`,
     {
       params: {
         username,
@@ -292,7 +314,7 @@ export async function getFollowingsCountByUsername(
   username: string,
 ): Promise<number> {
   const res = await axios.get<number>(
-    `${process.env.STRAPI_URL}/api/follows/count/followings`,
+    `${STRAPI_URL}/api/follows/count/followings`,
     {
       params: {
         username,
@@ -318,7 +340,7 @@ export async function getFollowByUsername(
   }
 
   const res = await axios.get<NonFormattedFollowType>(
-    `${process.env.STRAPI_URL}/api/follows`,
+    `${STRAPI_URL}/api/follows`,
     {
       params: {
         "filters[whoFollow][username][$eq]": whoFollow,
@@ -353,7 +375,7 @@ export async function getFollowById(
   }
 
   const res = await axios.get<NonFormattedFollowType>(
-    `${process.env.STRAPI_URL}/api/follows`,
+    `${STRAPI_URL}/api/follows`,
     {
       params: {
         "filters[whoFollow][id][$eq]": whoFollow,
@@ -379,12 +401,12 @@ export async function followUser(
 ): Promise<boolean> {
   try {
     await axios.post(
-      `${process.env.STRAPI_URL}/api/follows`,
+      `${STRAPI_URL}/api/follows`,
       { data: { whoFollow, whomFollow } },
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${getJwt()}`,
+          Authorization: `Bearer ${API_TOKEN}`,
         },
       },
     );
@@ -405,8 +427,8 @@ export async function unfollowUser(
       return false;
     }
 
-    await axios.delete(`${process.env.STRAPI_URL}/api/follows/${id}`, {
-      headers: { Authorization: `Bearer ${getJwt()}` },
+    await axios.delete(`${STRAPI_URL}/api/follows/${id}`, {
+      headers: { Authorization: `Bearer ${API_TOKEN}` },
     });
     return true;
   } catch (error) {

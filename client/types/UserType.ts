@@ -4,6 +4,7 @@ export interface NonFormattedUserType {
   id: number;
   username: string;
   email: string;
+  blocked: boolean;
   role?: {
     type: RoleTypes;
   };
@@ -14,6 +15,7 @@ export interface UserType {
   id: number;
   username: string;
   email: string;
+  blocked: boolean;
   role: RoleTypes;
   avatar: StrapiImage | null;
 }
