@@ -32,10 +32,11 @@ export default function Info({
   const isOwner = id === authUser?.id;
 
   const avatarUrl = avatar?.formats.thumbnail.url;
+  const avatarPreviewUrl = avatar?.formats.large.url;
   const avatarSrc = useUserImageSrc(avatarUrl);
 
   function onPreviewOpen() {
-    onOpen("image", { src: avatar?.url || avatarSrc, alt: username });
+    onOpen("image", { src: avatarPreviewUrl || avatarSrc, alt: username });
   }
 
   return (
