@@ -5,7 +5,7 @@ import { getFollowByUsername } from "@/lib/server-actions";
 import type { UserType } from "@/types/UserType";
 
 export default async function User({ user }: { user: UserType }) {
-  const { id, username, avatar } = user;
+  const { id, username, avatar, blocked } = user;
 
   const followId = await getFollowByUsername(username);
 
@@ -16,7 +16,12 @@ export default async function User({ user }: { user: UserType }) {
       <div className="flex w-full items-center gap-2">
         <Followers username={username} />
 
-        <Actions id={id} username={username} isFollowing={followId !== null} />
+        <Actions
+          id={id}
+          username={username}
+          blocked={blocked}
+          isFollowing={followId !== null}
+        />
       </div>
     </div>
   );

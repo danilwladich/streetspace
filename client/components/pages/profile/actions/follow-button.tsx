@@ -58,19 +58,22 @@ export default function FollowButton({
     setIsLoading(false);
   }
 
+  const followText = isFollowing ? "Unfollow" : "Follow";
+  const followIcon = isFollowing ? (
+    <UserMinus className="h-4 w-4" />
+  ) : (
+    <UserPlus className="h-4 w-4" />
+  );
+
   return (
     <DropdownMenuItem
       disabled={isLoading}
-      onClick={(e) => onFollow(e)}
+      onClick={onFollow}
       className="flex gap-2"
     >
-      {isFollowing ? (
-        <UserMinus className="h-4 w-4" />
-      ) : (
-        <UserPlus className="h-4 w-4" />
-      )}
+      {followIcon}
 
-      <span>{isFollowing ? "Unfollow" : "Follow"}</span>
+      <span>{followText}</span>
     </DropdownMenuItem>
   );
 }

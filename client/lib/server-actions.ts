@@ -110,7 +110,7 @@ export async function blockUser(
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${API_TOKEN}`,
+          Authorization: `Bearer ${getJwt()}`, // Admin jwt
         },
       },
     );

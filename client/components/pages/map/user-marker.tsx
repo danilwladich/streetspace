@@ -5,7 +5,7 @@ import { useUserImageSrc } from "@/hooks/use-user-image-src";
 import { useAuthStore } from "@/hooks/use-auth-store";
 import { type LatLng, Icon, Point } from "leaflet";
 
-const ICON_SIZE = 40;
+const ICON_SIZE = 30;
 
 export default function UserMarker({ position }: { position: LatLng }) {
   const { user } = useAuthStore();

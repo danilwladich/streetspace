@@ -7,6 +7,7 @@ import { getAppTitle } from "@/lib/get-app-title";
 import ShareButton from "@/components/pages/profile/actions/share-button";
 import LogOutButton from "@/components/pages/profile/actions/log-out-button";
 import FollowButton from "@/components/pages/profile/actions/follow-button";
+import BlockButton from "@/components/pages/profile/actions/block-button";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -22,16 +23,19 @@ import { MoreHorizontal, Pencil, ImagePlus } from "lucide-react";
 export default function Actions({
   id,
   username,
+  blocked,
   isFollowing,
 }: {
   id: number;
   username: string;
+  blocked: boolean;
   isFollowing: boolean;
 }) {
   const { user: authUser } = useAuthStore();
   const { onOpen } = useModalStore();
 
   const isOwner = id === authUser?.id;
+  const isAdmin = authUser?.role === "admin";
 
   return (
     <DropdownMenu>
@@ -61,6 +65,8 @@ export default function Actions({
                 username={username}
                 isFollowing={isFollowing}
               />
+
+              {isAdmin && <BlockButton id={id} blocked={blocked} />}
             </>
           )}
         </DropdownMenuGroup>

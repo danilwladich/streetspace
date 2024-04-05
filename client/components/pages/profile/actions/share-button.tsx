@@ -5,66 +5,71 @@ import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 
 export default function ShareButton({
-	url,
-	text,
+  url,
+  text,
 }: {
-	url: string;
-	text: string;
+  url: string;
+  text: string;
 }) {
-	const [isCopied, setIsCopied] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
 
-	// Checking if the browser supports the Web Share API
-	const isAbleToShare = !!navigator.share;
+  // Checking if the browser supports the Web Share API
+  const isAbleToShare = !!navigator.share;
 
-	async function onShare(e: React.MouseEvent<HTMLDivElement>) {
-		e.preventDefault();
+  async function onShare(e: React.MouseEvent<HTMLDivElement>) {
+    e.preventDefault();
 
-		try {
-			await navigator.share({
-				text,
-				url: window.location.origin + url,
-			});
-		} catch (err) {
-			console.log("Sharing failed:", err);
-		}
-	}
+    try {
+      await navigator.share({
+        text,
+        url: window.location.origin + url,
+      });
+    } catch (err) {
+      console.log("Sharing failed:", err);
+    }
+  }
 
-	async function onCopy(e: React.MouseEvent<HTMLDivElement>) {
-		e.preventDefault();
+  async function onCopy(e: React.MouseEvent<HTMLDivElement>) {
+    e.preventDefault();
 
-		if (isCopied) {
-			return;
-		}
+    if (isCopied) {
+      return;
+    }
 
-		try {
-			await navigator.clipboard.writeText(window.location.origin + url);
+    try {
+      await navigator.clipboard.writeText(window.location.origin + url);
 
-			setIsCopied(true);
-			setTimeout(() => setIsCopied(false), 1000);
-		} catch (err) {
-			console.log("Coping failed:", err);
-		}
-	}
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 1000);
+    } catch (err) {
+      console.log("Coping failed:", err);
+    }
+  }
 
-	if (!isAbleToShare) {
-		return (
-			<DropdownMenuItem onClick={onCopy}>
-				{isCopied ? (
-					<CopyCheck className="mr-2 h-4 w-4" />
-				) : (
-					<Copy className="mr-2 h-4 w-4" />
-				)}
+  const onClick = isAbleToShare ? onShare : onCopy;
 
-				<span>{isCopied ? "Link copied" : "Copy link"}</span>
-			</DropdownMenuItem>
-		);
-	}
+  const copyText = isCopied ? "Link copied" : "Copy link";
+  const copyIcon = isCopied ? (
+    <CopyCheck className="h-4 w-4" />
+  ) : (
+    <Copy className="h-4 w-4" />
+  );
 
-	return (
-		<DropdownMenuItem onClick={onShare}>
-			<Share className="mr-2 h-4 w-4" />
-			
-			<span>Share</span>
-		</DropdownMenuItem>
-	);
+  return (
+    <DropdownMenuItem onClick={onClick} className="gap-2">
+      {isAbleToShare ? (
+        <>
+          <Share className="h-4 w-4" />
+
+          <span>Share</span>
+        </>
+      ) : (
+        <>
+          {copyIcon}
+
+          <span>{copyText}</span>
+        </>
+      )}
+    </DropdownMenuItem>
+  );
 }
