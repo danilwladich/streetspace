@@ -21,10 +21,7 @@ export default function FollowButton({
 
   const router = useRouter();
 
-  async function onFollow(
-    e: React.MouseEvent<HTMLDivElement>,
-    isFollowing: boolean,
-  ) {
+  async function onFollow(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
 
     setIsLoading(true);
@@ -64,7 +61,7 @@ export default function FollowButton({
   return (
     <DropdownMenuItem
       disabled={isLoading}
-      onClick={(e) => onFollow(e, isFollowing)}
+      onClick={(e) => onFollow(e)}
       className="flex gap-2"
     >
       {isFollowing ? (
