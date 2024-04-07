@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAuthUser } from "./lib/get-auth-user";
 import { getMe } from "@/lib/server-actions";
 
 function authRedirect(req: NextRequest) {
   const loginUrl = new URL("/auth", req.url);
-  loginUrl.searchParams.set("from", req.nextUrl.pathname);
+  loginUrl.searchParams.set("from", req.nextUrl.toString());
 
   return NextResponse.redirect(loginUrl);
 }
@@ -35,7 +34,7 @@ export async function middleware(req: NextRequest) {
 
   if (req.nextUrl.pathname.startsWith("/admin")) {
     // Checking authentication status
-    const authUser = getAuthUser(req);
+    const authUser = await getMe();
 
     // If authenticated and user is admin allow the request to proceed
     if (authUser && authUser.role === "admin") {
@@ -71,7 +70,7 @@ export async function middleware(req: NextRequest) {
 
   if (req.nextUrl.pathname.startsWith("/auth")) {
     // Checking authentication status
-    const authUser = getAuthUser(req);
+    const authUser = await getMe();
 
     // If not authenticated, allow the request to proceed
     if (!authUser) {
@@ -98,7 +97,7 @@ export async function middleware(req: NextRequest) {
     }
 
     // Checking authentication status
-    const authUser = getAuthUser(req);
+    const authUser = await getMe();
 
     // If authenticated but searched user not provided, redirect to the auth user profile
     if (authUser) {
@@ -114,7 +113,7 @@ export async function middleware(req: NextRequest) {
 
   if (protectedPath.some((path) => req.nextUrl.pathname.startsWith(path))) {
     // Checking authentication status
-    const authUser = getAuthUser(req);
+    const authUser = await getMe();
 
     // If authenticated allow the request to proceed
     if (authUser) {

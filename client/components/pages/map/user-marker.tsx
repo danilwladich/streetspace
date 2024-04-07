@@ -40,7 +40,7 @@ export default function UserMarker() {
         return;
       }
 
-      map.flyTo(e.latlng, map.getZoom(), { animate: false });
+      map.flyTo(e.latlng, map.getZoom(), { duration: 0.5 });
     });
 
     return () => {
@@ -51,7 +51,7 @@ export default function UserMarker() {
   if (!userPosition) {
     return null;
   }
-  
+
   const avatarUrl = user?.avatar?.formats.thumbnail.url;
   const src = useUserImageSrc(avatarUrl);
 

@@ -41,11 +41,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const { jwt, user } = data;
+
     // Serializing jwt token
-    const serialized = serializeJwt(data.jwt);
+    const serialized = serializeJwt(jwt);
 
     // Returning a JSON response with user information and set cookie header
-    return jsonResponse(data.user, 200, {
+    return jsonResponse(user, 200, {
       headers: { "Set-Cookie": serialized },
     });
   } catch (error) {

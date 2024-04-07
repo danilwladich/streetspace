@@ -66,16 +66,16 @@ export default function Login() {
       }
 
       // Making a POST request to the login API endpoint
-      const res = await axios.post("/api/auth/login", {
+      const { data } = await axios.post("/api/auth/login", {
         ...values,
         recaptchaToken,
       });
 
       // Setting the authenticated user and redirecting
-      setUser(res.data);
+      setUser(data);
 
       const redirectUrl =
-        searchParams.get("from") || `/profile/${res.data.username}`;
+        searchParams.get("from") || `/profile/${data.username}`;
       router.replace(redirectUrl);
     } catch (e: unknown) {
       // Handling AxiosError

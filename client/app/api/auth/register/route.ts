@@ -65,11 +65,13 @@ export async function POST(req: NextRequest) {
       return jsonResponse("An error occurred while creating a new user", 400);
     }
 
+    const { jwt, user } = data;
+
     // Serializing jwt token
-    const serialized = serializeJwt(data.jwt);
+    const serialized = serializeJwt(jwt);
 
     // Returning a JSON response with user information and set cookie header
-    return jsonResponse(data.user, 201, {
+    return jsonResponse(user, 201, {
       headers: { "Set-Cookie": serialized },
     });
   } catch (error) {
