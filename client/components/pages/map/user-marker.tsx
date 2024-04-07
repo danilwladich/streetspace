@@ -48,10 +48,24 @@ export default function UserMarker() {
     };
   }, [map]);
 
+  if (!userPosition) {
+    return null;
+  }
+  
   const avatarUrl = user?.avatar?.formats.thumbnail.url;
   const src = useUserImageSrc(avatarUrl);
 
-  const icon = new Icon({
+  const icon = getIcon(src);
+
+  return (
+    <Marker position={userPosition} icon={icon}>
+      <Popup>You are here</Popup>
+    </Marker>
+  );
+}
+
+function getIcon(src: string) {
+  return new Icon({
     iconUrl: src,
     iconRetinaUrl: src,
     iconSize: new Point(MAP_ICON_SIZE, MAP_ICON_SIZE),
@@ -59,14 +73,4 @@ export default function UserMarker() {
     popupAnchor: new Point(0, -(MAP_ICON_SIZE / 2)),
     className: "object-cover rounded-full",
   });
-
-  if (!userPosition) {
-    return null
-  }
-
-  return (
-    <Marker position={userPosition} icon={icon}>
-      <Popup>You are here</Popup>
-    </Marker>
-  );
 }
