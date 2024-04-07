@@ -1,12 +1,13 @@
 "use server";
 
 import axios from "axios";
-import { formatFollow, formatUser } from "@/lib/format-data";
+import { formatFollows, formatMarkers, formatUser } from "@/lib/format-data";
 import { getJwt } from "./get-jwt";
 import type { NonFormattedUserType, UserType } from "@/types/UserType";
-import type { NonFormattedFollowType } from "@/types/FollowType";
+import type { NonFormattedFollowsType } from "@/types/FollowsType";
 import type { StrapiError } from "@/types/StrapiError";
 import type { NonFormattedStrapiImage } from "@/types/StrapiImage";
+import type { MarkersType, NonFormattedMarkersType } from "@/types/MarkersType";
 
 const STRAPI_URL = process.env.STRAPI_URL;
 const API_TOKEN = process.env.API_TOKEN;
@@ -260,7 +261,7 @@ export async function getFollowersByUsername(
   page: number = 1,
   pageSize: number = 25,
 ) {
-  const res = await axios.get<NonFormattedFollowType>(
+  const res = await axios.get<NonFormattedFollowsType>(
     `${STRAPI_URL}/api/follows`,
     {
       params: {
@@ -272,7 +273,7 @@ export async function getFollowersByUsername(
     },
   );
 
-  return formatFollow(res.data);
+  return formatFollows(res.data);
 }
 
 export async function getFollowingsByUsername(
@@ -280,7 +281,7 @@ export async function getFollowingsByUsername(
   page: number = 1,
   pageSize: number = 25,
 ) {
-  const res = await axios.get<NonFormattedFollowType>(
+  const res = await axios.get<NonFormattedFollowsType>(
     `${STRAPI_URL}/api/follows`,
     {
       params: {
@@ -292,7 +293,7 @@ export async function getFollowingsByUsername(
     },
   );
 
-  return formatFollow(res.data);
+  return formatFollows(res.data);
 }
 
 export async function getFollowersCountByUsername(
@@ -339,7 +340,7 @@ export async function getFollowByUsername(
     whoFollow = authUser.username;
   }
 
-  const res = await axios.get<NonFormattedFollowType>(
+  const res = await axios.get<NonFormattedFollowsType>(
     `${STRAPI_URL}/api/follows`,
     {
       params: {
@@ -374,7 +375,7 @@ export async function getFollowById(
     whoFollow = authUser.id;
   }
 
-  const res = await axios.get<NonFormattedFollowType>(
+  const res = await axios.get<NonFormattedFollowsType>(
     `${STRAPI_URL}/api/follows`,
     {
       params: {
@@ -433,5 +434,42 @@ export async function unfollowUser(
     return true;
   } catch (error) {
     return false;
+  }
+}
+
+export async function getMarkers(
+  {
+    latMin,
+    latMax,
+    lngMin,
+    lngMax,
+  }: {
+    latMin: string;
+    latMax: string;
+    lngMin: string;
+    lngMax: string;
+  },
+  page: number = 1,
+  pageSize: number = 25,
+): Promise<MarkersType | null> {
+  try {
+    const { data } = await axios.get<NonFormattedMarkersType>(
+      `${STRAPI_URL}/api/markers`,
+      {
+        params: {
+          populate: "addedBy,images",
+          "filters[lat][$gt]": latMin,
+          "filters[lat][$lt]": latMax,
+          "filters[lng][$gt]": lngMin,
+          "filters[lng][$lt]": lngMax,
+          "pagination[page]": page,
+          "pagination[pageSize]": pageSize,
+        },
+      },
+    );
+
+    return formatMarkers(data);
+  } catch (error) {
+    return null;
   }
 }

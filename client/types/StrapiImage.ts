@@ -4,28 +4,28 @@ export interface NonFormattedStrapiImage {
   width: number;
   height: number;
   formats: {
-    thumbnail: {
+    thumbnail?: {
       width: number;
       height: number;
       size: number;
       sizeInBytes: number;
       url: string;
     };
-    small: {
+    small?: {
       width: number;
       height: number;
       size: number;
       sizeInBytes: number;
       url: string;
     };
-    large: {
+    medium?: {
       width: number;
       height: number;
       size: number;
       sizeInBytes: number;
       url: string;
     };
-    medium: {
+    large?: {
       width: number;
       height: number;
       size: number;
@@ -37,22 +37,29 @@ export interface NonFormattedStrapiImage {
   url: string;
 }
 
+export interface NonFormattedStrapiImages {
+  data: {
+    id: number;
+    attributes: Omit<NonFormattedStrapiImage, "id">;
+  }[];
+}
+
 export interface StrapiImage {
   id: number;
   url: string;
   alternativeText: string | null;
   formats: {
     thumbnail: {
-      url: string;
+      url?: string;
     };
     small: {
-      url: string;
+      url?: string;
     };
     large: {
-      url: string;
+      url?: string;
     };
     medium: {
-      url: string;
+      url?: string;
     };
   };
 }

@@ -3,7 +3,7 @@
 import {
   useAlertDialogStore,
   AlertDialogType,
-} from "@/hooks/use-alert-dialog-store";
+} from "@/hooks/store/use-alert-dialog-store";
 
 import { AlertDialog } from "@/components/ui/alert-dialog";
 

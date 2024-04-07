@@ -1,7 +1,7 @@
 "use client";
 
-import { useModalStore } from "@/hooks/use-modal-store";
-import { useAuthStore } from "@/hooks/use-auth-store";
+import { useModalStore } from "@/hooks/store/use-modal-store";
+import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useUserImageSrc } from "@/hooks/use-user-image-src";
 import type { StrapiImage } from "@/types/StrapiImage";
 

@@ -112,3 +112,18 @@ export const changePasswordSchema = z
       path: ["passwordConfirmation"],
     },
   );
+
+export const getMarkersSchema = z.object({
+  latMin: z
+    .string()
+    .regex(/^(-?\d+(\.\d+)?)$/g, "Must be a latitude/longitude."),
+  latMax: z
+    .string()
+    .regex(/^(-?\d+(\.\d+)?)$/g, "Must be a latitude/longitude."),
+  lngMin: z
+    .string()
+    .regex(/^(-?\d+(\.\d+)?)$/g, "Must be a latitude/longitude."),
+  lngMax: z
+    .string()
+    .regex(/^(-?\d+(\.\d+)?)$/g, "Must be a latitude/longitude."),
+});

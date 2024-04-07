@@ -1,14 +1,17 @@
-import MapComponent from "@/components/pages/map/map-container";
-import { Card, CardContent } from "@/components/ui/card";
+import dynamic from "next/dynamic";
+import { useMemo } from "react";
+
+import { AppLoader } from "@/components/ui/app-loader";
 
 export default function Map() {
-  return (
-    <>
-      <Card>
-        <CardContent>
-          <MapComponent />
-        </CardContent>
-      </Card>
-    </>
+  const MapComponent = useMemo(
+    () =>
+      dynamic(() => import("@/components/pages/map/map-container"), {
+        loading: () => <AppLoader />,
+        ssr: false,
+      }),
+    [],
   );
+
+  return <MapComponent />;
 }

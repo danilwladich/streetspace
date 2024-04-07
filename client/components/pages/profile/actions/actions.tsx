@@ -1,7 +1,7 @@
 "use client";
 
-import { useAuthStore } from "@/hooks/use-auth-store";
-import { useModalStore } from "@/hooks/use-modal-store";
+import { useAuthStore } from "@/hooks/store/use-auth-store";
+import { useModalStore } from "@/hooks/store/use-modal-store";
 import { getAppTitle } from "@/lib/get-app-title";
 
 import ShareButton from "@/components/pages/profile/actions/share-button";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useModalStore } from "@/hooks/use-modal-store";
+import { useModalStore } from "@/hooks/store/use-modal-store";
 
 import { CommandItem } from "@/components/ui/command";
 import { KeyRound } from "lucide-react";

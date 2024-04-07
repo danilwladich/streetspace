@@ -8,7 +8,7 @@ import { loginSchema as formSchema } from "@/lib/form-schema";
 import { useState, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useAuthStore } from "@/hooks/use-auth-store";
+import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { toast } from "sonner";
 import type { ErrorResponse } from "@/types/ErrorResponse";
 

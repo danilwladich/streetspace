@@ -1,6 +1,6 @@
 "use client";
 
-import { useModalStore, ModalType } from "@/hooks/use-modal-store";
+import { useModalStore, ModalType } from "@/hooks/store/use-modal-store";
 import ChangeUsernameModal from "@/components/modals/change-username-modal";
 import ChangePasswordModal from "../modals/change-password-modal";
 import ChangeAvatarModal from "../modals/change-avatar-modal";

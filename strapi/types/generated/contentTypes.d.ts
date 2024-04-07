@@ -402,6 +402,48 @@ export interface ApiFollowFollow extends Schema.CollectionType {
   };
 }
 
+export interface ApiMarkerMarker extends Schema.CollectionType {
+  collectionName: 'markers';
+  info: {
+    singularName: 'marker';
+    pluralName: 'markers';
+    displayName: 'Marker';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    lat: Attribute.Float;
+    lng: Attribute.Float;
+    confirmed: Attribute.Boolean & Attribute.DefaultTo<false>;
+    name: Attribute.String;
+    address: Attribute.String;
+    addedBy: Attribute.Relation<
+      'api::marker.marker',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    images: Attribute.Media;
+    type: Attribute.Enumeration<['street', 'gym']>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::marker.marker',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::marker.marker',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -774,6 +816,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::follow.follow'
     >;
+    markers: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::marker.marker'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -849,6 +896,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::follow.follow': ApiFollowFollow;
+      'api::marker.marker': ApiMarkerMarker;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;

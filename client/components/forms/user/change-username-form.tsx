@@ -7,8 +7,8 @@ import * as z from "zod";
 import { editUsernameSchema as formSchema } from "@/lib/form-schema";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/hooks/use-auth-store";
-import { useModalStore } from "@/hooks/use-modal-store";
+import { useAuthStore } from "@/hooks/store/use-auth-store";
+import { useModalStore } from "@/hooks/store/use-modal-store";
 import { toast } from "sonner";
 import type { ErrorResponse } from "@/types/ErrorResponse";
 

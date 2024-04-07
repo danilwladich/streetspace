@@ -1,4 +1,4 @@
-export interface NonFormattedFollowType {
+export interface NonFormattedFollowsType {
   data: {
     id: number;
     attributes: {
@@ -32,7 +32,7 @@ export interface NonFormattedFollowType {
   };
 }
 
-export interface FollowType {
+export interface FollowsType {
   data: {
     id: number;
     whomFollow: {

@@ -1,36 +1,28 @@
 "use client";
 
-import { MapContainer, TileLayer } from "react-leaflet";
-import { type LatLng } from "leaflet";
-import Markers from "./markers";
+import { useMapStore } from "@/hooks/store/use-map-store";
 import "leaflet/dist/leaflet.css";
 
-export interface Bounds {
-  latMin: number;
-  latMax: number;
-  lngMin: number;
-  lngMax: number;
-}
-
-const defaultMapData: { position: LatLng; bounds: Bounds } | null = JSON.parse(
-  localStorage.getItem("mapData") || "null",
-);
+import { MapContainer, TileLayer } from "react-leaflet";
+import Markers from "./markers";
+import Controls from "./controls";
 
 export default function MapComponent() {
-  const { position, bounds } = defaultMapData || {};
+  const { userPosition } = useMapStore();
 
   return (
     <MapContainer
-      center={position || [52.243427, 21.001797]}
-      zoom={13}
-      scrollWheelZoom={false}
-      className="z-0 h-screen w-full"
+      center={userPosition || [52.243427, 21.001797]}
+      zoom={14}
+      zoomControl={false}
+      className="absolute left-0 top-0 z-0 h-full w-full"
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Markers defaultPosition={position} defaultBounds={bounds} />
+      <Markers />
+      <Controls />
     </MapContainer>
   );
 }

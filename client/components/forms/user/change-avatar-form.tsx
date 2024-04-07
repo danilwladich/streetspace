@@ -10,10 +10,10 @@ import {
 } from "@/lib/form-schema";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/hooks/use-auth-store";
+import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useUserImageSrc } from "@/hooks/use-user-image-src";
 import { toast } from "sonner";
-import { useModalStore } from "@/hooks/use-modal-store";
+import { useModalStore } from "@/hooks/store/use-modal-store";
 import { parseFormDataFromJson } from "@/lib/formdata-parser";
 import type { ErrorResponse } from "@/types/ErrorResponse";
 

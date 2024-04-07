@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthStore } from "@/hooks/use-auth-store";
+import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { NavLink } from "./nav-link";
 
 import {

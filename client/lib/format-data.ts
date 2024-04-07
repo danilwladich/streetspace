@@ -1,6 +1,11 @@
-import type { NonFormattedStrapiImage, StrapiImage } from "@/types/StrapiImage";
+import type {
+  NonFormattedStrapiImage,
+  StrapiImage,
+  NonFormattedStrapiImages,
+} from "@/types/StrapiImage";
 import type { UserType, NonFormattedUserType } from "@/types/UserType";
-import type { NonFormattedFollowType, FollowType } from "@/types/FollowType";
+import type { NonFormattedFollowsType, FollowsType } from "@/types/FollowsType";
+import type { NonFormattedMarkersType, MarkersType } from "@/types/MarkersType";
 
 export function formatStrapiImage(image: NonFormattedStrapiImage): StrapiImage {
   return {
@@ -9,19 +14,35 @@ export function formatStrapiImage(image: NonFormattedStrapiImage): StrapiImage {
     alternativeText: image.alternativeText,
     formats: {
       thumbnail: {
-        url: `${process.env.STRAPI_URL}${image.formats.thumbnail.url}`,
+        url: image.formats.thumbnail
+          ? `${process.env.STRAPI_URL}${image.formats.thumbnail.url}`
+          : undefined,
       },
       small: {
-        url: `${process.env.STRAPI_URL}${image.formats.small.url}`,
+        url: image.formats.small
+          ? `${process.env.STRAPI_URL}${image.formats.small.url}`
+          : undefined,
       },
       medium: {
-        url: `${process.env.STRAPI_URL}${image.formats.medium.url}`,
+        url: image.formats.medium
+          ? `${process.env.STRAPI_URL}${image.formats.medium.url}`
+          : undefined,
       },
       large: {
-        url: `${process.env.STRAPI_URL}${image.formats.large.url}`,
+        url: image.formats.large
+          ? `${process.env.STRAPI_URL}${image.formats.large.url}`
+          : undefined,
       },
     },
   };
+}
+
+export function formatStrapiImages(
+  images: NonFormattedStrapiImages,
+): StrapiImage[] {
+  return images.data.map((image) =>
+    formatStrapiImage({ id: image.id, ...image.attributes }),
+  );
 }
 
 export function formatUser(user: NonFormattedUserType): UserType {
@@ -35,7 +56,7 @@ export function formatUser(user: NonFormattedUserType): UserType {
   };
 }
 
-export function formatFollow(data: NonFormattedFollowType): FollowType {
+export function formatFollows(data: NonFormattedFollowsType): FollowsType {
   return {
     data: data.data.map((follow) => ({
       id: follow.id,
@@ -49,6 +70,23 @@ export function formatFollow(data: NonFormattedFollowType): FollowType {
         username: follow.attributes.whoFollow.data.attributes.username,
         email: follow.attributes.whoFollow.data.attributes.email,
       },
+    })),
+    pagination: data.meta.pagination,
+  };
+}
+
+export function formatMarkers(data: NonFormattedMarkersType): MarkersType {
+  return {
+    data: data.data.map((marker) => ({
+      id: marker.id,
+      lat: marker.attributes.lat,
+      lng: marker.attributes.lng,
+      confirmed: marker.attributes.confirmed,
+      name: marker.attributes.name,
+      address: marker.attributes.address,
+      createdAt: marker.attributes.createdAt,
+      images: formatStrapiImages(marker.attributes.images),
+      addedBy: formatUser(marker.attributes.addedBy.data.attributes),
     })),
     pagination: data.meta.pagination,
   };

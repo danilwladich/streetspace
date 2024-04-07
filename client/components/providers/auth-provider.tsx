@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthStore } from "@/hooks/use-auth-store";
+import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useClientFetching } from "@/hooks/use-client-fetching";
 import { useLayoutEffect } from "react";
 import type { UserType } from "@/types/UserType";

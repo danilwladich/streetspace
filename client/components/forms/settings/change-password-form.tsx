@@ -7,7 +7,7 @@ import * as z from "zod";
 import { changePasswordSchema as formSchema } from "@/lib/form-schema";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useModalStore } from "@/hooks/use-modal-store";
+import { useModalStore } from "@/hooks/store/use-modal-store";
 import { toast } from "sonner";
 import type { ErrorResponse } from "@/types/ErrorResponse";
 

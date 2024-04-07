@@ -84,6 +84,12 @@
       "relation": "oneToMany",
       "target": "api::follow.follow",
       "mappedBy": "whoFollow"
+    },
+    "markers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::marker.marker",
+      "mappedBy": "addedBy"
     }
   }
 }
