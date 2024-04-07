@@ -42,11 +42,14 @@ export async function login(
       user: NonFormattedUserType;
       jwt: string;
     }>(
-      `${STRAPI_URL}/api/auth/local?populate=role,avatar`,
+      `${STRAPI_URL}/api/auth/local`,
       { identifier, password },
       {
         headers: {
           "Content-Type": "application/json",
+        },
+        params: {
+          populate: "role,avatar",
         },
       },
     );
