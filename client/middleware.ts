@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAuthUser } from "./lib/get-auth-user";
+import { getMe } from "@/lib/server-actions";
 
 function authRedirect(req: NextRequest) {
   const loginUrl = new URL("/auth", req.url);
@@ -11,7 +12,7 @@ function authRedirect(req: NextRequest) {
 export async function middleware(req: NextRequest) {
   if (req.nextUrl.pathname.startsWith("/api/admin")) {
     // Checking authentication status
-    const authUser = getAuthUser(req);
+    const authUser = await getMe();
 
     // If not authenticated or not admin, return an Unauthorized response
     if (!authUser || authUser.role !== "admin") {
@@ -47,7 +48,7 @@ export async function middleware(req: NextRequest) {
 
   if (req.nextUrl.pathname.startsWith("/api")) {
     // Checking authentication status
-    const authUser = getAuthUser(req);
+    const authUser = await getMe();
 
     // If not authenticated, return an Unauthorized response
     if (!authUser) {
