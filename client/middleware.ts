@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getMe } from "./lib/server-actions";
+import { getAuthUser } from "./lib/get-auth-user";
 
 function authRedirect(req: NextRequest) {
   const loginUrl = new URL("/auth", req.url);
@@ -11,7 +11,7 @@ function authRedirect(req: NextRequest) {
 export async function middleware(req: NextRequest) {
   if (req.nextUrl.pathname.startsWith("/api/admin")) {
     // Checking authentication status
-    const authUser = await getMe();
+    const authUser = getAuthUser(req);
 
     // If not authenticated or not admin, return an Unauthorized response
     if (!authUser || authUser.role !== "admin") {
@@ -34,7 +34,7 @@ export async function middleware(req: NextRequest) {
 
   if (req.nextUrl.pathname.startsWith("/admin")) {
     // Checking authentication status
-    const authUser = await getMe();
+    const authUser = getAuthUser(req);
 
     // If authenticated and user is admin allow the request to proceed
     if (authUser && authUser.role === "admin") {
@@ -47,7 +47,7 @@ export async function middleware(req: NextRequest) {
 
   if (req.nextUrl.pathname.startsWith("/api")) {
     // Checking authentication status
-    const authUser = await getMe();
+    const authUser = getAuthUser(req);
 
     // If not authenticated, return an Unauthorized response
     if (!authUser) {
@@ -70,7 +70,7 @@ export async function middleware(req: NextRequest) {
 
   if (req.nextUrl.pathname.startsWith("/auth")) {
     // Checking authentication status
-    const authUser = await getMe();
+    const authUser = getAuthUser(req);
 
     // If not authenticated, allow the request to proceed
     if (!authUser) {
@@ -97,7 +97,7 @@ export async function middleware(req: NextRequest) {
     }
 
     // Checking authentication status
-    const authUser = await getMe();
+    const authUser = getAuthUser(req);
 
     // If authenticated but searched user not provided, redirect to the auth user profile
     if (authUser) {
@@ -109,11 +109,11 @@ export async function middleware(req: NextRequest) {
     return authRedirect(req);
   }
 
-  const protectedPath = [""];
+  const protectedPath = ["/map/adding"];
 
   if (protectedPath.some((path) => req.nextUrl.pathname.startsWith(path))) {
     // Checking authentication status
-    const authUser = await getMe();
+    const authUser = getAuthUser(req);
 
     // If authenticated allow the request to proceed
     if (authUser) {
@@ -129,10 +129,11 @@ export async function middleware(req: NextRequest) {
 export const config = {
   matcher: [
     "/auth",
+    "/admin",
     "/profile/:path?",
+    "/map/adding",
     "/api/auth/me",
     "/api/admin/:path*",
-    "/admin",
     "/api/user/:path*",
   ],
 };
