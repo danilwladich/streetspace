@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback } from "react";
 import { useMapStore } from "@/hooks/store/use-map-store";
 import { useMap } from "react-leaflet";
 
@@ -17,13 +18,13 @@ export default function Controls() {
     <LocateOff className="h-4 w-4" />
   );
 
-  function locationOnClick() {
+  const locationOnClick = useCallback(() => {
     if (!userPosition) {
       return;
     }
 
-    map.flyTo(userPosition, 16, { animate: false });
-  }
+    map.flyTo(userPosition, 16, { duration: 0.5 });
+  }, [map, userPosition]);
 
   return (
     <>
