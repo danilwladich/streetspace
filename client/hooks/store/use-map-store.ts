@@ -13,7 +13,7 @@ export interface Bounds {
 interface MapStore {
   userPosition: LatLng | null;
   bounds: Bounds | null;
-  setUserPosition: (userPosition: LatLng) => void;
+  setUserPosition: (userPosition: LatLng | null) => void;
   setBounds: (bounds: Bounds) => void;
 }
 

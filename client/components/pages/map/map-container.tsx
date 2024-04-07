@@ -1,6 +1,7 @@
 "use client";
 
 import { useMapStore } from "@/hooks/store/use-map-store";
+import type { LatLngExpression } from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 import { MapContainer as LMapContainer, TileLayer } from "react-leaflet";
@@ -10,9 +11,11 @@ import Controls from "./controls";
 export default function MapContainer() {
   const { userPosition } = useMapStore();
 
+  const mapCenter: LatLngExpression = userPosition || [52.243427, 21.001797];
+
   return (
     <LMapContainer
-      center={userPosition || [52.243427, 21.001797]}
+      center={mapCenter}
       zoom={14}
       zoomControl={false}
       className="absolute left-0 top-0 z-0 h-full w-full"

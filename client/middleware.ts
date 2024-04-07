@@ -3,7 +3,7 @@ import { getMe } from "@/lib/server-actions";
 
 function authRedirect(req: NextRequest) {
   const loginUrl = new URL("/auth", req.url);
-  loginUrl.searchParams.set("from", req.nextUrl.toString());
+  loginUrl.searchParams.set("from", req.url);
 
   return NextResponse.redirect(loginUrl);
 }

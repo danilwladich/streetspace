@@ -19,29 +19,34 @@ export default function UserMarker() {
   const map = useMap();
 
   useEffect(() => {
-    map.locate().on("locationfound", (e) => {
-      setUserPosition(e.latlng);
+    map
+      .locate()
+      .on("locationfound", (e) => {
+        setUserPosition(e.latlng);
 
-      const b = e.target.getBounds().toBBoxString().split(",");
-      const currentBounds: Bounds = {
-        latMin: parseFloat(b[1]),
-        latMax: parseFloat(b[3]),
-        lngMin: parseFloat(b[0]),
-        lngMax: parseFloat(b[2]),
-      };
-      setBounds(currentBounds);
+        const b = e.target.getBounds().toBBoxString().split(",");
+        const currentBounds: Bounds = {
+          latMin: parseFloat(b[1]),
+          latMax: parseFloat(b[3]),
+          lngMin: parseFloat(b[0]),
+          lngMax: parseFloat(b[2]),
+        };
+        setBounds(currentBounds);
 
-      localStorage.setItem(
-        "mapData",
-        JSON.stringify({ userPosition: e.latlng, bounds: currentBounds }),
-      );
+        localStorage.setItem(
+          "mapData",
+          JSON.stringify({ userPosition: e.latlng, bounds: currentBounds }),
+        );
 
-      if (userPosition && map.getBounds().overlaps(e.bounds)) {
-        return;
-      }
+        if (userPosition) {
+          return;
+        }
 
-      map.flyTo(e.latlng, map.getZoom(), { duration: 0.5 });
-    });
+        map.flyTo(e.latlng, map.getZoom(), { duration: 0.5 });
+      })
+      .on("locationerror", () => {
+        setUserPosition(null);
+      });
 
     return () => {
       map.off();
