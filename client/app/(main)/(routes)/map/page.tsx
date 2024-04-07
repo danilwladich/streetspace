@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { AppLoader } from "@/components/ui/app-loader";
 
 export default function Map() {
-  const MapComponent = useMemo(
+  const MapContainer = useMemo(
     () =>
       dynamic(() => import("@/components/pages/map/map-container"), {
         loading: () => <AppLoader />,
@@ -13,5 +13,5 @@ export default function Map() {
     [],
   );
 
-  return <MapComponent />;
+  return <MapContainer />;
 }

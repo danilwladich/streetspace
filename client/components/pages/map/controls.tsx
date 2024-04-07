@@ -32,15 +32,13 @@ export default function Controls() {
           {locationIcon}
         </Button>
 
-        <div className="flex flex-col gap-px">
-          <Button variant="outline" size="icon" onClick={() => map.zoomIn()}>
-            <ZoomIn className="h-4 w-4" />
-          </Button>
+        <Button variant="outline" size="icon" onClick={() => map.zoomIn()}>
+          <ZoomIn className="h-4 w-4" />
+        </Button>
 
-          <Button variant="outline" size="icon" onClick={() => map.zoomOut()}>
-            <ZoomOut className="h-4 w-4" />
-          </Button>
-        </div>
+        <Button variant="outline" size="icon" onClick={() => map.zoomOut()}>
+          <ZoomOut className="h-4 w-4" />
+        </Button>
       </div>
     </>
   );

@@ -2,19 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useMap } from "react-leaflet";
-import { Point, divIcon } from "leaflet";
-import { renderToStaticMarkup } from "react-dom/server";
-import {
-  MAP_ICON_SIZE,
-  useMapStore,
-  type Bounds,
-} from "@/hooks/store/use-map-store";
+import { useMapStore, type Bounds } from "@/hooks/store/use-map-store";
 import axios, { AxiosError } from "axios";
 import type { MarkerType, MarkersType } from "@/types/MarkersType";
 
 import UserMarker from "./user-marker";
 import MarkerItem from "./marker-item";
-import { MapPin } from "lucide-react";
+import MarkerInput from "./marker-input";
 import { toast } from "sonner";
 
 export default function Markers() {
@@ -47,9 +41,9 @@ export default function Markers() {
       }
 
       try {
-        const { data } = await axios.get<MarkersType>(
-          `/api/map?latMin=${bounds.latMin}&latMax=${bounds.latMax}&lngMin=${bounds.lngMin}&lngMax=${bounds.lngMax}`,
-        );
+        const { data } = await axios.get<MarkersType>(`/api/map`, {
+          params: { ...bounds },
+        });
         setMarkers(data.data);
       } catch (e: unknown) {
         // Handling AxiosError
@@ -66,18 +60,9 @@ export default function Markers() {
     <>
       <UserMarker />
 
-      {!!markers &&
-        markers.map((m) => <MarkerItem key={m.id} {...m} icon={icon} />)}
+      {!!markers && markers.map((m) => <MarkerItem key={m.id} {...m} />)}
+
+      <MarkerInput />
     </>
   );
 }
-
-const icon = divIcon({
-  html: renderToStaticMarkup(
-    <MapPin color="black" fill="white" className="h-full w-full" />,
-  ),
-  iconSize: new Point(MAP_ICON_SIZE, MAP_ICON_SIZE),
-  iconAnchor: new Point(MAP_ICON_SIZE / 2, MAP_ICON_SIZE),
-  popupAnchor: new Point(0, -MAP_ICON_SIZE),
-  className: "",
-});

@@ -3,7 +3,9 @@
 import { useMemo } from "react";
 import { Marker, Popup, useMap } from "react-leaflet";
 import type { MarkerType } from "@/types/MarkersType";
-import type { DivIcon, LeafletEventHandlerFnMap } from "leaflet";
+import type { LeafletEventHandlerFnMap } from "leaflet";
+
+import { MapMarkerIcon } from "@/components/common/map-marker-icon";
 
 export default function MarkerItem({
   lat,
@@ -11,8 +13,7 @@ export default function MarkerItem({
   name,
   address,
   images,
-  icon,
-}: MarkerType & { icon: DivIcon }) {
+}: MarkerType) {
   const map = useMap();
 
   const eventHandlers: LeafletEventHandlerFnMap = useMemo(
@@ -30,6 +31,8 @@ export default function MarkerItem({
     }),
     [map],
   );
+
+  const icon = MapMarkerIcon();
 
   const imageSrc = images[0].url;
 
