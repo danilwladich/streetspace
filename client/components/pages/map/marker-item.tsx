@@ -1,8 +1,9 @@
 "use client";
 
+import { useMemo } from "react";
 import { Marker, Popup, useMap } from "react-leaflet";
 import type { MarkerType } from "@/types/MarkersType";
-import type { DivIcon } from "leaflet";
+import type { DivIcon, LeafletEventHandlerFnMap } from "leaflet";
 
 export default function MarkerItem({
   lat,
@@ -14,26 +15,27 @@ export default function MarkerItem({
 }: MarkerType & { icon: DivIcon }) {
   const map = useMap();
 
-  function onCLick() {
-    const zoom = map.getZoom();
+  const eventHandlers: LeafletEventHandlerFnMap = useMemo(
+    () => ({
+      click() {
+        const zoom = map.getZoom();
 
-    if (zoom > 15) {
-      map.flyTo([lat, lng], zoom, { duration: 0.5 });
-      return;
-    }
+        if (zoom > 15) {
+          map.flyTo([lat, lng], zoom, { duration: 0.5 });
+          return;
+        }
 
-    map.flyTo([lat, lng], 15, { duration: 0.5 });
-  }
+        map.flyTo([lat, lng], 15, { duration: 0.5 });
+      },
+    }),
+    [map],
+  );
 
   const imageSrc = images[0].url;
 
   return (
-    <Marker
-      position={[lat, lng]}
-      icon={icon}
-      eventHandlers={{ click: onCLick }}
-    >
-      <Popup autoPan={false}>
+    <Marker position={[lat, lng]} icon={icon} eventHandlers={eventHandlers}>
+      <Popup autoPan={false} maxWidth={320}>
         <div className="flex flex-col gap-2">
           <h3 className="text-base font-bold">{name}</h3>
 
