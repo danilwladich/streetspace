@@ -3,6 +3,7 @@
 import { useModalStore } from "@/hooks/store/use-modal-store";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useUserImageSrc } from "@/hooks/use-user-image-src";
+import { getImageUrl } from "@/lib/get-image-url";
 import type { StrapiImage } from "@/types/StrapiImage";
 
 import UserAvatar from "./avatar";
@@ -31,12 +32,12 @@ export default function Info({
 
   const isOwner = id === authUser?.id;
 
-  const avatarUrl = avatar?.formats.thumbnail.url;
-  const avatarPreviewUrl = avatar?.formats.large.url;
+  const avatarUrl = avatar ? getImageUrl(avatar, "thumbnail") : undefined;
   const avatarSrc = useUserImageSrc(avatarUrl);
 
   function onPreviewOpen() {
-    onOpen("image", { src: avatarPreviewUrl || avatarSrc, alt: username });
+    const previewUrl = avatar ? getImageUrl(avatar, "large") : avatarSrc;
+    onOpen("image", { src: previewUrl, alt: username });
   }
 
   return (
