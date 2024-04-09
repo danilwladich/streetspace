@@ -2,12 +2,14 @@
 
 import { useMemo } from "react";
 import { Marker, Popup, useMap } from "react-leaflet";
-import type { MarkerType } from "@/types/MarkersType";
+import Link from "next/link";
+import type { MarkerType } from "@/types/MarkerType";
 import type { LeafletEventHandlerFnMap } from "leaflet";
 
 import { MapMarkerIcon } from "@/components/common/map-marker-icon";
 
 export default function MarkerItem({
+  id,
   lat,
   lng,
   name,
@@ -38,8 +40,11 @@ export default function MarkerItem({
 
   return (
     <Marker position={[lat, lng]} icon={icon} eventHandlers={eventHandlers}>
-      <Popup autoPan={false} maxWidth={320}>
-        <div className="flex flex-col gap-2">
+      <Popup autoPan={false} maxWidth={280} minWidth={280}>
+        <Link
+          href={`/map/location/${id}`}
+          className="flex flex-col gap-2 !text-black"
+        >
           <h3 className="text-base font-bold">{name}</h3>
 
           <span>{address}</span>
@@ -51,7 +56,7 @@ export default function MarkerItem({
               className="absolute left-0 top-0 h-full w-full object-cover"
             />
           </div>
-        </div>
+        </Link>
       </Popup>
     </Marker>
   );

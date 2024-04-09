@@ -40,7 +40,7 @@ export default function MarkerInput() {
   return (
     <Marker position={position} icon={icon}>
       <Popup autoPan={false} maxWidth={320}>
-        <Link href={href}>Create new marker</Link>
+        <Link href={href}>Create new location</Link>
       </Popup>
     </Marker>
   );

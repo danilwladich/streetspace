@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { useMap } from "react-leaflet";
 import { useMapStore, type Bounds } from "@/hooks/store/use-map-store";
 import axios, { AxiosError } from "axios";
-import type { MarkerType, MarkersType } from "@/types/MarkersType";
+import type { MarkerType } from "@/types/MarkerType";
+import type { StrapiArray } from "@/types/StrapiArray";
 
 import UserMarker from "./user-marker";
 import MarkerItem from "./marker-item";
@@ -41,7 +42,7 @@ export default function Markers() {
       }
 
       try {
-        const { data } = await axios.get<MarkersType>(`/api/map`, {
+        const { data } = await axios.get<StrapiArray<MarkerType>>(`/api/map`, {
           params: { ...bounds },
         });
         setMarkers(data.data);

@@ -37,13 +37,6 @@ export interface NonFormattedStrapiImage {
   url: string;
 }
 
-export interface NonFormattedStrapiImages {
-  data: {
-    id: number;
-    attributes: Omit<NonFormattedStrapiImage, "id">;
-  }[];
-}
-
 export interface StrapiImage {
   id: number;
   url: string;

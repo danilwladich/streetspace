@@ -58,6 +58,45 @@ export const registerSchema = z
     },
   );
 
+export const markerSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(4, { message: "Name must be at least 4 characters." })
+    .max(40, { message: "Name must be less than 40 characters." }),
+  coords: z
+    .string()
+    .regex(
+      /^(-?\d+(\.\d+)?)\,\s*(-?\d+(\.\d+)?)$/g,
+      "Must be a latitude and longitude separated by a comma.",
+    ),
+  address: z
+    .string()
+    .trim()
+    .min(4, { message: "Address must be at least 4 characters." })
+    .max(40, { message: "Address must be less than 40 characters." }),
+  images: z
+    .any()
+    .refine(
+      (files?: File[]) => !!files?.length,
+      "At least one image must be provided.",
+    )
+    .refine(
+      (files: File[]) => files.length <= MAX_FILES_COUNT,
+      `Maximum number of images must be less than ${MAX_FILES_COUNT}.`,
+    )
+    .refine(
+      (files: File[]) => files.every((file) => file.size <= MAX_FILE_SIZE),
+      `Max image size is ${MAX_FILE_SIZE_STRING}.`,
+    )
+    .refine(
+      (files: File[]) =>
+        files.every((file) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
+      `Only ${ACCEPTED_IMAGE_TYPES_STRING} formats are supported.`,
+    ),
+  recaptchaToken: z.string(),
+});
+
 export const editUsernameSchema = z.object({
   username: z
     .string()

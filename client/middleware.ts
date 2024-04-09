@@ -135,5 +135,6 @@ export const config = {
     "/api/auth/me",
     "/api/admin/:path*",
     "/api/user/:path*",
+    "/api/map/:path*",
   ],
 };

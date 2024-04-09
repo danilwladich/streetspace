@@ -1,11 +1,8 @@
-import type {
-  NonFormattedStrapiImage,
-  StrapiImage,
-  NonFormattedStrapiImages,
-} from "@/types/StrapiImage";
+import type { NonFormattedStrapiImage, StrapiImage } from "@/types/StrapiImage";
 import type { UserType, NonFormattedUserType } from "@/types/UserType";
 import type { NonFormattedFollowsType, FollowsType } from "@/types/FollowsType";
-import type { NonFormattedMarkersType, MarkersType } from "@/types/MarkersType";
+import type { NonFormattedMarkerType, MarkerType } from "@/types/MarkerType";
+import type { NonFormattedStrapiArray, StrapiArray } from "@/types/StrapiArray";
 
 export function formatStrapiImage(image: NonFormattedStrapiImage): StrapiImage {
   return {
@@ -38,7 +35,7 @@ export function formatStrapiImage(image: NonFormattedStrapiImage): StrapiImage {
 }
 
 export function formatStrapiImages(
-  images: NonFormattedStrapiImages,
+  images: NonFormattedStrapiArray<NonFormattedStrapiImage>,
 ): StrapiImage[] {
   return images.data.map((image) =>
     formatStrapiImage({ id: image.id, ...image.attributes }),
@@ -75,7 +72,26 @@ export function formatFollows(data: NonFormattedFollowsType): FollowsType {
   };
 }
 
-export function formatMarkers(data: NonFormattedMarkersType): MarkersType {
+export function formatMarker(data: NonFormattedMarkerType): MarkerType {
+  return {
+    id: data.id,
+    lat: data.lat,
+    lng: data.lng,
+    confirmed: data.confirmed,
+    name: data.name,
+    address: data.address,
+    createdAt: data.createdAt,
+    images: formatStrapiImages(data.images),
+    addedBy: formatUser({
+      id: data.addedBy.data.id,
+      ...data.addedBy.data.attributes,
+    }),
+  };
+}
+
+export function formatMarkers(
+  data: NonFormattedStrapiArray<NonFormattedMarkerType>,
+): StrapiArray<MarkerType> {
   return {
     data: data.data.map((marker) => ({
       id: marker.id,
@@ -86,7 +102,10 @@ export function formatMarkers(data: NonFormattedMarkersType): MarkersType {
       address: marker.attributes.address,
       createdAt: marker.attributes.createdAt,
       images: formatStrapiImages(marker.attributes.images),
-      addedBy: formatUser(marker.attributes.addedBy.data.attributes),
+      addedBy: formatUser({
+        id: marker.attributes.addedBy.data.id,
+        ...marker.attributes.addedBy.data.attributes,
+      }),
     })),
     pagination: data.meta.pagination,
   };

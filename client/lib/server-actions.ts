@@ -1,13 +1,20 @@
 "use server";
 
 import axios from "axios";
-import { formatFollows, formatMarkers, formatUser } from "@/lib/format-data";
+import {
+  formatFollows,
+  formatMarker,
+  formatMarkers,
+  formatUser,
+} from "@/lib/format-data";
 import { getJwt } from "./get-jwt";
 import type { NonFormattedUserType, UserType } from "@/types/UserType";
 import type { NonFormattedFollowsType } from "@/types/FollowsType";
 import type { StrapiError } from "@/types/StrapiError";
 import type { NonFormattedStrapiImage } from "@/types/StrapiImage";
-import type { MarkersType, NonFormattedMarkersType } from "@/types/MarkersType";
+import type { MarkerType, NonFormattedMarkerType } from "@/types/MarkerType";
+import { StrapiArray } from "@/types/StrapiArray";
+import { NonFormattedStrapiArray } from "../types/StrapiArray";
 
 const STRAPI_URL = process.env.STRAPI_URL;
 const API_TOKEN = process.env.API_TOKEN;
@@ -186,17 +193,11 @@ export async function deleteAvatar(id: number): Promise<boolean> {
   }
 }
 
-export async function changeAvatar(
-  userId: number,
-  image: File,
-): Promise<UserType | null> {
+export async function uploadImages(
+  formData: FormData,
+): Promise<NonFormattedStrapiImage[] | null> {
   try {
-    const formData = new FormData();
-
-    const fileName = `avatar_${userId}_${Date.now()}`;
-    formData.append(`files`, image, fileName);
-
-    const { data: avatarData } = await axios.post<NonFormattedStrapiImage[]>(
+    const { data } = await axios.post<NonFormattedStrapiImage[]>(
       `${STRAPI_URL}/api/upload`,
       formData,
       {
@@ -206,6 +207,28 @@ export async function changeAvatar(
         },
       },
     );
+
+    return data;
+  } catch (error) {
+    return null;
+  }
+}
+
+export async function changeAvatar(
+  userId: number,
+  image: File,
+): Promise<UserType | null> {
+  try {
+    const formData = new FormData();
+
+    const fileName = `avatar_${userId}_${Date.now()}`;
+    formData.append("files", image, fileName);
+
+    const avatarData = await uploadImages(formData);
+
+    if (!avatarData) {
+      return null;
+    }
 
     const avatarId = avatarData[0].id;
 
@@ -222,6 +245,57 @@ export async function changeAvatar(
 
     return formatUser(userData);
   } catch (error) {
+    return null;
+  }
+}
+
+export async function addMarker({
+  name,
+  lat,
+  lng,
+  address,
+  images,
+  userId,
+}: {
+  name: string;
+  lat: string;
+  lng: string;
+  address: string;
+  images: File[];
+  userId: number;
+}): Promise<number | null> {
+  try {
+    const formData = new FormData();
+
+    images.forEach((image, index) => {
+      const fileName = `marker_${name}_${index}_${Date.now()}`;
+      formData.append("files", image, fileName);
+    });
+
+    const imagesData = await uploadImages(formData);
+
+    if (!imagesData) {
+      return null;
+    }
+
+    const imagesId = imagesData.map((image) => image.id);
+
+    const { data } = await axios.post(
+      `${STRAPI_URL}/api/markers`,
+      { data: { name, lat, lng, address, images: imagesId, addedBy: userId } },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${API_TOKEN}`,
+        },
+        params: {
+          populate: "addedBy,images",
+        },
+      },
+    );
+
+    return data.data.id;
+  } catch (error: any) {
     return null;
   }
 }
@@ -454,22 +528,22 @@ export async function getMarkers(
   },
   page: number = 1,
   pageSize: number = 25,
-): Promise<MarkersType | null> {
+): Promise<StrapiArray<MarkerType> | null> {
   try {
-    const { data } = await axios.get<NonFormattedMarkersType>(
-      `${STRAPI_URL}/api/markers`,
-      {
-        params: {
-          populate: "addedBy,images",
-          "filters[lat][$gt]": latMin,
-          "filters[lat][$lt]": latMax,
-          "filters[lng][$gt]": lngMin,
-          "filters[lng][$lt]": lngMax,
-          "pagination[page]": page,
-          "pagination[pageSize]": pageSize,
-        },
+    const { data } = await axios.get<
+      NonFormattedStrapiArray<NonFormattedMarkerType>
+    >(`${STRAPI_URL}/api/markers`, {
+      params: {
+        populate: "addedBy,images",
+        "filters[confirmed][$eq]": true,
+        "filters[lat][$gt]": latMin,
+        "filters[lat][$lt]": latMax,
+        "filters[lng][$gt]": lngMin,
+        "filters[lng][$lt]": lngMax,
+        "pagination[page]": page,
+        "pagination[pageSize]": pageSize,
       },
-    );
+    });
 
     return formatMarkers(data);
   } catch (error) {
