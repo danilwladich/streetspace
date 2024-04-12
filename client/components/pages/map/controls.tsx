@@ -2,15 +2,13 @@
 
 import { useCallback } from "react";
 import { useMapStore } from "@/hooks/store/use-map-store";
-import { useMap } from "react-leaflet";
+import type { Map } from "leaflet";
 
 import { Button } from "@/components/ui/button";
 import { Navigation, NavigationOff, ZoomIn, ZoomOut } from "lucide-react";
 
-export default function Controls() {
+export default function Controls({ map }: { map: Map }) {
   const { userPosition } = useMapStore();
-
-  const map = useMap();
 
   const locationIcon = userPosition ? (
     <Navigation className="h-4 w-4" />
