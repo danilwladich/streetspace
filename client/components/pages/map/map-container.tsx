@@ -7,6 +7,7 @@ import "leaflet/dist/leaflet.css";
 import { MapContainer as LMapContainer, TileLayer } from "react-leaflet";
 import Markers from "./markers";
 import Controls from "./controls";
+import MapStatus from "./map-status";
 
 export default function MapContainer() {
   const { userPosition } = useMapStore();
@@ -25,6 +26,7 @@ export default function MapContainer() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <Markers />
+      <MapStatus />
       <Controls />
     </LMapContainer>
   );

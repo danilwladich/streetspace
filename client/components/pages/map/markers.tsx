@@ -13,7 +13,7 @@ import MarkerInput from "./marker-input";
 import { toast } from "sonner";
 
 export default function Markers() {
-  const { bounds, setBounds } = useMapStore();
+  const { bounds, setBounds, setLoadingMarkers } = useMapStore();
   const [markers, setMarkers] = useState<MarkerType[]>([]);
 
   const map = useMap();
@@ -41,6 +41,8 @@ export default function Markers() {
         return;
       }
 
+      setLoadingMarkers(true);
+
       try {
         const { data } = await axios.get<StrapiArray<MarkerType>>(`/api/map`, {
           params: { ...bounds },
@@ -53,6 +55,8 @@ export default function Markers() {
 
         toast.error("Markers fetch error", { description: error.message });
       }
+
+      setLoadingMarkers(false);
     }
 
     fetchLocations();
@@ -62,7 +66,9 @@ export default function Markers() {
     <>
       <UserMarker />
 
-      {markers.map((c) => <MarkerItem key={c.id} {...c} />)}
+      {markers.map((c) => (
+        <MarkerItem key={c.id} {...c} />
+      ))}
 
       <MarkerInput />
     </>

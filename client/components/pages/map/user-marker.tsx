@@ -13,7 +13,8 @@ import { Icon, Point } from "leaflet";
 import { Marker, Popup, useMap } from "react-leaflet";
 
 export default function UserMarker() {
-  const { userPosition, setUserPosition, setBounds } = useMapStore();
+  const { userPosition, setLoadingUserPosition, setUserPosition, setBounds } =
+    useMapStore();
   const { user } = useAuthStore();
 
   const map = useMap();
@@ -22,6 +23,8 @@ export default function UserMarker() {
     map
       .locate()
       .on("locationfound", (e) => {
+        setLoadingUserPosition(false);
+
         setUserPosition(e.latlng);
 
         const b = e.target.getBounds().toBBoxString().split(",");
@@ -45,6 +48,8 @@ export default function UserMarker() {
         map.flyTo(e.latlng, map.getZoom(), { duration: 0.5 });
       })
       .on("locationerror", () => {
+        setLoadingUserPosition(false);
+
         setUserPosition(null);
       });
 
