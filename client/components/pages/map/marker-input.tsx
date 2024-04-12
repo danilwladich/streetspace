@@ -3,10 +3,9 @@
 import { useEffect, useState } from "react";
 import { Marker, Popup, useMap } from "react-leaflet";
 import Link from "next/link";
-import type { LatLng } from "leaflet";
+import { MAP_ICON_SIZE } from "@/hooks/store/use-map-store";
+import { Point, divIcon, type LatLng } from "leaflet";
 import type { Url } from "next/dist/shared/lib/router/router";
-
-import { MapMarkerIcon } from "@/components/common/map-marker-icon";
 
 export default function MarkerInput() {
   const [position, setPosition] = useState<LatLng>();
@@ -27,8 +26,6 @@ export default function MarkerInput() {
     return null;
   }
 
-  const icon = MapMarkerIcon("blue", "white");
-
   const href: Url = {
     pathname: "/map/adding",
     query: {
@@ -38,10 +35,25 @@ export default function MarkerInput() {
   };
 
   return (
-    <Marker position={position} icon={icon}>
+    <Marker position={position} icon={getIcon()}>
       <Popup autoPan={false} maxWidth={320}>
-        <Link href={href}>Create new location</Link>
+        <Link
+          href={href}
+          className="block px-4 py-1 !text-black hover:underline"
+        >
+          Add new location
+        </Link>
       </Popup>
     </Marker>
   );
+}
+
+function getIcon() {
+  return divIcon({
+    html: `<img src="./assets/map-pin-add.png" class="h-full w-full" />`,
+    iconSize: new Point(MAP_ICON_SIZE, MAP_ICON_SIZE),
+    iconAnchor: new Point(MAP_ICON_SIZE / 2, MAP_ICON_SIZE / 2),
+    popupAnchor: new Point(0, 0),
+    className: "",
+  });
 }

@@ -199,7 +199,7 @@ export default function MarkerForm() {
         )}
 
         <Button type="submit" disabled={isSubmitting}>
-          Save
+          Submit
         </Button>
       </form>
     </Form>

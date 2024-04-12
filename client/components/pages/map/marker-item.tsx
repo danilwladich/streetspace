@@ -1,13 +1,11 @@
 "use client";
 
-import { useMemo } from "react";
-import { Marker, Popup, useMap } from "react-leaflet";
+import { Marker, Popup } from "react-leaflet";
 import Link from "next/link";
+import { divIcon, Point } from "leaflet";
+import { MAP_ICON_SIZE } from "@/hooks/store/use-map-store";
 import { getImageUrl } from "@/lib/get-image-url";
 import type { MarkerType } from "@/types/MarkerType";
-import type { LeafletEventHandlerFnMap } from "leaflet";
-
-import { MapMarkerIcon } from "@/components/common/map-marker-icon";
 
 export default function MarkerItem({
   id,
@@ -17,30 +15,10 @@ export default function MarkerItem({
   address,
   images,
 }: MarkerType) {
-  const map = useMap();
-
-  const eventHandlers: LeafletEventHandlerFnMap = useMemo(
-    () => ({
-      click() {
-        const zoom = map.getZoom();
-
-        if (zoom > 15) {
-          map.flyTo([lat, lng], zoom, { duration: 0.5 });
-          return;
-        }
-
-        map.flyTo([lat, lng], 15, { duration: 0.5 });
-      },
-    }),
-    [map],
-  );
-
-  const icon = MapMarkerIcon();
-
   const imageSrc = getImageUrl(images[0], "small");
 
   return (
-    <Marker position={[lat, lng]} icon={icon} eventHandlers={eventHandlers}>
+    <Marker position={[lat, lng]} icon={getIcon()}>
       <Popup autoPan={false} maxWidth={280} minWidth={280}>
         <Link
           href={`/map/location/${id}`}
@@ -61,4 +39,14 @@ export default function MarkerItem({
       </Popup>
     </Marker>
   );
+}
+
+function getIcon() {
+  return divIcon({
+    html: `<img src="./assets/map-pin.png" class="h-full w-full" />`,
+    iconSize: new Point(MAP_ICON_SIZE, MAP_ICON_SIZE),
+    iconAnchor: new Point(MAP_ICON_SIZE / 2, MAP_ICON_SIZE),
+    popupAnchor: new Point(0, -MAP_ICON_SIZE),
+    className: "",
+  });
 }

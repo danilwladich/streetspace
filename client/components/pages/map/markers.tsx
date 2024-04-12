@@ -14,7 +14,7 @@ import { toast } from "sonner";
 
 export default function Markers() {
   const { bounds, setBounds } = useMapStore();
-  const [markers, setMarkers] = useState<MarkerType[]>();
+  const [markers, setMarkers] = useState<MarkerType[]>([]);
 
   const map = useMap();
 
@@ -45,6 +45,7 @@ export default function Markers() {
         const { data } = await axios.get<StrapiArray<MarkerType>>(`/api/map`, {
           params: { ...bounds },
         });
+
         setMarkers(data.data);
       } catch (e: unknown) {
         // Handling AxiosError
@@ -61,7 +62,7 @@ export default function Markers() {
     <>
       <UserMarker />
 
-      {!!markers && markers.map((m) => <MarkerItem key={m.id} {...m} />)}
+      {markers.map((c) => <MarkerItem key={c.id} {...c} />)}
 
       <MarkerInput />
     </>

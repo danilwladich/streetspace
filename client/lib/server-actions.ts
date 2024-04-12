@@ -527,7 +527,7 @@ export async function getMarkers(
     lngMax: string;
   },
   page: number = 1,
-  pageSize: number = 25,
+  pageSize: number = 100,
 ): Promise<StrapiArray<MarkerType> | null> {
   try {
     const { data } = await axios.get<
