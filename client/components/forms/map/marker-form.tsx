@@ -82,7 +82,7 @@ export default function MarkerForm() {
       });
 
       // Making a POST request to the map API endpoint
-      const { data } = await axios.post("/api/map", formData, {
+      const { data } = await axios.post("/api/map/add", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
