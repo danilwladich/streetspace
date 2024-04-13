@@ -7,7 +7,7 @@ import type { Map } from "leaflet";
 import { Button } from "@/components/ui/button";
 import { Navigation, NavigationOff, ZoomIn, ZoomOut } from "lucide-react";
 
-export default function Controls({ map }: { map: Map }) {
+export default function MapControls({ map }: { map: Map }) {
   const { userPosition } = useMapStore();
 
   const locationIcon = userPosition ? (
