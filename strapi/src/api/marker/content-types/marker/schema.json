@@ -45,8 +45,8 @@
     "type": {
       "type": "enumeration",
       "enum": [
-        "street",
-        "gym"
+        "Street",
+        "Gym"
       ]
     }
   }

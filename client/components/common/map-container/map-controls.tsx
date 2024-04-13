@@ -26,7 +26,7 @@ export default function MapControls({ map }: { map: Map }) {
 
   return (
     <>
-      <div className="absolute left-2 top-2 z-[9999] flex flex-col gap-1 md:bottom-2 md:top-auto">
+      <div className="absolute left-2 top-2 z-10 flex flex-col gap-1 md:bottom-2 md:top-auto">
         <Button variant="outline" size="icon" onClick={locationOnClick}>
           {locationIcon}
         </Button>

@@ -179,7 +179,7 @@ export async function changeUsername(
   }
 }
 
-export async function deleteAvatar(id: number): Promise<boolean> {
+export async function deleteImage(id: number): Promise<boolean> {
   try {
     await axios.delete(`${STRAPI_URL}/api/upload/files/${id}`, {
       headers: {
@@ -548,5 +548,75 @@ export async function getMarkers(
     return formatMarkers(data);
   } catch (error) {
     return null;
+  }
+}
+
+export async function getUnconfirmedMarkers(
+  page: number = 1,
+  pageSize: number = 25,
+): Promise<StrapiArray<MarkerType> | null> {
+  try {
+    const { data } = await axios.get<
+      NonFormattedStrapiArray<NonFormattedMarkerType>
+    >(`${STRAPI_URL}/api/markers`, {
+      params: {
+        populate: "addedBy,images",
+        "filters[confirmed][$eq]": false,
+        sort: "createdAt:asc",
+        "pagination[page]": page,
+        "pagination[pageSize]": pageSize,
+      },
+    });
+
+    return formatMarkers(data);
+  } catch (error) {
+    return null;
+  }
+}
+
+export async function confirmMarker(markerId: number): Promise<boolean> {
+  try {
+    await axios.put(
+      `${STRAPI_URL}/api/markers/${markerId}`,
+      { data: { confirmed: true } },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getJwt()}`,
+        },
+      },
+    );
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+export async function deleteMarker(markerId: number): Promise<boolean> {
+  try {
+    const { data } = await axios.get<{
+      data: { attributes: NonFormattedMarkerType };
+    }>(`${STRAPI_URL}/api/markers/${markerId}`, {
+      params: {
+        populate: "images",
+      },
+    });
+
+    const imagesId = data.data.attributes.images.data.map((image) => image.id);
+
+    for (const id of imagesId) {
+      await deleteImage(id);
+    }
+
+    await axios.delete(`${STRAPI_URL}/api/markers/${markerId}`, {
+      headers: {
+        Authorization: `Bearer ${getJwt()}`,
+      },
+    });
+
+    return true;
+  } catch (error) {
+    return false;
   }
 }

@@ -3,7 +3,7 @@ import { editAvatarSchema } from "@/lib/form-schema";
 import { jsonResponse } from "@/lib/json-response";
 import { getAuthUser } from "@/lib/get-auth-user";
 import { parseJsonFromFormData } from "@/lib/formdata-parser";
-import { changeAvatar, deleteAvatar } from "@/lib/server-actions";
+import { changeAvatar, deleteImage } from "@/lib/server-actions";
 
 export async function PATCH(req: NextRequest) {
   try {
@@ -24,7 +24,7 @@ export async function PATCH(req: NextRequest) {
     if (authUser.avatar) {
       // Deleting the old avatar
       const { id } = authUser.avatar;
-      const isSuccess = await deleteAvatar(id);
+      const isSuccess = await deleteImage(id);
 
       if (!isSuccess) {
         return jsonResponse(

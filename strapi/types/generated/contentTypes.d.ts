@@ -425,7 +425,7 @@ export interface ApiMarkerMarker extends Schema.CollectionType {
       'plugin::users-permissions.user'
     >;
     images: Attribute.Media;
-    type: Attribute.Enumeration<['street', 'gym']>;
+    type: Attribute.Enumeration<['Street', 'Gym']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

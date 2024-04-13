@@ -34,6 +34,6 @@ export interface MarkerType {
 }
 
 export enum MarkerTypeEnum {
-  Street = "street",
-  Gym = "gym",
+  Street = "Street",
+  Gym = "Gym",
 }
