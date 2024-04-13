@@ -80,6 +80,7 @@ export function formatMarker(data: NonFormattedMarkerType): MarkerType {
     confirmed: data.confirmed,
     name: data.name,
     address: data.address,
+    type: data.type,
     createdAt: data.createdAt,
     images: formatStrapiImages(data.images),
     addedBy: formatUser({
@@ -100,6 +101,7 @@ export function formatMarkers(
       confirmed: marker.attributes.confirmed,
       name: marker.attributes.name,
       address: marker.attributes.address,
+      type: marker.attributes.type,
       createdAt: marker.attributes.createdAt,
       images: formatStrapiImages(marker.attributes.images),
       addedBy: formatUser({

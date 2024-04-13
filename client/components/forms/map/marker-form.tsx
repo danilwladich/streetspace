@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { ErrorResponse } from "@/types/ErrorResponse";
 import ImagesField from "./images-field";
 import { useSearchParams } from "next/navigation";
+import { MarkerTypeEnum } from "@/types/MarkerType";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -45,6 +46,7 @@ export default function MarkerForm() {
       name: "",
       coords: lat && lng ? `${lat}, ${lng}` : "",
       address: "",
+      type: undefined,
       images: [],
       recaptchaToken: "",
     },
@@ -163,6 +165,31 @@ export default function MarkerForm() {
                   disabled={isSubmitting}
                 />
               </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="type"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Type</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select type" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {Object.keys(MarkerTypeEnum).map((currency) => (
+                    <SelectItem key={currency} value={currency}>
+                      {currency}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}

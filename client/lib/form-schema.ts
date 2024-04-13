@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { MarkerTypeEnum } from "@/types/MarkerType";
 
 const MAX_FILE_SIZE = 1024 * 1024 * 5;
 const MAX_FILE_SIZE_STRING = "5MB";
@@ -94,6 +95,10 @@ export const markerSchema = z.object({
         files.every((file) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
       `Only ${ACCEPTED_IMAGE_TYPES_STRING} formats are supported.`,
     ),
+  type: z
+    .nativeEnum(MarkerTypeEnum)
+    .optional()
+    .refine((markerType) => !!markerType, "Type is required."),
   recaptchaToken: z.string(),
 });
 
