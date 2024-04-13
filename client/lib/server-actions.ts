@@ -319,7 +319,7 @@ export async function getUserByUsername(
 }
 
 export async function getUserById(id: number): Promise<UserType | undefined> {
-  const res = await axios.get<NonFormattedUserType | undefined>(
+  const { data } = await axios.get<NonFormattedUserType | undefined>(
     `${STRAPI_URL}/api/users/${id}`,
     {
       params: {
@@ -327,8 +327,6 @@ export async function getUserById(id: number): Promise<UserType | undefined> {
       },
     },
   );
-
-  const data = res.data;
 
   return data ? formatUser(data) : undefined;
 }
@@ -338,7 +336,7 @@ export async function getFollowersByUsername(
   page: number = 1,
   pageSize: number = 25,
 ) {
-  const res = await axios.get<NonFormattedFollowsType>(
+  const { data } = await axios.get<NonFormattedFollowsType>(
     `${STRAPI_URL}/api/follows`,
     {
       params: {
@@ -350,7 +348,7 @@ export async function getFollowersByUsername(
     },
   );
 
-  return formatFollows(res.data);
+  return formatFollows(data);
 }
 
 export async function getFollowingsByUsername(
@@ -358,7 +356,7 @@ export async function getFollowingsByUsername(
   page: number = 1,
   pageSize: number = 25,
 ) {
-  const res = await axios.get<NonFormattedFollowsType>(
+  const { data } = await axios.get<NonFormattedFollowsType>(
     `${STRAPI_URL}/api/follows`,
     {
       params: {
@@ -370,13 +368,13 @@ export async function getFollowingsByUsername(
     },
   );
 
-  return formatFollows(res.data);
+  return formatFollows(data);
 }
 
 export async function getFollowersCountByUsername(
   username: string,
 ): Promise<number> {
-  const res = await axios.get<number>(
+  const { data } = await axios.get<number>(
     `${STRAPI_URL}/api/follows/count/followers`,
     {
       params: {
@@ -385,13 +383,13 @@ export async function getFollowersCountByUsername(
     },
   );
 
-  return res.data;
+  return data;
 }
 
 export async function getFollowingsCountByUsername(
   username: string,
 ): Promise<number> {
-  const res = await axios.get<number>(
+  const { data } = await axios.get<number>(
     `${STRAPI_URL}/api/follows/count/followings`,
     {
       params: {
@@ -400,7 +398,7 @@ export async function getFollowingsCountByUsername(
     },
   );
 
-  return res.data;
+  return data;
 }
 
 export async function getFollowByUsername(
@@ -417,7 +415,7 @@ export async function getFollowByUsername(
     whoFollow = authUser.username;
   }
 
-  const res = await axios.get<NonFormattedFollowsType>(
+  const { data } = await axios.get<NonFormattedFollowsType>(
     `${STRAPI_URL}/api/follows`,
     {
       params: {
@@ -427,13 +425,11 @@ export async function getFollowByUsername(
     },
   );
 
-  const data = res.data.data;
-
-  if (data.length === 0) {
+  if (data.data.length === 0) {
     return null;
   }
 
-  const followId = data[0].id;
+  const followId = data.data[0].id;
 
   return followId;
 }
@@ -452,7 +448,7 @@ export async function getFollowById(
     whoFollow = authUser.id;
   }
 
-  const res = await axios.get<NonFormattedFollowsType>(
+  const { data } = await axios.get<NonFormattedFollowsType>(
     `${STRAPI_URL}/api/follows`,
     {
       params: {
@@ -462,13 +458,11 @@ export async function getFollowById(
     },
   );
 
-  const data = res.data.data;
-
-  if (data.length === 0) {
+  if (data.data.length === 0) {
     return null;
   }
 
-  const followId = data[0].id;
+  const followId = data.data[0].id;
 
   return followId;
 }
@@ -488,6 +482,7 @@ export async function followUser(
         },
       },
     );
+
     return true;
   } catch (error) {
     return false;
@@ -508,6 +503,7 @@ export async function unfollowUser(
     await axios.delete(`${STRAPI_URL}/api/follows/${id}`, {
       headers: { Authorization: `Bearer ${API_TOKEN}` },
     });
+    
     return true;
   } catch (error) {
     return false;
@@ -595,15 +591,21 @@ export async function confirmMarker(markerId: number): Promise<boolean> {
 
 export async function deleteMarker(markerId: number): Promise<boolean> {
   try {
-    const { data } = await axios.get<{
-      data: { attributes: NonFormattedMarkerType };
-    }>(`${STRAPI_URL}/api/markers/${markerId}`, {
+    const { data } = await axios.get<
+      NonFormattedStrapiArray<NonFormattedMarkerType>
+    >(`${STRAPI_URL}/api/markers`, {
       params: {
-        populate: "images",
+        "filters[id][$eq]": markerId,
       },
     });
 
-    const imagesId = data.data.attributes.images.data.map((image) => image.id);
+    if (!data.data.length) {
+      return false;
+    }
+
+    const imagesId = data.data[0].attributes.images.data.map(
+      (image) => image.id,
+    );
 
     for (const id of imagesId) {
       await deleteImage(id);
