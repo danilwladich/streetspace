@@ -9,7 +9,7 @@ import {
 } from "@/lib/format-data";
 import { getJwt } from "./get-jwt";
 import type { NonFormattedUserType, UserType } from "@/types/UserType";
-import type { NonFormattedFollowsType } from "@/types/FollowsType";
+import type { FollowsType, NonFormattedFollowsType } from "@/types/FollowsType";
 import type { StrapiError } from "@/types/StrapiError";
 import type { NonFormattedStrapiImage } from "@/types/StrapiImage";
 import type { MarkerType, NonFormattedMarkerType } from "@/types/MarkerType";
@@ -61,7 +61,9 @@ export async function login(
       },
     );
 
-    return { user: formatUser(data.user), jwt: data.jwt };
+    const { user, jwt } = data;
+
+    return { user: formatUser(user), jwt };
   } catch (error) {
     return null;
   }
@@ -86,28 +88,38 @@ export async function register(
       },
     );
 
-    return { user: formatUser(data.user), jwt: data.jwt };
+    const { user, jwt } = data;
+
+    return { user: formatUser(user), jwt };
   } catch (error) {
     return null;
   }
 }
 
 export async function checkEmail(email: string): Promise<boolean> {
-  const { data } = await axios.get<NonFormattedUserType[]>(
-    `${STRAPI_URL}/api/users`,
-    { params: { "filters[email][$eq]": email } },
-  );
+  try {
+    const { data } = await axios.get<NonFormattedUserType[]>(
+      `${STRAPI_URL}/api/users`,
+      { params: { "filters[email][$eq]": email } },
+    );
 
-  return data.length > 0;
+    return data.length > 0;
+  } catch (error) {
+    return false;
+  }
 }
 
 export async function checkUsername(username: string): Promise<boolean> {
-  const { data } = await axios.get<NonFormattedUserType[]>(
-    `${STRAPI_URL}/api/users`,
-    { params: { "filters[username][$eq]": username } },
-  );
+  try {
+    const { data } = await axios.get<NonFormattedUserType[]>(
+      `${STRAPI_URL}/api/users`,
+      { params: { "filters[username][$eq]": username } },
+    );
 
-  return data.length > 0;
+    return data.length > 0;
+  } catch (error) {
+    return false;
+  }
 }
 
 export async function blockUser(
@@ -314,169 +326,207 @@ export async function addMarker({
 
 export async function getUserByUsername(
   username: string,
-): Promise<UserType | undefined> {
-  const res = await axios.get<(NonFormattedUserType | undefined)[]>(
-    `${STRAPI_URL}/api/users`,
-    {
-      params: {
-        "filters[username][$eq]": username,
-        populate: "avatar",
+): Promise<UserType | null> {
+  try {
+    const { data } = await axios.get<(NonFormattedUserType | undefined)[]>(
+      `${STRAPI_URL}/api/users`,
+      {
+        params: {
+          "filters[username][$eq]": username,
+          populate: "avatar",
+        },
       },
-    },
-  );
+    );
 
-  const data = res.data[0];
+    if (!data || !data[0]) {
+      return null;
+    }
 
-  return data ? formatUser(data) : undefined;
+    return formatUser(data[0]);
+  } catch (error) {
+    return null;
+  }
 }
 
-export async function getUserById(id: number): Promise<UserType | undefined> {
-  const { data } = await axios.get<NonFormattedUserType | undefined>(
-    `${STRAPI_URL}/api/users/${id}`,
-    {
-      params: {
-        populate: "avatar",
+export async function getUserById(id: number): Promise<UserType | null> {
+  try {
+    const { data } = await axios.get<NonFormattedUserType | undefined>(
+      `${STRAPI_URL}/api/users/${id}`,
+      {
+        params: {
+          populate: "avatar",
+        },
       },
-    },
-  );
+    );
 
-  return data ? formatUser(data) : undefined;
+    if (!data) {
+      return null;
+    }
+
+    return formatUser(data);
+  } catch (error) {
+    return null;
+  }
 }
 
 export async function getFollowersByUsername(
   username: string,
   page: number = 1,
   pageSize: number = 25,
-) {
-  const { data } = await axios.get<NonFormattedFollowsType>(
-    `${STRAPI_URL}/api/follows`,
-    {
-      params: {
-        "filters[whomFollow][username][$eq]": username,
-        populate: "whomFollow,whoFollow",
-        "pagination[page]": page,
-        "pagination[pageSize]": pageSize,
+): Promise<FollowsType | null> {
+  try {
+    const { data } = await axios.get<NonFormattedFollowsType>(
+      `${STRAPI_URL}/api/follows`,
+      {
+        params: {
+          "filters[whomFollow][username][$eq]": username,
+          populate: "whomFollow,whoFollow",
+          "pagination[page]": page,
+          "pagination[pageSize]": pageSize,
+        },
       },
-    },
-  );
+    );
 
-  return formatFollows(data);
+    return formatFollows(data);
+  } catch (error) {
+    return null;
+  }
 }
 
 export async function getFollowingsByUsername(
   username: string,
   page: number = 1,
   pageSize: number = 25,
-) {
-  const { data } = await axios.get<NonFormattedFollowsType>(
-    `${STRAPI_URL}/api/follows`,
-    {
-      params: {
-        "filters[whoFollow][username][$eq]": username,
-        populate: "whomFollow,whoFollow",
-        "pagination[page]": page,
-        "pagination[pageSize]": pageSize,
+): Promise<FollowsType | null> {
+  try {
+    const { data } = await axios.get<NonFormattedFollowsType>(
+      `${STRAPI_URL}/api/follows`,
+      {
+        params: {
+          "filters[whoFollow][username][$eq]": username,
+          populate: "whomFollow,whoFollow",
+          "pagination[page]": page,
+          "pagination[pageSize]": pageSize,
+        },
       },
-    },
-  );
+    );
 
-  return formatFollows(data);
+    return formatFollows(data);
+  } catch (error) {
+    return null;
+  }
 }
 
 export async function getFollowersCountByUsername(
   username: string,
 ): Promise<number> {
-  const { data } = await axios.get<number>(
-    `${STRAPI_URL}/api/follows/count/followers`,
-    {
-      params: {
-        username,
+  try {
+    const { data } = await axios.get<number>(
+      `${STRAPI_URL}/api/follows/count/followers`,
+      {
+        params: {
+          username,
+        },
       },
-    },
-  );
+    );
 
-  return data;
+    return data;
+  } catch (error) {
+    return 0;
+  }
 }
 
 export async function getFollowingsCountByUsername(
   username: string,
 ): Promise<number> {
-  const { data } = await axios.get<number>(
-    `${STRAPI_URL}/api/follows/count/followings`,
-    {
-      params: {
-        username,
+  try {
+    const { data } = await axios.get<number>(
+      `${STRAPI_URL}/api/follows/count/followings`,
+      {
+        params: {
+          username,
+        },
       },
-    },
-  );
+    );
 
-  return data;
+    return data;
+  } catch (error) {
+    return 0;
+  }
 }
 
 export async function getFollowByUsername(
   whomFollow: string,
   whoFollow?: string,
 ): Promise<number | null> {
-  if (!whoFollow) {
-    const authUser = await getMe();
+  try {
+    if (!whoFollow) {
+      const authUser = await getMe();
 
-    if (!authUser || authUser.username === whomFollow) {
+      if (!authUser || authUser.username === whomFollow) {
+        return null;
+      }
+
+      whoFollow = authUser.username;
+    }
+
+    const { data } = await axios.get<NonFormattedFollowsType>(
+      `${STRAPI_URL}/api/follows`,
+      {
+        params: {
+          "filters[whoFollow][username][$eq]": whoFollow,
+          "filters[whomFollow][username][$eq]": whomFollow,
+        },
+      },
+    );
+
+    if (!data.data.length) {
       return null;
     }
 
-    whoFollow = authUser.username;
-  }
+    const followId = data.data[0].id;
 
-  const { data } = await axios.get<NonFormattedFollowsType>(
-    `${STRAPI_URL}/api/follows`,
-    {
-      params: {
-        "filters[whoFollow][username][$eq]": whoFollow,
-        "filters[whomFollow][username][$eq]": whomFollow,
-      },
-    },
-  );
-
-  if (data.data.length === 0) {
+    return followId;
+  } catch (error) {
     return null;
   }
-
-  const followId = data.data[0].id;
-
-  return followId;
 }
 
 export async function getFollowById(
   whomFollow: number,
   whoFollow?: number,
 ): Promise<number | null> {
-  if (!whoFollow) {
-    const authUser = await getMe();
+  try {
+    if (!whoFollow) {
+      const authUser = await getMe();
 
-    if (!authUser || authUser.id === whomFollow) {
+      if (!authUser || authUser.id === whomFollow) {
+        return null;
+      }
+
+      whoFollow = authUser.id;
+    }
+
+    const { data } = await axios.get<NonFormattedFollowsType>(
+      `${STRAPI_URL}/api/follows`,
+      {
+        params: {
+          "filters[whoFollow][id][$eq]": whoFollow,
+          "filters[whomFollow][id][$eq]": whomFollow,
+        },
+      },
+    );
+
+    if (!data.data.length) {
       return null;
     }
 
-    whoFollow = authUser.id;
-  }
+    const followId = data.data[0].id;
 
-  const { data } = await axios.get<NonFormattedFollowsType>(
-    `${STRAPI_URL}/api/follows`,
-    {
-      params: {
-        "filters[whoFollow][id][$eq]": whoFollow,
-        "filters[whomFollow][id][$eq]": whomFollow,
-      },
-    },
-  );
-
-  if (data.data.length === 0) {
+    return followId;
+  } catch (error) {
     return null;
   }
-
-  const followId = data.data[0].id;
-
-  return followId;
 }
 
 export async function followUser(
@@ -633,5 +683,31 @@ export async function deleteMarker(markerId: number): Promise<boolean> {
     return true;
   } catch (error) {
     return false;
+  }
+}
+
+export async function getMarkerById(
+  markerId: number,
+): Promise<MarkerType | null> {
+  try {
+    const { data } = await axios.get<
+      NonFormattedStrapiArray<NonFormattedMarkerType>
+    >(`${STRAPI_URL}/api/markers`, {
+      params: {
+        "filters[id][$eq]": markerId,
+        populate: "addedBy,images",
+      },
+    });
+
+    if (!data.data.length) {
+      return null;
+    }
+
+    const markers = formatMarkers(data);
+    const marker = markers.data[0];
+
+    return marker;
+  } catch (error) {
+    return null;
   }
 }
