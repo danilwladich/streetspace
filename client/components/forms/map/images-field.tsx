@@ -51,12 +51,12 @@ export default function ImagesField({
   }
 
   return (
-    <FormItem className="overflow-auto">
-      <FormLabel className="grid w-[800px] grid-cols-5 gap-2 md:w-full">
+    <FormItem className="overflow-auto [&_label]:has-[input:focus]:border-current">
+      <div className="grid w-[800px] grid-cols-5 gap-2 md:w-full">
         {selectedImages.map((image, index) => (
           <div
             key={`${index}_${image.name}}`}
-            className="relative h-0 pb-[100%]"
+            className="relative aspect-square text-black dark:text-white"
             onClick={(e) => e.preventDefault()}
           >
             {index === 0 && (
@@ -75,14 +75,17 @@ export default function ImagesField({
 
             <div
               className="absolute left-0 top-0 z-20 flex h-full w-full items-center
-								justify-center opacity-0 duration-150 hover:opacity-100"
+								justify-center opacity-0 duration-150 hover:opacity-100 has-[:focus]:opacity-100"
             >
-              <Trash2
-                className="z-10 h-12 w-12 cursor-pointer p-2"
+              <button
+                className="z-10"
+                type="button"
                 onClick={() => {
                   handleImageRemove(index);
                 }}
-              />
+              >
+                <Trash2 className="h-12 w-12 p-2" />
+              </button>
               <div className="absolute left-0 top-0 h-full w-full bg-white opacity-50 dark:bg-black" />
             </div>
           </div>
@@ -91,9 +94,9 @@ export default function ImagesField({
         {Array.from({
           length: MAX_FILES_COUNT - selectedImages.length,
         }).map((_, index) => (
-          <div
-            key={`not_selected_${index}`}
-            className="relative h-0 border border-dashed pb-[100%]"
+          <FormLabel
+            key={`no_image_${index}`}
+            className="relative aspect-square cursor-pointer border border-dashed text-black duration-150 dark:text-white"
           >
             {!selectedImages.length && index === 0 && (
               <span className="absolute right-0 top-0 bg-cyan-500 px-1 opacity-75">
@@ -105,9 +108,9 @@ export default function ImagesField({
               <ImagePlus className="h-8 w-8" />
               <span>Select image</span>
             </div>
-          </div>
+          </FormLabel>
         ))}
-      </FormLabel>
+      </div>
       <FormControl>
         <Input
           {...field}
@@ -119,7 +122,7 @@ export default function ImagesField({
           multiple
           accept={ACCEPTED_IMAGE_TYPES.join(", ")}
           disabled={isSubmitting}
-          className="hidden"
+          className="sr-only"
         />
       </FormControl>
       <FormMessage />

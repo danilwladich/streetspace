@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     const authUser = getAuthUser(req);
 
     // Adding a new marker
-    const markerId = await addMarker({
+    const isSuccess = await addMarker({
       name,
       lat,
       lng,
@@ -40,11 +40,11 @@ export async function POST(req: NextRequest) {
       isAdmin: authUser.role === "admin",
     });
 
-    if (!markerId) {
+    if (!isSuccess) {
       return jsonResponse("An error occurred while adding a marker", 400);
     }
 
-    return jsonResponse(markerId, 200);
+    return jsonResponse("Marker created successfully", 200);
   } catch (error) {
     // Handling internal error
     console.log("[MAP_ADD_POST]", error);

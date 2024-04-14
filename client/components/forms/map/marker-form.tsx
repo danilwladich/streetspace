@@ -84,11 +84,13 @@ export default function MarkerForm() {
       });
 
       // Making a POST request to the map API endpoint
-      const { data } = await axios.post("/api/map/add", formData, {
+      await axios.post("/api/map/add", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      router.replace(`/map/location/${data}`);
+      router.replace(`/map`);
+
+      toast.success("Location sent for review");
     } catch (e: unknown) {
       // Handling AxiosError
       const error = e as AxiosError;

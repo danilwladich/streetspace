@@ -277,7 +277,7 @@ export async function addMarker({
   images: File[];
   userId: number;
   isAdmin: boolean;
-}): Promise<number | null> {
+}): Promise<boolean> {
   try {
     const formData = new FormData();
 
@@ -289,12 +289,12 @@ export async function addMarker({
     const imagesData = await uploadImages(formData);
 
     if (!imagesData) {
-      return null;
+      return false;
     }
 
     const imagesId = imagesData.map((image) => image.id);
 
-    const { data } = await axios.post(
+    await axios.post(
       `${STRAPI_URL}/api/markers`,
       {
         data: {
@@ -318,9 +318,9 @@ export async function addMarker({
       },
     );
 
-    return data.data.id;
+    return true;
   } catch (error: any) {
-    return null;
+    return false;
   }
 }
 
@@ -592,7 +592,7 @@ export async function getMarkers(
       NonFormattedStrapiArray<NonFormattedMarkerType>
     >(`${STRAPI_URL}/api/markers`, {
       params: {
-        populate: "addedBy,images",
+        populate: "images",
         "filters[confirmed][$eq]": true,
         "filters[lat][$gt]": latMin,
         "filters[lat][$lt]": latMax,
