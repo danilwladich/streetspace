@@ -256,6 +256,7 @@ export async function addMarker({
   address,
   images,
   userId,
+  isAdmin,
 }: {
   name: string;
   lat: string;
@@ -263,6 +264,7 @@ export async function addMarker({
   address: string;
   images: File[];
   userId: number;
+  isAdmin: boolean;
 }): Promise<number | null> {
   try {
     const formData = new FormData();
@@ -282,7 +284,17 @@ export async function addMarker({
 
     const { data } = await axios.post(
       `${STRAPI_URL}/api/markers`,
-      { data: { name, lat, lng, address, images: imagesId, addedBy: userId } },
+      {
+        data: {
+          name,
+          lat,
+          lng,
+          address,
+          images: imagesId,
+          addedBy: userId,
+          confirmed: isAdmin,
+        },
+      },
       {
         headers: {
           "Content-Type": "application/json",
@@ -503,7 +515,7 @@ export async function unfollowUser(
     await axios.delete(`${STRAPI_URL}/api/follows/${id}`, {
       headers: { Authorization: `Bearer ${API_TOKEN}` },
     });
-    
+
     return true;
   } catch (error) {
     return false;
@@ -595,6 +607,7 @@ export async function deleteMarker(markerId: number): Promise<boolean> {
       NonFormattedStrapiArray<NonFormattedMarkerType>
     >(`${STRAPI_URL}/api/markers`, {
       params: {
+        populate: "images",
         "filters[id][$eq]": markerId,
       },
     });

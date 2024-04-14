@@ -37,6 +37,7 @@ export async function POST(req: NextRequest) {
       address,
       images,
       userId: authUser.id,
+      isAdmin: authUser.role === "admin",
     });
 
     if (!markerId) {
