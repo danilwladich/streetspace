@@ -695,6 +695,7 @@ export async function getMarkerById(
     >(`${STRAPI_URL}/api/markers`, {
       params: {
         "filters[id][$eq]": markerId,
+        "filters[confirmed][$eq]": true,
         populate: "addedBy,images",
       },
     });

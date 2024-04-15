@@ -14,7 +14,9 @@ export default async function Admin() {
   if (!markers) {
     return (
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
-        <h2 className="text-xl">An error occurred while fetching markers</h2>
+        <h2 className="text-center text-xl">
+          An error occurred while fetching markers
+        </h2>
       </div>
     );
   }
@@ -22,10 +24,10 @@ export default async function Admin() {
   if (!markers.data.length) {
     return (
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
-        <h2 className="text-xl">No unconfirmed markers</h2>
+        <h2 className="text-center text-xl">No unconfirmed markers</h2>
       </div>
     );
   }
 
-  return markers.data.map((m, i) => <Marker {...m} />);
+  return markers.data.map((m) => <Marker {...m} />);
 }

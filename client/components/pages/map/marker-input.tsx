@@ -50,7 +50,7 @@ export default function MarkerInput() {
 
 function getIcon() {
   return divIcon({
-    html: `<img src="./assets/map-pin-add.png" class="h-full w-full" />`,
+    html: `<img src="/assets/map-pin-add.png" class="h-full w-full" />`,
     iconSize: new Point(MAP_ICON_SIZE, MAP_ICON_SIZE),
     iconAnchor: new Point(MAP_ICON_SIZE / 2, MAP_ICON_SIZE / 2),
     popupAnchor: new Point(0, 0),

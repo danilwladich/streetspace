@@ -1,5 +1,4 @@
 import * as z from "zod";
-import { MarkerTypeEnum } from "@/types/MarkerType";
 
 const MAX_FILE_SIZE = 1024 * 1024 * 5;
 const MAX_FILE_SIZE_STRING = "5MB";
@@ -10,7 +9,7 @@ export const ACCEPTED_IMAGE_TYPES = [
   "image/webp",
 ];
 const ACCEPTED_IMAGE_TYPES_STRING = ".jpg, .jpeg, .png and .webp";
-export const MAX_FILES_COUNT = 5;
+export const MAX_FILES_COUNT = 6;
 
 export const loginSchema = z.object({
   emailOrUsername: z
@@ -95,10 +94,6 @@ export const markerSchema = z.object({
         files.every((file) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
       `Only ${ACCEPTED_IMAGE_TYPES_STRING} formats are supported.`,
     ),
-  type: z
-    .nativeEnum(MarkerTypeEnum)
-    .optional()
-    .refine((markerType) => !!markerType, "Type is required."),
   recaptchaToken: z.string(),
 });
 

@@ -11,7 +11,7 @@ export default function MainLayout({
       <Header />
 
       <div className="pl-[calc(100vw-100%)]">
-        <main className="px-2 pb-16 pt-2 md:container md:pb-2 md:pt-16">
+        <main className="flex flex-col items-center gap-6 px-2 pb-16 pt-2 md:container md:pb-2 md:pt-16 [&>*]:w-full">
           {children}
         </main>
       </div>

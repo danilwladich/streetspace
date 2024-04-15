@@ -9,17 +9,19 @@ import {
   type MapContainerProps,
   TileLayer,
 } from "react-leaflet";
-import Controls from "./map-controls";
+import Controls from "./controls/map-controls";
 
 export default function MapMainContainer({
   position,
   zoom = 14,
   props,
+  withUserLocation,
   children,
 }: {
   position: LatLngExpression;
   zoom?: number;
   props?: MapContainerProps;
+  withUserLocation?: boolean;
   children: React.ReactNode;
 }) {
   const [map, setMap] = useState<Map | null>(null);
@@ -41,7 +43,7 @@ export default function MapMainContainer({
         {children}
       </LMapContainer>
 
-      {!!map && <Controls map={map} />}
+      {!!map && <Controls map={map} withUserLocation={withUserLocation} />}
     </>
   );
 }

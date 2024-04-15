@@ -105,22 +105,24 @@ export default function EditAvatarForm() {
           control={form.control}
           name="image"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel className="mt-4 flex justify-center">
-                <Avatar className="h-24 w-24 cursor-pointer">
-                  <AvatarImage
-                    src={
-                      selectedImage
-                        ? URL.createObjectURL(selectedImage)
-                        : defaultImageSrc
-                    }
-                    alt={authUser?.username || "not auth"}
-                  />
-                  <AvatarFallback>
-                    {authUser?.username[0] || "not auth"}
-                  </AvatarFallback>
-                </Avatar>
-              </FormLabel>
+            <FormItem className="[&_label]:has-[input:focus]:shadow-xl">
+              <div className="mt-4 flex justify-center">
+                <FormLabel className="rounded-full shadow-none shadow-current duration-150">
+                  <Avatar className="h-24 w-24 cursor-pointer">
+                    <AvatarImage
+                      src={
+                        selectedImage
+                          ? URL.createObjectURL(selectedImage)
+                          : defaultImageSrc
+                      }
+                      alt={authUser?.username || "not auth"}
+                    />
+                    <AvatarFallback>
+                      {authUser?.username[0] || "not auth"}
+                    </AvatarFallback>
+                  </Avatar>
+                </FormLabel>
+              </div>
               <FormControl>
                 <Input
                   {...field}
@@ -133,7 +135,7 @@ export default function EditAvatarForm() {
                   type="file"
                   accept={ACCEPTED_IMAGE_TYPES.join(", ")}
                   disabled={isSubmitting}
-                  className="hidden"
+                  className="!sr-only"
                 />
               </FormControl>
               <FormMessage />

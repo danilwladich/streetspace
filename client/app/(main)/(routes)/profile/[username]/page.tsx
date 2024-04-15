@@ -27,18 +27,16 @@ export default async function Profile({
   if (!user) {
     return (
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
-        <h2 className="text-xl">User not found</h2>
+        <h2 className="text-center text-xl">User not found</h2>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col gap-4 pt-2 md:pt-0">
-      <Card>
-        <CardContent>
-          <User user={user} />
-        </CardContent>
-      </Card>
-    </div>
+    <Card>
+      <CardContent>
+        <User user={user} />
+      </CardContent>
+    </Card>
   );
 }

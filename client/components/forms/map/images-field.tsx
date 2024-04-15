@@ -52,11 +52,11 @@ export default function ImagesField({
 
   return (
     <FormItem className="overflow-auto [&_label]:has-[input:focus]:border-current">
-      <div className="grid w-[800px] grid-cols-5 gap-2 md:w-full">
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
         {selectedImages.map((image, index) => (
           <div
             key={`${index}_${image.name}}`}
-            className="relative aspect-square text-black dark:text-white"
+            className="relative aspect-video text-black dark:text-white"
             onClick={(e) => e.preventDefault()}
           >
             {index === 0 && (
@@ -96,7 +96,7 @@ export default function ImagesField({
         }).map((_, index) => (
           <FormLabel
             key={`no_image_${index}`}
-            className="relative aspect-square cursor-pointer border border-dashed text-black duration-150 dark:text-white"
+            className="relative aspect-video cursor-pointer border border-dashed text-black duration-150 dark:text-white"
           >
             {!selectedImages.length && index === 0 && (
               <span className="absolute right-0 top-0 bg-cyan-500 px-1 opacity-75">
@@ -105,7 +105,7 @@ export default function ImagesField({
             )}
 
             <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center gap-2">
-              <ImagePlus className="h-8 w-8" />
+              <ImagePlus className="h-6 w-6" />
               <span>Select image</span>
             </div>
           </FormLabel>
@@ -122,7 +122,7 @@ export default function ImagesField({
           multiple
           accept={ACCEPTED_IMAGE_TYPES.join(", ")}
           disabled={isSubmitting}
-          className="sr-only"
+          className="!sr-only"
         />
       </FormControl>
       <FormMessage />

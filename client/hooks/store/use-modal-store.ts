@@ -6,11 +6,16 @@ export type ModalType =
   | "change avatar"
   | "image";
 
+type ModalData = {
+  src: string;
+  alt: string;
+} | null;
+
 interface ModalStore {
   type: ModalType | null;
-  data: any;
+  data: ModalData;
   isOpen: boolean;
-  onOpen: (type: ModalType, data?: any) => void;
+  onOpen: (type: ModalType, data: ModalData) => void;
   onClose: () => void;
 }
 
@@ -18,7 +23,7 @@ export const useModalStore = create<ModalStore>((set) => ({
   type: null,
   data: null,
   isOpen: false,
-  onOpen: (type: ModalType, data: any = null) =>
+  onOpen: (type: ModalType, data: ModalData = null) =>
     set({ type, data, isOpen: true }),
   onClose: () => set({ type: null, data: null, isOpen: false }),
 }));

@@ -9,7 +9,7 @@ import {
 
 export default function ChangeAvatarModal() {
   return (
-    <DialogContent className="sm:max-w-[425px]">
+    <DialogContent className="sm:max-w-md">
       <DialogHeader>
         <DialogTitle>Change avatar</DialogTitle>
         <DialogDescription>Upload new profile image</DialogDescription>

@@ -6,7 +6,7 @@ import { useMemo } from "react";
 import { AppLoader } from "@/components/ui/app-loader";
 
 export const metadata: Metadata = {
-  title: getAppTitle("map"),
+  title: getAppTitle("workout map"),
 };
 
 export default function Map() {

@@ -20,7 +20,7 @@ export default function Settings() {
   const { user: authUser } = useAuthStore();
 
   return (
-    <Card className="md:mx-auto md:w-[500px]">
+    <Card className="max-w-lg">
       <CardContent>
         <Command>
           <CommandInput tabIndex={1} placeholder="Search..." />

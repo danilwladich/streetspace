@@ -15,12 +15,15 @@ export default function MarkerImage(image: StrapiImage) {
   }
 
   return (
-      <button onClick={onClick} className="relative h-0 w-full pb-[100%]">
-        <img
-          src={src}
-          alt={`${image.id}`}
-          className="absolute left-0 top-0 h-full w-full object-cover"
-        />
-      </button>
+    <button
+      onClick={onClick}
+      className="relative aspect-video w-full overflow-hidden rounded-sm"
+    >
+      <img
+        src={src}
+        alt={`${image.id}`}
+        className="absolute left-0 top-0 h-full w-full object-cover"
+      />
+    </button>
   );
 }

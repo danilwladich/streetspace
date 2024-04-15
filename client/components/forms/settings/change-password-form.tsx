@@ -11,7 +11,7 @@ import { useModalStore } from "@/hooks/store/use-modal-store";
 import { toast } from "sonner";
 import type { ErrorResponse } from "@/types/ErrorResponse";
 
-import FormPasswordInput from "@/components/common/form-password-input";
+import FormPasswordInput from "@/components/common/forms/form-password-input";
 import { Button } from "@/components/ui/button";
 import {
   Form,

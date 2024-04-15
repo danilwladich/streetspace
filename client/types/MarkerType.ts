@@ -9,7 +9,6 @@ export interface NonFormattedMarkerType {
   confirmed: boolean;
   name: string;
   address: string;
-  type: MarkerTypeEnum;
   createdAt: Date;
   images: NonFormattedStrapiArray<NonFormattedStrapiImage>;
   addedBy: {
@@ -17,7 +16,7 @@ export interface NonFormattedMarkerType {
       id: 1;
       attributes: Omit<NonFormattedUserType, "id">;
     };
-  };
+  } | null;
 }
 
 export interface MarkerType {
@@ -27,13 +26,7 @@ export interface MarkerType {
   confirmed: boolean;
   name: string;
   address: string;
-  type: MarkerTypeEnum;
   createdAt: Date;
   images: StrapiImage[];
-  addedBy: UserType;
-}
-
-export enum MarkerTypeEnum {
-  Street = "Street",
-  Gym = "Gym",
+  addedBy: UserType | null;
 }

@@ -9,7 +9,7 @@ import {
 
 export default function ChangePasswordModal() {
   return (
-    <DialogContent className="sm:max-w-[425px]">
+    <DialogContent className="sm:max-w-md">
       <DialogHeader>
         <DialogTitle>Change password</DialogTitle>
         <DialogDescription>

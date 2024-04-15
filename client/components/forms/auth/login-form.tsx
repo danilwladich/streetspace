@@ -12,7 +12,8 @@ import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { toast } from "sonner";
 import type { ErrorResponse } from "@/types/ErrorResponse";
 
-import FormPasswordInput from "@/components/common/form-password-input";
+import Recaptcha from "@/components/common/forms/recaptcha";
+import FormPasswordInput from "@/components/common/forms/form-password-input";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -142,12 +143,7 @@ export default function Login() {
           )}
         />
 
-        <ReCAPTCHA
-          className="absolute"
-          ref={recaptchaRef}
-          size="invisible"
-          sitekey="6LcwYyQkAAAAAMsq2VnRYkkqNqLt-ljuy-gfmPYn"
-        />
+        <Recaptcha ref={recaptchaRef} />
 
         {!!submitError && (
           <p className="text-center text-sm font-medium text-destructive">
@@ -155,7 +151,7 @@ export default function Login() {
           </p>
         )}
 
-        <Button type="submit" disabled={isSubmitting}>
+        <Button type="submit" className="w-full" disabled={isSubmitting}>
           Sign in
         </Button>
       </form>

@@ -7,14 +7,14 @@ import * as z from "zod";
 import { markerSchema as formSchema } from "@/lib/form-schema";
 import { parseFormDataFromJson } from "@/lib/formdata-parser";
 import { useState, useRef } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { ErrorResponse } from "@/types/ErrorResponse";
 import ImagesField from "./images-field";
 import { useSearchParams } from "next/navigation";
-import { MarkerTypeEnum } from "@/types/MarkerType";
+import type ReCAPTCHA from "react-google-recaptcha";
 
+import Recaptcha from "@/components/common/forms/recaptcha";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -25,13 +25,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
 
 export default function MarkerForm() {
   const searchParams = useSearchParams();
@@ -46,7 +39,6 @@ export default function MarkerForm() {
       name: "",
       coords: lat && lng ? `${lat}, ${lng}` : "",
       address: "",
-      type: undefined,
       images: [],
       recaptchaToken: "",
     },
@@ -174,31 +166,6 @@ export default function MarkerForm() {
 
         <FormField
           control={form.control}
-          name="type"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Type</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select type" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {Object.keys(MarkerTypeEnum).map((currency) => (
-                    <SelectItem key={currency} value={currency}>
-                      {currency}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
           name="images"
           render={({ field }) => (
             <ImagesField
@@ -214,12 +181,7 @@ export default function MarkerForm() {
           )}
         />
 
-        <ReCAPTCHA
-          className="absolute"
-          ref={recaptchaRef}
-          size="invisible"
-          sitekey="6LcwYyQkAAAAAMsq2VnRYkkqNqLt-ljuy-gfmPYn"
-        />
+        <Recaptcha ref={recaptchaRef} />
 
         {!!submitError && (
           <p className="text-center text-sm font-medium text-destructive">

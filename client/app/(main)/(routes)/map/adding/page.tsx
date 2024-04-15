@@ -9,7 +9,7 @@ import {
 
 export default function Adding() {
   return (
-    <Card>
+    <Card className="max-w-4xl">
       <CardHeader>
         <CardTitle>Add new location</CardTitle>
         <CardDescription>

@@ -9,7 +9,7 @@ import {
 
 export default function ChangeProfileModal() {
   return (
-    <DialogContent className="sm:max-w-[425px]">
+    <DialogContent className="sm:max-w-md">
       <DialogHeader>
         <DialogTitle>Change username</DialogTitle>
         <DialogDescription>Make your username unique</DialogDescription>

@@ -4,14 +4,12 @@ import { useMemo } from "react";
 import type { MarkerType } from "@/types/MarkerType";
 
 import { AppLoader } from "@/components/ui/app-loader";
-import Actions from "./actions";
 import MarkerImage from "@/components/common/marker/marker-image";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -19,7 +17,6 @@ import { User, Compass } from "lucide-react";
 import { DateToShow } from "@/components/common/date-to-show";
 
 export function Marker({
-  id,
   name,
   address,
   lat,
@@ -45,15 +42,11 @@ export function Marker({
       <CardHeader>
         <CardTitle>{name}</CardTitle>
 
-        <CardDescription>
-          {address}
-          <br />s
-          {`${lat}, ${lng}`}
-        </CardDescription>
+        <CardDescription>{address}</CardDescription>
       </CardHeader>
 
       <CardContent className="flex flex-col items-start gap-2">
-        <div className="mb-2 grid w-full grid-cols-2 gap-2 sm:grid-cols-3">
+        <div className="mb-2 grid w-full grid-cols-2 gap-2 gap-2 sm:grid-cols-3">
           {images.map((image) => (
             <MarkerImage key={image.id} {...image} />
           ))}
@@ -88,10 +81,6 @@ export function Marker({
           </Link>
         </div>
       </CardContent>
-
-      <CardFooter className="flex justify-between">
-        <Actions id={id} />
-      </CardFooter>
     </Card>
   );
 }

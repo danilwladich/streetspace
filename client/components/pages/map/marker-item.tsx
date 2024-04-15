@@ -28,7 +28,7 @@ export default function MarkerItem({
 
           <span>{address}</span>
 
-          <div className="relative h-0 w-full pb-[56%]">
+          <div className="relative aspect-video w-full">
             <img
               src={imageSrc}
               alt={name}
@@ -43,7 +43,7 @@ export default function MarkerItem({
 
 function getIcon() {
   return divIcon({
-    html: `<img src="./assets/map-pin.png" class="h-full w-full" />`,
+    html: `<img src="/assets/map-pin.png" class="h-full w-full" />`,
     iconSize: new Point(MAP_ICON_SIZE, MAP_ICON_SIZE),
     iconAnchor: new Point(MAP_ICON_SIZE / 2, MAP_ICON_SIZE),
     popupAnchor: new Point(0, -MAP_ICON_SIZE),

@@ -80,13 +80,14 @@ export function formatMarker(data: NonFormattedMarkerType): MarkerType {
     confirmed: data.confirmed,
     name: data.name,
     address: data.address,
-    type: data.type,
     createdAt: data.createdAt,
     images: formatStrapiImages(data.images),
-    addedBy: formatUser({
-      id: data.addedBy.data.id,
-      ...data.addedBy.data.attributes,
-    }),
+    addedBy: data.addedBy
+      ? formatUser({
+          id: data.addedBy.data.id,
+          ...data.addedBy.data.attributes,
+        })
+      : null,
   };
 }
 
@@ -101,13 +102,14 @@ export function formatMarkers(
       confirmed: marker.attributes.confirmed,
       name: marker.attributes.name,
       address: marker.attributes.address,
-      type: marker.attributes.type,
       createdAt: marker.attributes.createdAt,
       images: formatStrapiImages(marker.attributes.images),
-      addedBy: formatUser({
-        id: marker.attributes.addedBy.data.id,
-        ...marker.attributes.addedBy.data.attributes,
-      }),
+      addedBy: marker.attributes.addedBy
+        ? formatUser({
+            id: marker.attributes.addedBy.data.id,
+            ...marker.attributes.addedBy.data.attributes,
+          })
+        : null,
     })),
     pagination: data.meta.pagination,
   };

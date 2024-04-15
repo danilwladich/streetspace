@@ -10,7 +10,7 @@ export default function ImageModal() {
   const { src, alt } = data || {};
 
   return (
-    <DialogContent className="aspect-square max-h-[100vh] sm:max-w-[750px]">
+    <DialogContent className="aspect-square max-h-[100vh] sm:max-w-3xl">
       <div className="relative h-full w-full">
         <img
           src={src}
