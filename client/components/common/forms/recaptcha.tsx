@@ -12,4 +12,6 @@ const Recaptcha = React.forwardRef<ReCAPTCHA>(({}, ref) => {
   );
 });
 
+Recaptcha.displayName = "Recaptcha";
+
 export default Recaptcha;

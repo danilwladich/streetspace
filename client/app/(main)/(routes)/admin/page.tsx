@@ -29,5 +29,5 @@ export default async function Admin() {
     );
   }
 
-  return markers.data.map((m) => <Marker {...m} />);
+  return markers.data.map((m) => <Marker key={m.id} {...m} />);
 }

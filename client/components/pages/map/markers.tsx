@@ -33,7 +33,7 @@ export default function Markers() {
     return () => {
       map.off();
     };
-  }, [map]);
+  }, [map, setBounds]);
 
   useEffect(() => {
     async function fetchLocations() {
@@ -60,7 +60,7 @@ export default function Markers() {
     }
 
     fetchLocations();
-  }, [bounds]);
+  }, [bounds, setLoadingMarkers, setMarkers]);
 
   return (
     <>

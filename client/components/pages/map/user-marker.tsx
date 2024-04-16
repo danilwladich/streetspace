@@ -56,16 +56,16 @@ export default function UserMarker() {
     return () => {
       map.off();
     };
-  }, [map]);
-
-  if (!userPosition) {
-    return null;
-  }
+  }, [map, setBounds, setLoadingUserPosition, setUserPosition, userPosition]);
 
   const avatarUrl = user?.avatar?.formats.thumbnail.url;
   const src = useUserImageSrc(avatarUrl);
 
   const icon = getIcon(src);
+
+  if (!userPosition) {
+    return null;
+  }
 
   return (
     <Marker position={userPosition} icon={icon}>
