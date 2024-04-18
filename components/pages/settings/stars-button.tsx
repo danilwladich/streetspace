@@ -7,19 +7,17 @@ import { Star } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CommandItem } from "@/components/ui/command";
 
-// TODO: Change the URL to your repository
-
 export default function StarsButton() {
   const router = useRouter();
 
   const { data, isLoading } = useClientFetching<any[]>(
-    "https://api.github.com/repos/danilwladich/2rnik/stargazers",
+    "https://api.github.com/repos/danilwladich/streetspace/stargazers",
   );
 
   const starsCount = data?.length;
 
   function onClick() {
-    router.push("https://github.com/danilwladich/2rnik");
+    router.push("https://github.com/danilwladich/streetspace");
   }
 
   return (
