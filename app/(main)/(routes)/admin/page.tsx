@@ -1,20 +1,45 @@
-import type { Metadata } from "next";
-import { getAppTitle } from "@/lib/get-app-title";
-import { getUnconfirmedMarkers } from "@/services/marker";
+"use client";
 
-import NotFound from "@/components/common/not-found";
-import { Marker } from "@/components/pages/admin/marker";
+import { useRouter } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: getAppTitle("admin"),
-};
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import { Map } from "lucide-react";
 
-export default async function Admin() {
-  const markers = await getUnconfirmedMarkers();
+export default function Admin() {
+  const router = useRouter();
 
-  if (!markers.length) {
-    return <NotFound text="No unconfirmed markers" />;
+  function onRedirect(path: string) {
+    router.push(path);
   }
 
-  return markers.map((m) => <Marker key={m.id} {...m} />);
+  return (
+    <Card className="max-w-lg">
+      <CardContent>
+        <Command>
+          <CommandInput tabIndex={1} placeholder="Search..." />
+          <CommandList>
+            <CommandEmpty>No results found.</CommandEmpty>
+
+            <CommandGroup heading="Admin panel">
+              <CommandItem
+                onSelect={() => onRedirect("/admin/markers")}
+                className="flex items-center gap-2"
+              >
+                <Map className="h-4 w-4" />
+                <span>Markers</span>
+              </CommandItem>
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </CardContent>
+    </Card>
+  );
 }
