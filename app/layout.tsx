@@ -12,8 +12,9 @@ const font = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: getAppTitle(),
-  description: "2rnik union",
-  keywords: "street workout, workout, street, 2rnik",
+  description: "Streetspace union",
+  keywords:
+    "street workout, workout, street, streetspace, street workout map, map, streetworkout",
   authors: [
     { name: "Daniel Władyczewski", url: "https://github.com/danilwladich" },
   ],
