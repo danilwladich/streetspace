@@ -1,11 +1,15 @@
 import { db } from "@/lib/db";
-import type { Marker } from "@prisma/client";
+import type { Marker, Prisma } from "@prisma/client";
 
-export async function getMarkerById(id: string) {
+export async function getMarkerById(
+  id: string,
+  include: Prisma.MarkerInclude = {},
+) {
   return db.marker.findFirst({
     where: {
       id,
     },
+    include,
   });
 }
 

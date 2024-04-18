@@ -1,7 +1,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
-import type { MarkerType } from "@/types/MarkerType";
+import type { Prisma } from "@prisma/client";
 
 import { AppLoader } from "@/components/ui/app-loader";
 import MarkerImage from "@/components/common/marker/marker-image";
@@ -15,6 +15,10 @@ import {
 } from "@/components/ui/card";
 import { User, Compass } from "lucide-react";
 import { DateToShow } from "@/components/common/date-to-show";
+
+type MarkerType = Prisma.MarkerGetPayload<{
+  include: { addedBy: true };
+}>;
 
 export function Marker({
   name,
@@ -37,6 +41,8 @@ export function Marker({
     [],
   );
 
+  const imagesSrc = JSON.parse(images) as string[];
+
   return (
     <Card className="max-w-4xl">
       <CardHeader>
@@ -47,8 +53,8 @@ export function Marker({
 
       <CardContent className="flex flex-col items-start gap-2">
         <div className="mb-2 grid w-full grid-cols-2 gap-2 gap-2 sm:grid-cols-3">
-          {images.map((image) => (
-            <MarkerImage key={image.id} {...image} />
+          {imagesSrc.map((src) => (
+            <MarkerImage key={src} src={src} alt={name} />
           ))}
         </div>
 
