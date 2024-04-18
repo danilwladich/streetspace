@@ -1,4 +1,4 @@
-const APP_TITLE = "2rnik";
+const APP_TITLE = "streetspace";
 
 export function getAppTitle(pageName: string = "") {
   if (pageName) {
