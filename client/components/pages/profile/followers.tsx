@@ -1,8 +1,5 @@
 import Link from "next/link";
-import {
-  getFollowersCountByUsername,
-  getFollowingsCountByUsername,
-} from "@/lib/server-actions";
+import { getFollowersCountByUsername, getFollowingsCountByUsername } from "@/services/follow";
 
 import { Button } from "@/components/ui/button";
 

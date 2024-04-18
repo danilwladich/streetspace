@@ -1,13 +1,10 @@
 import type { NextRequest } from "next/server";
 import { registerSchema } from "@/lib/form-schema";
-import {
-  checkEmail,
-  checkUsername,
-  register,
-  verifyCaptcha,
-} from "@/lib/server-actions";
+import bcrypt from "bcryptjs";
+import { verifyCaptcha } from "@/lib/server-actions";
 import { jsonResponse } from "@/lib/json-response";
 import { serializeJwt } from "@/lib/serialize-jwt";
+import { createUser, getUserByEmail, getUserByUsername } from "@/services/user";
 
 export async function POST(req: NextRequest) {
   try {
@@ -22,7 +19,7 @@ export async function POST(req: NextRequest) {
     const { username, email, password, recaptchaToken } = body.data;
 
     // Verifying the recaptcha token
-    const isRecaptchaCorrect = verifyCaptcha(recaptchaToken);
+    const isRecaptchaCorrect = await verifyCaptcha(recaptchaToken);
 
     // Handling recaptcha verification failure
     if (!isRecaptchaCorrect) {
@@ -30,10 +27,10 @@ export async function POST(req: NextRequest) {
     }
 
     // Checking if a user with the provided email already exists
-    const emailAlreadyTaken = await checkEmail(email);
+    const userAlreadyExist = !!(await getUserByEmail(email));
 
     // Handling existing user with the provided email error
-    if (emailAlreadyTaken) {
+    if (userAlreadyExist) {
       return jsonResponse(
         {
           field: "email",
@@ -44,7 +41,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Checking if the provided username is already taken
-    const usernameAlreadyTaken = await checkUsername(username);
+    const usernameAlreadyTaken = !!(await getUserByUsername(username));
 
     // Handling existing username error
     if (usernameAlreadyTaken) {
@@ -57,18 +54,18 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Hashing the password
+    const hashedPassword = await bcrypt.hash(password, 12);
+
     // Creating a new user
-    const data = await register(username, email, password);
+    const user = await createUser({
+      username,
+      email,
+      password: hashedPassword,
+    });
 
-    // Handling user creation error
-    if (!data) {
-      return jsonResponse("An error occurred while creating a new user", 400);
-    }
-
-    const { jwt, user } = data;
-
-    // Serializing jwt token
-    const serialized = serializeJwt(jwt);
+    // Serializing the user object into a JWT token
+    const serialized = await serializeJwt(user);
 
     // Returning a JSON response with user information and set cookie header
     return jsonResponse(user, 201, {

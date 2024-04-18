@@ -1,9 +1,11 @@
 import type { NextRequest } from "next/server";
 import { jsonResponse } from "@/lib/json-response";
-import { addMarker, verifyCaptcha } from "@/lib/server-actions";
 import { markerSchema } from "@/lib/form-schema";
 import { getAuthUser } from "@/lib/get-auth-user";
 import { parseJsonFromFormData } from "@/lib/formdata-parser";
+import { verifyCaptcha } from "@/lib/server-actions";
+import { createMarker } from "@/services/marker";
+import { uploadImage } from "@/lib/upload-image";
 
 export async function POST(req: NextRequest) {
   try {
@@ -17,10 +19,10 @@ export async function POST(req: NextRequest) {
     }
 
     const { name, coords, address, images, recaptchaToken } = body.data;
-    const [lat, lng] = coords.split(",");
+    const [lat, lng] = coords.split(",").map(Number);
 
     // Verifying the recaptcha token
-    const isRecaptchaCorrect = verifyCaptcha(recaptchaToken);
+    const isRecaptchaCorrect = await verifyCaptcha(recaptchaToken);
 
     // Handling recaptcha verification failure
     if (!isRecaptchaCorrect) {
@@ -29,22 +31,27 @@ export async function POST(req: NextRequest) {
 
     const authUser = getAuthUser(req);
 
+    // Handling image upload
+    const imagesUrl = [];
+
+    for (const image of images as File[]) {
+      const name = `${authUser.id}_${imagesUrl.length}`;
+      const imageUrl = await uploadImage(image, "marker", name);
+      imagesUrl.push(imageUrl);
+    }
+
     // Adding a new marker
-    const isSuccess = await addMarker({
+    const marker = await createMarker({
       name,
       lat,
       lng,
       address,
-      images,
-      userId: authUser.id,
-      isAdmin: authUser.role === "admin",
+      images: JSON.stringify(imagesUrl),
+      confirmed: authUser.role === "ADMIN",
+      addedByUserId: authUser.id,
     });
 
-    if (!isSuccess) {
-      return jsonResponse("An error occurred while adding a marker", 400);
-    }
-
-    return jsonResponse("Marker created successfully", 200);
+    return jsonResponse(marker, 200);
   } catch (error) {
     // Handling internal error
     console.log("[MAP_ADD_POST]", error);

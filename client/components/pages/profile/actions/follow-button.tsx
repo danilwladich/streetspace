@@ -13,7 +13,7 @@ export default function FollowButton({
   username,
   isFollowing,
 }: {
-  id: number;
+  id: string;
   username: string;
   isFollowing: boolean;
 }) {

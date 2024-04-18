@@ -74,7 +74,7 @@ export const markerSchema = z.object({
     .string()
     .trim()
     .min(4, { message: "Address must be at least 4 characters." })
-    .max(40, { message: "Address must be less than 40 characters." }),
+    .max(100, { message: "Address must be less than 100 characters." }),
   images: z
     .any()
     .refine(
@@ -143,6 +143,14 @@ export const changePasswordSchema = z
       message: "This field has to be filled.",
     }),
   })
+  .refine(
+    // Additional refinement to check if passwords match in client
+    (data) => data.currentPassword !== data.newPassword,
+    {
+      message: "New password must be different.",
+      path: ["newPassword"],
+    },
+  )
   .refine(
     // Additional refinement to check if passwords match in client
     (data) => data.newPassword === data.passwordConfirmation,

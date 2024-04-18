@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { jsonResponse } from "@/lib/json-response";
-import { confirmMarker, deleteMarker } from "@/lib/server-actions";
+import { updateMarker, deleteMarker, getMarkerById } from "@/services/marker";
+import { deleteImage } from "@/lib/upload-image";
 
 export async function PATCH(req: NextRequest) {
   try {
@@ -10,13 +11,9 @@ export async function PATCH(req: NextRequest) {
       return jsonResponse("Invalid Request", 400);
     }
 
-    const isSuccess = await confirmMarker(id);
+    const marker = await updateMarker(id, { confirmed: true });
 
-    if (!isSuccess) {
-      return jsonResponse("Invalid Request", 400);
-    }
-
-    return jsonResponse("Success", 200);
+    return jsonResponse(marker, 200);
   } catch (error) {
     // Handling internal error
     console.log("[ADMIN_MAP_ADD_PATCH]", error);
@@ -32,11 +29,19 @@ export async function DELETE(req: NextRequest) {
       return jsonResponse("Invalid Request", 400);
     }
 
-    const isSuccess = await deleteMarker(id);
+    const marker = await getMarkerById(id);
 
-    if (!isSuccess) {
+    if (!marker) {
       return jsonResponse("Invalid Request", 400);
     }
+
+    const images = JSON.parse(marker.images) as string[];
+
+    for (const imageUrl of images) {
+      await deleteImage(imageUrl);
+    }
+
+    await deleteMarker(id);
 
     return jsonResponse("Success", 200);
   } catch (error) {

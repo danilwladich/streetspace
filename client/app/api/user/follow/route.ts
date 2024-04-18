@@ -1,12 +1,8 @@
 import type { NextRequest } from "next/server";
 import { jsonResponse } from "@/lib/json-response";
-import {
-  followUser,
-  unfollowUser,
-  getFollowById,
-  getUserById,
-} from "@/lib/server-actions";
 import { getAuthUser } from "@/lib/get-auth-user";
+import { getUserById } from "@/services/user";
+import { createFollow, deleteFollow } from "@/services/follow";
 
 export async function POST(req: NextRequest) {
   try {
@@ -31,20 +27,8 @@ export async function POST(req: NextRequest) {
       return jsonResponse("You can't follow yourself", 400);
     }
 
-    // Check if the user is already following the user
-    const followId = await getFollowById(userId, authUser.id);
-
-    // If the user is already following the user, return an error
-    if (followId) {
-      return jsonResponse("You already following this user", 400);
-    }
-
     // Create a new follow
-    const isSuccess = await followUser(userId, authUser.id);
-
-    if (!isSuccess) {
-      return jsonResponse("An error occurred while creating a new follow", 400);
-    }
+    await createFollow(authUser.id, user.id);
 
     return jsonResponse("User followed successfully", 201);
   } catch (error) {
@@ -77,12 +61,8 @@ export async function DELETE(req: NextRequest) {
       return jsonResponse("You can't unfollow yourself", 400);
     }
 
-    // Create a new follow
-    const isSuccess = await unfollowUser(userId, authUser.id);
-
-    if (!isSuccess) {
-      return jsonResponse("An error occurred while deleting a follow ", 400);
-    }
+    // Delete the follow
+    await deleteFollow(authUser.id, user.id);
 
     return jsonResponse("User unfollowed successfully", 201);
   } catch (error) {

@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { jsonResponse } from "@/lib/json-response";
-import { blockUser, getUserById } from "@/lib/server-actions";
+import { getUserById, updateUser } from "@/services/user";
 
 export async function PATCH(req: NextRequest) {
   try {
@@ -19,12 +19,7 @@ export async function PATCH(req: NextRequest) {
     }
 
     // Block the user
-    const isSuccess = await blockUser(userId, bool);
-
-    // Check if the user was blocked successfully
-    if (!isSuccess) {
-      return jsonResponse("An error occurred while blocking a user", 400);
-    }
+    await updateUser(userId, { blocked: bool });
 
     // Return success response
     return jsonResponse("User block status changed successfully", 201);

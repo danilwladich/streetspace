@@ -1,7 +1,8 @@
 import { getAppTitle } from "@/lib/get-app-title";
-import { getUserByUsername } from "@/lib/server-actions";
+import { getUserByUsername } from "@/services/user";
 import type { Metadata } from "next";
 
+import NotFound from "@/components/common/not-found";
 import User from "@/components/pages/profile/user";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -25,11 +26,7 @@ export default async function Profile({
   const user = await getUserByUsername(params.username);
 
   if (!user) {
-    return (
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
-        <h2 className="text-center text-xl">User not found</h2>
-      </div>
-    );
+    return <NotFound text='User not found'/>
   }
 
   return (

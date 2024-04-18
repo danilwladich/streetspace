@@ -3,8 +3,7 @@
 import { useModalStore } from "@/hooks/store/use-modal-store";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useUserImageSrc } from "@/hooks/use-user-image-src";
-import { getImageUrl } from "@/lib/get-image-url";
-import type { StrapiImage } from "@/types/StrapiImage";
+import type { User } from "@prisma/client";
 
 import UserAvatar from "./avatar";
 import {
@@ -18,26 +17,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Fullscreen, ImagePlus } from "lucide-react";
 
-export default function Info({
-  id,
-  username,
-  avatar,
-}: {
-  id: number;
-  username: string;
-  avatar: StrapiImage | null;
-}) {
+export default function Info({ id, username, avatar }: User) {
   const { onOpen } = useModalStore();
   const { user: authUser } = useAuthStore();
 
   const isOwner = id === authUser?.id;
 
-  const avatarUrl = avatar ? getImageUrl(avatar, "thumbnail") : undefined;
-  const avatarSrc = useUserImageSrc(avatarUrl);
+  const avatarSrc = useUserImageSrc(avatar);
 
   function onPreviewOpen() {
-    const previewUrl = avatar ? getImageUrl(avatar, "large") : avatarSrc;
-    onOpen("image", { src: previewUrl, alt: username });
+    onOpen("image", { src: avatarSrc, alt: username });
   }
 
   return (

@@ -1,10 +1,10 @@
-import type { UserType } from "@/types/UserType";
+import type { User } from "@prisma/client";
 import { create } from "zustand";
 
 interface AuthStore {
-  user: UserType | null;
+  user: User | null;
   isChecked: boolean;
-  setUser: (user: UserType | null) => void;
+  setUser: (user: User | null) => void;
 }
 
 export const useAuthStore = create<AuthStore>((set) => ({

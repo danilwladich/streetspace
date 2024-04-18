@@ -56,11 +56,10 @@ export default function UserMarker() {
     return () => {
       map.off();
     };
-  }, [map, setBounds, setLoadingUserPosition, setUserPosition, userPosition]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map]);
 
-  const avatarUrl = user?.avatar?.formats.thumbnail.url;
-  const src = useUserImageSrc(avatarUrl);
-
+  const src = useUserImageSrc(user?.avatar);
   const icon = getIcon(src);
 
   if (!userPosition) {

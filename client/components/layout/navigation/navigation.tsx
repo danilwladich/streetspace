@@ -21,7 +21,7 @@ export interface ILink {
 export function Navigation() {
   const { user: authUser } = useAuthStore();
 
-  const isAdmin = authUser?.role === "admin";
+  const isAdmin = authUser?.role === "ADMIN";
 
   const links: ILink[] = [
     ...(isAdmin

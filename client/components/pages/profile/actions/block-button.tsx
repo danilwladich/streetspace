@@ -12,7 +12,7 @@ export default function BlockButton({
   id,
   blocked,
 }: {
-  id: number;
+  id: string;
   blocked: boolean;
 }) {
   const [isLoading, setIsLoading] = useState(false);

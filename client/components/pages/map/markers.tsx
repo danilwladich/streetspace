@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { useMap } from "react-leaflet";
 import { useMapStore, type Bounds } from "@/hooks/store/use-map-store";
 import axios, { AxiosError } from "axios";
-import type { MarkerType } from "@/types/MarkerType";
-import type { StrapiArray } from "@/types/StrapiArray";
+import type { Marker } from "@prisma/client";
 
 import UserMarker from "./user-marker";
 import MarkerItem from "./marker-item";
@@ -14,7 +13,7 @@ import { toast } from "sonner";
 
 export default function Markers() {
   const { bounds, setBounds, setLoadingMarkers } = useMapStore();
-  const [markers, setMarkers] = useState<MarkerType[]>([]);
+  const [markers, setMarkers] = useState<Marker[]>([]);
 
   const map = useMap();
 
@@ -33,7 +32,7 @@ export default function Markers() {
     return () => {
       map.off();
     };
-  }, [map, setBounds]);
+  }, [map]);
 
   useEffect(() => {
     async function fetchLocations() {
@@ -44,11 +43,11 @@ export default function Markers() {
       setLoadingMarkers(true);
 
       try {
-        const { data } = await axios.get<StrapiArray<MarkerType>>(`/api/map`, {
+        const { data } = await axios.get<Marker[]>(`/api/map`, {
           params: { ...bounds },
         });
 
-        setMarkers(data.data);
+        setMarkers(data);
       } catch (e: unknown) {
         // Handling AxiosError
         const error = e as AxiosError;
@@ -60,7 +59,7 @@ export default function Markers() {
     }
 
     fetchLocations();
-  }, [bounds, setLoadingMarkers, setMarkers]);
+  }, [bounds]);
 
   return (
     <>

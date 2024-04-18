@@ -2,10 +2,10 @@
 
 import { Marker, Popup } from "react-leaflet";
 import Link from "next/link";
+import Image from "next/image";
 import { divIcon, Point } from "leaflet";
 import { MAP_ICON_SIZE } from "@/hooks/store/use-map-store";
-import { getImageUrl } from "@/lib/get-image-url";
-import type { MarkerType } from "@/types/MarkerType";
+import type { Marker as MarkerType } from "@prisma/client";
 
 export default function MarkerItem({
   id,
@@ -15,7 +15,7 @@ export default function MarkerItem({
   address,
   images,
 }: MarkerType) {
-  const imageSrc = getImageUrl(images[0], "small");
+  const imageSrc = JSON.parse(images)[0];
 
   return (
     <Marker position={[lat, lng]} icon={getIcon()}>
@@ -29,9 +29,11 @@ export default function MarkerItem({
           <span>{address}</span>
 
           <div className="relative aspect-video w-full">
-            <img
+            <Image
               src={imageSrc}
               alt={name}
+              width={250}
+              height={250}
               className="absolute left-0 top-0 h-full w-full object-cover"
             />
           </div>

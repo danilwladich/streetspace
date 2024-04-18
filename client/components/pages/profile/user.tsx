@@ -1,27 +1,22 @@
 import Info from "./info/info";
 import Followers from "./followers";
 import Actions from "./actions/actions";
-import { getFollowByUsername } from "@/lib/server-actions";
-import type { UserType } from "@/types/UserType";
+import { getAuthIsFollowingByUsername } from "@/services/follow";
+import type { User } from "@prisma/client";
 
-export default async function User({ user }: { user: UserType }) {
-  const { id, username, avatar, blocked } = user;
+export default async function User({ user }: { user: User }) {
+  const { username } = user;
 
-  const followId = await getFollowByUsername(username);
+  const isFollowing = await getAuthIsFollowingByUsername(username);
 
   return (
     <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-      <Info id={id} username={username} avatar={avatar} />
+      <Info {...user} />
 
       <div className="flex w-full items-center gap-2">
         <Followers username={username} />
 
-        <Actions
-          id={id}
-          username={username}
-          blocked={blocked}
-          isFollowing={followId !== null}
-        />
+        <Actions {...user} isFollowing={isFollowing} />
       </div>
     </div>
   );

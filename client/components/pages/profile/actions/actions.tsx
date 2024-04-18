@@ -3,6 +3,7 @@
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useModalStore } from "@/hooks/store/use-modal-store";
 import { getAppTitle } from "@/lib/get-app-title";
+import type { User } from "@prisma/client";
 
 import ShareButton from "@/components/pages/profile/actions/share-button";
 import LogOutButton from "@/components/pages/profile/actions/log-out-button";
@@ -25,10 +26,7 @@ export default function Actions({
   username,
   blocked,
   isFollowing,
-}: {
-  id: number;
-  username: string;
-  blocked: boolean;
+}: User & {
   isFollowing: boolean;
 }) {
   const { user: authUser } = useAuthStore();

@@ -3,7 +3,9 @@ import { editAvatarSchema } from "@/lib/form-schema";
 import { jsonResponse } from "@/lib/json-response";
 import { getAuthUser } from "@/lib/get-auth-user";
 import { parseJsonFromFormData } from "@/lib/formdata-parser";
-import { changeAvatar, deleteImage } from "@/lib/server-actions";
+import { deleteImage, uploadImage } from "@/lib/upload-image";
+import { updateUser } from "@/services/user";
+import { serializeJwt } from "@/lib/serialize-jwt";
 
 export async function PATCH(req: NextRequest) {
   try {
@@ -23,26 +25,21 @@ export async function PATCH(req: NextRequest) {
     // Checking if the user has an existing avatar image
     if (authUser.avatar) {
       // Deleting the old avatar
-      const { id } = authUser.avatar;
-      const isSuccess = await deleteImage(id);
-
-      if (!isSuccess) {
-        return jsonResponse(
-          "An error occurred while deleting an old avatar",
-          400,
-        );
-      }
+      await deleteImage(authUser.avatar);
     }
+
+    // Saving the new avatar image
+    const avatarUrl = await uploadImage(image, "avatar", authUser.id);
 
     // Updating the user's avatar
-    const user = await changeAvatar(authUser.id, image);
+    const user = await updateUser(authUser.id, { avatar: avatarUrl });
 
-    if (!user) {
-      return jsonResponse("An error occurred while changing the avatar", 400);
-    }
+		const serialized = await serializeJwt(user);
 
-    // Returning a JSON response with user information
-    return jsonResponse(user, 200);
+		// Returning a JSON response with user information and set cookie header
+		return jsonResponse(user, 200, {
+			headers: { "Set-Cookie": serialized },
+		});
   } catch (error) {
     // Handling internal error
     console.log("[USER_AVATAR_PATCH]", error);

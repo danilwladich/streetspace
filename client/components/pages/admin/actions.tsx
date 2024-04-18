@@ -7,7 +7,7 @@ import axios, { type AxiosError } from "axios";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
-export default function Actions({ id }: { id: number }) {
+export default function Actions({ id }: { id: string }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -17,7 +17,7 @@ export default function Actions({ id }: { id: number }) {
 
     try {
       // Send PATCH request to approve marker
-      await axios.patch('/api/admin/map/add', { id });
+      await axios.patch("/api/admin/map/add", { id });
 
       // Refresh page to get new markers data
       router.refresh();
@@ -36,7 +36,7 @@ export default function Actions({ id }: { id: number }) {
 
     try {
       // Send DELETE request to delete marker
-      await axios.delete('/api/admin/map/add', { data: { id } });
+      await axios.delete("/api/admin/map/add", { data: { id } });
 
       // Refresh page to get new markers data
       router.refresh();

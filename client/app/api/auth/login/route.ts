@@ -1,8 +1,10 @@
 import type { NextRequest } from "next/server";
 import { loginSchema } from "@/lib/form-schema";
-import { login, verifyCaptcha } from "@/lib/server-actions";
+import bcrypt from "bcryptjs";
+import { verifyCaptcha } from "@/lib/server-actions";
 import { jsonResponse } from "@/lib/json-response";
 import { serializeJwt } from "@/lib/serialize-jwt";
+import { getUserByEmail, getUserByUsername } from "@/services/user";
 
 export async function POST(req: NextRequest) {
   try {
@@ -17,7 +19,7 @@ export async function POST(req: NextRequest) {
     const { emailOrUsername, password, recaptchaToken } = body.data;
 
     // Verifying the recaptcha token
-    const isRecaptchaCorrect = verifyCaptcha(recaptchaToken);
+    const isRecaptchaCorrect = await verifyCaptcha(recaptchaToken);
 
     // Handling recaptcha verification failure
     if (!isRecaptchaCorrect) {
@@ -28,10 +30,12 @@ export async function POST(req: NextRequest) {
     const itsEmail = emailOrUsername.includes("@");
 
     // Fetching the user from the database
-    const data = await login(emailOrUsername, password);
+    const user = itsEmail
+      ? await getUserByEmail(emailOrUsername)
+      : await getUserByUsername(emailOrUsername);
 
     // Handling non-existent user error
-    if (!data) {
+    if (!user) {
       return jsonResponse(
         {
           field: "password",
@@ -41,13 +45,25 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { jwt, user } = data;
+    // Comparing the provided password with the hashed password
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
-    // Serializing jwt token
-    const serialized = serializeJwt(jwt);
+    // Handling incorrect password error
+    if (!isPasswordCorrect) {
+      return jsonResponse(
+        {
+          field: "password",
+          message: `Incorrect ${itsEmail ? "email" : "username"} or password`,
+        },
+        400,
+      );
+    }
+
+    // Serializing the user object into a JWT token
+    const serialized = await serializeJwt(user);
 
     // Returning a JSON response with user information and set cookie header
-    return jsonResponse(user, 200, {
+    return jsonResponse(user, 201, {
       headers: { "Set-Cookie": serialized },
     });
   } catch (error) {

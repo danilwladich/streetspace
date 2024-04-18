@@ -37,3 +37,6 @@ yarn-error.log*
 next-env.d.ts
 
 .prettierrc
+
+/prisma/dev.db
+/public/uploads
