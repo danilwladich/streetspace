@@ -30,7 +30,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
-export default function EditAvatarForm() {
+export default function ChangeAvatarForm() {
   // Setting up the form using react-hook-form with Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -62,12 +62,12 @@ export default function EditAvatarForm() {
       const formData = parseFormDataFromJson(values);
 
       // Making a PATCH request to the user avatar API endpoint
-      const res = await axios.patch("/api/user/avatar", formData, {
+      const { data } = await axios.patch("/api/user/avatar", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
       // Updating the user state with the new avatar
-      setUser(res.data);
+      setUser(data);
 
       // Close the modal
       onClose();

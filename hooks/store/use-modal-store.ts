@@ -4,7 +4,8 @@ export type ModalType =
   | "change username"
   | "change password"
   | "change avatar"
-  | "image";
+  | "image"
+  | "delete avatar";
 
 type ModalData = {
   src: string;

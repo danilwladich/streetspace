@@ -34,15 +34,41 @@ export async function PATCH(req: NextRequest) {
     // Updating the user's avatar
     const user = await updateUser(authUser.id, { avatar: avatarUrl });
 
-		const serialized = await serializeJwt(user);
+    const serialized = await serializeJwt(user);
 
-		// Returning a JSON response with user information and set cookie header
-		return jsonResponse(user, 200, {
-			headers: { "Set-Cookie": serialized },
-		});
+    // Returning a JSON response with user information and set cookie header
+    return jsonResponse(user, 200, {
+      headers: { "Set-Cookie": serialized },
+    });
   } catch (error) {
     // Handling internal error
     console.log("[USER_AVATAR_PATCH]", error);
+    return jsonResponse("Internal Error", 500);
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const authUser = getAuthUser(req);
+
+    // Checking if the user has an existing avatar image
+    if (authUser.avatar) {
+      // Deleting the old avatar
+      await deleteImage(authUser.avatar);
+    }
+
+    // Updating the user's avatar
+    const user = await updateUser(authUser.id, { avatar: null });
+
+    const serialized = await serializeJwt(user);
+
+    // Returning a JSON response with user information and set cookie header
+    return jsonResponse(user, 200, {
+      headers: { "Set-Cookie": serialized },
+    });
+  } catch (error) {
+    // Handling internal error
+    console.log("[USER_AVATAR_DELETE]", error);
     return jsonResponse("Internal Error", 500);
   }
 }

@@ -16,7 +16,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Fullscreen, ImagePlus } from "lucide-react";
+import { Fullscreen, ImagePlus, Trash2 } from "lucide-react";
 
 export default function UserAvatar({ id, username, avatar }: User) {
   const { onOpen } = useModalStore();
@@ -67,6 +67,13 @@ export default function UserAvatar({ id, username, avatar }: User) {
                     <ImagePlus className="mr-2 h-4 w-4" />
                     <span>Change</span>
                   </DropdownMenuItem>
+
+                  {!isDefaultAvatar && (
+                    <DropdownMenuItem onClick={() => onOpen("delete avatar")}>
+                      <Trash2 className="mr-2 h-4 w-4" />
+                      <span>Delete</span>
+                    </DropdownMenuItem>
+                  )}
                 </DropdownMenuGroup>
               </DropdownMenuContent>
             </DropdownMenu>
