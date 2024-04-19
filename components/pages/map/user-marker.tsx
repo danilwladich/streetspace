@@ -83,3 +83,5 @@ function getIcon(src: string) {
     className: "object-cover rounded-full",
   });
 }
+
+// TODO: Optimize the icon image
