@@ -51,7 +51,7 @@ export default function ImagesField({
   }
 
   return (
-    <FormItem className="overflow-auto [&_label]:has-[input:focus]:border-current">
+    <FormItem className="[&_label]:has-[input:focus-visible]:ring-2 [&_label]:has-[input:focus-visible]:ring-ring">
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
         {selectedImages.map((image, index) => (
           <div

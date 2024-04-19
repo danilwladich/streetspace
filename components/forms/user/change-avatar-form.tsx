@@ -15,6 +15,7 @@ import { useUserImageSrc } from "@/hooks/use-user-image-src";
 import { toast } from "sonner";
 import { useModalStore } from "@/hooks/store/use-modal-store";
 import { parseFormDataFromJson } from "@/lib/formdata-parser";
+import Image from "next/image";
 import type { ErrorResponse } from "@/types/ErrorResponse";
 
 import { Button } from "@/components/ui/button";
@@ -50,8 +51,7 @@ export default function EditAvatarForm() {
   const { user: authUser, setUser } = useAuthStore();
   const { onClose } = useModalStore();
 
-  const avatarUrl = authUser?.avatar?.formats.thumbnail.url;
-  const defaultImageSrc = useUserImageSrc(avatarUrl);
+  const defaultImageSrc = useUserImageSrc(authUser?.avatar);
 
   // Handler for form submission
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -98,6 +98,12 @@ export default function EditAvatarForm() {
     }
   }
 
+  const imageSrc = selectedImage
+    ? URL.createObjectURL(selectedImage)
+    : defaultImageSrc;
+  const alt = authUser?.username || "not auth";
+  const fallback = authUser?.username[0] || "not auth";
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -105,21 +111,21 @@ export default function EditAvatarForm() {
           control={form.control}
           name="image"
           render={({ field }) => (
-            <FormItem className="[&_label]:has-[input:focus]:shadow-xl">
+            <FormItem className="[&_label]:has-[input:focus-visible]:ring-2 [&_label]:has-[input:focus-visible]:ring-ring">
               <div className="mt-4 flex justify-center">
-                <FormLabel className="rounded-full shadow-none shadow-current duration-150">
-                  <Avatar className="h-24 w-24 cursor-pointer">
-                    <AvatarImage
-                      src={
-                        selectedImage
-                          ? URL.createObjectURL(selectedImage)
-                          : defaultImageSrc
-                      }
-                      alt={authUser?.username || "not auth"}
-                    />
-                    <AvatarFallback>
-                      {authUser?.username[0] || "not auth"}
-                    </AvatarFallback>
+                <FormLabel className="rounded-full">
+                  <Avatar className="relative h-24 w-24 cursor-pointer">
+                    <AvatarImage src={imageSrc} asChild>
+                      <Image
+                        src={imageSrc}
+                        alt={alt}
+                        priority
+                        width={100}
+                        height={100}
+                        className="absolute left-0 top-0 h-full w-full object-cover"
+                      />
+                    </AvatarImage>
+                    <AvatarFallback>{fallback}</AvatarFallback>
                   </Avatar>
                 </FormLabel>
               </div>
