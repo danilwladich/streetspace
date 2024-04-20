@@ -4,7 +4,7 @@ import { getAuthUser } from "@/lib/get-auth-user";
 import { emptyJwt } from "@/lib/serialize-jwt";
 
 export function GET(req: NextRequest) {
-  const authUser = getAuthUser(req);
+  const authUser = getAuthUser();
 
   if (!authUser) {
     return jsonResponse("Unauthorized", 401);

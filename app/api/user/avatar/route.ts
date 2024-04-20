@@ -20,7 +20,7 @@ export async function PATCH(req: NextRequest) {
 
     const { image } = body.data as { image: File };
 
-    const authUser = getAuthUser(req);
+    const authUser = getAuthUser();
 
     // Checking if the user has an existing avatar image
     if (authUser.avatar) {
@@ -49,7 +49,7 @@ export async function PATCH(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
-    const authUser = getAuthUser(req);
+    const authUser = getAuthUser();
 
     // Checking if the user has an existing avatar image
     if (authUser.avatar) {

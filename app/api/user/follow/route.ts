@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
       return jsonResponse("User doesn't exist", 400);
     }
 
-    const authUser = getAuthUser(req);
+    const authUser = getAuthUser();
 
     // Check if the user is trying to follow themselves
     if (user.id === authUser.id) {
@@ -54,7 +54,7 @@ export async function DELETE(req: NextRequest) {
       return jsonResponse("User doesn't exist", 400);
     }
 
-    const authUser = getAuthUser(req);
+    const authUser = getAuthUser();
 
     // Check if the user is trying to unfollow themselves
     if (user.id === authUser.id) {

@@ -18,7 +18,7 @@ export async function PATCH(req: NextRequest) {
 
     const { currentPassword, newPassword } = body.data;
 
-    const authUser = getAuthUser(req);
+    const authUser = getAuthUser();
 
     // Comparing the provided password with the hashed password
     const isPasswordCorrect = await bcrypt.compare(

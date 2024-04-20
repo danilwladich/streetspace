@@ -31,7 +31,7 @@ export async function PATCH(req: NextRequest) {
       );
     }
 
-    const authUser = getAuthUser(req);
+    const authUser = getAuthUser();
 
     // Updating the user information
     const user = await updateUser(authUser.id, {

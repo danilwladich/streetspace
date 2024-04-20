@@ -1,6 +1,8 @@
+import { headers } from "next/headers";
 import type { User } from "@prisma/client";
-import type { NextRequest } from "next/server";
 
-export function getAuthUser(req: NextRequest): User {
-  return JSON.parse(req.headers.get("x-auth-user") || "{}");
+export function getAuthUser(): User {
+  const headersList = headers();
+  const authUser = headersList.get("x-auth-user");
+  return JSON.parse(authUser || "{}");
 }

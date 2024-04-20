@@ -1,11 +1,11 @@
 "use client";
 
-import { ModeToggle } from "@/components/pages/settings/theme-button";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
+
+import ModeToggle from "@/components/pages/settings/theme-button";
 import StarsButton from "@/components/pages/settings/stars-button";
 import LogOutButton from "@/components/pages/settings/log-out-button";
 import ChangePasswordButton from "@/components/pages/settings/change-password-button";
-
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Command,

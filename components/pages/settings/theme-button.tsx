@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { CommandItem } from "@/components/ui/command";
 
-export function ModeToggle() {
+export default function ModeToggle() {
   const { setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 

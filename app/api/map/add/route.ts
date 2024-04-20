@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
       return jsonResponse("Antibot system not passed", 400);
     }
 
-    const authUser = getAuthUser(req);
+    const authUser = getAuthUser();
 
     // Handling image upload
     const imagesUrl = [];
