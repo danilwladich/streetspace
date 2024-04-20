@@ -20,6 +20,8 @@ type MarkerType = Prisma.MarkerGetPayload<{
   include: { addedBy: true };
 }>;
 
+// TODO: Add actions (Like, report etc)
+
 export function Marker({
   name,
   address,
