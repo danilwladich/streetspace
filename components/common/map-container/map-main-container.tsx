@@ -13,13 +13,13 @@ import Controls from "./controls/map-controls";
 
 export default function MapMainContainer({
   position,
-  zoom = 14,
+  zoom,
   props,
   withUserLocation,
   children,
 }: {
   position: LatLngExpression;
-  zoom?: number;
+  zoom?: number | null;
   props?: MapContainerProps;
   withUserLocation?: boolean;
   children: React.ReactNode;
@@ -30,7 +30,7 @@ export default function MapMainContainer({
     <>
       <LMapContainer
         center={position}
-        zoom={zoom}
+        zoom={zoom || 14}
         zoomControl={false}
         ref={setMap}
         className="absolute left-0 top-0 z-0 h-full w-full"

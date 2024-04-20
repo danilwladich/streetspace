@@ -12,7 +12,7 @@ import MarkerInput from "./marker-input";
 import { toast } from "sonner";
 
 export default function Markers() {
-  const { bounds, setBounds, setLoadingMarkers } = useMapStore();
+  const { bounds, setBounds, setLoadingMarkers,    setPosition,setZoom, } = useMapStore();
   const [markers, setMarkers] = useState<Marker[]>([]);
 
   const map = useMap();
@@ -27,6 +27,18 @@ export default function Markers() {
         lngMax: parseFloat(b[2]),
       };
       setBounds(currentBounds);
+
+      setPosition(e.target.getCenter());
+      setZoom(e.target.getZoom());
+
+      localStorage.setItem(
+        "mapData",
+        JSON.stringify({
+          position: e.target.getCenter(),
+          zoom: e.target.getZoom(),
+          bounds: currentBounds,
+        }),
+      );
     });
 
     return () => {

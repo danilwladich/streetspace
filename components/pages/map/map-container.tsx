@@ -7,10 +7,10 @@ import Markers from "./markers";
 import MapStatus from "./map-status";
 
 export default function MapContainer() {
-  const { userPosition } = useMapStore();
+  const { position, zoom } = useMapStore();
 
   return (
-    <MapMainContainer position={userPosition || [52.243427, 21.001797]}>
+    <MapMainContainer position={position || [52.243427, 21.001797]} zoom={zoom}>
       <Markers />
       <MapStatus />
     </MapMainContainer>

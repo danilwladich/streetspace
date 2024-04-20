@@ -1,21 +1,32 @@
 "use client";
 
 import { useEffect } from "react";
-import { useUserImageSrc } from "@/hooks/use-user-image-src";
+import Image from "next/image";
+import ReactDOMServer from "react-dom/server";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
+import { useUserImageSrc } from "@/hooks/use-user-image-src";
 import {
   MAP_ICON_SIZE,
   useMapStore,
   type Bounds,
 } from "@/hooks/store/use-map-store";
 
-import { Icon, Point } from "leaflet";
+import { divIcon, Point } from "leaflet";
 import { Marker, Popup, useMap } from "react-leaflet";
 
 export default function UserMarker() {
-  const { userPosition, setLoadingUserPosition, setUserPosition, setBounds } =
-    useMapStore();
+  const {
+    position,
+    userPosition,
+    setLoadingUserPosition,
+    setPosition,
+    setZoom,
+    setUserPosition,
+    setBounds,
+  } = useMapStore();
   const { user } = useAuthStore();
+
+  const avatarSrc = useUserImageSrc(user?.avatar);
 
   const map = useMap();
 
@@ -36,14 +47,21 @@ export default function UserMarker() {
         };
         setBounds(currentBounds);
 
-        localStorage.setItem(
-          "mapData",
-          JSON.stringify({ userPosition: e.latlng, bounds: currentBounds }),
-        );
-
-        if (userPosition) {
+        if (position || userPosition) {
           return;
         }
+
+        setPosition(e.latlng);
+        setZoom(e.target.getZoom());
+
+        localStorage.setItem(
+          "mapData",
+          JSON.stringify({
+            position: e.latlng,
+            zoom: e.target.getZoom(),
+            bounds: currentBounds,
+          }),
+        );
 
         map.flyTo(e.latlng, map.getZoom(), { duration: 0.5 });
       })
@@ -59,29 +77,32 @@ export default function UserMarker() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map]);
 
-  const src = useUserImageSrc(user?.avatar);
-  const icon = getIcon(src);
-
   if (!userPosition) {
     return null;
   }
 
   return (
-    <Marker position={userPosition} icon={icon}>
+    <Marker position={userPosition} icon={getIcon(avatarSrc)}>
       <Popup>You are here</Popup>
     </Marker>
   );
 }
 
 function getIcon(src: string) {
-  return new Icon({
-    iconUrl: src,
-    iconRetinaUrl: src,
+  return divIcon({
+    html: ReactDOMServer.renderToString(
+      <Image
+        src={src}
+        alt="user"
+        priority
+        width={MAP_ICON_SIZE}
+        height={MAP_ICON_SIZE}
+        className="absolute left-0 top-0 !h-full !w-full rounded-full object-cover"
+      />,
+    ),
     iconSize: new Point(MAP_ICON_SIZE, MAP_ICON_SIZE),
     iconAnchor: new Point(MAP_ICON_SIZE / 2, MAP_ICON_SIZE / 2),
     popupAnchor: new Point(0, -(MAP_ICON_SIZE / 2)),
-    className: "object-cover rounded-full",
+    className: "relative",
   });
 }
-
-// TODO: Optimize the icon image
