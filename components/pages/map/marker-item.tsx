@@ -1,11 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { Marker, Popup } from "react-leaflet";
 import Link from "next/link";
 import Image from "next/image";
 import { divIcon, Point } from "leaflet";
 import { MAP_ICON_SIZE } from "@/hooks/store/use-map-store";
 import type { Marker as MarkerType } from "@prisma/client";
+
+import { LoaderCircle } from "lucide-react";
 
 export default function MarkerItem({
   id,
@@ -15,6 +18,8 @@ export default function MarkerItem({
   address,
   images,
 }: MarkerType) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
   const imageSrc = JSON.parse(images)[0];
 
   return (
@@ -22,11 +27,18 @@ export default function MarkerItem({
       <Popup autoPan={false} maxWidth={280} minWidth={280}>
         <Link href={`/map/location/${id}`} className="block py-1 !text-black">
           <div className="relative aspect-video w-full">
+            {!isLoaded && (
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                <LoaderCircle className="h-8 w-8 animate-spin opacity-70" />
+              </div>
+            )}
+
             <Image
               src={imageSrc}
               alt={name}
-              width={250}
-              height={250}
+              width={280}
+              height={280}
+              onLoad={() => setIsLoaded(true)}
               className="absolute left-0 top-0 h-full w-full rounded object-cover"
             />
           </div>
