@@ -20,23 +20,20 @@ export default function MarkerItem({
   return (
     <Marker position={[lat, lng]} icon={getIcon()}>
       <Popup autoPan={false} maxWidth={280} minWidth={280}>
-        <Link
-          href={`/map/location/${id}`}
-          className="flex flex-col gap-2 !text-black"
-        >
-          <h3 className="text-base font-bold">{name}</h3>
-
-          <span>{address}</span>
-
+        <Link href={`/map/location/${id}`} className="block py-1 !text-black">
           <div className="relative aspect-video w-full">
             <Image
               src={imageSrc}
               alt={name}
               width={250}
               height={250}
-              className="absolute left-0 top-0 h-full w-full object-cover"
+              className="absolute left-0 top-0 h-full w-full rounded object-cover"
             />
           </div>
+
+          <h3 className="mt-1 text-base font-bold">{name}</h3>
+
+          <span className="opacity-70">{address}</span>
         </Link>
       </Popup>
     </Marker>

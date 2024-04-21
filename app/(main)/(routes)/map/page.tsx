@@ -19,5 +19,9 @@ export default function Map() {
     [],
   );
 
-  return <MapContainer />;
+  return (
+    <div>
+      <MapContainer />
+    </div>
+  );
 }
