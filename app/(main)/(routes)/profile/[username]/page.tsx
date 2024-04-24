@@ -31,7 +31,6 @@ export default async function Profile({
 
   const user = await getUserByUsername(username);
 
-  await new Promise((resolve) => setTimeout(resolve, 1000));
   if (!user) {
     return <NotFound text="User not found" />;
   }
