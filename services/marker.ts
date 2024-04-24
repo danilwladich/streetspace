@@ -1,15 +1,14 @@
 import { db } from "@/lib/db";
-import type { Marker, Prisma } from "@prisma/client";
+import type { Marker } from "@prisma/client";
 
-export async function getMarkerById(
-  id: string,
-  include: Prisma.MarkerInclude = {},
-) {
+export async function getMarkerById(id: string) {
   return db.marker.findFirst({
     where: {
       id,
     },
-    include,
+    include: {
+      addedBy: true,
+    },
   });
 }
 
@@ -36,6 +35,14 @@ export async function getMarkers({
         lte: parseFloat(lngMax),
       },
     },
+    select: {
+      id: true,
+      name: true,
+      lat: true,
+      lng: true,
+      address: true,
+      images: true,
+    },
   });
 }
 
@@ -45,7 +52,11 @@ export async function getUnconfirmedMarkers() {
       confirmed: false,
     },
     include: {
-      addedBy: true,
+      addedBy: {
+        select: {
+          username: true,
+        },
+      },
     },
   });
 }
@@ -77,6 +88,17 @@ export async function deleteMarker(id: string) {
   return db.marker.delete({
     where: {
       id,
+    },
+  });
+}
+
+export async function getUserMarkersCount(userId: string) {
+  return db.marker.count({
+    where: {
+      confirmed: true,
+      addedBy: {
+        id: userId,
+      },
     },
   });
 }

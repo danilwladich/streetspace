@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-export default function EditUsernameForm() {
+export default function ChangeUsernameForm() {
   // Setting up the form using react-hook-form with Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -49,10 +49,10 @@ export default function EditUsernameForm() {
 
     try {
       // Making a PATCH request to the user username API endpoint
-      const res = await axios.patch("/api/user/username", values);
+      const { data } = await axios.patch("/api/user/username", values);
 
       // Updating the user state with the new username
-      setUser(res.data);
+      setUser(data);
 
       // Close the modal
       onClose();
@@ -67,7 +67,7 @@ export default function EditUsernameForm() {
 
       // Handling non-response errors
       if (!res) {
-        toast.error("Edit username error", { description: error.message });
+        toast.error("Change username error", { description: error.message });
         return;
       }
 

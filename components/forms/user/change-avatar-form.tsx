@@ -82,7 +82,7 @@ export default function ChangeAvatarForm() {
 
       // Handling non-response errors
       if (!res) {
-        toast.error("Edit avatar error", { description: error.message });
+        toast.error("Change avatar error", { description: error.message });
         return;
       }
 

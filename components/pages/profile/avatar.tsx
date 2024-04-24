@@ -32,7 +32,7 @@ export default function UserAvatar({ id, username, avatar }: User) {
   }
 
   return (
-    <Avatar className="h-20 w-20 has-[button:focus-visible]:ring-2 has-[button:focus-visible]:ring-ring md:h-24 md:w-24">
+    <Avatar className="h-24 w-24 has-[button:focus-visible]:ring-2 has-[button:focus-visible]:ring-ring md:h-36 md:w-36">
       <AvatarImage asChild src={avatarSrc}>
         <>
           {isOwner && (
@@ -43,8 +43,8 @@ export default function UserAvatar({ id, username, avatar }: User) {
                     src={avatarSrc}
                     alt={username}
                     priority
-                    width={100}
-                    height={100}
+                    width={150}
+                    height={150}
                     className="absolute left-0 top-0 h-full w-full object-cover"
                   />
                 </button>
@@ -88,8 +88,8 @@ export default function UserAvatar({ id, username, avatar }: User) {
                 src={avatarSrc}
                 alt={username}
                 priority
-                width={100}
-                height={100}
+                width={150}
+                height={150}
                 className="absolute left-0 top-0 h-full w-full object-cover"
               />
             </button>
@@ -101,8 +101,8 @@ export default function UserAvatar({ id, username, avatar }: User) {
                 src={avatarSrc}
                 alt={username}
                 priority
-                width={100}
-                height={100}
+                width={150}
+                height={150}
                 className="absolute left-0 top-0 h-full w-full object-cover"
               />
             </div>

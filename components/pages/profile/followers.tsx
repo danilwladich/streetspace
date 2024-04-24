@@ -1,9 +1,11 @@
-import Link from "next/link";
-import { getFollowersCountByUsername, getFollowingsCountByUsername } from "@/services/follow";
+import {
+  getFollowersCountByUsername,
+  getFollowingsCountByUsername,
+} from "@/services/follow";
 
-import { Button } from "@/components/ui/button";
+import { Dot } from "lucide-react";
 
-export default async function Followers({
+export default async function UserFollowers({
   username,
 }: {
   username: string;
@@ -13,17 +15,15 @@ export default async function Followers({
 
   return (
     <>
-      <Link href={`/followers/${username}`} className="flex-1">
-        <Button tabIndex={-1} variant="outline" className="w-full">
-          Followers {followersCount}
-        </Button>
-      </Link>
+      <div className="flex items-center gap-1 text-sm opacity-70">
+        <span className="font-semibold">{followersCount}</span>
+        <span>followers</span>
 
-      <Link href={`/followings/${username}`} className="flex-1">
-        <Button tabIndex={-1} variant="outline" className="w-full">
-          Followings {followingsCount}
-        </Button>
-      </Link>
+        <Dot className="h-4 w-4" />
+        
+        <span className="font-semibold">{followingsCount}</span>
+        <span>followings</span>
+      </div>
     </>
   );
 }

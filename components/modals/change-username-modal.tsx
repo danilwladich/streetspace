@@ -7,12 +7,12 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-export default function ChangeProfileModal() {
+export default function ChangeUsernameModal() {
   return (
     <DialogContent className="sm:max-w-md">
       <DialogHeader>
         <DialogTitle>Change username</DialogTitle>
-        <DialogDescription>Make your username unique</DialogDescription>
+        <DialogDescription>Make your username unique.</DialogDescription>
       </DialogHeader>
 
       <ChangeUsernameForm />

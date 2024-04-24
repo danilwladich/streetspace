@@ -18,7 +18,12 @@ model User {
 
   role String @default("USER")
 
-  avatar String?
+  avatar      String?
+  socialMedia String?
+  city        String?
+  country     String?
+  dateOfBirth DateTime?
+  bio         String?
 
   followings Follow[] @relation(name: "followings")
   followers  Follow[] @relation(name: "followers")

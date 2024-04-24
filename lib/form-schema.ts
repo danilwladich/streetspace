@@ -1,3 +1,4 @@
+import moment from "moment";
 import * as z from "zod";
 
 const MAX_FILE_SIZE = 1024 * 1024 * 5;
@@ -107,6 +108,88 @@ export const editUsernameSchema = z.object({
     })
     .max(16, { message: "Username must be less than 16 characters." }),
 });
+
+export const editProfileSchema = z
+  .object({
+    avatar: z
+      .any()
+      .refine(
+        (file?: File) => (file ? file.size <= MAX_FILE_SIZE : true),
+        `Max image size is ${MAX_FILE_SIZE_STRING}.`,
+      )
+      .refine(
+        (file?: File) =>
+          file ? ACCEPTED_IMAGE_TYPES.includes(file.type) : true,
+        `Only ${ACCEPTED_IMAGE_TYPES_STRING} formats are supported.`,
+      ),
+    dateOfBirth: z
+      .string()
+      .regex(/^\d{4}-\d{2}-\d{2}$/g, "Invalid date format.")
+      .refine(
+        (date) =>
+          moment(date).toDate() <= moment().subtract(16, "years").toDate(),
+        "You must be at least 16 years old.",
+      )
+      .refine(
+        (date) =>
+          moment(date).toDate() >= moment().subtract(120, "years").toDate(),
+        "You must be at most 120 years old.",
+      )
+      .optional(),
+    country: z
+      .string()
+      .trim()
+      .max(20, { message: "Country must be less than 20 characters." })
+      .optional(),
+    city: z
+      .string()
+      .trim()
+      .max(20, { message: "City must be less than 20 characters." })
+      .optional(),
+    socialMedia: z.object({
+      facebook: z
+        .string()
+        .regex(
+          /(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-\.]*\/)*([\w\-\.]*)\/?(?:[\?#]?.*)/gi,
+          "Invalid Facebook URL.",
+        )
+        .optional(),
+      twitter: z
+        .string()
+        .regex(
+          /(https?:\/\/twitter.com\/(\w+))\/?(?:[\?#]?.*)/gi,
+          "Invalid Twitter URL.",
+        )
+        .optional(),
+      instagram: z
+        .string()
+        .regex(
+          /(?:(?:https?):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)\/(\w+)\/?(?:[\?#]?.*)/gi,
+          "Invalid Instagram URL.",
+        )
+        .optional(),
+      youtube: z
+        .string()
+        .regex(
+          /^(?:https?:\/\/)?(?:(?:www|gaming)\.)?youtube\.com\/@?(\w+)\/?(?:[\?#]?.*)/gi,
+          "Invalid YouTube URL.",
+        )
+        .optional(),
+    }),
+  })
+  .refine((data) => !(!data.country && !!data.city), {
+    message: "Provide the country.",
+    path: ["country"],
+  })
+  .refine(
+    (data) =>
+      Object.values(data).some(Boolean) ||
+      Object.values(data.socialMedia).some(Boolean),
+    {
+      message: "At least one field must be filled.",
+      path: ["avatar"],
+    },
+  );
 
 export const editAvatarSchema = z.object({
   image: z

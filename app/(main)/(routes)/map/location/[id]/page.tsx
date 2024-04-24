@@ -18,7 +18,7 @@ export async function generateMetadata({
 }
 
 export default async function Location({ params }: { params: { id: string } }) {
-  const marker = await getMarkerById(params.id, { addedBy: true });
+  const marker = await getMarkerById(params.id);
 
   if (!marker) {
     return <NotFound text="Location not found" />;
@@ -26,3 +26,5 @@ export default async function Location({ params }: { params: { id: string } }) {
 
   return <Marker {...marker} />;
 }
+
+// TODO: Add a loading skeleton
