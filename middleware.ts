@@ -129,7 +129,7 @@ export async function middleware(req: NextRequest) {
 export const config = {
   matcher: [
     "/auth",
-    "/admin",
+    "/admin/:path*",
     "/profile/:path?",
     "/map/adding",
     "/api/auth/me",
