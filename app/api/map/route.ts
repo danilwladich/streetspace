@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
     }
 
     const data = await getMarkers(body.data);
-    
+
     return jsonResponse(data, 200);
   } catch (error) {
     // Handling internal error

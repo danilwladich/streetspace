@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useModalStore } from "@/hooks/store/use-modal-store";
 import { toast } from "sonner";
+import { useAppTranslation } from "@/hooks/use-app-translation";
 import type { ErrorResponse } from "@/types/ErrorResponse";
 
 import FormPasswordInput from "@/components/common/forms/form-password-input";
@@ -22,6 +23,8 @@ import {
 } from "@/components/ui/form";
 
 export default function ChangePasswordForm() {
+  const { t } = useAppTranslation("forms.changePassword");
+
   // Setting up the form using react-hook-form with Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -64,7 +67,7 @@ export default function ChangePasswordForm() {
 
       // Handling non-response errors
       if (!res) {
-        toast.error("Change password error", { description: error.message });
+        toast.error(t("submitError"), { description: error.message });
         return;
       }
 
@@ -76,7 +79,7 @@ export default function ChangePasswordForm() {
 
       // Setting form error for a specific field
       const { field, message } = res.data;
-      form.setError(field, { message });
+      form.setError(field, { message: t(message) });
     }
   }
 
@@ -91,11 +94,11 @@ export default function ChangePasswordForm() {
           name="currentPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Current password</FormLabel>
+              <FormLabel>{t("currentPassword")}</FormLabel>
               <FormPasswordInput
                 field={field}
                 autoComplete="off"
-                placeholder="Current password"
+                placeholder={t("currentPassword")}
                 disabled={isSubmitting}
               />
               <FormMessage />
@@ -108,11 +111,11 @@ export default function ChangePasswordForm() {
           name="newPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>New password</FormLabel>
+              <FormLabel>{t("newPassword")}</FormLabel>
               <FormPasswordInput
                 field={field}
                 autoComplete="new-password"
-                placeholder="New password"
+                placeholder={t("newPassword")}
                 disabled={isSubmitting}
               />
               <FormMessage />
@@ -125,11 +128,11 @@ export default function ChangePasswordForm() {
           name="passwordConfirmation"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm new password</FormLabel>
+              <FormLabel>{t("passwordConfirmation")}</FormLabel>
               <FormPasswordInput
                 field={field}
                 autoComplete="new-password"
-                placeholder="Confirm new password"
+                placeholder={t("passwordConfirmation")}
                 disabled={isSubmitting}
               />
               <FormMessage />
@@ -144,7 +147,7 @@ export default function ChangePasswordForm() {
         )}
 
         <Button type="submit" disabled={isSubmitting}>
-          Save
+          {t("submit")}
         </Button>
       </form>
     </Form>

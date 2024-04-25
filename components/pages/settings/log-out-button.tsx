@@ -3,11 +3,14 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useAppTranslation } from "@/hooks/use-app-translation";
 
 import { LogOut } from "lucide-react";
 import { CommandItem } from "@/components/ui/command";
 
 export default function LogOutButton() {
+  const { t } = useAppTranslation("pages.settings");
+
   const router = useRouter();
 
   async function onLogOut() {
@@ -34,7 +37,7 @@ export default function LogOutButton() {
     <CommandItem className="flex w-full items-center gap-2" onSelect={onLogOut}>
       <LogOut className="h-4 w-4" />
 
-      <span className="flex-1">Log out</span>
+      <span className="flex-1">{t("logOut")}</span>
     </CommandItem>
   );
 }

@@ -1,0 +1,40 @@
+{
+  "translation": {
+    "pages": {
+      "settings": {
+        "command": {
+          "placeholder": "Szukaj...",
+          "empty": "Nie znaleziono wyników.",
+          "group": {
+            "general": "Ogólne",
+            "profile": "Profil"
+          }
+        },
+        "languageToggle": "Język",
+        "themeToggle": {
+          "label": "Przełącz motyw",
+          "light": "Jasny",
+          "dark": "Ciemny",
+          "system": "Systemowy"
+        },
+        "stars": "Oceń na GitHubie",
+        "changePassword": "Zmień hasło",
+        "logOut": "Wyloguj się"
+      }
+    },
+    "forms": {
+      "changePassword": {
+        "title": "Zmień hasło",
+        "description": "Zmień swoje hasło. Po zapisaniu zostaniesz wylogowany",
+        "currentPassword": "Obecne hasło",
+        "newPassword": "Nowe hasło",
+        "passwordConfirmation": "Potwierdź hasło",
+        "submit": "Zmień hasło",
+        "submitError": "Błąd zmiany hasła",
+        "Validation Error": "Błąd walidacji",
+        "Incorrect password": "Nieprawidłowe hasło",
+        "Internal Error": "Błąd wewnętrzny"
+      }
+    }
+  }
+}

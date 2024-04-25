@@ -8,12 +8,9 @@ import type { User } from "@prisma/client";
 import { AppLoader } from "@/components/ui/app-loader";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const { data, isLoading, error } = useClientFetching<User>(
-    "/api/auth/me",
-    {
-      errorRetryCount: 0,
-    },
-  );
+  const { data, isLoading, error } = useClientFetching<User>("/api/auth/me", {
+    errorRetryCount: 0,
+  });
   const { isChecked, setUser } = useAuthStore();
 
   useLayoutEffect(() => {

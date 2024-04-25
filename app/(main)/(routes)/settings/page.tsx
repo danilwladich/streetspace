@@ -1,8 +1,10 @@
 "use client";
 
 import { useAuthStore } from "@/hooks/store/use-auth-store";
+import { useAppTranslation } from "@/hooks/use-app-translation";
 
-import ModeToggle from "@/components/pages/settings/theme-button";
+import ThemeToggle from "@/components/pages/settings/theme-toggle";
+import LanguageToggle from "@/components/pages/settings/language-toggle";
 import StarsButton from "@/components/pages/settings/stars-button";
 import LogOutButton from "@/components/pages/settings/log-out-button";
 import ChangePasswordButton from "@/components/pages/settings/change-password-button";
@@ -17,18 +19,22 @@ import {
 } from "@/components/ui/command";
 
 export default function Settings() {
+  const { t } = useAppTranslation("pages.settings.command");
+
   const { user: authUser } = useAuthStore();
 
   return (
     <Card className="max-w-lg">
       <CardContent>
         <Command>
-          <CommandInput tabIndex={1} placeholder="Search..." />
+          <CommandInput tabIndex={1} placeholder={t("placeholder")} />
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandEmpty>{t("empty")}</CommandEmpty>
 
-            <CommandGroup heading="General">
-              <ModeToggle />
+            <CommandGroup heading={t("group.general")}>
+              <ThemeToggle />
+
+              <LanguageToggle />
 
               <StarsButton />
             </CommandGroup>
@@ -37,7 +43,7 @@ export default function Settings() {
               <>
                 <CommandSeparator />
 
-                <CommandGroup heading="Profile">
+                <CommandGroup heading={t("group.profile")}>
                   <ChangePasswordButton />
 
                   <LogOutButton />

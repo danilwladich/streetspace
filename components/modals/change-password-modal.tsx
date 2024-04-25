@@ -1,4 +1,7 @@
+"use client";
+
 import ChangePasswordForm from "@/components/forms/settings/change-password-form";
+import { useAppTranslation } from "@/hooks/use-app-translation";
 
 import {
   DialogContent,
@@ -8,13 +11,13 @@ import {
 } from "@/components/ui/dialog";
 
 export default function ChangePasswordModal() {
+  const { t } = useAppTranslation("forms.changePassword");
+
   return (
     <DialogContent className="sm:max-w-md">
       <DialogHeader>
-        <DialogTitle>Change password</DialogTitle>
-        <DialogDescription>
-          Change your password. After saving, you&apos;ll be logged out
-        </DialogDescription>
+        <DialogTitle>{t("title")}</DialogTitle>
+        <DialogDescription>{t("description")}</DialogDescription>
       </DialogHeader>
 
       <ChangePasswordForm />

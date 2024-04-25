@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useAppTranslation } from "@/hooks/use-app-translation";
 
 import {
   DropdownMenu,
@@ -12,7 +13,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { CommandItem } from "@/components/ui/command";
 
-export default function ModeToggle() {
+export default function ThemeToggle() {
+  const { t } = useAppTranslation("pages.settings.themeToggle");
+
   const { setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -25,18 +28,18 @@ export default function ModeToggle() {
         >
           <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="flex-1">Toggle theme</span>
+          <span className="flex-1">{t("label")}</span>
         </CommandItem>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start">
         <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
+          {t("light")}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
+          {t("dark")}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
+          {t("system")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
