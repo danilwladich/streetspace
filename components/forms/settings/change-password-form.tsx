@@ -9,8 +9,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useModalStore } from "@/hooks/store/use-modal-store";
 import { toast } from "sonner";
-import { useAppTranslation } from "@/hooks/use-app-translation";
 import type { ErrorResponse } from "@/types/ErrorResponse";
+import { useTranslation } from "react-i18next";
 
 import FormPasswordInput from "@/components/common/forms/form-password-input";
 import { Button } from "@/components/ui/button";
@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form";
 
 export default function ChangePasswordForm() {
-  const { t } = useAppTranslation("forms.changePassword");
+  const { t } = useTranslation("forms", { keyPrefix: "changePassword" });
 
   // Setting up the form using react-hook-form with Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({
@@ -79,7 +79,7 @@ export default function ChangePasswordForm() {
 
       // Setting form error for a specific field
       const { field, message } = res.data;
-      form.setError(field, { message: t(message) });
+      form.setError(field, { message });
     }
   }
 

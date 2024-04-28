@@ -1,0 +1,20 @@
+{
+  "command": {
+    "placeholder": "Search...",
+    "empty": "No results found.",
+    "group": {
+      "general": "General",
+      "profile": "Profile"
+    }
+  },
+  "languageToggle": "Language",
+  "themeToggle": {
+    "label": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "stars": "Leave a star on GitHub",
+  "changePassword": "Change password",
+  "logOut": "Log out"
+}

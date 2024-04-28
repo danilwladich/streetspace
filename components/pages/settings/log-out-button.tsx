@@ -3,13 +3,13 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useAppTranslation } from "@/hooks/use-app-translation";
+import { useTranslation } from "react-i18next";
 
 import { LogOut } from "lucide-react";
 import { CommandItem } from "@/components/ui/command";
 
 export default function LogOutButton() {
-  const { t } = useAppTranslation("pages.settings");
+  const { t } = useTranslation("settings");
 
   const router = useRouter();
 

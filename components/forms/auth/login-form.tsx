@@ -10,6 +10,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 import type { ErrorResponse } from "@/types/ErrorResponse";
 
 import Recaptcha from "@/components/common/forms/recaptcha";
@@ -26,6 +27,8 @@ import {
 import { Input } from "@/components/ui/input";
 
 export default function Login() {
+  const { t } = useTranslation("forms", { keyPrefix: "signIn" });
+
   // Setting up the form using react-hook-form with Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -62,7 +65,7 @@ export default function Login() {
       // Handling recaptcha errors
       if (!recaptchaToken) {
         recaptchaRef.current?.reset();
-        setSubmitError("Recaptcha error");
+        setSubmitError(t("recaptchaError"));
         return;
       }
 
@@ -90,7 +93,7 @@ export default function Login() {
 
       // Handling non-response errors
       if (!res) {
-        toast.error("Login error", { description: error.message });
+        toast.error(t("submitError"), { description: error.message });
         return;
       }
 
@@ -114,11 +117,11 @@ export default function Login() {
           name="emailOrUsername"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email or username</FormLabel>
+              <FormLabel>{t("emailOrUsername")}</FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  placeholder="example@mail.com | username"
+                  placeholder={t("emailOrUsername")}
                   disabled={isSubmitting}
                 />
               </FormControl>
@@ -132,10 +135,10 @@ export default function Login() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>{t("password")}</FormLabel>
               <FormPasswordInput
                 field={field}
-                placeholder="Current password"
+                placeholder={t("password")}
                 disabled={isSubmitting}
               />
               <FormMessage />
@@ -152,7 +155,7 @@ export default function Login() {
         )}
 
         <Button type="submit" className="w-full" disabled={isSubmitting}>
-          Sign in
+          {t("submit")}
         </Button>
       </form>
     </Form>

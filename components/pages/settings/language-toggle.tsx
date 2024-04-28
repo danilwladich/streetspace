@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useLanguageStore } from "@/hooks/store/use-language";
-import { useAppTranslation } from "@/hooks/use-app-translation";
 import { languages } from "@/components/providers/translation-provider";
+import { useTranslation } from "react-i18next";
 
 import {
   DropdownMenu,
@@ -20,7 +20,7 @@ const langMap: Record<(typeof languages)[number], string> = {
 };
 
 export default function LanguageToggle() {
-  const { t } = useAppTranslation("pages.settings");
+  const { t } = useTranslation("settings");
 
   const { setLang } = useLanguageStore();
   const [isOpen, setIsOpen] = useState(false);

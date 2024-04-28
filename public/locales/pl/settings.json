@@ -1,0 +1,20 @@
+{
+  "command": {
+    "placeholder": "Szukaj...",
+    "empty": "Nie znaleziono wyników.",
+    "group": {
+      "general": "Ogólne",
+      "profile": "Profil"
+    }
+  },
+  "languageToggle": "Język",
+  "themeToggle": {
+    "label": "Przełącz motyw",
+    "light": "Jasny",
+    "dark": "Ciemny",
+    "system": "Systemowy"
+  },
+  "stars": "Oceń na GitHubie",
+  "changePassword": "Zmień hasło",
+  "logOut": "Wyloguj się"
+}

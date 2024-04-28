@@ -1,8 +1,9 @@
 "use client";
 
 import { useAuthStore } from "@/hooks/store/use-auth-store";
-import { NavLink } from "./nav-link";
+import { useTranslation } from "react-i18next";
 
+import { NavLink } from "./nav-link";
 import {
   Home,
   Map,
@@ -19,6 +20,7 @@ export interface ILink {
 }
 
 export function Navigation() {
+  const { t } = useTranslation("layout", { keyPrefix: "navigation" });
   const { user: authUser } = useAuthStore();
 
   const isAdmin = authUser?.role === "ADMIN";
@@ -28,34 +30,34 @@ export function Navigation() {
       ? [
           {
             path: "/admin",
-            name: "Admin",
+            name: t("admin"),
             icon: <ShieldCheck className="h-4 w-4" />,
           },
         ]
       : []),
     {
       path: "/",
-      name: "Home",
+      name: t("home"),
       icon: <Home className="h-4 w-4" />,
     },
     {
       path: "/questions",
-      name: "Q&A",
+      name: t("Q&A"),
       icon: <CircleHelp className="h-4 w-4" />,
     },
     {
       path: "/map",
-      name: "Map",
+      name: t("map"),
       icon: <Map className="h-4 w-4" />,
     },
     {
       path: authUser ? `/profile/${authUser.username}` : "/auth",
-      name: authUser ? "Profile" : "Sing in",
+      name: authUser ? t("profile") : t("singIn"),
       icon: <User className="h-4 w-4" />,
     },
     {
       path: "/settings",
-      name: "Settings",
+      name: t("settings"),
       icon: <Settings className="h-4 w-4" />,
     },
   ];

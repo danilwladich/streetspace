@@ -1,15 +1,15 @@
 "use client";
 
-import { useAppTranslation } from "@/hooks/use-app-translation";
 import { useClientFetching } from "@/hooks/use-client-fetching";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 import { Star } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CommandItem } from "@/components/ui/command";
 
 export default function StarsButton() {
-  const { t } = useAppTranslation("pages.settings");
+  const { t } = useTranslation("settings");
 
   const router = useRouter();
 

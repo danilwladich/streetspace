@@ -10,6 +10,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 import type { ErrorResponse } from "@/types/ErrorResponse";
 
 import Recaptcha from "@/components/common/forms/recaptcha";
@@ -26,6 +27,8 @@ import {
 import { Input } from "@/components/ui/input";
 
 export default function Register() {
+  const { t } = useTranslation("forms", { keyPrefix: "signUp" });
+
   // Setting up the form using react-hook-form with Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -64,7 +67,7 @@ export default function Register() {
       // Handling recaptcha errors
       if (!recaptchaToken) {
         recaptchaRef.current?.reset();
-        setSubmitError("Recaptcha error");
+        setSubmitError(t("recaptchaError"));
         return;
       }
 
@@ -92,7 +95,7 @@ export default function Register() {
 
       // Handling non-response errors
       if (!res) {
-        toast.error("Register error", { description: error.message });
+        toast.error(t("submitError"), { description: error.message });
         return;
       }
 
@@ -116,11 +119,11 @@ export default function Register() {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>{t("username")}</FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  placeholder="Username"
+                  placeholder={t("username")}
                   disabled={isSubmitting}
                 />
               </FormControl>
@@ -134,11 +137,11 @@ export default function Register() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>{t("email")}</FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  placeholder="example@mail.com"
+                  placeholder={t("email")}
                   disabled={isSubmitting}
                 />
               </FormControl>
@@ -152,10 +155,10 @@ export default function Register() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>{t("password")}</FormLabel>
               <FormPasswordInput
                 field={field}
-                placeholder="Password"
+                placeholder={t("password")}
                 disabled={isSubmitting}
               />
               <FormMessage />
@@ -168,10 +171,10 @@ export default function Register() {
           name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm password</FormLabel>
+              <FormLabel>{t("passwordConfirmation")}</FormLabel>
               <FormPasswordInput
                 field={field}
-                placeholder="Confirm password"
+                placeholder={t("passwordConfirmation")}
                 disabled={isSubmitting}
               />
               <FormMessage />
@@ -188,7 +191,7 @@ export default function Register() {
         )}
 
         <Button type="submit" className="w-full" disabled={isSubmitting}>
-          Sign up
+          {t("submit")}
         </Button>
       </form>
     </Form>

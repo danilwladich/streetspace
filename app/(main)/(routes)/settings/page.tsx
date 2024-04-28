@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/hooks/store/use-auth-store";
-import { useAppTranslation } from "@/hooks/use-app-translation";
+import { useTranslation } from "react-i18next";
 
 import ThemeToggle from "@/components/pages/settings/theme-toggle";
 import LanguageToggle from "@/components/pages/settings/language-toggle";
@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/command";
 
 export default function Settings() {
-  const { t } = useAppTranslation("pages.settings.command");
+  const { t } = useTranslation("settings", { keyPrefix: "command" });
 
   const { user: authUser } = useAuthStore();
 

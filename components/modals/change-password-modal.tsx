@@ -1,7 +1,7 @@
 "use client";
 
 import ChangePasswordForm from "@/components/forms/settings/change-password-form";
-import { useAppTranslation } from "@/hooks/use-app-translation";
+import { useTranslation } from "react-i18next";
 
 import {
   DialogContent,
@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 
 export default function ChangePasswordModal() {
-  const { t } = useAppTranslation("forms.changePassword");
+  const { t } = useTranslation("forms", { keyPrefix: "changePassword" });
 
   return (
     <DialogContent className="sm:max-w-md">

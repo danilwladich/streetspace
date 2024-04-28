@@ -1,3 +1,5 @@
+import { WithTrans } from "@/components/common/with-trans";
+
 import RegisterForm from "@/components/forms/auth/register-form";
 import {
   Card,
@@ -14,9 +16,11 @@ export default function Auth() {
     <>
       <Card className="max-w-md">
         <CardHeader>
-          <CardTitle>Sing up</CardTitle>
+          <CardTitle>
+            <WithTrans ns="forms" k="signUp.title" />
+          </CardTitle>
           <CardDescription>
-            Create free account now and join our community
+            <WithTrans ns="forms" k="signUp.description" />
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -28,7 +32,7 @@ export default function Auth() {
         <CardContent>
           <Link href="/auth" className="block">
             <Button tabIndex={-1} variant="outline" className="w-full">
-              Sing in
+              <WithTrans ns="forms" k="signIn.title" />
             </Button>
           </Link>
         </CardContent>

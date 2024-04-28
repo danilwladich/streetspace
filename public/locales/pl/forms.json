@@ -1,0 +1,31 @@
+{
+  "changePassword": {
+    "title": "Zmień hasło",
+    "description": "Zmień swoje hasło. Po zapisaniu zostaniesz wylogowany",
+    "currentPassword": "Obecne hasło",
+    "newPassword": "Nowe hasło",
+    "passwordConfirmation": "Potwierdź hasło",
+    "submit": "Zmień hasło",
+    "submitError": "Błąd zmiany hasła"
+  },
+  "signIn": {
+    "title": "Zaloguj się",
+    "description": "Zaloguj się na swoje konto",
+    "emailOrUsername": "Email lub nazwa użytkownika",
+    "password": "Hasło",
+    "submit": "Zaloguj się",
+    "recaptchaError": "Błąd systemu antybotowego",
+    "submitError": "Błąd logowania"
+  },
+  "signUp": {
+    "title": "Zarejestruj się",
+    "description": "Utwórz nowe konto",
+    "email": "Email",
+    "username": "Nazwa użytkownika",
+    "password": "Hasło",
+    "passwordConfirmation": "Potwierdź hasło",
+    "submit": "Zarejestruj się",
+    "recaptchaError": "Błąd systemu antybotowego",
+    "submitError": "Błąd rejestracji"
+  }
+}

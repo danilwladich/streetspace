@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useAppTranslation } from "@/hooks/use-app-translation";
+import { useTranslation } from "react-i18next";
 
 import {
   DropdownMenu,
@@ -14,7 +14,7 @@ import {
 import { CommandItem } from "@/components/ui/command";
 
 export default function ThemeToggle() {
-  const { t } = useAppTranslation("pages.settings.themeToggle");
+  const { t } = useTranslation("settings", { keyPrefix: "themeToggle" });
 
   const { setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
