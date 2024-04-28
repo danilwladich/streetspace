@@ -19,7 +19,7 @@ export default function Auth() {
             Create free account now and join our community
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-2">
+        <CardContent>
           <RegisterForm />
         </CardContent>
       </Card>

@@ -17,7 +17,7 @@ export default function Auth() {
           <CardTitle>Sing in</CardTitle>
           <CardDescription>Login to your existing account</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-2">
+        <CardContent>
           <LoginForm />
         </CardContent>
       </Card>
