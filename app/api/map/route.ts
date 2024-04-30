@@ -4,12 +4,13 @@ import { getMarkersSchema } from "@/lib/form-schema";
 import { getMarkers } from "@/services/marker";
 
 export async function GET(req: NextRequest) {
-  try {
-    const latMin = req.nextUrl.searchParams.get("latMin");
-    const latMax = req.nextUrl.searchParams.get("latMax");
-    const lngMin = req.nextUrl.searchParams.get("lngMin");
-    const lngMax = req.nextUrl.searchParams.get("lngMax");
+  const { searchParams } = req.nextUrl;
+  const latMin = searchParams.get("latMin");
+  const latMax = searchParams.get("latMax");
+  const lngMin = searchParams.get("lngMin");
+  const lngMax = searchParams.get("lngMax");
 
+  try {
     const body = getMarkersSchema.safeParse({ latMin, latMax, lngMin, lngMax });
 
     if (!body.success) {

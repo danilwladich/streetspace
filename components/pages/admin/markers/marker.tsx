@@ -20,7 +20,11 @@ import { DateToShow } from "@/components/common/date-to-show";
 
 type Marker = Prisma.MarkerGetPayload<{
   include: {
-    addedBy: true;
+    addedBy: {
+      select: {
+        username: true;
+      };
+    };
   };
 }>;
 
