@@ -38,6 +38,7 @@
     "react-google-recaptcha": "^3.1.0",
     "react-i18next": "^14.1.1",
     "react-leaflet": "^4.2.1",
+    "sharp": "^0.33.3",
     "sonner": "^1.4.41",
     "sqlite3": "^5.1.7",
     "swr": "^2.2.5",
