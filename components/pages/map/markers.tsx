@@ -12,7 +12,8 @@ import MarkerInput from "./marker-input";
 import { toast } from "sonner";
 
 export default function Markers() {
-  const { bounds, setBounds, setLoadingMarkers,    setPosition,setZoom, } = useMapStore();
+  const { bounds, setBounds, setLoadingMarkers, setPosition, setZoom } =
+    useMapStore();
   const [markers, setMarkers] = useState<Marker[]>([]);
 
   const map = useMap();
@@ -44,7 +45,7 @@ export default function Markers() {
     return () => {
       map.off();
     };
-  }, [map]);
+  }, [map, setBounds, setPosition, setZoom]);
 
   useEffect(() => {
     async function fetchLocations() {
@@ -71,7 +72,7 @@ export default function Markers() {
     }
 
     fetchLocations();
-  }, [bounds]);
+  }, [bounds, setLoadingMarkers]);
 
   return (
     <>
