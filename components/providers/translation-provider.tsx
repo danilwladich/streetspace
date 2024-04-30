@@ -1,7 +1,8 @@
 "use client";
 
 import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+import { initReactI18next, useTranslation } from "react-i18next";
+import { useLayoutEffect } from "react";
 
 import settingsEn from "@/public/locales/en/settings.json";
 import settingsPl from "@/public/locales/pl/settings.json";
@@ -57,5 +58,12 @@ export function TranslationProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const { i18n } = useTranslation();
+
+  useLayoutEffect(() => {
+    const html = document.documentElement;
+    html.setAttribute("lang", i18n.language);
+  }, [i18n.language]);
+
   return children;
 }
