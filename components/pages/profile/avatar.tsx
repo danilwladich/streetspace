@@ -28,7 +28,10 @@ export default function UserAvatar({ id, username, avatar }: User) {
   const isDefaultAvatar = !avatar;
 
   function onPreviewOpen() {
-    onOpen("image", { src: avatarSrc, alt: username });
+    const imagesData = {
+      images: [{ src: avatarSrc, alt: username }],
+    };
+    onOpen("fullscreen images", { imagesData });
   }
 
   return (

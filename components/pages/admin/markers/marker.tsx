@@ -3,9 +3,9 @@ import dynamic from "next/dynamic";
 import { useMemo } from "react";
 import type { Prisma } from "@prisma/client";
 
+import MarkerImages from "@/components/common/marker/marker-images";
 import { AppLoader } from "@/components/ui/app-loader";
 import Actions from "./actions";
-import MarkerImage from "@/components/common/marker/marker-image";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -50,8 +50,6 @@ export function Marker({
     [],
   );
 
-  const imagesSrc = JSON.parse(images) as string[];
-
   return (
     <Card className="max-w-4xl">
       <CardHeader>
@@ -65,11 +63,7 @@ export function Marker({
       </CardHeader>
 
       <CardContent className="flex flex-col items-start gap-2">
-        <div className="mb-2 grid w-full grid-cols-2 gap-2 sm:grid-cols-3">
-          {imagesSrc.map((src) => (
-            <MarkerImage key={src} src={src} alt={name} />
-          ))}
-        </div>
+        <MarkerImages images={images} name={name} />
 
         <div className="relative aspect-video w-full overflow-hidden rounded">
           <Link
