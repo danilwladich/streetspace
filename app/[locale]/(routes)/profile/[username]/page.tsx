@@ -1,6 +1,7 @@
 import { getAppTitle } from "@/lib/get-app-title";
 import { getAuthIsFollowingByUsername } from "@/services/follow";
 import { getUserByUsername } from "@/services/user";
+import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 
 import NotFound from "@/components/common/not-found";
@@ -15,10 +16,12 @@ export async function generateMetadata({
 }: {
   params: { username: string };
 }): Promise<Metadata> {
+  const t = await getTranslations("pages.profile");
+
   const user = await getUserByUsername(params.username);
 
   return {
-    title: getAppTitle(user?.username),
+    title: getAppTitle(user?.username || t("notFound")),
   };
 }
 
@@ -27,12 +30,14 @@ export default async function Profile({
 }: {
   params: { username: string };
 }) {
+  const t = await getTranslations("pages.profile");
+
   const { username } = params;
 
   const user = await getUserByUsername(username);
 
   if (!user) {
-    return <NotFound text="User not found" />;
+    return <NotFound text={t("notFound")} />;
   }
 
   const isFollowing = await getAuthIsFollowingByUsername(username);

@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
+import { useTranslations } from "next-intl";
+
 import { Share, Copy, CopyCheck } from "lucide-react";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
 
 export default function ShareButton({
   url,
@@ -11,6 +13,8 @@ export default function ShareButton({
   url: string;
   text: string;
 }) {
+  const t = useTranslations("pages.profile.actions");
+
   const [isCopied, setIsCopied] = useState(false);
 
   // Checking if the browser supports the Web Share API
@@ -27,6 +31,16 @@ export default function ShareButton({
     } catch (err) {
       console.log("Sharing failed:", err);
     }
+  }
+
+  if (isAbleToShare) {
+    return (
+      <DropdownMenuItem onClick={onShare} className="gap-2">
+        <Share className="h-4 w-4" />
+
+        <span>{t("share")}</span>
+      </DropdownMenuItem>
+    );
   }
 
   async function onCopy(e: React.MouseEvent<HTMLDivElement>) {
@@ -46,9 +60,7 @@ export default function ShareButton({
     }
   }
 
-  const onClick = isAbleToShare ? onShare : onCopy;
-
-  const copyText = isCopied ? "Link copied" : "Copy link";
+  const copyText = t(isCopied ? "isCopied" : "copy");
   const copyIcon = isCopied ? (
     <CopyCheck className="h-4 w-4" />
   ) : (
@@ -56,20 +68,12 @@ export default function ShareButton({
   );
 
   return (
-    <DropdownMenuItem onClick={onClick} className="gap-2">
-      {isAbleToShare ? (
-        <>
-          <Share className="h-4 w-4" />
+    <DropdownMenuItem onClick={onCopy} className="gap-2">
+      <>
+        {copyIcon}
 
-          <span>Share</span>
-        </>
-      ) : (
-        <>
-          {copyIcon}
-
-          <span>{copyText}</span>
-        </>
-      )}
+        <span>{copyText}</span>
+      </>
     </DropdownMenuItem>
   );
 }

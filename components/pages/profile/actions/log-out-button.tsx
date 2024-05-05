@@ -3,37 +3,40 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 import { LogOut } from "lucide-react";
 
 export default function LogOutButton() {
-	const router = useRouter();
+  const t = useTranslations("pages.profile.actions.logOut");
 
-	async function onLogOut() {
-		try {
-			await axios.delete("/api/auth/me");
+  const router = useRouter();
 
-			router.push("/auth");
-		} catch (e: unknown) {
-			// Handling AxiosError
-			const error = e as AxiosError;
+  async function onLogOut() {
+    try {
+      await axios.delete("/api/auth/me");
 
-			// Extracting response from AxiosError
-			const res = error?.response as AxiosResponse<string, any>;
+      router.push("/auth");
+    } catch (e: unknown) {
+      // Handling AxiosError
+      const error = e as AxiosError;
 
-			// Handling non-response errors
-			if (!res) {
-				toast.error("Log out error", { description: error.message });
-				return;
-			}
-		}
-	}
+      // Extracting response from AxiosError
+      const res = error?.response as AxiosResponse<string, any>;
 
-	return (
-		<div className="flex gap-2 items-center w-full" onClick={onLogOut}>
-			<LogOut className="h-4 w-4" />
+      // Handling non-response errors
+      if (!res) {
+        toast.error(t("submitError"), { description: error.message });
+        return;
+      }
+    }
+  }
 
-			<span className="flex-1">Log out</span>
-		</div>
-	);
+  return (
+    <div className="flex w-full items-center gap-2" onClick={onLogOut}>
+      <LogOut className="h-4 w-4" />
+
+      <span className="flex-1">{t("submit")}</span>
+    </div>
+  );
 }

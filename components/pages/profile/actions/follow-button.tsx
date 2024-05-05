@@ -1,12 +1,13 @@
 "use client";
 
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 import { UserPlus, UserMinus } from "lucide-react";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 export default function FollowButton({
   id,
@@ -17,6 +18,8 @@ export default function FollowButton({
   username: string;
   isFollowing: boolean;
 }) {
+  const t = useTranslations("pages.profile.actions");
+
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -46,7 +49,7 @@ export default function FollowButton({
 
       // Handling non-response errors
       if (!res) {
-        toast.error("Follow user error", { description: error.message });
+        toast.error(t("followError"), { description: error.message });
         return;
       }
 
@@ -58,7 +61,7 @@ export default function FollowButton({
     setIsLoading(false);
   }
 
-  const followText = isFollowing ? "Unfollow" : "Follow";
+  const followText = t(isFollowing ? "unfollow" : "follow");
   const followIcon = isFollowing ? (
     <UserMinus className="h-4 w-4" />
   ) : (

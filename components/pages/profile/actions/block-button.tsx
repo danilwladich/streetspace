@@ -1,11 +1,12 @@
 "use client";
 
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { ShieldBan, ShieldCheck } from "lucide-react";
 
 export default function BlockButton({
@@ -15,6 +16,8 @@ export default function BlockButton({
   id: string;
   blocked: boolean;
 }) {
+  const t = useTranslations("pages.profile.actions");
+
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -39,7 +42,7 @@ export default function BlockButton({
 
       // Handling non-response errors
       if (!res) {
-        toast.error("Block user error", { description: error.message });
+        toast.error(t("blockError"), { description: error.message });
         return;
       }
     }
@@ -47,7 +50,7 @@ export default function BlockButton({
     setIsLoading(false);
   }
 
-  const blockText = blocked ? "Unblock" : "Block";
+  const blockText = t(blocked ? "unblock" : "block");
   const blockIcon = blocked ? (
     <ShieldCheck className="h-4 w-4" />
   ) : (

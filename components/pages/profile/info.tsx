@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getUserMarkersCount } from "@/services/marker";
 import moment from "moment";
+import { getTranslations } from "next-intl/server";
 import type { User } from "@prisma/client";
 
 import { Button } from "@/components/ui/button";
@@ -14,6 +15,8 @@ export default async function UserInfo({
   dateOfBirth,
   createdAt,
 }: User) {
+  const t = await getTranslations("pages.profile.info");
+
   const markersAdded = await getUserMarkersCount(id);
 
   const socialMediaJson: Record<string, string> = JSON.parse(
@@ -24,23 +27,29 @@ export default async function UserInfo({
   return (
     <>
       <div className="text-center">
-        <h3 className="text-base font-semibold md:text-lg">Profile info</h3>
+        <h3 className="text-base font-semibold md:text-lg">
+          {t("profile.title")}
+        </h3>
 
         <p className="py-0.5 text-xs opacity-70 md:text-sm">
-          Member since <DateToShow date={createdAt} size="full" />
+          {t("profile.memberSince")} <DateToShow date={createdAt} size="full" />
         </p>
         <p className="py-0.5 text-xs opacity-70 md:text-sm">
-          Locations added {markersAdded}
+          {t("profile.locationsAdded")} {markersAdded}
         </p>
       </div>
 
       {(!!country || !!dateOfBirth) && (
         <div className="text-center">
-          <h3 className="text-base font-semibold md:text-lg">Personal data</h3>
+          <h3 className="text-base font-semibold md:text-lg">
+            {t("personal.title")}
+          </h3>
 
           {!!dateOfBirth && (
             <p className="py-0.5 text-xs opacity-70 md:text-sm">
-              {moment().diff(dateOfBirth, "years")} years old
+              {t("personal.yearsOld", {
+                age: moment().diff(dateOfBirth, "years"),
+              })}
             </p>
           )}
           {!!country && (
@@ -53,7 +62,9 @@ export default async function UserInfo({
 
       {!!socialMediaEntries.length && (
         <div className="text-center">
-          <h3 className="text-base font-semibold md:text-lg">Social media</h3>
+          <h3 className="text-base font-semibold md:text-lg">
+            {t("social.title")}
+          </h3>
 
           <div className="flex flex-wrap justify-center">
             {socialMediaEntries.map((s) => (

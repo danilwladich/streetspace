@@ -86,6 +86,49 @@
         "submit": "Log out",
         "submitError": "Log out error"
       }
+    },
+    "profile": {
+      "notFound": "User not found",
+      "followers": "followers",
+      "followings": "followings",
+      "avatar": {
+        "title": "Avatar",
+        "fullscreen": "Fullscreen",
+        "change": "Change",
+        "delete": "Delete"
+      },
+      "actions": {
+        "myProfile": "My profile",
+        "changeUsername": "Change username",
+        "editProfile": "Edit profile",
+        "share": "Share",
+        "copy": "Copy link",
+        "isCopied": "Link copied",
+        "follow": "Follow",
+        "unfollow": "Unfollow",
+        "followError": "Follow user error",
+        "block": "Block",
+        "unblock": "Unblock",
+        "blockError": "Block user error",
+        "logOut": {
+          "submit": "Log out",
+          "submitError": "Log out error"
+        }
+      },
+      "info": {
+        "profile": {
+          "title": "Profile info",
+          "memberSince": "Member since",
+          "locationsAdded": "Locations added"
+        },
+        "personal": {
+          "title": "Personal info",
+          "yearsOld": "{age} years old"
+        },
+        "social": {
+          "title": "Social media"
+        }
+      }
     }
   }
 }

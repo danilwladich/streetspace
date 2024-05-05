@@ -3,6 +3,7 @@
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useModalStore } from "@/hooks/store/use-modal-store";
 import { getAppTitle } from "@/lib/get-app-title";
+import { useTranslations } from "next-intl";
 import type { User } from "@prisma/client";
 
 import ShareButton from "@/components/pages/profile/actions/share-button";
@@ -19,7 +20,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreHorizontal, Pencil, UserCog, ImagePlus } from "lucide-react";
+import { MoreHorizontal, Pencil, UserCog } from "lucide-react";
 
 export default function Actions({
   id,
@@ -29,6 +30,8 @@ export default function Actions({
 }: User & {
   isFollowing: boolean;
 }) {
+  const t = useTranslations("pages.profile.actions");
+
   const { user: authUser } = useAuthStore();
   const { onOpen } = useModalStore();
 
@@ -45,7 +48,7 @@ export default function Actions({
 
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>
-          {isOwner ? "My profile" : username}
+          {isOwner ? t("myProfile") : username}
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator />
@@ -76,12 +79,12 @@ export default function Actions({
             <DropdownMenuGroup>
               <DropdownMenuItem onClick={() => onOpen("change username")}>
                 <Pencil className="mr-2 h-4 w-4" />
-                <span>Change username</span>
+                <span>{t("changeUsername")}</span>
               </DropdownMenuItem>
 
               <DropdownMenuItem onClick={() => onOpen("edit profile")}>
                 <UserCog className="mr-2 h-4 w-4" />
-                <span>Edit profile</span>
+                <span>{t("editProfile")}</span>
               </DropdownMenuItem>
             </DropdownMenuGroup>
 

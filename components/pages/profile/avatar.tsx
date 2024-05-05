@@ -4,6 +4,7 @@ import { useModalStore } from "@/hooks/store/use-modal-store";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useUserImageSrc } from "@/hooks/use-user-image-src";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import type { User } from "@prisma/client";
 
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -19,6 +20,8 @@ import {
 import { Fullscreen, ImagePlus, Trash2 } from "lucide-react";
 
 export default function UserAvatar({ id, username, avatar }: User) {
+  const t = useTranslations("pages.profile.avatar");
+
   const { onOpen } = useModalStore();
   const { user: authUser } = useAuthStore();
 
@@ -54,7 +57,7 @@ export default function UserAvatar({ id, username, avatar }: User) {
               </DropdownMenuTrigger>
 
               <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>Avatar</DropdownMenuLabel>
+                <DropdownMenuLabel>{t("title")}</DropdownMenuLabel>
 
                 <DropdownMenuSeparator />
 
@@ -62,19 +65,19 @@ export default function UserAvatar({ id, username, avatar }: User) {
                   {!isDefaultAvatar && (
                     <DropdownMenuItem onClick={() => onPreviewOpen()}>
                       <Fullscreen className="mr-2 h-4 w-4" />
-                      <span>Preview</span>
+                      <span>{t("fullscreen")}</span>
                     </DropdownMenuItem>
                   )}
 
                   <DropdownMenuItem onClick={() => onOpen("change avatar")}>
                     <ImagePlus className="mr-2 h-4 w-4" />
-                    <span>Change</span>
+                    <span>{t("change")}</span>
                   </DropdownMenuItem>
 
                   {!isDefaultAvatar && (
                     <DropdownMenuItem onClick={() => onOpen("delete avatar")}>
                       <Trash2 className="mr-2 h-4 w-4" />
-                      <span>Delete</span>
+                      <span>{t("delete")}</span>
                     </DropdownMenuItem>
                   )}
                 </DropdownMenuGroup>

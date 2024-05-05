@@ -86,6 +86,49 @@
         "submit": "Wyloguj się",
         "submitError": "Błąd wylogowania"
       }
+    },
+    "profile": {
+      "notFound": "Użytkownik nie został znaleziony",
+      "followers": "obserwujących",
+      "followings": "obserwowanych",
+      "avatar": {
+        "title": "Zdjęcie profilowe",
+        "fullscreen": "Pełny ekran",
+        "change": "Zmień",
+        "delete": "Usuń"
+      },
+      "actions": {
+        "myProfile": "Mój profil",
+        "changeUsername": "Zmień nazwę użytkownika",
+        "editProfile": "Edytuj profil",
+        "share": "Udostępnij",
+        "copy": "Skopiuj link",
+        "isCopied": "Link skopiowany",
+        "follow": "Obserwuj",
+        "unfollow": "Przestań obserwować",
+        "followError": "Błąd obserwowania użytkownika",
+        "block": "Zablokuj",
+        "unblock": "Odblokuj",
+        "blockError": "Błąd blokowania użytkownika",
+        "logOut": {
+          "submit": "Wyloguj się",
+          "submitError": "Błąd wylogowania"
+        }
+      },
+      "info": {
+        "profile": {
+          "title": "Informacje o profilu",
+          "memberSince": "Członek od",
+          "locationsAdded": "Dodane lokalizacje"
+        },
+        "personal": {
+          "title": "Informacje osobiste",
+          "yearsOld": "{age, plural, few {# lata} other {# lat}}"
+        },
+        "social": {
+          "title": "Media społecznościowe"
+        }
+      }
     }
   }
 }
