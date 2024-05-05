@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { TranslationProvider } from "@/components/providers/translation-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { AuthProvider } from "@/components/providers/auth-provider";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { getAppTitle } from "@/lib/get-app-title";
+import { NextIntlClientProvider, useMessages } from "next-intl";
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -30,21 +30,25 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params: { locale },
 }: {
   children: React.ReactNode;
+  params: { locale: string };
 }) {
+  const messages = useMessages();
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={font.className}>
-        <ThemeProvider>
-          <TranslationProvider>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <ThemeProvider>
             <AuthProvider>
               <ModalProvider />
               <Toaster />
               {children}
             </AuthProvider>
-          </TranslationProvider>
-        </ThemeProvider>
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

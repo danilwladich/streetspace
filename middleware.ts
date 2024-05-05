@@ -1,5 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
+import createIntlMiddleware from "next-intl/middleware";
 import { authValidation } from "@/lib/auth-validation";
+import { localePrefix, locales } from "@/i18n";
+
+const intlMiddleware = createIntlMiddleware({
+  locales,
+  defaultLocale: "en",
+  localePrefix,
+});
 
 function authRedirect(req: NextRequest) {
   const loginUrl = new URL("/auth", req.url);
@@ -8,73 +16,118 @@ function authRedirect(req: NextRequest) {
   return NextResponse.redirect(loginUrl);
 }
 
-export async function middleware(req: NextRequest) {
-  if (req.nextUrl.pathname.startsWith("/api/admin")) {
-    // Checking authentication status
-    const authUser = await authValidation();
+const protectedApiRoutes = [
+  "/api/admin",
+  "/api/auth/me",
+  "/api/user",
+  "/api/map/add",
+];
+const protectedApiPathnameRegex = RegExp(
+  `^(${protectedApiRoutes.join("|")})(/.*|/?)$`,
+  "i",
+);
 
-    // If not authenticated or not admin, return an Unauthorized response
-    if (!authUser || authUser.role !== "ADMIN") {
-      return new NextResponse("Unauthorized", { status: 401 });
+const protectedAdminPages = ["/admin"];
+const protectedAdminPathnameRegex = RegExp(
+  `^(/(${locales.join("|")}))?(${protectedAdminPages.join("|")})(/.*|/?)$`,
+  "i",
+);
+
+const protectedPages = ["/map/adding"];
+const protectedPathnameRegex = RegExp(
+  `^(/(${locales.join("|")}))?(${protectedPages.join("|")})(/.*|/?)$`,
+  "i",
+);
+
+const authPagePathnameRegex = RegExp(
+  `^(/(${locales.join("|")}))?(/auth)(/.*|/?)$`,
+  "i",
+);
+
+const profilePagePathnameRegex = RegExp(
+  `^(/(${locales.join("|")}))?(/profile)(/.*|/?)$`,
+  "i",
+);
+
+export async function middleware(req: NextRequest) {
+  if (req.nextUrl.pathname.startsWith("/api")) {
+    const isProtectedApiRoute = protectedApiPathnameRegex.test(
+      req.nextUrl.pathname,
+    );
+
+    if (isProtectedApiRoute) {
+      // Checking authentication status
+      const authUser = await authValidation();
+
+      // If not authenticated, return an Unauthorized response
+      if (!authUser) {
+        return new NextResponse("Unauthorized", { status: 401 });
+      }
+
+      // If user is not an admin and trying to access an admin route, return a Forbidden response
+      const isAdminRoute = req.nextUrl.pathname.startsWith("/api/admin");
+      if (isAdminRoute && authUser.role !== "ADMIN") {
+        return new NextResponse("Forbidden", { status: 403 });
+      }
+
+      // If user is authenticated
+      const reqHeaders = new Headers(req.headers);
+
+      // Adding header with the authenticated user data
+      reqHeaders.set("x-auth-user", JSON.stringify(authUser));
+
+      // Allowing the request to proceed with the updated headers
+      return NextResponse.next({
+        request: {
+          headers: reqHeaders,
+        },
+      });
     }
 
-    // If user is authenticated
-    const reqHeaders = new Headers(req.headers);
-
-    // Adding header with the authenticated user data
-    reqHeaders.set("x-auth-user", JSON.stringify(authUser));
-
-    // Allowing the request to proceed with the updated headers
-    return NextResponse.next({
-      request: {
-        headers: reqHeaders,
-      },
-    });
+    return NextResponse.next();
   }
 
-  if (req.nextUrl.pathname.startsWith("/admin")) {
+  const isProtectedAdminPage = protectedAdminPathnameRegex.test(
+    req.nextUrl.pathname,
+  );
+
+  if (isProtectedAdminPage) {
     // Checking authentication status
     const authUser = await authValidation();
-
-    // If authenticated and user is admin allow the request to proceed
-    if (authUser && authUser.role === "ADMIN") {
-      return NextResponse.next();
-    }
 
     // If not authenticated, redirect to the login page and store the original URL
-    return authRedirect(req);
+    if (!authUser || authUser.role !== "ADMIN") {
+      return authRedirect(req);
+    }
+
+    // If authenticated and user is admin allow the request to proceed
+    return intlMiddleware(req);
   }
 
-  if (req.nextUrl.pathname.startsWith("/api")) {
+  const isProtectedPage = protectedPathnameRegex.test(req.nextUrl.pathname);
+
+  if (isProtectedPage) {
     // Checking authentication status
     const authUser = await authValidation();
 
-    // If not authenticated, return an Unauthorized response
+    // If not authenticated, redirect to the login page and store the original URL
     if (!authUser) {
-      return new NextResponse("Unauthorized", { status: 401 });
+      return authRedirect(req);
     }
 
-    // If user is authenticated
-    const reqHeaders = new Headers(req.headers);
-
-    // Adding header with the authenticated user data
-    reqHeaders.set("x-auth-user", JSON.stringify(authUser));
-
-    // Allowing the request to proceed with the updated headers
-    return NextResponse.next({
-      request: {
-        headers: reqHeaders,
-      },
-    });
+    // If authenticated allow the request to proceed
+    return intlMiddleware(req);
   }
 
-  if (req.nextUrl.pathname.startsWith("/auth")) {
+  const isAuthPage = authPagePathnameRegex.test(req.nextUrl.pathname);
+
+  if (isAuthPage) {
     // Checking authentication status
     const authUser = await authValidation();
 
     // If not authenticated, allow the request to proceed
     if (!authUser) {
-      return NextResponse.next();
+      return intlMiddleware(req);
     }
 
     // If authenticated, redirect to the specified URL or default to "/profile"
@@ -87,13 +140,16 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
-  if (req.nextUrl.pathname.startsWith("/profile")) {
+  const isProfilePage = profilePagePathnameRegex.test(req.nextUrl.pathname);
+
+  if (isProfilePage) {
     // Extract the searched user from the URL
-    const searchedUser: string | undefined = req.nextUrl.pathname.split("/")[2];
+    const searchedUser: string | undefined =
+      req.nextUrl.pathname.split("/profile")[1];
 
     // Allow the request to proceed if searched user was provided
     if (searchedUser) {
-      return NextResponse.next();
+      return intlMiddleware(req);
     }
 
     // Checking authentication status
@@ -109,32 +165,9 @@ export async function middleware(req: NextRequest) {
     return authRedirect(req);
   }
 
-  const protectedPath = ["/map/adding"];
-
-  if (protectedPath.some((path) => req.nextUrl.pathname.startsWith(path))) {
-    // Checking authentication status
-    const authUser = await authValidation();
-
-    // If authenticated allow the request to proceed
-    if (authUser) {
-      return NextResponse.next();
-    }
-
-    // If not authenticated, redirect to the login page and store the original URL
-    return authRedirect(req);
-  }
+  return intlMiddleware(req);
 }
 
-// Configuration for the middleware, specifying the routes to apply the middleware to
 export const config = {
-  matcher: [
-    "/auth",
-    "/admin/:path*",
-    "/profile/:path?",
-    "/map/adding",
-    "/api/auth/me",
-    "/api/admin/:path*",
-    "/api/user/:path*",
-    "/api/map/add",
-  ],
+  matcher: ["/((?!_next|.*\\..*).*)"],
 };

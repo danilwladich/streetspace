@@ -1,13 +1,13 @@
 "use client";
 
 import { useModalStore } from "@/hooks/store/use-modal-store";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import { CommandItem } from "@/components/ui/command";
 import { KeyRound } from "lucide-react";
 
 export default function ChangePasswordButton() {
-  const { t } = useTranslation("settings");
+  const t = useTranslations("pages.settings");
 
   const { onOpen } = useModalStore();
 

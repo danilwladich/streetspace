@@ -18,7 +18,7 @@ export async function generateMetadata({
   const user = await getUserByUsername(params.username);
 
   return {
-    title: getAppTitle(user?.username || "User not found"),
+    title: getAppTitle(user?.username),
   };
 }
 

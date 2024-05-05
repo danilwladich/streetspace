@@ -2,21 +2,20 @@
 
 import { useClientFetching } from "@/hooks/use-client-fetching";
 import { useRouter } from "next/navigation";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import { Star } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CommandItem } from "@/components/ui/command";
 
 export default function StarsButton() {
-  const { t } = useTranslation("settings");
+  const t = useTranslations("pages.settings");
 
   const router = useRouter();
 
   const { data, isLoading } = useClientFetching<any[]>(
     "https://api.github.com/repos/danilwladich/streetspace/stargazers",
   );
-
   const starsCount = data?.length;
 
   function onClick() {

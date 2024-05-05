@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/hooks/store/use-auth-store";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import { NavLink } from "./nav-link";
 import {
@@ -20,7 +20,8 @@ export interface ILink {
 }
 
 export function Navigation() {
-  const { t } = useTranslation("layout", { keyPrefix: "navigation" });
+  const t = useTranslations("layout.navigation");
+
   const { user: authUser } = useAuthStore();
 
   const isAdmin = authUser?.role === "ADMIN";

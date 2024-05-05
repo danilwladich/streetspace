@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useLanguageStore } from "@/hooks/store/use-language";
-import { languages } from "@/components/providers/translation-provider";
-import { useTranslation } from "react-i18next";
+import { useState, useTransition } from "react";
+import { useTranslations } from "next-intl";
+import { locales } from "@/i18n";
+import { useLocaleNavigation } from "@/hooks/use-locale-navigation";
 
 import {
   DropdownMenu,
@@ -14,16 +14,27 @@ import {
 import { CommandItem } from "@/components/ui/command";
 import { Languages } from "lucide-react";
 
-const langMap: Record<(typeof languages)[number], string> = {
+const localesMap: Record<(typeof locales)[number], string> = {
   en: "English",
   pl: "Polski",
 };
 
 export default function LanguageToggle() {
-  const { t } = useTranslation("settings");
+  const t = useTranslations("pages.settings");
 
-  const { setLang } = useLanguageStore();
   const [isOpen, setIsOpen] = useState(false);
+
+  const { useRouter, usePathname } = useLocaleNavigation();
+
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  function handleLocaleUpdate(locale: string) {
+    startTransition(() => {
+      router.replace({ pathname }, { locale });
+    });
+  }
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
@@ -36,10 +47,15 @@ export default function LanguageToggle() {
           <span className="flex-1">{t("languageToggle")}</span>
         </CommandItem>
       </DropdownMenuTrigger>
+
       <DropdownMenuContent align="start">
-        {languages.map((lang) => (
-          <DropdownMenuItem key={lang} onClick={() => setLang(lang)}>
-            {langMap[lang]}
+        {locales.map((l) => (
+          <DropdownMenuItem
+            key={l}
+            onClick={() => handleLocaleUpdate(l)}
+            disabled={isPending}
+          >
+            {localesMap[l]}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

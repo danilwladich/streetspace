@@ -3,13 +3,13 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 
 import { LogOut } from "lucide-react";
 import { CommandItem } from "@/components/ui/command";
 
 export default function LogOutButton() {
-  const { t } = useTranslation("settings");
+  const t = useTranslations("pages.settings.logOut");
 
   const router = useRouter();
 
@@ -27,7 +27,7 @@ export default function LogOutButton() {
 
       // Handling non-response errors
       if (!res) {
-        toast.error("Log out error", { description: error.message });
+        toast.error(t("submitError"), { description: error.message });
         return;
       }
     }
@@ -37,7 +37,7 @@ export default function LogOutButton() {
     <CommandItem className="flex w-full items-center gap-2" onSelect={onLogOut}>
       <LogOut className="h-4 w-4" />
 
-      <span className="flex-1">{t("logOut")}</span>
+      <span className="flex-1">{t("submit")}</span>
     </CommandItem>
   );
 }

@@ -1,0 +1,91 @@
+{
+  "forms": {
+    "changePassword": {
+      "title": "Change password",
+      "description": "Change your password. After saving, you'll be logged out",
+      "currentPassword": "Current password",
+      "newPassword": "New password",
+      "passwordConfirmation": "Confirm password",
+      "submit": "Change password",
+      "submitError": "Change password error"
+    },
+    "signIn": {
+      "title": "Sign in",
+      "description": "Sign in to your account",
+      "emailOrUsername": "Email or username",
+      "password": "Password",
+      "submit": "Sign in",
+      "recaptchaError": "Antibot system error",
+      "submitError": "Sign in error"
+    },
+    "signUp": {
+      "title": "Sign up",
+      "description": "Create a new account",
+      "email": "Email",
+      "username": "Username",
+      "password": "Password",
+      "passwordConfirmation": "Confirm password",
+      "submit": "Sign up",
+      "recaptchaError": "Antibot system error",
+      "submitError": "Sign up error"
+    }
+  },
+  "layout": {
+    "navigation": {
+      "admin": "Admin",
+      "home": "Home",
+      "Q&A": "Q&A",
+      "map": "Map",
+      "profile": "Profile",
+      "singIn": "Sign In",
+      "settings": "Settings"
+    }
+  },
+  "validation": {
+    "Validation Error": "Validation Error",
+    "Internal Error": "Internal Error",
+    "Incorrect password": "Incorrect password",
+    "Incorrect email or password": "Incorrect email or password",
+    "Incorrect username or password": "Incorrect username or password",
+    "Email already exists": "Email already exists",
+    "Username already exists": "Username already exists",
+    "Password must be at least 6 characters": "Password must be at least 6 characters",
+    "Password must contain at least 1 uppercase letter": "Password must contain at least 1 uppercase letter",
+    "Password must contain at least 1 lowercase letter": "Password must contain at least 1 lowercase letter",
+    "Password must contain at least 1 digit": "Password must contain at least 1 digit",
+    "Password cannot contain whitespaces": "Password cannot contain whitespaces",
+    "This field has to be filled": "This field has to be filled",
+    "New password must be different": "New password must be different",
+    "Passwords don't match": "Passwords don't match",
+    "This field must be at least 3 characters": "This field must be at least 3 characters",
+    "Username must be alphanumeric": "Username must be alphanumeric",
+    "Username must be at least 3 characters": "Username must be at least 3 characters",
+    "Username must be less than 16 characters": "Username must be less than 16 characters",
+    "This is not a valid email": "This is not a valid email"
+  },
+  "pages": {
+    "settings": {
+      "command": {
+        "placeholder": "Search...",
+        "empty": "No results found.",
+        "group": {
+          "general": "General",
+          "profile": "Profile"
+        }
+      },
+      "languageToggle": "Language",
+      "themeToggle": {
+        "label": "Toggle theme",
+        "light": "Light",
+        "dark": "Dark",
+        "system": "System"
+      },
+      "stars": "Leave a star on GitHub",
+      "changePassword": "Change password",
+      "logOut": {
+        "submit": "Log out",
+        "submitError": "Log out error"
+      }
+    }
+  }
+}

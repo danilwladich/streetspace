@@ -10,7 +10,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { toast } from "sonner";
-import { useTranslation } from "react-i18next";
+import { useTranslations } from "next-intl";
 import type { ErrorResponse } from "@/types/ErrorResponse";
 
 import Recaptcha from "@/components/common/forms/recaptcha";
@@ -27,7 +27,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 export default function Login() {
-  const { t } = useTranslation("forms", { keyPrefix: "signIn" });
+  const t = useTranslations("forms.signIn");
 
   // Setting up the form using react-hook-form with Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({

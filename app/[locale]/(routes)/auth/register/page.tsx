@@ -1,6 +1,6 @@
-import { WithTrans } from "@/components/common/with-trans";
+import { useTranslations } from "next-intl";
 
-import LoginForm from "@/components/forms/auth/login-form";
+import RegisterForm from "@/components/forms/auth/register-form";
 import {
   Card,
   CardContent,
@@ -12,28 +12,25 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 export default function Auth() {
+  const t = useTranslations("forms");
+
   return (
     <>
       <Card className="max-w-md">
         <CardHeader>
-          <CardTitle>
-            <WithTrans ns="forms" k="signIn.title" />
-          </CardTitle>
-          <CardDescription>
-            <WithTrans ns="forms" k="signIn.description" />
-          </CardDescription>
+          <CardTitle>{t("signUp.title")}</CardTitle>
+          <CardDescription>{t("signUp.description")}</CardDescription>
         </CardHeader>
-
         <CardContent>
-          <LoginForm />
+          <RegisterForm />
         </CardContent>
       </Card>
 
       <Card className="max-w-md">
         <CardContent>
-          <Link href="/auth/register" className="block">
+          <Link href="/auth" className="block">
             <Button tabIndex={-1} variant="outline" className="w-full">
-              <WithTrans ns="forms" k="signUp.title" />
+              {t("signIn.title")}
             </Button>
           </Link>
         </CardContent>

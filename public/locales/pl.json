@@ -1,0 +1,91 @@
+{
+  "forms": {
+    "changePassword": {
+      "title": "Zmień hasło",
+      "description": "Zmień swoje hasło. Po zapisaniu zostaniesz wylogowany",
+      "currentPassword": "Obecne hasło",
+      "newPassword": "Nowe hasło",
+      "passwordConfirmation": "Potwierdź hasło",
+      "submit": "Zmień hasło",
+      "submitError": "Błąd zmiany hasła"
+    },
+    "signIn": {
+      "title": "Zaloguj się",
+      "description": "Zaloguj się na swoje konto",
+      "emailOrUsername": "Email lub nazwa użytkownika",
+      "password": "Hasło",
+      "submit": "Zaloguj się",
+      "recaptchaError": "Błąd systemu antybotowego",
+      "submitError": "Błąd logowania"
+    },
+    "signUp": {
+      "title": "Zarejestruj się",
+      "description": "Utwórz nowe konto",
+      "email": "Email",
+      "username": "Nazwa użytkownika",
+      "password": "Hasło",
+      "passwordConfirmation": "Potwierdź hasło",
+      "submit": "Zarejestruj się",
+      "recaptchaError": "Błąd systemu antybotowego",
+      "submitError": "Błąd rejestracji"
+    }
+  },
+  "layout": {
+    "navigation": {
+      "admin": "Admin",
+      "home": "Strona główna",
+      "Q&A": "Q&A",
+      "map": "Mapa",
+      "profile": "Profil",
+      "singIn": "Zaloguj się",
+      "settings": "Ustawienia"
+    }
+  },
+  "validation": {
+    "Validation Error": "Błąd walidacji",
+    "Internal Error": "Błąd wewnętrzny",
+    "Incorrect password": "Nieprawidłowe hasło",
+    "Incorrect email or password": "Nieprawidłowy email lub hasło",
+    "Incorrect username or password": "Nieprawidłowa nazwa użytkownika lub hasło",
+    "Email already exists": "Email już istnieje",
+    "Username already exists": "Nazwa użytkownika już istnieje",
+    "Password must be at least 6 characters": "Hasło musi mieć co najmniej 6 znaków",
+    "Password must contain at least 1 uppercase letter": "Hasło musi zawierać co najmniej 1 dużą literę",
+    "Password must contain at least 1 lowercase letter": "Hasło musi zawierać co najmniej 1 małą literę",
+    "Password must contain at least 1 digit": "Hasło musi zawierać co najmniej 1 cyfrę",
+    "Password cannot contain whitespaces": "Hasło nie może zawierać spacji",
+    "This field has to be filled": "To pole musi być wypełnione",
+    "New password must be different": "Nowe hasło musi być inne",
+    "Passwords don't match": "Hasła nie pasują do siebie",
+    "This field must be at least 3 characters": "To pole musi zawierać co najmniej 3 znaki",
+    "Username must be alphanumeric": "Nazwa użytkownika musi zawierać tylko znaki alfanumeryczne",
+    "Username must be at least 3 characters": "Nazwa użytkownika musi zawierać co najmniej 3 znaki",
+    "Username must be less than 16 characters": "Nazwa użytkownika musi zawierać mniej niż 16 znaków",
+    "This is not a valid email": "To nie jest poprawny adres email"
+  },
+  "pages": {
+    "settings": {
+      "command": {
+        "placeholder": "Szukaj...",
+        "empty": "Nie znaleziono wyników.",
+        "group": {
+          "general": "Ogólne",
+          "profile": "Profil"
+        }
+      },
+      "languageToggle": "Język",
+      "themeToggle": {
+        "label": "Przełącz motyw",
+        "light": "Jasny",
+        "dark": "Ciemny",
+        "system": "Systemowy"
+      },
+      "stars": "Oceń na GitHubie",
+      "changePassword": "Zmień hasło",
+      "logOut": {
+        "submit": "Wyloguj się",
+        "submitError": "Błąd wylogowania"
+      }
+    }
+  }
+}
