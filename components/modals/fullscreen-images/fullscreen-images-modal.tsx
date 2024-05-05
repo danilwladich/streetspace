@@ -7,6 +7,7 @@ import ImageItem from "./image-item";
 import {
   Carousel,
   CarouselContent,
+  CarouselItem,
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
@@ -34,7 +35,12 @@ export default function FullscreenImagesModal() {
         >
           <CarouselContent>
             {images.map((img, index) => (
-              <ImageItem key={`${index}_${img.src}`} {...img} />
+              <CarouselItem
+                key={`${index}_${img.src}`}
+                className="relative h-full w-full"
+              >
+                <ImageItem {...img} />
+              </CarouselItem>
             ))}
           </CarouselContent>
 
@@ -43,7 +49,11 @@ export default function FullscreenImagesModal() {
         </Carousel>
       )}
 
-      {!hasMultipleImages && <ImageItem {...images[0]} />}
+      {!hasMultipleImages && (
+        <div className="relative h-full w-full">
+          <ImageItem {...images[0]} />
+        </div>
+      )}
     </DialogContent>
   );
 }
