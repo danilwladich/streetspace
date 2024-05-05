@@ -1,6 +1,6 @@
 ## Stack
 
-### Next.js sqlite next-intl
+#### Next.js, Sqlite3, Next-intl
 
 ## Getting Started
 
