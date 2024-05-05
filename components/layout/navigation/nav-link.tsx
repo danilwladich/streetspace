@@ -1,13 +1,8 @@
-"use client";
-
-import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import type { ILink } from "./navigation";
 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-
-import type { ILink } from "./navigation";
 
 export function NavLink({
   path,
@@ -15,10 +10,6 @@ export function NavLink({
   icon,
   isLastElement,
 }: ILink & { isLastElement: boolean }) {
-  const pathname = usePathname();
-
-  const isActive = pathname === path;
-
   return (
     <Link
       href={path}
@@ -32,12 +23,7 @@ export function NavLink({
         <span className="sr-only md:not-sr-only md:relative md:whitespace-nowrap">
           {name}
 
-          <div
-            className={cn(
-              "absolute bottom-0 left-0 h-[1px] w-full bg-current opacity-0 transition-opacity group-hover:opacity-100",
-              isActive && "opacity-100",
-            )}
-          />
+          <div className="absolute bottom-0 left-0 h-[1px] w-full bg-current opacity-0 transition-opacity group-hover:opacity-100" />
         </span>
       </Button>
 
