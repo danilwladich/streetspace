@@ -1,6 +1,6 @@
 ## Stack
 
-#### Next.js, Sqlite3, Next-intl
+#### Next.js, Sqlite3, Next-intl, Leaflet
 
 ## Getting Started
 
