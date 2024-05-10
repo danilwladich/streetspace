@@ -17,6 +17,7 @@ import { Languages } from "lucide-react";
 const localesMap: Record<(typeof locales)[number], string> = {
   en: "English",
   pl: "Polski",
+  ru: "Русский",
 };
 
 export default function LanguageToggle() {

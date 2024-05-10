@@ -1,5 +1,7 @@
-import EditProfileForm from "@/components/forms/user/edit-profile-form";
+import { useAuthStore } from "@/hooks/store/use-auth-store";
+import { useTranslations } from "next-intl";
 
+import EditProfileForm from "@/components/forms/user/edit-profile-form";
 import {
   DialogContent,
   DialogDescription,
@@ -8,11 +10,19 @@ import {
 } from "@/components/ui/dialog";
 
 export default function EditProfileModal() {
+  const t = useTranslations("forms.editProfile");
+
+  const { user } = useAuthStore();
+
+  if (!user) {
+    return null;
+  }
+
   return (
     <DialogContent className="sm:max-w-md">
       <DialogHeader>
-        <DialogTitle>Edit profile</DialogTitle>
-        <DialogDescription>Make changes to your profile.</DialogDescription>
+        <DialogTitle>{t("title")}</DialogTitle>
+        <DialogDescription>{t("description")}</DialogDescription>
       </DialogHeader>
 
       <EditProfileForm />

@@ -28,6 +28,37 @@
       "submit": "Zarejestruj się",
       "recaptchaError": "Błąd systemu antybotowego",
       "submitError": "Błąd rejestracji"
+    },
+    "changeAvatar": {
+      "title": "Zmień zdjęcie profilowe",
+      "description": "Prześlij nowe zdjęcie profilowe",
+      "submit": "Zapisz",
+      "submitError": "Błąd zmiany zdjęcia profilowego"
+    },
+    "changeUsername": {
+      "title": "Zmień nazwę użytkownika",
+      "description": "Zrób swoją nazwę użytkownika unikalną",
+      "username": "Nazwa użytkownika",
+      "submit": "Zapisz",
+      "submitError": "Błąd zmiany nazwy użytkownika"
+    },
+    "deleteAvatar": {
+      "title": "Jesteś absolutnie pewny?",
+      "description": "Spowoduje to całkowite usunięcie twojego zdjęcia profilowego",
+      "cancel": "Anuluj",
+      "submit": "Usuń",
+      "submitError": "Błąd usuwania zdjęcia profilowego"
+    },
+    "editProfile": {
+      "title": "Edytuj profil",
+      "description": "Zaktualizuj swoje informacje profilowe",
+      "dateOfBirth": "Data urodzenia",
+      "location": "Lokalizacja",
+      "country": "Kraj",
+      "city": "Miasto",
+      "social": "Media społecznościowe",
+      "submit": "Zapisz",
+      "submitError": "Błąd edycji profilu"
     }
   },
   "layout": {
@@ -48,7 +79,7 @@
     "Incorrect email or password": "Nieprawidłowy email lub hasło",
     "Incorrect username or password": "Nieprawidłowa nazwa użytkownika lub hasło",
     "Email already exists": "Email już istnieje",
-    "Username already exists": "Nazwa użytkownika już istnieje",
+    "Username already taken": "Nazwa użytkownika jest już zajęta",
     "Password must be at least 6 characters": "Hasło musi mieć co najmniej 6 znaków",
     "Password must contain at least 1 uppercase letter": "Hasło musi zawierać co najmniej 1 dużą literę",
     "Password must contain at least 1 lowercase letter": "Hasło musi zawierać co najmniej 1 małą literę",
@@ -61,7 +92,22 @@
     "Username must be alphanumeric": "Nazwa użytkownika musi zawierać tylko znaki alfanumeryczne",
     "Username must be at least 3 characters": "Nazwa użytkownika musi zawierać co najmniej 3 znaki",
     "Username must be less than 16 characters": "Nazwa użytkownika musi zawierać mniej niż 16 znaków",
-    "This is not a valid email": "To nie jest poprawny adres email"
+    "This is not a valid email": "To nie jest poprawny adres email",
+    "Must be a latitude/longitude": "Musi być szerokość/długość geograficzna",
+    "At least one field must be filled": "Co najmniej jedno pole musi być wypełnione",
+    "Provide the country": "Podaj kraj",
+    "Invalid Facebook URL": "Nieprawidłowy adres URL Facebooka",
+    "Invalid Instagram URL": "Nieprawidłowy adres URL Instagrama",
+    "Invalid Twitter URL": "Nieprawidłowy adres URL Twittera",
+    "Invalid YouTube URL": "Nieprawidłowy adres URL YouTube'a",
+    "Country must be less than 20 characters": "Kraj musi mieć mniej niż 20 znaków",
+    "City must be less than 20 characters": "Miasto musi mieć mniej niż 20 znaków",
+    "You must be at least 16 years old": "Musisz mieć co najmniej 16 lat",
+    "You must be at most 120 years old": "Musisz mieć maksymalnie 120 lat",
+    "Invalid date format": "Nieprawidłowy format daty",
+    "No image provided": "Nie podano obrazu",
+    "Max image size is 10MB": "Maksymalny rozmiar obrazu to 10 MB",
+    "Invalid image format": "Obsługiwane formaty to tylko .jpg, .jpeg, .png i .webp"
   },
   "pages": {
     "settings": {

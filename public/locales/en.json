@@ -28,6 +28,37 @@
       "submit": "Sign up",
       "recaptchaError": "Antibot system error",
       "submitError": "Sign up error"
+    },
+    "changeAvatar": {
+      "title": "Change avatar",
+      "description": "Upload new profile image",
+      "submit": "Save",
+      "submitError": "Change avatar error"
+    },
+    "changeUsername": {
+      "title": "Change username",
+      "description": "Make your username unique",
+      "username": "Username",
+      "submit": "Save",
+      "submitError": "Change username error"
+    },
+    "deleteAvatar": {
+      "title": "Are you absolutely sure?",
+      "description": "This will permanently delete your avatar",
+      "cancel": "Cancel",
+      "submit": "Delete",
+      "submitError": "Delete avatar error"
+    },
+    "editProfile": {
+      "title": "Edit profile",
+      "description": "Update your profile information",
+      "dateOfBirth": "Date of birth",
+      "location": "Location",
+      "country": "Country",
+      "city": "City",
+      "social": "Social media",
+      "submit": "Save",
+      "submitError": "Edit profile error"
     }
   },
   "layout": {
@@ -48,7 +79,7 @@
     "Incorrect email or password": "Incorrect email or password",
     "Incorrect username or password": "Incorrect username or password",
     "Email already exists": "Email already exists",
-    "Username already exists": "Username already exists",
+    "Username already taken": "Username already taken",
     "Password must be at least 6 characters": "Password must be at least 6 characters",
     "Password must contain at least 1 uppercase letter": "Password must contain at least 1 uppercase letter",
     "Password must contain at least 1 lowercase letter": "Password must contain at least 1 lowercase letter",
@@ -61,7 +92,22 @@
     "Username must be alphanumeric": "Username must be alphanumeric",
     "Username must be at least 3 characters": "Username must be at least 3 characters",
     "Username must be less than 16 characters": "Username must be less than 16 characters",
-    "This is not a valid email": "This is not a valid email"
+    "This is not a valid email": "This is not a valid email",
+    "Must be a latitude/longitude": "Must be a latitude/longitude",
+    "At least one field must be filled": "At least one field must be filled",
+    "Provide the country": "Provide the country",
+    "Invalid Facebook URL": "Invalid Facebook URL",
+    "Invalid Instagram URL": "Invalid Instagram URL",
+    "Invalid Twitter URL": "Invalid Twitter URL",
+    "Invalid YouTube URL": "Invalid YouTube URL",
+    "Country must be less than 20 characters": "Country must be less than 20 characters",
+    "City must be less than 20 characters": "City must be less than 20 characters",
+    "You must be at least 16 years old": "You must be at least 16 years old",
+    "You must be at most 120 years old": "You must be at most 120 years old",
+    "Invalid date format": "Invalid date format",
+    "No image provided": "No image provided",
+    "Max image size is 10MB": "Max image size is 10MB",
+    "Invalid image format": "Only .jpg, .jpeg, .png and .webp formats are supported"
   },
   "pages": {
     "settings": {

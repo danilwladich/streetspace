@@ -28,8 +28,7 @@ import { Input } from "@/components/ui/input";
 
 export default function Login() {
   const t = useTranslations("forms.signIn");
-  const tValidation = useTranslations("validation");
-
+  
   // Setting up the form using react-hook-form with Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -106,7 +105,7 @@ export default function Login() {
 
       // Setting form error for a specific field
       const { field, message } = res.data;
-      form.setError(field, { message: tValidation(message) });
+      form.setError(field, { message });
     }
   }
 

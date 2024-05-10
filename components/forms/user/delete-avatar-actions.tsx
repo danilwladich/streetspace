@@ -5,10 +5,13 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { toast } from "sonner";
 import { useModalStore } from "@/hooks/store/use-modal-store";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 
 export default function DeleteAvatarActions() {
+  const t = useTranslations("forms.deleteAvatar");
+
   const router = useRouter();
   const { setUser } = useAuthStore();
   const { onClose } = useModalStore();
@@ -29,7 +32,7 @@ export default function DeleteAvatarActions() {
       // Handling AxiosError
       const error = e as AxiosError;
 
-      toast.error("Delete avatar error", { description: error.message });
+      toast.error(t("submitError"), { description: error.message });
       return;
     }
   }
@@ -37,9 +40,9 @@ export default function DeleteAvatarActions() {
   return (
     <>
       <Button onClick={onClose} variant="outline">
-        Cancel
+        {t("cancel")}
       </Button>
-      <Button onClick={onSubmit}>Delete</Button>
+      <Button onClick={onSubmit}>{t("submit")}</Button>
     </>
   );
 }

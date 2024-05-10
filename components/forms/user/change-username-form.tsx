@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useModalStore } from "@/hooks/store/use-modal-store";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 import type { ErrorResponse } from "@/types/ErrorResponse";
 
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,8 @@ import {
 import { Input } from "@/components/ui/input";
 
 export default function ChangeUsernameForm() {
+  const t = useTranslations("forms.changeUsername");
+
   // Setting up the form using react-hook-form with Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -67,7 +70,7 @@ export default function ChangeUsernameForm() {
 
       // Handling non-response errors
       if (!res) {
-        toast.error("Change username error", { description: error.message });
+        toast.error(t("submitError"), { description: error.message });
         return;
       }
 
@@ -94,11 +97,11 @@ export default function ChangeUsernameForm() {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>{t("username")}</FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  placeholder={authUser?.username || "Username"}
+                  placeholder={authUser!.username}
                   disabled={isSubmitting}
                 />
               </FormControl>
@@ -114,7 +117,7 @@ export default function ChangeUsernameForm() {
         )}
 
         <Button type="submit" disabled={isSubmitting}>
-          Save
+          {t("submit")}
         </Button>
       </form>
     </Form>

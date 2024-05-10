@@ -1,0 +1,180 @@
+{
+  "forms": {
+    "changePassword": {
+      "title": "Изменить пароль",
+      "description": "Измените свой пароль. После сохранения вы будете выведены из системы",
+      "currentPassword": "Текущий пароль",
+      "newPassword": "Новый пароль",
+      "passwordConfirmation": "Подтвердите пароль",
+      "submit": "Изменить пароль",
+      "submitError": "Ошибка изменения пароля"
+    },
+    "signIn": {
+      "title": "Войти",
+      "description": "Войдите в свою учетную запись",
+      "emailOrUsername": "Email или имя пользователя",
+      "password": "Пароль",
+      "submit": "Войти",
+      "recaptchaError": "Ошибка системы антиспама",
+      "submitError": "Ошибка входа"
+    },
+    "signUp": {
+      "title": "Зарегистрироваться",
+      "description": "Создайте новую учетную запись",
+      "email": "Email",
+      "username": "Имя пользователя",
+      "password": "Пароль",
+      "passwordConfirmation": "Подтвердите пароль",
+      "submit": "Зарегистрироваться",
+      "recaptchaError": "Ошибка системы антиспама",
+      "submitError": "Ошибка регистрации"
+    },
+    "changeAvatar": {
+      "title": "Изменить аватар",
+      "description": "Загрузите новое изображение профиля",
+      "submit": "Сохранить",
+      "submitError": "Ошибка изменения аватара"
+    },
+    "changeUsername": {
+      "title": "Изменить имя пользователя",
+      "description": "Сделайте свое имя пользователя уникальным",
+      "username": "Имя пользователя",
+      "submit": "Сохранить",
+      "submitError": "Ошибка изменения имени пользователя"
+    },
+    "deleteAvatar": {
+      "title": "Вы абсолютно уверены?",
+      "description": "Это навсегда удалит ваш аватар",
+      "cancel": "Отмена",
+      "submit": "Удалить",
+      "submitError": "Ошибка удаления аватара"
+    },
+    "editProfile": {
+      "title": "Редактировать профиль",
+      "description": "Обновите информацию в своем профиле",
+      "dateOfBirth": "Дата рождения",
+      "location": "Местоположение",
+      "country": "Страна",
+      "city": "Город",
+      "social": "Социальные сети",
+      "submit": "Сохранить",
+      "submitError": "Ошибка редактирования профиля"
+    }
+  },
+  "layout": {
+    "navigation": {
+      "admin": "Админ",
+      "home": "Главная",
+      "Q&A": "Q&A",
+      "map": "Карта",
+      "profile": "Профиль",
+      "singIn": "Войти",
+      "settings": "Настройки"
+    }
+  },
+  "validation": {
+    "Validation Error": "Ошибка валидации",
+    "Internal Error": "Внутренняя ошибка",
+    "Incorrect password": "Неверный пароль",
+    "Incorrect email or password": "Неверный email или пароль",
+    "Incorrect username or password": "Неверное имя пользователя или пароль",
+    "Email already exists": "Email уже существует",
+    "Username already taken": "Имя пользователя уже занято",
+    "Password must be at least 6 characters": "Пароль должен содержать не менее 6 символов",
+    "Password must contain at least 1 uppercase letter": "Пароль должен содержать хотя бы одну заглавную букву",
+    "Password must contain at least 1 lowercase letter": "Пароль должен содержать хотя бы одну строчную букву",
+    "Password must contain at least 1 digit": "Пароль должен содержать хотя бы одну цифру",
+    "Password cannot contain whitespaces": "Пароль не может содержать пробелы",
+    "This field has to be filled": "Это поле должно быть заполнено",
+    "New password must be different": "Новый пароль должен отличаться",
+    "Passwords don't match": "Пароли не совпадают",
+    "This field must be at least 3 characters": "Это поле должно содержать не менее 3 символов",
+    "Username must be alphanumeric": "Имя пользователя должно содержать только буквенно-цифровые символы",
+    "Username must be at least 3 characters": "Имя пользователя должно содержать не менее 3 символов",
+    "Username must be less than 16 characters": "Имя пользователя должно содержать не более 16 символов",
+    "This is not a valid email": "Это недействительный email",
+    "Must be a latitude/longitude": "Должно быть широта/долгота",
+    "At least one field must be filled": "По крайней мере одно поле должно быть заполнено",
+    "Provide the country": "Укажите страну",
+    "Invalid Facebook URL": "Недействительный URL Facebook",
+    "Invalid Instagram URL": "Недействительный URL Instagram",
+    "Invalid Twitter URL": "Недействительный URL Twitter",
+    "Invalid YouTube URL": "Недействительный URL YouTube",
+    "Country must be less than 20 characters": "Страна должна содержать не более 20 символов",
+    "City must be less than 20 characters": "Город должен содержать не более 20 символов",
+    "You must be at least 16 years old": "Вам должно быть не менее 16 лет",
+    "You must be at most 120 years old": "Вам должно быть не более 120 лет",
+    "Invalid date format": "Недопустимый формат даты",
+    "No image provided": "Изображение не предоставлено",
+    "Max image size is 10MB": "Максимальный размер изображения - 10 МБ",
+    "Invalid image format": "Поддерживаются только форматы .jpg, .jpeg, .png и .webp"
+  },
+  "pages": {
+    "settings": {
+      "command": {
+        "placeholder": "Поиск...",
+        "empty": "Ничего не найдено.",
+        "group": {
+          "general": "Общие",
+          "profile": "Профиль"
+        }
+      },
+      "languageToggle": "Язык",
+      "themeToggle": {
+        "label": "Переключить тему",
+        "light": "Светлая",
+        "dark": "Темная",
+        "system": "Системная"
+      },
+      "stars": "Оставьте звезду на GitHub",
+      "changePassword": "Изменить пароль",
+      "logOut": {
+        "submit": "Выйти",
+        "submitError": "Ошибка выхода"
+      }
+    },
+    "profile": {
+      "notFound": "Пользователь не найден",
+      "followers": "подписчики",
+      "followings": "подписки",
+      "avatar": {
+        "title": "Аватар",
+        "fullscreen": "Полный экран",
+        "change": "Изменить",
+        "delete": "Удалить"
+      },
+      "actions": {
+        "myProfile": "Мой профиль",
+        "changeUsername": "Изменить имя пользователя",
+        "editProfile": "Редактировать профиль",
+        "share": "Поделиться",
+        "copy": "Скопировать ссылку",
+        "isCopied": "Ссылка скопирована",
+        "follow": "Подписаться",
+        "unfollow": "Отписаться",
+        "followError": "Ошибка подписки на пользователя",
+        "block": "Заблокировать",
+        "unblock": "Разблокировать",
+        "blockError": "Ошибка блокировки пользователя",
+        "logOut": {
+          "submit": "Выйти",
+          "submitError": "Ошибка выхода"
+        }
+      },
+      "info": {
+        "profile": {
+          "title": "Информация о профиле",
+          "memberSince": "Участник с",
+          "locationsAdded": "Добавленные местоположения"
+        },
+        "personal": {
+          "title": "Личная информация",
+          "yearsOld": "{age, plural, few {# года} other {# лет}}"
+        },
+        "social": {
+          "title": "Социальные сети"
+        }
+      }
+    }
+  }
+}

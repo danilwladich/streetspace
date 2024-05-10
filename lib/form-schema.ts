@@ -1,8 +1,8 @@
 import moment from "moment";
 import * as z from "zod";
 
-const MAX_FILE_SIZE = 1024 * 1024 * 5;
-const MAX_FILE_SIZE_STRING = "5MB";
+const MAX_FILE_SIZE = 1024 * 1024 * 10;
+const MAX_FILE_SIZE_STRING = "10MB";
 export const ACCEPTED_IMAGE_TYPES = [
   "image/jpeg",
   "image/jpg",
@@ -84,16 +84,16 @@ export const markerSchema = z.object({
     )
     .refine(
       (files: File[]) => files.length <= MAX_FILES_COUNT,
-      `Maximum number of images must be less than ${MAX_FILES_COUNT}.`,
+      `Maximum number of images must be less than ${MAX_FILES_COUNT}`,
     )
     .refine(
       (files: File[]) => files.every((file) => file.size <= MAX_FILE_SIZE),
-      `Max image size is ${MAX_FILE_SIZE_STRING}.`,
+      `Max image size is ${MAX_FILE_SIZE_STRING}`,
     )
     .refine(
       (files: File[]) =>
         files.every((file) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
-      `Only ${ACCEPTED_IMAGE_TYPES_STRING} formats are supported.`,
+      `Only ${ACCEPTED_IMAGE_TYPES_STRING} formats are supported`,
     ),
   recaptchaToken: z.string(),
 });
@@ -115,12 +115,12 @@ export const editProfileSchema = z
       .any()
       .refine(
         (file?: File) => (file ? file.size <= MAX_FILE_SIZE : true),
-        `Max image size is ${MAX_FILE_SIZE_STRING}.`,
+        `Max image size is ${MAX_FILE_SIZE_STRING}`,
       )
       .refine(
         (file?: File) =>
           file ? ACCEPTED_IMAGE_TYPES.includes(file.type) : true,
-        `Only ${ACCEPTED_IMAGE_TYPES_STRING} formats are supported.`,
+        `Only ${ACCEPTED_IMAGE_TYPES_STRING} formats are supported`,
       ),
     dateOfBirth: z
       .string()
@@ -191,17 +191,17 @@ export const editProfileSchema = z
     },
   );
 
-export const editAvatarSchema = z.object({
+export const changeAvatarSchema = z.object({
   image: z
     .any()
     .refine((file?: File) => !!file, "No image provided")
     .refine(
       (file: File) => file.size <= MAX_FILE_SIZE,
-      `Max image size is ${MAX_FILE_SIZE_STRING}.`,
+      `Max image size is ${MAX_FILE_SIZE_STRING}`,
     )
     .refine(
       (file: File) => ACCEPTED_IMAGE_TYPES.includes(file.type),
-      `Only ${ACCEPTED_IMAGE_TYPES_STRING} formats are supported.`,
+      "Invalid image format",
     ),
 });
 

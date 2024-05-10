@@ -28,7 +28,6 @@ import { Input } from "@/components/ui/input";
 
 export default function Register() {
   const t = useTranslations("forms.signUp");
-  const tValidation = useTranslations("validation");
 
   // Setting up the form using react-hook-form with Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({
@@ -108,7 +107,7 @@ export default function Register() {
 
       // Setting form error for a specific field
       const { field, message } = res.data;
-      form.setError(field, { message: tValidation(message) });
+      form.setError(field, { message });
     }
   }
 

@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import {
   ACCEPTED_IMAGE_TYPES,
-  editAvatarSchema as formSchema,
+  changeAvatarSchema as formSchema,
 } from "@/lib/form-schema";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -16,6 +16,7 @@ import { toast } from "sonner";
 import { useModalStore } from "@/hooks/store/use-modal-store";
 import { parseFormDataFromJson } from "@/lib/formdata-parser";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import type { ErrorResponse } from "@/types/ErrorResponse";
 
 import { Button } from "@/components/ui/button";
@@ -31,6 +32,8 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 export default function ChangeAvatarForm() {
+  const t = useTranslations("forms.changeAvatar");
+
   // Setting up the form using react-hook-form with Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -82,7 +85,7 @@ export default function ChangeAvatarForm() {
 
       // Handling non-response errors
       if (!res) {
-        toast.error("Change avatar error", { description: error.message });
+        toast.error(t("submitError"), { description: error.message });
         return;
       }
 
@@ -101,8 +104,8 @@ export default function ChangeAvatarForm() {
   const imageSrc = selectedImage
     ? URL.createObjectURL(selectedImage)
     : defaultImageSrc;
-  const alt = authUser?.username || "not auth";
-  const fallback = authUser?.username[0] || "not auth";
+  const alt = authUser!.username;
+  const fallback = authUser!.username[0];
 
   return (
     <Form {...form}>
@@ -156,7 +159,7 @@ export default function ChangeAvatarForm() {
         )}
 
         <Button type="submit" disabled={isSubmitting}>
-          Save
+          {t("submit")}
         </Button>
       </form>
     </Form>

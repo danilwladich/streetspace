@@ -1,5 +1,5 @@
 import type { NextRequest } from "next/server";
-import { editAvatarSchema } from "@/lib/form-schema";
+import { changeAvatarSchema } from "@/lib/form-schema";
 import { jsonResponse } from "@/lib/json-response";
 import { getAuthUser } from "@/lib/get-auth-user";
 import { parseJsonFromFormData } from "@/lib/formdata-parser";
@@ -11,7 +11,7 @@ export async function PATCH(req: NextRequest) {
   try {
     // Parsing and validating the request body
     const data = parseJsonFromFormData(await req.formData());
-    const body = editAvatarSchema.safeParse(data);
+    const body = changeAvatarSchema.safeParse(data);
 
     // Handling validation errors
     if (!body.success) {

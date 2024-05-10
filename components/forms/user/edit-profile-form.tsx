@@ -11,6 +11,8 @@ import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useModalStore } from "@/hooks/store/use-modal-store";
 import { toast } from "sonner";
 import { parseFormDataFromJson } from "@/lib/formdata-parser";
+import { useTranslations } from "next-intl";
+import moment from "moment";
 import type { ErrorResponse } from "@/types/ErrorResponse";
 
 import { Button } from "@/components/ui/button";
@@ -26,6 +28,8 @@ import { Input } from "@/components/ui/input";
 import AvatarField from "./avatar-field";
 
 export default function EditProfileForm() {
+  const t = useTranslations("forms.editProfile");
+
   const { user: authUser, setUser } = useAuthStore();
 
   const router = useRouter();
@@ -34,9 +38,9 @@ export default function EditProfileForm() {
   const [submitError, setSubmitError] = useState("");
 
   // Initial values for the form
-  const socialMedia = JSON.parse(authUser?.socialMedia || "{}");
-  const dateOfBirth = authUser?.dateOfBirth
-    ? new Date(authUser.dateOfBirth).toISOString().split("T")[0]
+  const socialMedia = JSON.parse(authUser!.socialMedia || "{}");
+  const dateOfBirth = authUser!.dateOfBirth
+    ? moment(authUser!.dateOfBirth).format("YYYY-MM-DD")
     : "";
 
   // Setting up the form using react-hook-form with Zod resolver
@@ -45,8 +49,8 @@ export default function EditProfileForm() {
     defaultValues: {
       avatar: undefined,
       dateOfBirth,
-      country: authUser?.country || "",
-      city: authUser?.city || "",
+      country: authUser!.country || "",
+      city: authUser!.city || "",
       socialMedia,
     },
   });
@@ -90,7 +94,7 @@ export default function EditProfileForm() {
 
       // Handling non-response errors
       if (!res) {
-        toast.error("Edit profile error", { description: error.message });
+        toast.error(t("submitError"), { description: error.message });
         return;
       }
 
@@ -125,13 +129,13 @@ export default function EditProfileForm() {
           name="dateOfBirth"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Date of birth</FormLabel>
+              <FormLabel>{t("dateOfBirth")}</FormLabel>
               <FormControl>
                 <Input
                   {...field}
                   type="date"
                   autoComplete="bday"
-                  max={new Date().toISOString().split("T")[0]}
+                  max={moment().format("YYYY-MM-DD")}
                   disabled={isSubmitting}
                 />
               </FormControl>
@@ -141,18 +145,18 @@ export default function EditProfileForm() {
         />
 
         <div className="space-y-2">
-          <p className="text-base font-semibold">Location</p>
+          <p className="text-base font-semibold">{t("location")}</p>
 
           <FormField
             control={form.control}
             name="country"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Country</FormLabel>
+                <FormLabel>{t("country")}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder={authUser?.country || "Country"}
+                    placeholder={authUser!.country || t("country")}
                     autoComplete="country-name"
                     disabled={isSubmitting}
                   />
@@ -167,11 +171,11 @@ export default function EditProfileForm() {
             name="city"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>City</FormLabel>
+                <FormLabel>{t("city")}</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
-                    placeholder={authUser?.city || "City"}
+                    placeholder={authUser!.city || t("city")}
                     autoComplete="address-level2"
                     disabled={isSubmitting}
                   />
@@ -183,7 +187,7 @@ export default function EditProfileForm() {
         </div>
 
         <div className="space-y-2">
-          <p className="text-base font-semibold">Social media</p>
+          <p className="text-base font-semibold">{t("social")}</p>
 
           <FormField
             control={form.control}
@@ -265,7 +269,7 @@ export default function EditProfileForm() {
         )}
 
         <Button type="submit" disabled={isSubmitting || !isDirty}>
-          Save
+          {t("submit")}
         </Button>
       </form>
     </Form>
