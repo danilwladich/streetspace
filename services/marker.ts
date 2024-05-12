@@ -62,7 +62,6 @@ export async function getUnconfirmedMarkers() {
 }
 
 export async function createMarker(data: {
-  name: string;
   lat: number;
   lng: number;
   address: string;

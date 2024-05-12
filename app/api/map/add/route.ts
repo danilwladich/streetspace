@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
       return jsonResponse("Validation Error", 400);
     }
 
-    const { name, coords, address, images, recaptchaToken } = body.data;
+    const { coords, address, images, recaptchaToken } = body.data;
     const [lat, lng] = coords.split(",").map(Number);
 
     // Verifying the recaptcha token
@@ -42,7 +42,6 @@ export async function POST(req: NextRequest) {
 
     // Adding a new marker
     const marker = await createMarker({
-      name,
       lat,
       lng,
       address,

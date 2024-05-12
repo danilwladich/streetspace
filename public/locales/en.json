@@ -62,6 +62,20 @@
       "social": "Social media",
       "submit": "Save",
       "submitError": "Edit profile error"
+    },
+    "addMarker": {
+      "coords": "Coordinates",
+      "coordsPlaceholder": "Latitude, longitude",
+      "address": "Address",
+      "images": {
+        "title": "Images",
+        "main": "main",
+        "select": "Select image"
+      },
+      "success": "Location sent for review",
+      "recaptchaError": "Antibot system error",
+      "submit": "Submit",
+      "submitError": "Add location error"
     }
   },
   "layout": {
@@ -110,7 +124,13 @@
     "Invalid date format": "Invalid date format",
     "No image provided": "No image provided",
     "Max image size is 10MB": "Max image size is 10MB",
-    "Invalid image format": "Only .jpg, .jpeg, .png and .webp formats are supported"
+    "Invalid image format": "Only .jpg, .jpeg, .png and .webp formats are supported",
+    "Must be a latitude and longitude separated by a comma": "Must be a latitude and longitude separated by a comma",
+    "Address must be at least 4 characters": "Address must be at least 4 characters",
+    "Address must be less than 100 characters": "Address must be less than 100 characters",
+    "At least one image must be provided": "At least one image must be provided",
+    "Maximum number of images must be less than 6": "Maximum number of images must be less than 6",
+    "You cannot upload more than 6 images": "You cannot upload more than 6 images"
   },
   "pages": {
     "admin": {
@@ -132,6 +152,10 @@
       "title": "workout map",
       "userLocation": "Your location",
       "input": "Add new location",
+      "adding": {
+        "title": "Add new location",
+        "description": "Your location will be added to the map after moderation"
+      },
       "markers": {
         "fetchError": "Markers fetch error"
       },

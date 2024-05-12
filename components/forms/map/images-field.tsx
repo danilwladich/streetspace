@@ -1,6 +1,7 @@
 import { MAX_FILES_COUNT, ACCEPTED_IMAGE_TYPES } from "@/lib/form-schema";
 import { useState } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import type { ControllerRenderProps } from "react-hook-form";
 
 import {
@@ -23,6 +24,9 @@ export default function ImagesField({
   setError: (msg: string) => void;
   clearError: () => void;
 }) {
+  const t = useTranslations("forms.addMarker.images");
+  const tValidation = useTranslations("validation");
+
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
 
   function handleImageUpload(files: FileList | null) {
@@ -34,7 +38,9 @@ export default function ImagesField({
 
     if (newImages.length > MAX_FILES_COUNT) {
       newImages = newImages.slice(0, MAX_FILES_COUNT);
-      setError(`You cannot upload more than ${MAX_FILES_COUNT} images.`);
+      setError(
+        tValidation(`You cannot upload more than ${MAX_FILES_COUNT} images`),
+      );
     }
 
     setSelectedImages(newImages);
@@ -52,7 +58,7 @@ export default function ImagesField({
 
   return (
     <FormItem>
-      <FormLabel>Images</FormLabel>
+      <FormLabel>{t("title")}</FormLabel>
 
       <div className="[&_label]:has-[input:focus-visible]:ring-2 [&_label]:has-[input:focus-visible]:ring-ring">
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -63,8 +69,8 @@ export default function ImagesField({
               onClick={(e) => e.preventDefault()}
             >
               {index === 0 && (
-                <span className="absolute right-0 top-0 z-10 bg-cyan-500 px-1 opacity-75">
-                  main
+                <span className="absolute right-0 top-0 z-10 bg-cyan-500 px-1 text-sm font-normal leading-4 opacity-75">
+                  {t("main")}
                 </span>
               )}
 
@@ -102,14 +108,14 @@ export default function ImagesField({
               className="relative aspect-video cursor-pointer border border-dashed text-black duration-150 dark:text-white"
             >
               {!selectedImages.length && index === 0 && (
-                <span className="absolute right-0 top-0 bg-cyan-500 px-1 opacity-75">
-                  main
+                <span className="absolute -right-px -top-px z-10 bg-cyan-500 px-1 text-sm font-normal leading-4 opacity-75">
+                  {t("main")}
                 </span>
               )}
 
               <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center gap-2">
                 <ImagePlus className="h-6 w-6" />
-                <span>Select image</span>
+                <span>{t("select")}</span>
               </div>
             </FormLabel>
           ))}

@@ -30,8 +30,8 @@ export default function AvatarField({
   const imageSrc = selectedImage
     ? URL.createObjectURL(selectedImage)
     : defaultImageSrc;
-  const alt = authUser?.username || "not auth";
-  const fallback = authUser?.username[0] || "not auth";
+  const alt = authUser!.username;
+  const fallback = authUser!.username[0];
 
   return (
     <FormItem className="[&_label]:has-[input:focus-visible]:ring-2 [&_label]:has-[input:focus-visible]:ring-ring">

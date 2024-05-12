@@ -62,6 +62,20 @@
       "social": "Социальные сети",
       "submit": "Сохранить",
       "submitError": "Ошибка редактирования профиля"
+    },
+    "addMarker": {
+      "coords": "Координаты",
+      "coordsPlaceholder": "Широта, долгота",
+      "address": "Адрес",
+      "images": {
+        "title": "Изображения",
+        "main": "Главное",
+        "select": "Выбрать изображение"
+      },
+      "success": "Местоположение отправлено на рассмотрение",
+      "recaptchaError": "Ошибка системы антиспама",
+      "submit": "Отправить",
+      "submitError": "Ошибка добавления местоположения"
     }
   },
   "layout": {
@@ -110,7 +124,13 @@
     "Invalid date format": "Недопустимый формат даты",
     "No image provided": "Изображение не предоставлено",
     "Max image size is 10MB": "Максимальный размер изображения - 10 МБ",
-    "Invalid image format": "Поддерживаются только форматы .jpg, .jpeg, .png и .webp"
+    "Invalid image format": "Поддерживаются только форматы .jpg, .jpeg, .png и .webp",
+    "Must be a latitude and longitude separated by a comma": "Должны быть широта и долгота, разделенные запятой",
+    "Address must be at least 4 characters": "Адрес должен содержать не менее 4 символов",
+    "Address must be less than 100 characters": "Адрес должен содержать не более 100 символов",
+    "At least one image must be provided": "Необходимо предоставить хотя бы одно изображение",
+    "Maximum number of images must be less than 6": "Максимальное количество изображений должно быть менее 6",
+    "You cannot upload more than 6 images": "Вы не можете загрузить более 6 изображений"
   },
   "pages": {
     "admin": {
@@ -132,6 +152,10 @@
       "title": "карта площадок",
       "userLocation": "Ваше местоположение",
       "input": "Добавить площадку",
+      "adding": {
+        "title": "Добавить новое местоположение",
+        "description": "Ваше местоположение будет добавлено на карту после модерации"
+      },
       "markers": {
         "fetchError": "Ошибка получения маркеров"
       },

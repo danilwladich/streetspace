@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { ErrorResponse } from "@/types/ErrorResponse";
 import ImagesField from "./images-field";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import type ReCAPTCHA from "react-google-recaptcha";
 
 import Recaptcha from "@/components/common/forms/recaptcha";
@@ -27,6 +28,8 @@ import {
 import { Input } from "@/components/ui/input";
 
 export default function MarkerForm() {
+  const t = useTranslations("forms.addMarker");
+
   const searchParams = useSearchParams();
 
   const lat = searchParams.get("lat");
@@ -36,7 +39,6 @@ export default function MarkerForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
       coords: lat && lng ? `${lat}, ${lng}` : "",
       address: "",
       images: [],
@@ -66,7 +68,7 @@ export default function MarkerForm() {
       // Handling recaptcha errors
       if (!recaptchaToken) {
         recaptchaRef.current?.reset();
-        setSubmitError("Recaptcha error");
+        setSubmitError(t("recaptchaError"));
         return;
       }
 
@@ -82,7 +84,7 @@ export default function MarkerForm() {
 
       router.replace(`/map`);
 
-      toast.success("Location sent for review");
+      toast.success(t("success"));
     } catch (e: unknown) {
       // Handling AxiosError
       const error = e as AxiosError;
@@ -95,7 +97,7 @@ export default function MarkerForm() {
 
       // Handling non-response errors
       if (!res) {
-        toast.error("Article marker error", { description: error.message });
+        toast.error(t("submitError"), { description: error.message });
         return;
       }
 
@@ -116,28 +118,14 @@ export default function MarkerForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="Name" disabled={isSubmitting} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
           name="coords"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Coords</FormLabel>
+              <FormLabel>{t("coords")}</FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  placeholder="latitude, longitude"
+                  placeholder={t("coordsPlaceholder")}
                   disabled={isSubmitting}
                 />
               </FormControl>
@@ -151,11 +139,11 @@ export default function MarkerForm() {
           name="address"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Address</FormLabel>
+              <FormLabel>{t("address")}</FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  placeholder="Address"
+                  placeholder={t("address")}
                   disabled={isSubmitting}
                 />
               </FormControl>
@@ -190,7 +178,7 @@ export default function MarkerForm() {
         )}
 
         <Button type="submit" disabled={isSubmitting}>
-          Submit
+          {t("submit")}
         </Button>
       </form>
     </Form>

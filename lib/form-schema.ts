@@ -60,11 +60,6 @@ export const registerSchema = z
   );
 
 export const markerSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(4, { message: "Name must be at least 4 characters" })
-    .max(40, { message: "Name must be less than 40 characters" }),
   coords: z
     .string()
     .regex(
@@ -93,7 +88,7 @@ export const markerSchema = z.object({
     .refine(
       (files: File[]) =>
         files.every((file) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
-      `Only ${ACCEPTED_IMAGE_TYPES_STRING} formats are supported`,
+      "Invalid image format",
     ),
   recaptchaToken: z.string(),
 });
