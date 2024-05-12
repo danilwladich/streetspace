@@ -113,11 +113,32 @@
     "Invalid image format": "Only .jpg, .jpeg, .png and .webp formats are supported"
   },
   "pages": {
+    "admin": {
+      "command": {
+        "placeholder": "Search...",
+        "empty": "No results found.",
+        "group": "Admin panel",
+        "markers": "Markers"
+      },
+      "markers": {
+        "notFound": "No unconfirmed markers",
+        "approve": "Approve",
+        "reject": "Reject",
+        "approveError": "Approve marker error",
+        "rejectError": "Reject marker error"
+      }
+    },
     "map": {
       "title": "workout map",
       "userLocation": "Your location",
+      "input": "Add new location",
       "markers": {
         "fetchError": "Markers fetch error"
+      },
+      "location": {
+        "notFound": "Location not found",
+        "navigate": "Navigate",
+        "added": "Added"
       }
     },
     "settings": {

@@ -113,11 +113,32 @@
     "Invalid image format": "Obsługiwane formaty to tylko .jpg, .jpeg, .png i .webp"
   },
   "pages": {
+    "admin": {
+      "command": {
+        "placeholder": "Szukaj...",
+        "empty": "Nie znaleziono wyników.",
+        "group": "Panel administratora",
+        "markers": "Pineski"
+      },
+      "markers": {
+        "notFound": "Brak niezaakceptowanych pinesek",
+        "approve": "Zatwierdź",
+        "reject": "Odrzuć",
+        "approveError": "Błąd zatwierdzania pineski",
+        "rejectError": "Błąd odrzucania pineski"
+      }
+    },
     "map": {
       "title": "mapa treningowa",
       "userLocation": "Twoja lokalizacja",
+      "input": "Dodaj lokalizację",
       "markers": {
         "fetchError": "Błąd pobierania pinesek"
+      },
+      "location": {
+        "notFound": "Lokalizacja nie znaleziona",
+        "navigate": "Nawiguj",
+        "added": "Dodano"
       }
     },
     "settings": {

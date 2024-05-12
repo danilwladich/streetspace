@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -14,6 +15,8 @@ import {
 import { Map } from "lucide-react";
 
 export default function Admin() {
+  const t = useTranslations("pages.admin.command");
+
   const router = useRouter();
 
   function onRedirect(path: string) {
@@ -24,17 +27,17 @@ export default function Admin() {
     <Card className="max-w-lg">
       <CardContent>
         <Command>
-          <CommandInput tabIndex={1} placeholder="Search..." />
+          <CommandInput tabIndex={1} placeholder={t("placeholder")} />
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandEmpty>{t("empty")}</CommandEmpty>
 
-            <CommandGroup heading="Admin panel">
+            <CommandGroup heading={t("group")}>
               <CommandItem
                 onSelect={() => onRedirect("/admin/markers")}
                 className="flex items-center gap-2"
               >
                 <Map className="h-4 w-4" />
-                <span>Markers</span>
+                <span>{t("markers")}</span>
               </CommandItem>
             </CommandGroup>
           </CommandList>

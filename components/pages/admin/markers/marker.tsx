@@ -1,6 +1,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 import type { Prisma } from "@prisma/client";
 
 import MarkerImages from "@/components/common/marker/marker-images";
@@ -37,6 +38,8 @@ export function Marker({
   addedBy,
   createdAt,
 }: Marker) {
+  const t = useTranslations("pages.map.location");
+
   const MapContainer = useMemo(
     () =>
       dynamic(
@@ -68,7 +71,7 @@ export function Marker({
           >
             <Button tabIndex={-1} variant="outline" size="sm" className="gap-2">
               <Compass className="h-4 w-4" />
-              <span>Navigate</span>
+              <span>{t("navigate")}</span>
             </Button>
           </Link>
 
@@ -77,7 +80,7 @@ export function Marker({
 
         <div className="flex w-full items-center justify-between">
           <div className="text-sm opacity-75">
-            <span>Added </span>
+            <span>{t("added") + " "}</span>
             <DateToShow date={createdAt} />
           </div>
 

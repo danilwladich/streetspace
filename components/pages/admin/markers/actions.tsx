@@ -2,12 +2,15 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import axios, { type AxiosError } from "axios";
 
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 export default function Actions({ id }: { id: string }) {
+  const t = useTranslations("pages.admin.markers");
+
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -25,7 +28,7 @@ export default function Actions({ id }: { id: string }) {
       // Handling AxiosError
       const error = e as AxiosError;
 
-      toast.error("Approve marker error", { description: error.message });
+      toast.error(t("approveError"), { description: error.message });
     }
 
     setIsLoading(false);
@@ -44,7 +47,7 @@ export default function Actions({ id }: { id: string }) {
       // Handling AxiosError
       const error = e as AxiosError;
 
-      toast.error("Decline marker error", { description: error.message });
+      toast.error(t("rejectError"), { description: error.message });
     }
 
     setIsLoading(false);
@@ -52,10 +55,10 @@ export default function Actions({ id }: { id: string }) {
   return (
     <>
       <Button variant="outline" onClick={onDecline} disabled={isLoading}>
-        Decline
+        {t("reject")}
       </Button>
       <Button onClick={onApprove} disabled={isLoading}>
-        Approve
+        {t("approve")}
       </Button>
     </>
   );
