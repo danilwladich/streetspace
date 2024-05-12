@@ -1,4 +1,7 @@
 {
+  "metadata": {
+    "description": "International street workout map and Q&A platform"
+  },
   "forms": {
     "changePassword": {
       "title": "Change password",

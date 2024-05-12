@@ -1,4 +1,7 @@
 {
+  "metadata": {
+    "description": "Międzynarodowa mapa street workoutu oraz platforma pytań i odpowiedzi"
+  },
   "forms": {
     "changePassword": {
       "title": "Zmień hasło",

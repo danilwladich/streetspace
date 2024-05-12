@@ -7,26 +7,31 @@ import { ModalProvider } from "@/components/providers/modal-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { getAppTitle } from "@/lib/get-app-title";
 import { NextIntlClientProvider, useMessages } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 const font = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: getAppTitle(),
-  description: "Streetspace union",
-  keywords:
-    "street workout, workout, street, streetspace, street workout map, map, streetworkout",
-  authors: [
-    { name: "Daniel Władyczewski", url: "https://github.com/danilwladich" },
-  ],
-  icons: [
-    {
-      rel: "icon",
-      url: "/icon?<generated>",
-      sizes: "32x32",
-      type: "image/png",
-    },
-  ],
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("metadata");
+
+  return {
+    title: getAppTitle(),
+    description: t("description"),
+    keywords:
+      "street workout, workout, street, streetspace, street workout map, map, streetworkout",
+    authors: [
+      { name: "Daniel Władyczewski", url: "https://github.com/danilwladich" },
+    ],
+    icons: [
+      {
+        rel: "icon",
+        url: "/icon?<generated>",
+        sizes: "32x32",
+        type: "image/png",
+      },
+    ],
+  };
+}
 
 export default function RootLayout({
   children,
