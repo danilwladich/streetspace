@@ -113,6 +113,13 @@
     "Invalid image format": "Obsługiwane formaty to tylko .jpg, .jpeg, .png i .webp"
   },
   "pages": {
+    "map": {
+      "title": "mapa treningowa",
+      "userLocation": "Twoja lokalizacja",
+      "markers": {
+        "fetchError": "Błąd pobierania pinesek"
+      }
+    },
     "settings": {
       "command": {
         "placeholder": "Szukaj...",

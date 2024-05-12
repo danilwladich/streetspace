@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useMap } from "react-leaflet";
 import { useMapStore, type Bounds } from "@/hooks/store/use-map-store";
 import axios, { AxiosError } from "axios";
+import { useTranslations } from "next-intl";
 import type { Marker } from "@prisma/client";
 
 import UserMarker from "./user-marker";
@@ -12,6 +13,8 @@ import MarkerInput from "./marker-input";
 import { toast } from "sonner";
 
 export default function Markers() {
+  const t = useTranslations("pages.map.markers");
+
   const { bounds, setBounds, setLoadingMarkers, setPosition, setZoom } =
     useMapStore();
   const [markers, setMarkers] = useState<Marker[]>([]);
@@ -65,7 +68,7 @@ export default function Markers() {
         // Handling AxiosError
         const error = e as AxiosError;
 
-        toast.error("Markers fetch error", { description: error.message });
+        toast.error(t("fetchError"), { description: error.message });
       }
 
       setLoadingMarkers(false);

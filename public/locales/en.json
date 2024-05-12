@@ -113,6 +113,13 @@
     "Invalid image format": "Only .jpg, .jpeg, .png and .webp formats are supported"
   },
   "pages": {
+    "map": {
+      "title": "workout map",
+      "userLocation": "Your location",
+      "markers": {
+        "fetchError": "Markers fetch error"
+      }
+    },
     "settings": {
       "command": {
         "placeholder": "Search...",

@@ -113,6 +113,13 @@
     "Invalid image format": "Поддерживаются только форматы .jpg, .jpeg, .png и .webp"
   },
   "pages": {
+    "map": {
+      "title": "карта уличных тренировок",
+      "userLocation": "Ваше местоположение",
+      "markers": {
+        "fetchError": "Ошибка получения маркеров"
+      }
+    },
     "settings": {
       "command": {
         "placeholder": "Поиск...",

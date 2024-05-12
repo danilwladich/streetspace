@@ -10,11 +10,14 @@ import {
   useMapStore,
   type Bounds,
 } from "@/hooks/store/use-map-store";
+import { useTranslations } from "next-intl";
 
 import { divIcon, Point } from "leaflet";
 import { Marker, Popup, useMap } from "react-leaflet";
 
 export default function UserMarker() {
+  const t = useTranslations("pages.map");
+
   const {
     position,
     userPosition,
@@ -83,7 +86,7 @@ export default function UserMarker() {
 
   return (
     <Marker position={userPosition} icon={getIcon(avatarSrc)}>
-      <Popup>You are here</Popup>
+      <Popup>{t("userLocation")}</Popup>
     </Marker>
   );
 }

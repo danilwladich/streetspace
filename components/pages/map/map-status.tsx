@@ -12,7 +12,7 @@ export default function MapStatus() {
   }
 
   return (
-    <div className="absolute top-2 right-2 z-[9999] text-black md:left-12 md:top-auto md:right-auto md:bottom-2 md:pl-2">
+    <div className="absolute right-2 top-2 z-[9999] text-black md:bottom-2 md:left-12 md:right-auto md:top-auto md:pl-2">
       <LoaderCircle className="h-4 w-4 animate-spin" />
     </div>
   );
