@@ -23,7 +23,6 @@ type MarkerType = Prisma.MarkerGetPayload<{
 // TODO: Add actions (Like, report etc)
 
 export function Marker({
-  name,
   address,
   lat,
   lng,
@@ -46,13 +45,13 @@ export function Marker({
   return (
     <Card className="max-w-4xl">
       <CardHeader>
-        <CardTitle>{name}</CardTitle>
+        <CardTitle>{address}</CardTitle>
 
-        <CardDescription>{address}</CardDescription>
+        <CardDescription>{`${lat}, ${lng}`}</CardDescription>
       </CardHeader>
 
       <CardContent className="flex flex-col items-start gap-2">
-        <MarkerImages images={images} name={name} />
+        <MarkerImages images={images} alt={address} />
 
         <div className="relative aspect-video w-full overflow-hidden rounded">
           <Link

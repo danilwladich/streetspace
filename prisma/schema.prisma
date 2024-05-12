@@ -37,7 +37,6 @@ model User {
 model Marker {
   id String @id @default(cuid())
 
-  name    String
   address String
 
   lat Float

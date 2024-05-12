@@ -14,7 +14,6 @@ export default function MarkerItem({
   id,
   lat,
   lng,
-  name,
   address,
   images,
 }: MarkerType) {
@@ -35,7 +34,7 @@ export default function MarkerItem({
 
             <Image
               src={imageSrc}
-              alt={name}
+              alt={address}
               width={280}
               height={280}
               onLoad={() => setIsLoaded(true)}
@@ -43,9 +42,7 @@ export default function MarkerItem({
             />
           </div>
 
-          <h3 className="mt-1 text-base font-bold">{name}</h3>
-
-          <span className="opacity-70">{address}</span>
+          <h3 className="mt-1 text-sm font-semibold">{address}</h3>
         </Link>
       </Popup>
     </Marker>

@@ -37,12 +37,12 @@ export async function getMarkers({
     },
     select: {
       id: true,
-      name: true,
       lat: true,
       lng: true,
       address: true,
       images: true,
     },
+    take: 100,
   });
 }
 

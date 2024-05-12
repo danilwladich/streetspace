@@ -6,10 +6,10 @@ import MarkerImage from "@/components/common/marker/marker-image";
 
 export default function MarkerImages({
   images,
-  name,
+  alt,
 }: {
   images: string;
-  name: string;
+  alt: string;
 }) {
   const { onOpen } = useModalStore();
 
@@ -17,7 +17,7 @@ export default function MarkerImages({
 
   function onModalOpen(index: number) {
     const imagesData = {
-      images: imagesSrc.map((src) => ({ src, alt: name })),
+      images: imagesSrc.map((src) => ({ src, alt })),
       startIndex: index,
     };
     onOpen("fullscreen images", { imagesData });
@@ -29,7 +29,7 @@ export default function MarkerImages({
         <MarkerImage
           key={src}
           src={src}
-          alt={name}
+          alt={alt}
           onModalOpen={() => onModalOpen(index)}
         />
       ))}

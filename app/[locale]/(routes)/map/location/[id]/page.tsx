@@ -13,7 +13,7 @@ export async function generateMetadata({
   const marker = await getMarkerById(params.id);
 
   return {
-    title: getAppTitle(marker?.name || "Location not found"),
+    title: getAppTitle(marker?.address || "Location not found"),
   };
 }
 
