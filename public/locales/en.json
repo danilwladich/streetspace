@@ -133,6 +133,7 @@
     "You cannot upload more than 6 images": "You cannot upload more than 6 images"
   },
   "pages": {
+    "notFound": "Page not found",
     "admin": {
       "command": {
         "placeholder": "Search...",

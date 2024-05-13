@@ -133,6 +133,7 @@
     "You cannot upload more than 6 images": "Вы не можете загрузить более 6 изображений"
   },
   "pages": {
+    "notFound": "Страница не найдена",
     "admin": {
       "command": {
         "placeholder": "Поиск...",

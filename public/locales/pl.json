@@ -133,6 +133,7 @@
     "You cannot upload more than 6 images": "Nie można przesłać więcej niż 6 zdjęć"
   },
   "pages": {
+    "notFound": "Strona nie znaleziona",
     "admin": {
       "command": {
         "placeholder": "Szukaj...",
