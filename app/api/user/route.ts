@@ -21,7 +21,7 @@ export async function PATCH(req: NextRequest) {
       return jsonResponse("Validation Error", 400);
     }
 
-    const { avatar, dateOfBirth, country, city, socialMedia } = body.data;
+    const { avatar, dateOfBirth, bio, country, city, socialMedia } = body.data;
 
     const authUser = getAuthUser();
 
@@ -39,28 +39,16 @@ export async function PATCH(req: NextRequest) {
       await updateUser(authUser.id, { avatar: avatarUrl });
     }
 
-    if (dateOfBirth) {
-      // Updating the user's date of birth
-      await updateUser(authUser.id, { dateOfBirth: new Date(dateOfBirth) });
-    }
+    // Updating the user's info
+    const user = await updateUser(authUser.id, {
+      dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : null,
+      bio: bio || null,
+      country: country || null,
+      city: city || null,
+      socialMedia: JSON.stringify(socialMedia || {}),
+    });
 
-    if (country || city) {
-      // Updating the user's profile
-      await updateUser(authUser.id, {
-        country: country || null,
-        city: city || null,
-      });
-    }
-
-    if (Object.values(socialMedia).some((v) => !!v)) {
-      await updateUser(authUser.id, {
-        socialMedia: JSON.stringify(socialMedia),
-      });
-    }
-
-    const user = await getUserById(authUser.id);
-
-    const serialized = await serializeJwt(user!);
+    const serialized = await serializeJwt(user);
 
     // Returning a JSON response with user information and set cookie header
     return jsonResponse(user!, 200, {
