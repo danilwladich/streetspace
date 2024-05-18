@@ -145,21 +145,21 @@ export const editProfileSchema = z
       facebook: z
         .string()
         .regex(
-          /(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-\.]*\/)*([\w\-\.]*)\/?(?:[\?#]?.*)/gi,
+          /(?:https?:\/\/)(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-\.]*\/)*([\w\-\.]*)\/?(?:[\?#]?.*)/gi,
           "Invalid Facebook URL",
         )
         .optional(),
       twitter: z
         .string()
         .regex(
-          /(https?:\/\/twitter.com\/(\w+))\/?(?:[\?#]?.*)/gi,
+          /(?:https?:\/\/(?:www\.)?(twitter|x).com\/(\w+))\/?(?:[\?#]?.*)/gi,
           "Invalid Twitter URL",
         )
         .optional(),
       instagram: z
         .string()
         .regex(
-          /(?:(?:https?):\/\/)?(?:www.)?(?:instagram.com|instagr.am|instagr.com)\/(\w+)\/?(?:[\?#]?.*)/gi,
+          /(?:(?:https?):\/\/)?(?:www\.)?(instagram.com|instagr.am|instagr.com)\/(\w+)\/?(?:[\?#]?.*)/gi,
           "Invalid Instagram URL",
         )
         .optional(),
