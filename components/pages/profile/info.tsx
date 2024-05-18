@@ -27,9 +27,9 @@ export default async function UserInfo({
   return (
     <>
       <div className="text-center">
-        <h3 className="text-base font-semibold md:text-lg">
+        <h4 className="text-base font-semibold md:text-lg">
           {t("profile.title")}
-        </h3>
+        </h4>
 
         <p className="py-0.5 text-xs opacity-70 md:text-sm">
           {t("profile.memberSince")} <DateToShow date={createdAt} size="full" />
@@ -41,9 +41,9 @@ export default async function UserInfo({
 
       {(!!country || !!dateOfBirth) && (
         <div className="text-center">
-          <h3 className="text-base font-semibold md:text-lg">
+          <h4 className="text-base font-semibold md:text-lg">
             {t("personal.title")}
-          </h3>
+          </h4>
 
           {!!dateOfBirth && (
             <p className="py-0.5 text-xs opacity-70 md:text-sm">
@@ -62,18 +62,21 @@ export default async function UserInfo({
 
       {!!socialMediaEntries.length && (
         <div className="text-center">
-          <h3 className="text-base font-semibold md:text-lg">
+          <h4 className="text-base font-semibold md:text-lg">
             {t("social.title")}
-          </h3>
+          </h4>
 
           <div className="flex flex-wrap justify-center">
-            {socialMediaEntries.map((s) => (
-              <Link key={`${s[0]}_${s[1]}`} href={s[1]} target="_blank">
-                <Button tabIndex={-1} variant="ghost" size="xs">
-                  <p className="text-sm opacity-70">{s[0]}</p>
-                </Button>
-              </Link>
-            ))}
+            {socialMediaEntries.map(
+              (s) =>
+                s[1] && (
+                  <Link key={`${s[0]}_${s[1]}`} href={s[1]} target="_blank">
+                    <Button tabIndex={-1} variant="ghost" size="xs">
+                      <p className="text-sm opacity-70">{s[0]}</p>
+                    </Button>
+                  </Link>
+                ),
+            )}
           </div>
         </div>
       )}

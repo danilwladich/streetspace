@@ -131,6 +131,11 @@ export const editProfileSchema = z
         "You must be at most 120 years old",
       )
       .optional(),
+    bio: z
+      .string()
+      .trim()
+      .max(1000, { message: "Bio must be less than 1000 characters" })
+      .optional(),
     country: z
       .string()
       .trim()
@@ -144,32 +149,40 @@ export const editProfileSchema = z
     socialMedia: z.object({
       facebook: z
         .string()
+        .trim()
         .regex(
           /(?:https?:\/\/)(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-\.]*\/)*([\w\-\.]*)\/?(?:[\?#]?.*)/gi,
           "Invalid Facebook URL",
         )
-        .optional(),
+        .optional()
+        .or(z.literal("")),
       twitter: z
         .string()
+        .trim()
         .regex(
           /(?:https?:\/\/(?:www\.)?(twitter|x).com\/(\w+))\/?(?:[\?#]?.*)/gi,
           "Invalid Twitter URL",
         )
-        .optional(),
+        .optional()
+        .or(z.literal("")),
       instagram: z
         .string()
+        .trim()
         .regex(
           /(?:(?:https?):\/\/)?(?:www\.)?(instagram.com|instagr.am|instagr.com)\/(\w+)\/?(?:[\?#]?.*)/gi,
           "Invalid Instagram URL",
         )
-        .optional(),
+        .optional()
+        .or(z.literal("")),
       youtube: z
         .string()
+        .trim()
         .regex(
           /^(?:https?:\/\/)?(?:(?:www|gaming)\.)?youtube\.com\/@?(\w+)\/?(?:[\?#]?.*)/gi,
           "Invalid YouTube URL",
         )
-        .optional(),
+        .optional()
+        .or(z.literal("")),
     }),
   })
   .refine((data) => !(!data.country && !!data.city), {
