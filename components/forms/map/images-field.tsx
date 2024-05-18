@@ -69,7 +69,7 @@ export default function ImagesField({
               onClick={(e) => e.preventDefault()}
             >
               {index === 0 && (
-                <span className="absolute right-0 top-0 z-10 bg-cyan-500 px-1 text-sm font-normal leading-4 opacity-75">
+                <span className="absolute right-0 top-0 z-10 bg-cyan-500 px-1 text-sm font-normal leading-4 text-muted-foreground">
                   {t("main")}
                 </span>
               )}
@@ -108,7 +108,7 @@ export default function ImagesField({
               className="relative aspect-video cursor-pointer border border-dashed text-black duration-150 dark:text-white"
             >
               {!selectedImages.length && index === 0 && (
-                <span className="absolute -right-px -top-px z-10 bg-cyan-500 px-1 text-sm font-normal leading-4 opacity-75">
+                <span className="absolute -right-px -top-px z-10 bg-cyan-500 px-1 text-sm font-normal leading-4 text-muted-foreground">
                   {t("main")}
                 </span>
               )}

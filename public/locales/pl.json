@@ -56,6 +56,7 @@
       "title": "Edytuj profil",
       "description": "Zaktualizuj swoje informacje profilowe",
       "dateOfBirth": "Data urodzenia",
+      "bio": "Biografia",
       "location": "Lokalizacja",
       "country": "Kraj",
       "city": "Miasto",
@@ -130,7 +131,8 @@
     "Address must be less than 100 characters": "Adres musi mieć mniej niż 100 znaków",
     "At least one image must be provided": "Należy podać co najmniej jedno zdjęcie",
     "Maximum number of images must be less than 6": "Maksymalna liczba zdjęć musi być mniejsza niż 6",
-    "You cannot upload more than 6 images": "Nie można przesłać więcej niż 6 zdjęć"
+    "You cannot upload more than 6 images": "Nie można przesłać więcej niż 6 zdjęć",
+    "Bio must be less than 1000 characters": "Biografia musi mieć mniej niż 1000 znaków"
   },
   "pages": {
     "notFound": "Strona nie znaleziona",
@@ -217,6 +219,7 @@
           "submitError": "Błąd wylogowania"
         }
       },
+      "aboutMe": "O mnie",
       "info": {
         "profile": {
           "title": "Informacje o profilu",

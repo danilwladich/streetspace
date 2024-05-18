@@ -56,6 +56,7 @@
       "title": "Edit profile",
       "description": "Update your profile information",
       "dateOfBirth": "Date of birth",
+      "bio": "Bio",
       "location": "Location",
       "country": "Country",
       "city": "City",
@@ -130,7 +131,8 @@
     "Address must be less than 100 characters": "Address must be less than 100 characters",
     "At least one image must be provided": "At least one image must be provided",
     "Maximum number of images must be less than 6": "Maximum number of images must be less than 6",
-    "You cannot upload more than 6 images": "You cannot upload more than 6 images"
+    "You cannot upload more than 6 images": "You cannot upload more than 6 images",
+    "Bio must be less than 1000 characters": "Bio must be less than 1000 characters"
   },
   "pages": {
     "notFound": "Page not found",
@@ -217,6 +219,7 @@
           "submitError": "Log out error"
         }
       },
+      "aboutMe": "About me",
       "info": {
         "profile": {
           "title": "Profile info",

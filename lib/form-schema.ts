@@ -130,7 +130,8 @@ export const editProfileSchema = z
           moment(date).toDate() >= moment().subtract(120, "years").toDate(),
         "You must be at most 120 years old",
       )
-      .optional(),
+      .optional()
+      .or(z.literal("")),
     bio: z
       .string()
       .trim()

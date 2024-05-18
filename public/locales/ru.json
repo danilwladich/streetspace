@@ -56,6 +56,7 @@
       "title": "Редактировать профиль",
       "description": "Обновите информацию в своем профиле",
       "dateOfBirth": "Дата рождения",
+      "bio": "Биография",
       "location": "Местоположение",
       "country": "Страна",
       "city": "Город",
@@ -130,7 +131,8 @@
     "Address must be less than 100 characters": "Адрес должен содержать не более 100 символов",
     "At least one image must be provided": "Необходимо предоставить хотя бы одно изображение",
     "Maximum number of images must be less than 6": "Максимальное количество изображений должно быть менее 6",
-    "You cannot upload more than 6 images": "Вы не можете загрузить более 6 изображений"
+    "You cannot upload more than 6 images": "Вы не можете загрузить более 6 изображений",
+    "Bio must be less than 1000 characters": "Биография должна содержать не более 1000 символов"
   },
   "pages": {
     "notFound": "Страница не найдена",
@@ -217,6 +219,7 @@
           "submitError": "Ошибка выхода"
         }
       },
+      "aboutMe": "Обо мне",
       "info": {
         "profile": {
           "title": "Информация о профиле",

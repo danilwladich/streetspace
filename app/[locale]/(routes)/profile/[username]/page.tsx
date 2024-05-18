@@ -68,8 +68,14 @@ export default async function Profile({
 
       {!!user.bio && (
         <Card className="max-w-4xl">
-          <CardContent className="text-sm">{user.bio}</CardContent>
-          {/* TODO: new bio input */}
+          <CardContent>
+            <h4 className="text-base font-semibold md:text-lg">
+              {t("aboutMe")}
+            </h4>
+            <p lang="" className="pt-0.5 text-sm">
+              {user.bio}
+            </p>
+          </CardContent>
         </Card>
       )}
 

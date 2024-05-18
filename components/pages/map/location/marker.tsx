@@ -72,7 +72,7 @@ export function Marker({
         </div>
 
         <div className="flex w-full items-center justify-between">
-          <div className="text-sm opacity-75">
+          <div className="text-sm text-muted-foreground">
             <span>{t("added") + " "}</span>
             <DateToShow date={createdAt} />
           </div>

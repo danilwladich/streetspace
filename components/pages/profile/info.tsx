@@ -31,10 +31,10 @@ export default async function UserInfo({
           {t("profile.title")}
         </h4>
 
-        <p className="py-0.5 text-xs opacity-70 md:text-sm">
+        <p className="py-0.5 text-xs text-muted-foreground md:text-sm">
           {t("profile.memberSince")} <DateToShow date={createdAt} size="full" />
         </p>
-        <p className="py-0.5 text-xs opacity-70 md:text-sm">
+        <p className="py-0.5 text-xs text-muted-foreground md:text-sm">
           {t("profile.locationsAdded")} {markersAdded}
         </p>
       </div>
@@ -46,14 +46,14 @@ export default async function UserInfo({
           </h4>
 
           {!!dateOfBirth && (
-            <p className="py-0.5 text-xs opacity-70 md:text-sm">
+            <p className="py-0.5 text-xs text-muted-foreground md:text-sm">
               {t("personal.yearsOld", {
                 age: moment().diff(dateOfBirth, "years"),
               })}
             </p>
           )}
           {!!country && (
-            <p className="py-0.5 text-xs opacity-70 md:text-sm">
+            <p className="py-0.5 text-xs text-muted-foreground md:text-sm">
               {`${city ? city + ", " : ""}${country}`}
             </p>
           )}
@@ -72,7 +72,7 @@ export default async function UserInfo({
                 s[1] && (
                   <Link key={`${s[0]}_${s[1]}`} href={s[1]} target="_blank">
                     <Button tabIndex={-1} variant="ghost" size="xs">
-                      <p className="text-sm opacity-70">{s[0]}</p>
+                      <p className="text-sm text-muted-foreground">{s[0]}</p>
                     </Button>
                   </Link>
                 ),

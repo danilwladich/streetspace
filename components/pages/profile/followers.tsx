@@ -18,7 +18,7 @@ export default async function UserFollowers({
 
   return (
     <>
-      <div className="flex items-center gap-1 text-xs opacity-70 md:text-sm">
+      <div className="flex items-center gap-1 text-xs text-muted-foreground md:text-sm">
         <span className="font-semibold">{followersCount}</span>
         <span>{t("followers")}</span>
 

@@ -25,6 +25,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import AvatarField from "./avatar-field";
 
 export default function EditProfileForm() {
@@ -49,6 +50,7 @@ export default function EditProfileForm() {
     defaultValues: {
       avatar: undefined,
       dateOfBirth,
+      bio: authUser!.bio || "",
       country: authUser!.country || "",
       city: authUser!.city || "",
       socialMedia,
@@ -136,6 +138,24 @@ export default function EditProfileForm() {
                   type="date"
                   autoComplete="bday"
                   max={moment().format("YYYY-MM-DD")}
+                  disabled={isSubmitting}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="bio"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t("bio")}</FormLabel>
+              <FormControl>
+                <Textarea
+                  {...field}
+                  placeholder={t("bio")}
                   disabled={isSubmitting}
                 />
               </FormControl>
