@@ -75,7 +75,7 @@ export default function Markers() {
     }
 
     fetchLocations();
-  }, [bounds, setLoadingMarkers]);
+  }, [bounds, setLoadingMarkers, t]);
 
   return (
     <>

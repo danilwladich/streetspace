@@ -65,7 +65,7 @@ export function Marker({
 
         <div className="relative aspect-video w-full overflow-hidden rounded">
           <Link
-            href={`https://www.google.com/maps/dir/${lat},${lng}`}
+            href={`https://www.google.com/maps/dir//${lat},${lng}`}
             target="_blank"
             className="absolute right-2 top-2 z-10"
           >
