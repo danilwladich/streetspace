@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 import { LoaderCircle } from "lucide-react";
@@ -22,7 +23,18 @@ export default function ImageItem({ src, alt }: { src: string; alt: string }) {
         width={770}
         height={770}
         onLoad={() => setIsLoaded(true)}
-        className="absolute left-0 top-0 h-full w-full object-contain"
+        className="absolute left-0 top-0 z-10 h-full w-full object-contain"
+      />
+
+      <Image
+        src={src}
+        alt="blur"
+        width={25}
+        height={25}
+        className={cn(
+          "absolute left-0 top-0 hidden h-full w-full object-cover opacity-20 blur-lg",
+          isLoaded && "block",
+        )}
       />
     </>
   );

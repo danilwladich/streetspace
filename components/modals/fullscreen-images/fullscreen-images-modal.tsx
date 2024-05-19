@@ -33,7 +33,7 @@ export default function FullscreenImagesModal() {
             startIndex,
           }}
         >
-          <CarouselContent>
+          <CarouselContent className="rounded-sm">
             {images.map((img, index) => (
               <CarouselItem
                 key={`${index}_${img.src}`}
@@ -50,7 +50,7 @@ export default function FullscreenImagesModal() {
       )}
 
       {!hasMultipleImages && (
-        <div className="relative h-full w-full">
+        <div className="relative h-full w-full overflow-hidden rounded-sm">
           <ImageItem {...images[0]} />
         </div>
       )}

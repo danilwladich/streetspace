@@ -4,6 +4,7 @@ import * as React from "react";
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react";
+import { useTranslations } from "next-intl";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -157,7 +158,10 @@ const CarouselContent = React.forwardRef<
   const { carouselRef, orientation } = useCarousel();
 
   return (
-    <div ref={carouselRef} className="h-full w-full overflow-hidden">
+    <div
+      ref={carouselRef}
+      className={cn("h-full w-full overflow-hidden", className)}
+    >
       <div
         ref={ref}
         className={cn(
@@ -176,8 +180,6 @@ const CarouselItem = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
-  const { orientation } = useCarousel();
-
   return (
     <div
       ref={ref}
@@ -194,6 +196,8 @@ const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
 >(({ className, variant = "outline", size = "icon", ...props }, ref) => {
+  const t = useTranslations("components.carousel");
+
   const { orientation, scrollPrev, canScrollPrev } = useCarousel();
 
   return (
@@ -202,7 +206,7 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute  h-8 w-8 rounded-full opacity-60 transition-opacity hover:opacity-100 focus-visible:opacity-100 disabled:opacity-0",
+        "absolute h-8 w-8 rounded-full opacity-60 transition-opacity hover:opacity-100 focus-visible:opacity-100 disabled:opacity-0",
         orientation === "horizontal"
           ? "left-2 top-1/2 -translate-y-1/2"
           : "left-1/2 top-2 -translate-x-1/2 rotate-90",
@@ -213,7 +217,7 @@ const CarouselPrevious = React.forwardRef<
       {...props}
     >
       <ArrowLeft className="h-4 w-4" />
-      <span className="sr-only">Previous slide</span>
+      <span className="sr-only">{t("previous")}</span>
     </Button>
   );
 });
@@ -223,6 +227,8 @@ const CarouselNext = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
 >(({ className, variant = "outline", size = "icon", ...props }, ref) => {
+  const t = useTranslations("components.carousel");
+
   const { orientation, scrollNext, canScrollNext } = useCarousel();
 
   return (
@@ -242,7 +248,7 @@ const CarouselNext = React.forwardRef<
       {...props}
     >
       <ArrowRight className="h-4 w-4" />
-      <span className="sr-only">Next slide</span>
+      <span className="sr-only">{t("next")}</span>
     </Button>
   );
 });

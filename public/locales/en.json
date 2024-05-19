@@ -90,6 +90,12 @@
       "settings": "Settings"
     }
   },
+  "components": {
+    "carousel": {
+      "next": "Next slide",
+      "previous": "Previous slide"
+    }
+  },
   "validation": {
     "Validation Error": "Validation Error",
     "Internal Error": "Internal Error",

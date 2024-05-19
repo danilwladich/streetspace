@@ -90,6 +90,12 @@
       "settings": "Настройки"
     }
   },
+  "components": {
+    "carousel": {
+      "next": "Следующий слайд",
+      "previous": "Предыдущий слайд"
+    }
+  },
   "validation": {
     "Validation Error": "Ошибка валидации",
     "Internal Error": "Внутренняя ошибка",

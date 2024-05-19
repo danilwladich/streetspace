@@ -90,6 +90,12 @@
       "settings": "Ustawienia"
     }
   },
+  "components": {
+    "carousel": {
+      "next": "Następny slajd",
+      "previous": "Poprzedni slajd"
+    }
+  },
   "validation": {
     "Validation Error": "Błąd walidacji",
     "Internal Error": "Błąd wewnętrzny",
