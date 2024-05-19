@@ -31,5 +31,3 @@ export default async function Location({ params }: { params: { id: string } }) {
 
   return <Marker {...marker} />;
 }
-
-// TODO: Add a loading skeleton
