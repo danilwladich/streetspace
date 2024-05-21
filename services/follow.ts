@@ -1,8 +1,8 @@
 import { db } from "@/lib/db";
-import { getAuthUser } from "@/lib/get-auth-user";
+import { authValidation } from "@/lib/auth-validation";
 
-export async function getAuthIsFollowingByUsername(username: string) {
-  const authUser = getAuthUser();
+export async function checkAuthIsFollowingByUsername(username: string) {
+  const authUser = await authValidation();
 
   if (!authUser || authUser.username === username) {
     return false;
