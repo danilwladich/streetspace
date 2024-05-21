@@ -234,7 +234,7 @@
         },
         "personal": {
           "title": "Личная информация",
-          "yearsOld": "{age, plural, few {# года} other {# лет}}"
+          "yearsOld": "{age, plural, one {# год} few {# года} other {# лет}}"
         },
         "social": {
           "title": "Социальные сети"
