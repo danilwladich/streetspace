@@ -1,5 +1,5 @@
 import { getAppTitle } from "@/lib/get-app-title";
-import { getAuthIsFollowingByUsername } from "@/services/follow";
+import { checkAuthIsFollowingByUsername } from "@/services/follow";
 import { getUserByUsername } from "@/services/user";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
@@ -40,7 +40,7 @@ export default async function Profile({
     return <NotFound text={t("notFound")} />;
   }
 
-  const isFollowing = await getAuthIsFollowingByUsername(username);
+  const isFollowing = await checkAuthIsFollowingByUsername(username);
 
   return (
     <>
@@ -50,9 +50,9 @@ export default async function Profile({
             <UserAvatar {...user} />
 
             <div className="flex max-w-full flex-col items-center gap-1 md:items-start">
-              <h2 className="max-w-full truncate text-2xl font-semibold">
+              <h3 className="max-w-full truncate text-2xl font-semibold">
                 {user.username}
-              </h2>
+              </h3>
 
               <div className="flex gap-2">
                 <UserFollowers username={username} />
@@ -80,7 +80,7 @@ export default async function Profile({
       )}
 
       <Card className="max-w-4xl">
-        <CardContent className="grid grid-cols-2 gap-4 md:grid-cols-3">
+        <CardContent className="flex flex-wrap justify-center gap-4 [&>*]:w-full [&>*]:max-w-[calc(50%-1rem)] md:[&>*]:max-w-[calc(33.333%-1rem)]">
           <UserInfo {...user} />
         </CardContent>
       </Card>

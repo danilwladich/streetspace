@@ -26,26 +26,28 @@ export default function ProfileLoader() {
 
       <Card className="max-w-4xl">
         <CardContent>
+          <Skeleton className="mb-1 mt-0.5 h-5 w-full max-w-32 md:h-6" />
+
           <Skeleton className="h-5 w-full" />
         </CardContent>
       </Card>
 
       <Card className="max-w-4xl">
-        <CardContent className="grid grid-cols-2 gap-4 md:grid-cols-3">
+        <CardContent className="flex flex-wrap justify-center gap-4 [&>*]:w-full [&>*]:max-w-[calc(50%-1rem)] md:[&>*]:max-w-[calc(33.333%-1rem)]">
           <div className="flex flex-col items-center">
-            <Skeleton className="h-6 w-full max-w-32" />
-            <Skeleton className="mt-1 h-5 w-full max-w-40" />
-            <Skeleton className="my-1 h-5 w-full max-w-40" />
+            <Skeleton className="h-5 w-full max-w-32 md:h-6" />
+            <Skeleton className="mt-1 h-4 w-full max-w-40 md:h-5" />
+            <Skeleton className="my-1 h-4 w-full max-w-40 md:h-5" />
           </div>
           <div className="flex flex-col items-center">
-            <Skeleton className="h-6 w-full max-w-32" />
-            <Skeleton className="mt-1 h-5 w-full max-w-40" />
-            <Skeleton className="my-1 h-5 w-full max-w-40" />
+            <Skeleton className="h-5 w-full max-w-32 md:h-6" />
+            <Skeleton className="mt-1 h-4 w-full max-w-40 md:h-5" />
+            <Skeleton className="my-1 h-4 w-full max-w-40 md:h-5" />
           </div>
           <div className="flex flex-col items-center">
-            <Skeleton className="h-6 w-full max-w-32" />
-            <Skeleton className="mt-1 h-5 w-full max-w-40" />
-            <Skeleton className="my-1 h-5 w-full max-w-40" />
+            <Skeleton className="h-5 w-full max-w-32 md:h-6" />
+            <Skeleton className="mt-1 h-4 w-full max-w-40 md:h-5" />
+            <Skeleton className="my-1 h-4 w-full max-w-40 md:h-5" />
           </div>
         </CardContent>
       </Card>
