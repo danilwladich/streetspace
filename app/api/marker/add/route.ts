@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
     return jsonResponse(marker, 200);
   } catch (error) {
     // Handling internal error
-    console.log("[MAP_ADD_POST]", error);
+    console.log("[MARKER_ADD_POST]", error);
     return jsonResponse("Internal Error", 500);
   }
 }

@@ -1,5 +1,9 @@
 import { getAppTitle } from "@/lib/get-app-title";
-import { getMarkerById } from "@/services/marker";
+import {
+  checkAuthIsFavoriteMarker,
+  getMarkerById,
+  getMarkerFavoritesCount,
+} from "@/services/marker";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 
@@ -20,14 +24,27 @@ export async function generateMetadata({
   };
 }
 
-export default async function Location({ params }: { params: { id: string } }) {
+export default async function Location({
+  params: { id },
+}: {
+  params: { id: string };
+}) {
   const t = await getTranslations("pages.map.location");
 
-  const marker = await getMarkerById(params.id);
+  const marker = await getMarkerById(id);
 
   if (!marker) {
     return <NotFound text={t("notFound")} />;
   }
 
-  return <Marker {...marker} />;
+  const isFavorite = await checkAuthIsFavoriteMarker(id);
+  const favoritesCount = await getMarkerFavoritesCount(id);
+
+  return (
+    <Marker
+      {...marker}
+      isFavorite={isFavorite}
+      favoritesCount={favoritesCount}
+    />
+  );
 }

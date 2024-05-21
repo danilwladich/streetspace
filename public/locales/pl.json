@@ -94,6 +94,13 @@
     "carousel": {
       "next": "Następny slajd",
       "previous": "Poprzedni slajd"
+    },
+    "dropdown": {
+      "shareButton": {
+        "share": "Udostępnij",
+        "copy": "Kopiuj link",
+        "isCopied": "Link skopiowany"
+      }
     }
   },
   "validation": {
@@ -171,7 +178,14 @@
       "location": {
         "notFound": "Lokalizacja nie znaleziona",
         "navigate": "Nawiguj",
-        "added": "Dodano"
+        "added": "Dodano",
+        "actions": {
+          "label": "Lokalizacja",
+          "favoriteError": "Błąd ulubionej lokalizacji",
+          "unfavorite": "Usuń z ulubionych",
+          "favorite": "Dodaj do ulubionych",
+          "report": "Zgłoś"
+        }
       }
     },
     "settings": {
@@ -211,9 +225,6 @@
         "myProfile": "Mój profil",
         "changeUsername": "Zmień nazwę użytkownika",
         "editProfile": "Edytuj profil",
-        "share": "Udostępnij",
-        "copy": "Skopiuj link",
-        "isCopied": "Link skopiowany",
         "follow": "Obserwuj",
         "unfollow": "Przestań obserwować",
         "followError": "Błąd obserwowania użytkownika",

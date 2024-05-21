@@ -20,7 +20,7 @@ const protectedApiRoutes = [
   "/api/admin",
   "/api/auth/me",
   "/api/user",
-  "/api/map/add",
+  "/api/marker",
 ];
 const protectedApiPathnameRegex = RegExp(
   `^(${protectedApiRoutes.join("|")})(/.*|/?)$`,

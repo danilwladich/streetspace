@@ -94,6 +94,13 @@
     "carousel": {
       "next": "Next slide",
       "previous": "Previous slide"
+    },
+    "dropdown": {
+      "shareButton": {
+        "share": "Share",
+        "copy": "Copy link",
+        "isCopied": "Link copied"
+      }
     }
   },
   "validation": {
@@ -171,7 +178,14 @@
       "location": {
         "notFound": "Location not found",
         "navigate": "Navigate",
-        "added": "Added"
+        "added": "Added",
+        "actions": {
+          "label": "Location",
+          "favoriteError": "Favorite location error",
+          "unfavorite": "Unfavorite",
+          "favorite": "Favorite",
+          "report": "Report"
+        }
       }
     },
     "settings": {
@@ -211,9 +225,6 @@
         "myProfile": "My profile",
         "changeUsername": "Change username",
         "editProfile": "Edit profile",
-        "share": "Share",
-        "copy": "Copy link",
-        "isCopied": "Link copied",
         "follow": "Follow",
         "unfollow": "Unfollow",
         "followError": "Follow user error",

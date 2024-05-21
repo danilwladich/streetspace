@@ -6,7 +6,7 @@ import { getAppTitle } from "@/lib/get-app-title";
 import { useTranslations } from "next-intl";
 import type { User } from "@prisma/client";
 
-import ShareButton from "@/components/pages/profile/actions/share-button";
+import ShareButton from "@/components/common/dropdown/share-button";
 import LogOutButton from "@/components/pages/profile/actions/log-out-button";
 import FollowButton from "@/components/pages/profile/actions/follow-button";
 import BlockButton from "@/components/pages/profile/actions/block-button";

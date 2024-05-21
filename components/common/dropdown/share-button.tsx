@@ -13,7 +13,7 @@ export default function ShareButton({
   url: string;
   text: string;
 }) {
-  const t = useTranslations("pages.profile.actions");
+  const t = useTranslations("components.dropdown.shareButton");
 
   const [isCopied, setIsCopied] = useState(false);
 

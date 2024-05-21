@@ -24,7 +24,7 @@ export default function MarkerImages({
   }
 
   return (
-    <div className="mb-2 grid w-full grid-cols-2 gap-2 sm:grid-cols-3">
+    <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
       {imagesSrc.map((src, index) => (
         <MarkerImage
           key={src}

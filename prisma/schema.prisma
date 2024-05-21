@@ -28,7 +28,10 @@ model User {
   followings Follow[] @relation(name: "followings")
   followers  Follow[] @relation(name: "followers")
 
-  addedMarkers Marker[]
+  addedMarkers     Marker[] @relation(name: "addedMarkers")
+  favoritesMarkers Marker[] @relation(name: "favoritesMarkers")
+
+  markersReports MarkerReport[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -47,7 +50,27 @@ model Marker {
   images String
 
   addedByUserId String
-  addedBy       User   @relation(fields: [addedByUserId], references: [id])
+  addedBy       User   @relation(name: "addedMarkers", fields: [addedByUserId], references: [id])
+
+  favorites User[] @relation(name: "favoritesMarkers")
+
+  reports MarkerReport[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MarkerReport {
+  id Int @id @default(autoincrement())
+
+  markerId String
+  marker   Marker @relation(fields: [markerId], references: [id])
+
+  reportedByUserId String
+  reportedBy       User   @relation(fields: [reportedByUserId], references: [id])
+
+  type    String
+  message String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

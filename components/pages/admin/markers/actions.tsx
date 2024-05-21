@@ -20,7 +20,7 @@ export default function Actions({ id }: { id: string }) {
 
     try {
       // Send PATCH request to approve marker
-      await axios.patch("/api/admin/map/add", { id });
+      await axios.patch("/api/admin/marker/add", { id });
 
       // Refresh page to get new markers data
       router.refresh();
@@ -39,7 +39,7 @@ export default function Actions({ id }: { id: string }) {
 
     try {
       // Send DELETE request to delete marker
-      await axios.delete("/api/admin/map/add", { data: { id } });
+      await axios.delete("/api/admin/marker/add", { data: { id } });
 
       // Refresh page to get new markers data
       router.refresh();

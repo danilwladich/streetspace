@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 import type { Prisma } from "@prisma/client";
 
 import MarkerImages from "@/components/common/marker/marker-images";
-import { AppLoader } from "@/components/ui/app-loader";
 import Actions from "./actions";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +17,7 @@ import {
 } from "@/components/ui/card";
 import { User, Compass } from "lucide-react";
 import { DateToShow } from "@/components/common/date-to-show";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type Marker = Prisma.MarkerGetPayload<{
   include: {
@@ -45,7 +45,7 @@ export function Marker({
       dynamic(
         () => import("@/components/common/map-container/map-single-marker"),
         {
-          loading: () => <AppLoader />,
+          loading: () => <Skeleton className="h-full w-full" />,
           ssr: false,
         },
       ),
@@ -60,10 +60,10 @@ export function Marker({
         <CardDescription>{`${lat}, ${lng}`}</CardDescription>
       </CardHeader>
 
-      <CardContent className="flex flex-col items-start gap-2">
+      <CardContent className="space-y-2">
         <MarkerImages images={images} alt={address} />
 
-        <div className="relative aspect-video w-full overflow-hidden rounded">
+        <div className="relative aspect-video overflow-hidden rounded">
           <Link
             href={`https://www.google.com/maps/dir//${lat},${lng}`}
             target="_blank"
@@ -78,7 +78,7 @@ export function Marker({
           <MapContainer position={[lat, lng]} />
         </div>
 
-        <div className="flex w-full items-center justify-between">
+        <div className="flex items-center justify-between">
           <div className="text-sm text-muted-foreground">
             <span>{t("added") + " "}</span>
             <DateToShow date={createdAt} />

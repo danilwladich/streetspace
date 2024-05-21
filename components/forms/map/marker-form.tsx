@@ -77,12 +77,12 @@ export default function MarkerForm() {
         recaptchaToken,
       });
 
-      // Making a POST request to the map API endpoint
-      await axios.post("/api/map/add", formData, {
+      // Making a POST request to the add API endpoint
+      await axios.post("/api/marker/add", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      router.replace(`/map`);
+      router.replace("/map");
 
       toast.success(t("success"));
     } catch (e: unknown) {

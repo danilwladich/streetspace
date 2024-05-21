@@ -16,7 +16,7 @@ export async function PATCH(req: NextRequest) {
     return jsonResponse(marker, 200);
   } catch (error) {
     // Handling internal error
-    console.log("[ADMIN_MAP_ADD_PATCH]", error);
+    console.log("[ADMIN_MARKER_ADD_PATCH]", error);
     return jsonResponse("Internal Error", 500);
   }
 }
@@ -46,7 +46,7 @@ export async function DELETE(req: NextRequest) {
     return jsonResponse("Success", 200);
   } catch (error) {
     // Handling internal error
-    console.log("[ADMIN_MAP_ADD_DELETE]", error);
+    console.log("[ADMIN_MARKER_ADD_DELETE]", error);
     return jsonResponse("Internal Error", 500);
   }
 }

@@ -6,39 +6,37 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 
-import { UserPlus, UserMinus } from "lucide-react";
+import { Star, StarOff } from "lucide-react";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
-export default function FollowButton({
+export default function FavoriteButton({
   id,
-  username,
-  isFollowing,
+  isFavorite,
 }: {
   id: string;
-  username: string;
-  isFollowing: boolean;
+  isFavorite: boolean;
 }) {
-  const t = useTranslations("pages.profile.actions");
+  const t = useTranslations("pages.map.location.actions");
 
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
-  async function onFollow(e: React.MouseEvent<HTMLDivElement>) {
+  async function onFavorite(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
 
     setIsLoading(true);
 
     try {
-      if (isFollowing) {
-        // Making a DELETE request to the follow API endpoint
-        await axios.delete("/api/user/follow", { data: { userId: id } });
+      if (isFavorite) {
+        // Making a DELETE request to the favorite API endpoint
+        await axios.delete("/api/marker/favorite", { data: { markerId: id } });
       } else {
-        // Making a POST request to the follow API endpoint
-        await axios.post("/api/user/follow", { userId: id });
+        // Making a POST request to the favorite API endpoint
+        await axios.post("/api/marker/favorite", { markerId: id });
       }
 
-      // Refresh page to get new followers data
+      // Refresh page to get new marker data
       router.refresh();
     } catch (e: unknown) {
       // Handling AxiosError
@@ -49,29 +47,29 @@ export default function FollowButton({
 
       // Handling non-response errors
       if (!res) {
-        toast.error(t("followError"), { description: error.message });
+        toast.error(t("favoriteError"), { description: error.message });
         return;
       }
 
       if (res.status === 401) {
-        router.push(`/auth?from=/profile/${username}`);
+        router.push(`/auth?from=/map/location/${id}`);
       }
     }
 
     setIsLoading(false);
   }
 
-  const text = t(isFollowing ? "unfollow" : "follow");
-  const icon = isFollowing ? (
-    <UserMinus className="h-4 w-4" />
+  const text = t(isFavorite ? "unfavorite" : "favorite");
+  const icon = isFavorite ? (
+    <StarOff className="h-4 w-4" />
   ) : (
-    <UserPlus className="h-4 w-4" />
+    <Star className="h-4 w-4" />
   );
 
   return (
     <DropdownMenuItem
       disabled={isLoading}
-      onClick={onFollow}
+      onClick={onFavorite}
       className="flex gap-2"
     >
       {icon}

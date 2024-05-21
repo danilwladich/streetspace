@@ -5,9 +5,15 @@ export default function LocationLoader() {
   return (
     <Card className="max-w-4xl">
       <CardHeader>
-        <Skeleton className="h-6 w-full max-w-xl" />
+        <div className="relative pr-14">
+          <Skeleton className="h-6 w-full max-w-xl" />
 
-        <Skeleton className="h-5 w-full max-w-64 py-0.5" />
+          <Skeleton className="absolute right-0 top-0 h-10 w-10" />
+        </div>
+
+        <div className="pr-14">
+          <Skeleton className="h-5 w-full max-w-64 py-0.5" />
+        </div>
       </CardHeader>
 
       <CardContent className="flex flex-col items-start gap-2">

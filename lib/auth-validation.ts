@@ -16,10 +16,8 @@ export async function authValidation(): Promise<User | undefined> {
     }
 
     // Verifying the JWT token using the provided secret
-    const { payload: user } = await jwtVerify(
-      jwtToken,
-      new TextEncoder().encode(jwtSecret),
-    );
+    const key = new TextEncoder().encode(jwtSecret);
+    const { payload: user } = await jwtVerify(jwtToken, key);
 
     // Returning the authenticated user information
     return user as User;
