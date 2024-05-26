@@ -80,6 +80,11 @@ export async function getMarkers({
       images: true,
     },
     take: 100,
+    orderBy: {
+      favorites: {
+        _count: "desc",
+      },
+    },
   });
 }
 

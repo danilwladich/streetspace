@@ -173,6 +173,7 @@
         "description": "Your location will be added to the map after moderation"
       },
       "markers": {
+        "search": "Search this area",
         "fetchError": "Markers fetch error"
       },
       "location": {

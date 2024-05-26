@@ -10,13 +10,7 @@ import type { Marker as MarkerType } from "@prisma/client";
 
 import { LoaderCircle } from "lucide-react";
 
-export default function MarkerItem({
-  id,
-  lat,
-  lng,
-  address,
-  images,
-}: MarkerType) {
+export default function MapItem({ id, lat, lng, address, images }: MarkerType) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const imageSrc = JSON.parse(images)[0];
@@ -42,7 +36,7 @@ export default function MarkerItem({
             />
           </div>
 
-          <h3 className="mt-1 text-sm font-semibold">{address}</h3>
+          <h4 className="mt-1 text-sm font-semibold">{address}</h4>
         </Link>
       </Popup>
     </Marker>

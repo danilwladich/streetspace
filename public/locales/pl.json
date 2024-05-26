@@ -173,6 +173,7 @@
         "description": "Twoja lokalizacja zostanie dodana do mapy po moderacji"
       },
       "markers": {
+        "search": "Przeszukaj ten obszar",
         "fetchError": "Błąd pobierania pinesek"
       },
       "location": {

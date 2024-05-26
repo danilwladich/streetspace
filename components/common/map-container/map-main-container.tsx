@@ -15,13 +15,13 @@ export default function MapMainContainer({
   position,
   zoom,
   props,
-  withUserLocation,
+  singleMarker,
   children,
 }: {
   position: LatLngExpression;
   zoom?: number | null;
   props?: MapContainerProps;
-  withUserLocation?: boolean;
+  singleMarker?: boolean;
   children: React.ReactNode;
 }) {
   const [map, setMap] = useState<Map | null>(null);
@@ -43,7 +43,7 @@ export default function MapMainContainer({
         {children}
       </LMapContainer>
 
-      {!!map && <Controls map={map} withUserLocation={withUserLocation} />}
+      {!!map && <Controls map={map} singleMarker={singleMarker} />}
     </>
   );
 }

@@ -16,7 +16,7 @@ export default function MapSingleMarker({
       position={position}
       zoom={16}
       props={{ scrollWheelZoom: false }}
-      withUserLocation={false}
+      singleMarker={true}
     >
       <Marker position={position} icon={getIcon()} />
     </MapMainContainer>
