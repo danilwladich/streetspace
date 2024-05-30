@@ -37,7 +37,7 @@ export async function PATCH(req: NextRequest) {
     const serialized = await serializeJwt(user);
 
     // Returning a JSON response with user information and set cookie header
-    return jsonResponse(user, 200, {
+    return jsonResponse(user, 201, {
       headers: { "Set-Cookie": serialized },
     });
   } catch (error) {
