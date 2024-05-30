@@ -173,3 +173,21 @@ export async function getUserMarkersCount(userId: string) {
     },
   });
 }
+
+export async function upsertMarkerReport(data: {
+  markerId: string;
+  reportedByUserId: string;
+  type: string;
+  message?: string;
+}) {
+  return db.markerReport.upsert({
+    where: {
+      markerId_reportedByUserId: {
+        markerId: data.markerId,
+        reportedByUserId: data.reportedByUserId,
+      },
+    },
+    create: data,
+    update: data,
+  });
+}

@@ -77,6 +77,18 @@
       "recaptchaError": "Ошибка системы антиспама",
       "submit": "Отправить",
       "submitError": "Ошибка добавления местоположения"
+    },
+    "reportMarker": {
+      "title": "Пожаловаться на местоположение",
+      "description": "Пожаловаться на это местоположение за неподобающее или некорректное содержание",
+      "reason": "Причина",
+      "submit": "Пожаловаться",
+      "submitError": "Ошибка отправки жалобы",
+      "submitSuccess": "Жалоба отправлена",
+      "incorrectImages": "Неправильные изображения",
+      "incorrectLocation": "Неправильное местоположение",
+      "inappropriateContent": "Неподобающее содержание",
+      "other": "Другое"
     }
   },
   "layout": {
@@ -145,7 +157,8 @@
     "At least one image must be provided": "Необходимо предоставить хотя бы одно изображение",
     "Maximum number of images must be less than 6": "Максимальное количество изображений должно быть менее 6",
     "You cannot upload more than 6 images": "Вы не можете загрузить более 6 изображений",
-    "Bio must be less than 1000 characters": "Биография должна содержать не более 1000 символов"
+    "Bio must be less than 1000 characters": "Биография должна содержать не более 1000 символов",
+    "Provide a reason for reporting": "Укажите причину жалобы"
   },
   "pages": {
     "notFound": "Страница не найдена",

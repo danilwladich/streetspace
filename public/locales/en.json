@@ -77,6 +77,18 @@
       "recaptchaError": "Antibot system error",
       "submit": "Submit",
       "submitError": "Add location error"
+    },
+    "reportMarker": {
+      "title": "Report location",
+      "description": "Report this location for inappropriate or incorrect content",
+      "reason": "Reason",
+      "submit": "Report",
+      "submitError": "Report location error",
+      "submitSuccess": "Location reported",
+      "incorrectImages": "Incorrect images",
+      "incorrectLocation": "Incorrect location",
+      "inappropriateContent": "Inappropriate content",
+      "other": "Other"
     }
   },
   "layout": {
@@ -145,7 +157,8 @@
     "At least one image must be provided": "At least one image must be provided",
     "Maximum number of images must be less than 6": "Maximum number of images must be less than 6",
     "You cannot upload more than 6 images": "You cannot upload more than 6 images",
-    "Bio must be less than 1000 characters": "Bio must be less than 1000 characters"
+    "Bio must be less than 1000 characters": "Bio must be less than 1000 characters",
+    "Provide a reason for reporting": "Provide a reason for reporting"
   },
   "pages": {
     "notFound": "Page not found",

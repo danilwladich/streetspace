@@ -266,3 +266,22 @@ export const getMarkersSchema = z.object({
     .string()
     .regex(/^(-?\d+(\.\d+)?)$/g, "Must be a latitude/longitude"),
 });
+
+export const reportMarkerTypes = [
+  "incorrectImages",
+  "incorrectLocation",
+  "inappropriateContent",
+  "other",
+] as const;
+
+export const reportMarkerSchema = z
+  .object({
+    type: z.enum(reportMarkerTypes, {
+      message: "Provide a reason for reporting",
+    }),
+    message: z.string().trim().optional(),
+  })
+  .refine((data) => (data.type === "other" ? !!data.message : true), {
+    message: "Provide a reason for reporting",
+    path: ["message"],
+  });

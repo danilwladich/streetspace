@@ -6,15 +6,19 @@ export type ModalType =
   | "change password"
   | "change avatar"
   | "fullscreen images"
-  | "delete avatar";
+  | "delete avatar"
+  | "report marker";
 
 type ModalData = {
-  imagesData: {
+  imagesData?: {
     images: {
       src: string;
       alt: string;
     }[];
     startIndex?: number;
+  };
+  reportMarkerData?: {
+    id: string;
   };
 };
 
