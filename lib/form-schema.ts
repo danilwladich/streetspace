@@ -1,5 +1,5 @@
-import moment from "moment";
 import * as z from "zod";
+import { getYearsDiff } from "@/lib//dates";
 
 const MAX_FILE_SIZE = 1024 * 1024 * 10;
 const MAX_FILE_SIZE_STRING = "10MB";
@@ -121,13 +121,11 @@ export const editProfileSchema = z
       .string()
       .regex(/^\d{4}-\d{2}-\d{2}$/g, "Invalid date format")
       .refine(
-        (date) =>
-          moment(date).toDate() <= moment().subtract(16, "years").toDate(),
+        (date) => getYearsDiff(new Date(date)) >= 16,
         "You must be at least 16 years old",
       )
       .refine(
-        (date) =>
-          moment(date).toDate() >= moment().subtract(120, "years").toDate(),
+        (date) => getYearsDiff(new Date(date)) <= 120,
         "You must be at most 120 years old",
       )
       .optional()

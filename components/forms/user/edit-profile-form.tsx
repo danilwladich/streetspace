@@ -12,7 +12,6 @@ import { useModalStore } from "@/hooks/store/use-modal-store";
 import { toast } from "sonner";
 import { parseFormDataFromJson } from "@/lib/formdata-parser";
 import { useTranslations } from "next-intl";
-import moment from "moment";
 import type { ErrorResponse } from "@/types/ErrorResponse";
 
 import { Button } from "@/components/ui/button";
@@ -41,7 +40,7 @@ export default function EditProfileForm() {
   // Initial values for the form
   const socialMedia = JSON.parse(authUser!.socialMedia || "{}");
   const dateOfBirth = authUser!.dateOfBirth
-    ? moment(authUser!.dateOfBirth).format("YYYY-MM-DD")
+    ? authUser!.dateOfBirth.toString().split("T")[0]
     : "";
 
   // Setting up the form using react-hook-form with Zod resolver
@@ -137,7 +136,7 @@ export default function EditProfileForm() {
                   {...field}
                   type="date"
                   autoComplete="bday"
-                  max={moment().format("YYYY-MM-DD")}
+                  max={new Date().toISOString().split("T")[0]}
                   disabled={isSubmitting}
                 />
               </FormControl>

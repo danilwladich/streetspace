@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getUserMarkersCount } from "@/services/marker";
-import moment from "moment";
 import { getTranslations } from "next-intl/server";
+import { getYearsDiff } from "@/lib/dates";
 import type { User } from "@prisma/client";
 
 import { Button } from "@/components/ui/button";
@@ -32,7 +32,7 @@ export default async function UserInfo({
         </h4>
 
         <p className="py-0.5 text-xs text-muted-foreground md:text-sm">
-          {t("profile.memberSince")} <DateToShow date={createdAt} size="full" />
+          {t("profile.memberSince")} <DateToShow date={createdAt} />
         </p>
         <p className="py-0.5 text-xs text-muted-foreground md:text-sm">
           {t("profile.locationsAdded")} {markersAdded}
@@ -48,7 +48,7 @@ export default async function UserInfo({
           {!!dateOfBirth && (
             <p className="py-0.5 text-xs text-muted-foreground md:text-sm">
               {t("personal.yearsOld", {
-                age: moment().diff(dateOfBirth, "years"),
+                age: getYearsDiff(dateOfBirth),
               })}
             </p>
           )}
