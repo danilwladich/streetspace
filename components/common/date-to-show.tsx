@@ -2,8 +2,7 @@
 
 import { useParams } from "next/navigation";
 
-function getDateToShow(date: Date) {
-  const { locale } = useParams();
+function getDateToShow(date: Date, locale: string) {
   const now = new Date();
 
   if (date.getFullYear() < now.getFullYear()) {
@@ -23,9 +22,11 @@ export function DateToShow({
   date: Date;
   className?: string;
 }) {
+  const { locale } = useParams();
+
   return (
     <time dateTime={date.toString()} className={className}>
-      {getDateToShow(date)}
+      {getDateToShow(date, locale as string)}
     </time>
   );
 }
