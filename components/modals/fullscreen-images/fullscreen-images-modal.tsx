@@ -26,7 +26,7 @@ export default function FullscreenImagesModal() {
   const hasMultipleImages = images.length > 1;
 
   return (
-    <DialogContent className="aspect-square max-h-[100vh] sm:max-w-3xl">
+    <DialogContent className="aspect-square max-h-dvh sm:max-w-3xl">
       {hasMultipleImages && (
         <Carousel
           opts={{

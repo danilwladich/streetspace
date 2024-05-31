@@ -13,7 +13,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="fixed bottom-0 left-0 z-50 w-full overflow-hidden bg-[rgba(255,255,255,0.75)] backdrop-blur-sm dark:bg-[rgba(0,0,0,0.75)]">
+    <footer className="fixed bottom-0 left-0 z-40 w-full overflow-hidden bg-[rgba(255,255,255,0.75)] backdrop-blur-sm dark:bg-[rgba(0,0,0,0.75)]">
       <Separator />
 
       <Navigation />
