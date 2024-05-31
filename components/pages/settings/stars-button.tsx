@@ -1,7 +1,7 @@
 "use client";
 
 import { useClientFetching } from "@/hooks/use-client-fetching";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/lib/navigation";
 import { useTranslations } from "next-intl";
 
 import { Star } from "lucide-react";

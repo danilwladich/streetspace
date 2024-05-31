@@ -5,7 +5,7 @@ import {
 } from "@/services/marker-report";
 import { getTranslations } from "next-intl/server";
 import { columns } from "@/components/pages/admin/reports/markers/columns";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 
 import NotFound from "@/components/common/not-found";
 import { DataTable } from "@/components/pages/admin/reports/markers/data-table";

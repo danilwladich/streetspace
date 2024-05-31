@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { getTranslations } from "next-intl/server";
 import { getUnconfirmedMarkersCount } from "@/services/marker";
 import { getReportedMarkersCount } from "@/services/marker-report";

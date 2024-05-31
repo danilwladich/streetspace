@@ -9,7 +9,7 @@ import {
   reportMarkerTypes,
 } from "@/lib/form-schema";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/lib/navigation";
 import { useModalStore } from "@/hooks/store/use-modal-store";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";

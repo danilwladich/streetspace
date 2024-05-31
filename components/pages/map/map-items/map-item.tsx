@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Marker, Popup } from "react-leaflet";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import Image from "next/image";
 import { divIcon, Point } from "leaflet";
 import { MAP_ICON_SIZE } from "@/hooks/store/use-map-store";

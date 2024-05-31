@@ -7,7 +7,8 @@ import * as z from "zod";
 import { loginSchema as formSchema } from "@/lib/form-schema";
 import { useState, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/lib/navigation";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
@@ -28,7 +29,7 @@ import { Input } from "@/components/ui/input";
 
 export default function Login() {
   const t = useTranslations("forms.signIn");
-  
+
   // Setting up the form using react-hook-form with Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

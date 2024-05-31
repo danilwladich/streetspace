@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Marker, Popup, useMap } from "react-leaflet";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { MAP_ICON_SIZE } from "@/hooks/store/use-map-store";
 import { Point, divIcon, type LatLng } from "leaflet";
 import { useTranslations } from "next-intl";
@@ -44,7 +44,7 @@ export default function MarkerInput() {
           href={href}
           className="block px-4 py-1 !text-black hover:underline"
         >
-          {t('input')}
+          {t("input")}
         </Link>
       </Popup>
     </Marker>

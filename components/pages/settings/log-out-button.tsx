@@ -1,7 +1,7 @@
 "use client";
 
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/lib/navigation";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 

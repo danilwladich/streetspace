@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 import { getUserMarkersCount } from "@/services/marker";
 import { getTranslations } from "next-intl/server";
 import { getYearsDiff } from "@/lib/dates";

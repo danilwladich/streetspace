@@ -1,7 +1,7 @@
 "use client";
 
 import axios, { AxiosError } from "axios";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/lib/navigation";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { toast } from "sonner";
 import { useModalStore } from "@/hooks/store/use-modal-store";

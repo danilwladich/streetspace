@@ -7,11 +7,11 @@ import * as z from "zod";
 import { markerSchema as formSchema } from "@/lib/form-schema";
 import { parseFormDataFromJson } from "@/lib/formdata-parser";
 import { useState, useRef } from "react";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { ErrorResponse } from "@/types/ErrorResponse";
 import ImagesField from "./images-field";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/lib/navigation";
 import { useTranslations } from "next-intl";
 import type ReCAPTCHA from "react-google-recaptcha";
 

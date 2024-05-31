@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { changeAvatarSchema as formSchema } from "@/lib/form-schema";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/lib/navigation";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { toast } from "sonner";
 import { useModalStore } from "@/hooks/store/use-modal-store";

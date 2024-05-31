@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { locales } from "@/i18n";
-import { useLocaleNavigation } from "@/hooks/use-locale-navigation";
+import { useRouter, usePathname } from "@/lib/navigation";
 
 import {
   DropdownMenu,
@@ -25,15 +25,13 @@ export default function LanguageToggle() {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const { useRouter, usePathname } = useLocaleNavigation();
-
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const pathname = usePathname();
 
   function handleLocaleUpdate(locale: string) {
     startTransition(() => {
-      router.replace({ pathname }, { locale });
+      router.replace(pathname, { locale });
     });
   }
 
