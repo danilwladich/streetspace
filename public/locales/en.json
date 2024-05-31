@@ -165,7 +165,8 @@
     "Maximum number of images must be less than 6": "Maximum number of images must be less than 6",
     "You cannot upload more than 6 images": "You cannot upload more than 6 images",
     "Bio must be less than 1000 characters": "Bio must be less than 1000 characters",
-    "Provide a reason for reporting": "Provide a reason for reporting"
+    "Provide a reason for reporting": "Provide a reason for reporting",
+    "Message must be less than 500 characters": "Message must be less than 500 characters"
   },
   "pages": {
     "notFound": "Page not found",
@@ -178,6 +179,25 @@
         "reject": "Reject",
         "approveError": "Approve marker error",
         "rejectError": "Reject marker error"
+      },
+      "reports": {
+        "markers": {
+          "title": "Reported markers",
+          "notFound": "No reported markers",
+          "marker": {
+            "notFound": "Marker not found",
+            "incorrectImages": "Incorrect images",
+            "incorrectLocation": "Incorrect location",
+            "inappropriateContent": "Inappropriate content",
+            "other": "Other",
+            "table": {
+              "type": "Type",
+              "message": "Message",
+              "reportedAt": "Reported at",
+              "noResults": "No results"
+            }
+          }
+        }
       }
     },
     "map": {
@@ -197,6 +217,7 @@
         "navigate": "Navigate",
         "added": "Added",
         "actions": {
+          "open": "Open menu",
           "label": "Location",
           "favoriteError": "Favorite location error",
           "unfavorite": "Unfavorite",
@@ -239,6 +260,7 @@
         "delete": "Delete"
       },
       "actions": {
+        "open": "Open menu",
         "myProfile": "My profile",
         "changeUsername": "Change username",
         "editProfile": "Edit profile",

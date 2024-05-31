@@ -165,7 +165,8 @@
     "Maximum number of images must be less than 6": "Maksymalna liczba zdjęć musi być mniejsza niż 6",
     "You cannot upload more than 6 images": "Nie można przesłać więcej niż 6 zdjęć",
     "Bio must be less than 1000 characters": "Biografia musi mieć mniej niż 1000 znaków",
-    "Provide a reason for reporting": "Podaj powód zgłoszenia"
+    "Provide a reason for reporting": "Podaj powód zgłoszenia",
+    "Message must be less than 500 characters": "Wiadomość musi mieć mniej niż 500 znaków"
   },
   "pages": {
     "notFound": "Strona nie znaleziona",
@@ -178,6 +179,25 @@
         "reject": "Odrzuć",
         "approveError": "Błąd zatwierdzania pineski",
         "rejectError": "Błąd odrzucania pineski"
+      },
+      "reports": {
+        "markers": {
+          "title": "Zgłoszone lokalizacje",
+          "notFound": "Brak zgłoszonych lokalizacji",
+          "marker": {
+            "notFound": "Nie znaleziono lokalizacji",
+            "incorrectImages": "Nieprawidłowe zdjęcia",
+            "incorrectLocation": "Nieprawidłowa lokalizacja",
+            "inappropriateContent": "Nieodpowiednia treść",
+            "other": "Inne",
+            "table": {
+              "type": "Typ",
+              "message": "Wiadomość",
+              "reportedAt": "Zgłoszono",
+              "noResults": "Brak wyników"
+            }
+          }
+        }
       }
     },
     "map": {
@@ -197,6 +217,7 @@
         "navigate": "Nawiguj",
         "added": "Dodano",
         "actions": {
+          "open": "Otwórz menu",
           "label": "Lokalizacja",
           "favoriteError": "Błąd ulubionej lokalizacji",
           "unfavorite": "Usuń z ulubionych",
@@ -239,6 +260,7 @@
         "delete": "Usuń"
       },
       "actions": {
+        "open": "Otwórz menu",
         "myProfile": "Mój profil",
         "changeUsername": "Zmień nazwę użytkownika",
         "editProfile": "Edytuj profil",

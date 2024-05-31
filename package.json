@@ -21,6 +21,7 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tabs": "^1.0.4",
+    "@tanstack/react-table": "^8.17.3",
     "axios": "^1.7.1",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",

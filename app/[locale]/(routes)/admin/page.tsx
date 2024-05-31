@@ -1,47 +1,45 @@
-"use client";
+import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { getUnconfirmedMarkersCount } from "@/services/marker";
+import { getReportedMarkersCount } from "@/services/marker-report";
 
-import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Map, Flag } from "lucide-react";
 
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import { Map } from "lucide-react";
+export default async function Admin() {
+  const t = await getTranslations("pages.admin");
 
-export default function Admin() {
-  const t = useTranslations("pages.admin.command");
-
-  const router = useRouter();
-
-  function onRedirect(path: string) {
-    router.push(path);
-  }
+  const unconfirmedMarkersCount = await getUnconfirmedMarkersCount();
+  const reportedMarkersCount = await getReportedMarkersCount();
 
   return (
-    <Card className="max-w-lg">
-      <CardContent>
-        <Command>
-          <CommandInput tabIndex={1} placeholder={t("placeholder")} />
-          <CommandList>
-            <CommandEmpty>{t("empty")}</CommandEmpty>
+    <Card className="max-w-md">
+      <CardHeader>
+        <CardTitle>{t("title")}</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-2 [&>*]:block">
+        <Link href="/admin/markers">
+          <Button variant="outline" size="sm" className="w-full gap-2">
+            <Map className="h-4 w-4" />
+            <span>{t("markers.title")}</span>
+            <div className="flex-1" />
+            <span className="text-muted-foreground">
+              {unconfirmedMarkersCount}
+            </span>
+          </Button>
+        </Link>
 
-            <CommandGroup heading={t("group")}>
-              <CommandItem
-                onSelect={() => onRedirect("/admin/markers")}
-                className="flex items-center gap-2"
-              >
-                <Map className="h-4 w-4" />
-                <span>{t("markers")}</span>
-              </CommandItem>
-            </CommandGroup>
-          </CommandList>
-        </Command>
+        <Link href="/admin/reports/markers">
+          <Button variant="outline" size="sm" className="w-full gap-2">
+            <Flag className="h-4 w-4" />
+            <span>{t("reports.markers.title")}</span>
+            <div className="flex-1" />
+            <span className="text-muted-foreground">
+              {reportedMarkersCount}
+            </span>
+          </Button>
+        </Link>
       </CardContent>
     </Card>
   );

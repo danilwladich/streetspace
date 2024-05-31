@@ -43,6 +43,7 @@ export default function Actions({
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="icon">
           <MoreHorizontal className="h-6 w-6" />
+          <span className="sr-only">{t('open')}</span>
         </Button>
       </DropdownMenuTrigger>
 

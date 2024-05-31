@@ -165,7 +165,8 @@
     "Maximum number of images must be less than 6": "Максимальное количество изображений должно быть менее 6",
     "You cannot upload more than 6 images": "Вы не можете загрузить более 6 изображений",
     "Bio must be less than 1000 characters": "Биография должна содержать не более 1000 символов",
-    "Provide a reason for reporting": "Укажите причину жалобы"
+    "Provide a reason for reporting": "Укажите причину жалобы",
+    "Message must be less than 500 characters": "Сообщение должно содержать менее 500 символов"
   },
   "pages": {
     "notFound": "Страница не найдена",
@@ -178,6 +179,25 @@
         "reject": "Отклонить",
         "approveError": "Ошибка подтверждения маркера",
         "rejectError": "Ошибка отклонения маркера"
+      },
+      "reports": {
+        "markers": {
+          "title": "Жалобы о местоположениях",
+          "notFound": "Нет жалоб о местоположениях",
+          "marker": {
+            "notFound": "Местоположение не найден",
+            "incorrectImages": "Неправильные изображения",
+            "incorrectLocation": "Неправильное местоположение",
+            "inappropriateContent": "Неподобающее содержание",
+            "other": "Другое",
+            "table": {
+              "type": "Тип",
+              "message": "Сообщение",
+              "reportedAt": "Отправлено",
+              "noResults": "Нет результатов"
+            }
+          }
+        }
       }
     },
     "map": {
@@ -197,6 +217,7 @@
         "navigate": "Навигировать",
         "added": "Добавлено",
         "actions": {
+          "open": "Открыть меню",
           "label": "Местоположение",
           "favoriteError": "Ошибка добавления в избранное",
           "unfavorite": "Удалить из избранного",
@@ -239,6 +260,7 @@
         "delete": "Удалить"
       },
       "actions": {
+        "open": "Открыть меню",
         "myProfile": "Мой профиль",
         "changeUsername": "Изменить имя пользователя",
         "editProfile": "Редактировать профиль",

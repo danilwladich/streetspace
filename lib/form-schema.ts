@@ -277,7 +277,11 @@ export const reportMarkerSchema = z
     type: z.enum(reportMarkerTypes, {
       message: "Provide a reason for reporting",
     }),
-    message: z.string().trim().optional(),
+    message: z
+      .string()
+      .trim()
+      .max(500, { message: "Message must be less than 500 characters" })
+      .optional(),
   })
   .refine((data) => (data.type === "other" ? !!data.message : true), {
     message: "Provide a reason for reporting",
