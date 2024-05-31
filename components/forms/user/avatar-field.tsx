@@ -1,3 +1,5 @@
+"use client";
+
 import { ACCEPTED_IMAGE_TYPES } from "@/lib/form-schema";
 import { useState } from "react";
 import Image from "next/image";
@@ -18,7 +20,7 @@ export default function AvatarField({
   field,
   isSubmitting,
 }: {
-  field: ControllerRenderProps<any, "avatar">;
+  field: ControllerRenderProps<any, any>;
   isSubmitting: boolean;
 }) {
   const { user: authUser } = useAuthStore();
