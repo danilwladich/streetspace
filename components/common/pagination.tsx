@@ -29,7 +29,7 @@ export default function Pagination({
       items.push(currentPage + i);
     }
   }
-  if (currentPage === 1) {
+  if (currentPage === 1 && totalPages > 2) {
     items.push(currentPage + 2);
   }
 
