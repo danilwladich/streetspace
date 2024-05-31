@@ -113,6 +113,13 @@
         "copy": "Kopiuj link",
         "isCopied": "Link skopiowany"
       }
+    },
+    "pagination": {
+      "previous": "Poprzednia",
+      "previousLabel": "Przejdź do poprzedniej strony",
+      "next": "Następna",
+      "nextLabel": "Przejdź do następnej strony",
+      "more": "Więcej stron"
     }
   },
   "validation": {
@@ -163,13 +170,9 @@
   "pages": {
     "notFound": "Strona nie znaleziona",
     "admin": {
-      "command": {
-        "placeholder": "Szukaj...",
-        "empty": "Nie znaleziono wyników.",
-        "group": "Panel administratora",
-        "markers": "Pineski"
-      },
+      "title": "Panel administratora",
       "markers": {
+        "title": "Pineski",
         "notFound": "Brak niezaakceptowanych pinesek",
         "approve": "Zatwierdź",
         "reject": "Odrzuć",

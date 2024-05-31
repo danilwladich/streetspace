@@ -88,7 +88,13 @@ export async function getMarkers({
   });
 }
 
-export async function getUnconfirmedMarkers() {
+export const UNCONFIRMED_MARKERS_PER_PAGE = 10;
+
+export async function getUnconfirmedMarkers(page: number) {
+  if (page < 1) {
+    page = 1;
+  }
+
   return db.marker.findMany({
     where: {
       confirmed: false,
@@ -99,6 +105,19 @@ export async function getUnconfirmedMarkers() {
           username: true,
         },
       },
+    },
+    take: UNCONFIRMED_MARKERS_PER_PAGE,
+    skip: (page - 1) * UNCONFIRMED_MARKERS_PER_PAGE,
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+}
+
+export async function getUnconfirmedMarkersCount() {
+  return db.marker.count({
+    where: {
+      confirmed: false,
     },
   });
 }

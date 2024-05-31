@@ -113,6 +113,13 @@
         "copy": "Copy link",
         "isCopied": "Link copied"
       }
+    },
+    "pagination": {
+      "previous": "Previous",
+      "previousLabel": "Go to previous page",
+      "next": "Next",
+      "nextLabel": "Go to next page",
+      "more": "More pages"
     }
   },
   "validation": {
@@ -163,13 +170,9 @@
   "pages": {
     "notFound": "Page not found",
     "admin": {
-      "command": {
-        "placeholder": "Search...",
-        "empty": "No results found.",
-        "group": "Admin panel",
-        "markers": "Markers"
-      },
+      "title": "Admin panel",
       "markers": {
+        "title": "Markers",
         "notFound": "No unconfirmed markers",
         "approve": "Approve",
         "reject": "Reject",
