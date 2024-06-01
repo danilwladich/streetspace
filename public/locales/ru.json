@@ -291,6 +291,16 @@
           "title": "Социальные сети"
         }
       }
+    },
+    "followers": {
+      "title": "Подписчики {username}",
+      "userNotFound": "Пользователь не найден",
+      "followsNotFound": "Нет подписчиков"
+    },
+    "followings": {
+      "title": "Подписки {username}",
+      "userNotFound": "Пользователь не найден",
+      "followsNotFound": "Нет подписок"
     }
   }
 }

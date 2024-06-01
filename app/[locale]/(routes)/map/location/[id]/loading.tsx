@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { MAX_FILES_COUNT } from "@/lib/form-schema";
 
 export default function LocationLoader() {
   return (
@@ -18,7 +19,7 @@ export default function LocationLoader() {
 
       <CardContent className="flex flex-col items-start gap-2">
         <div className="mb-2 grid w-full grid-cols-2 gap-2 sm:grid-cols-3">
-          {Array.from({ length: 6 }).map((_, i) => (
+          {Array.from({ length: MAX_FILES_COUNT }).map((_, i) => (
             <Skeleton key={i} className="aspect-video w-full" />
           ))}
         </div>

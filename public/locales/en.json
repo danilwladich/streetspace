@@ -291,6 +291,16 @@
           "title": "Social media"
         }
       }
+    },
+    "followers": {
+      "title": "{username} followers",
+      "userNotFound": "User not found",
+      "followsNotFound": "No followers"
+    },
+    "followings": {
+      "title": "{username} followings",
+      "userNotFound": "User not found",
+      "followsNotFound": "No followings"
     }
   }
 }

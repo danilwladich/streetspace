@@ -1,19 +1,21 @@
 import { db } from "@/lib/db";
-import { authValidation } from "@/lib/auth-validation";
 
-export async function checkAuthIsFollowingByUsername(username: string) {
-  const authUser = await authValidation();
-
-  if (!authUser || authUser.username === username) {
+export async function checkIsFollowingByUsername(
+  whoFollowUsername: string,
+  whomFollowUsername: string,
+) {
+  if (whoFollowUsername === whomFollowUsername) {
     return false;
   }
 
   const follow = await db.follow.findFirst({
     where: {
       whomFollowUser: {
-        username,
+        username: whomFollowUsername
       },
-      whoFollowUserId: authUser.id,
+      whoFollowUser: {
+        username: whoFollowUsername
+      },
     },
   });
 
@@ -62,4 +64,58 @@ export async function deleteFollow(
       whomFollowUserId,
     },
   });
+}
+
+export const FOLLOWS_PER_PAGE = 25;
+
+export async function getFollowersByUsername(username: string, page: number) {
+  if (page < 1) {
+    page = 1;
+  }
+
+  const followers = await db.follow.findMany({
+    where: {
+      whomFollowUser: {
+        username,
+      },
+    },
+    include: {
+      whoFollowUser: true,
+    },
+    take: FOLLOWS_PER_PAGE,
+    skip: (page - 1) * FOLLOWS_PER_PAGE,
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+
+  const users = followers.map((follow) => follow.whoFollowUser);
+
+  return users;
+}
+
+export async function getFollowingsByUsername(username: string, page: number) {
+  if (page < 1) {
+    page = 1;
+  }
+
+  const followings = await db.follow.findMany({
+    where: {
+      whoFollowUser: {
+        username,
+      },
+    },
+    include: {
+      whomFollowUser: true,
+    },
+    take: FOLLOWS_PER_PAGE,
+    skip: (page - 1) * FOLLOWS_PER_PAGE,
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+
+  const users = followings.map((follow) => follow.whomFollowUser);
+
+  return users;
 }

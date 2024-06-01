@@ -251,7 +251,7 @@
       }
     },
     "profile": {
-      "notFound": "Użytkownik nie został znaleziony",
+      "notFound": "Nie znaleziono użytkownika",
       "followers": "obserwujących",
       "followings": "obserwowanych",
       "avatar": {
@@ -291,6 +291,16 @@
           "title": "Media społecznościowe"
         }
       }
+    },
+    "followers": {
+      "title": "Obserwujący {username}",
+      "userNotFound": "Nie znaleziono użytkownika",
+      "followsNotFound": "Brak obserwujących"
+    },
+    "followings": {
+      "title": "Obserwowani przez {username}",
+      "userNotFound": "Nie znaleziono użytkownika",
+      "followsNotFound": "Brak obserwowanych"
     }
   }
 }

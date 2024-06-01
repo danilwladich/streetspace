@@ -3,6 +3,7 @@ import {
   getFollowingsCountByUsername,
 } from "@/services/follow";
 import { getTranslations } from "next-intl/server";
+import { Link } from "@/lib/navigation";
 
 import { Dot } from "lucide-react";
 
@@ -19,13 +20,17 @@ export default async function UserFollowers({
   return (
     <>
       <div className="flex items-center gap-1 text-xs text-muted-foreground md:text-sm">
-        <span className="font-semibold">{followersCount}</span>
-        <span>{t("followers")}</span>
+        <Link href={`/profile/${username}/followers`} className="flex gap-1">
+          <span className="font-semibold">{followersCount}</span>
+          <span>{t("followers")}</span>
+        </Link>
 
         <Dot className="h-4 w-4" />
 
-        <span className="font-semibold">{followingsCount}</span>
-        <span>{t("followings")}</span>
+        <Link href={`/profile/${username}/followings`} className="flex gap-1">
+          <span className="font-semibold">{followingsCount}</span>
+          <span>{t("followings")}</span>
+        </Link>
       </div>
     </>
   );

@@ -1,7 +1,8 @@
 import { getAppTitle } from "@/lib/get-app-title";
-import { checkAuthIsFollowingByUsername } from "@/services/follow";
+import { checkIsFollowingByUsername } from "@/services/follow";
 import { getUserByUsername } from "@/services/user";
 import { getTranslations } from "next-intl/server";
+import { authValidation } from "@/lib/auth-validation";
 import type { Metadata } from "next";
 
 import NotFound from "@/components/common/not-found";
@@ -12,13 +13,13 @@ import UserInfo from "@/components/pages/profile/info";
 import { Card, CardContent } from "@/components/ui/card";
 
 export async function generateMetadata({
-  params,
+  params: { username },
 }: {
   params: { username: string };
 }): Promise<Metadata> {
   const t = await getTranslations("pages.profile");
 
-  const user = await getUserByUsername(params.username);
+  const user = await getUserByUsername(username);
 
   return {
     title: getAppTitle(user?.username || t("notFound")),
@@ -26,13 +27,11 @@ export async function generateMetadata({
 }
 
 export default async function Profile({
-  params,
+  params: { username },
 }: {
   params: { username: string };
 }) {
   const t = await getTranslations("pages.profile");
-
-  const { username } = params;
 
   const user = await getUserByUsername(username);
 
@@ -40,7 +39,10 @@ export default async function Profile({
     return <NotFound text={t("notFound")} />;
   }
 
-  const isFollowing = await checkAuthIsFollowingByUsername(username);
+  const authUser = await authValidation();
+  const isFollowing = authUser
+    ? await checkIsFollowingByUsername(authUser.username, username)
+    : false;
 
   return (
     <>
@@ -51,7 +53,7 @@ export default async function Profile({
 
             <div className="flex max-w-full flex-col items-center gap-1 md:items-start">
               <h3 className="max-w-full truncate text-2xl font-semibold">
-                {user.username}
+                {username}
               </h3>
 
               <div className="flex gap-2">
