@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 
-export function getReportedMarkersCount() {
+export async function getReportedMarkersCount() {
   return db.marker.count({
     where: {
       reports: {
@@ -12,7 +12,7 @@ export function getReportedMarkersCount() {
 
 export const REPORTED_MARKERS_PER_PAGE = 50;
 
-export function getReportedMarkers(page: number) {
+export async function getReportedMarkers(page: number) {
   if (page < 1) {
     page = 1;
   }
@@ -44,7 +44,7 @@ export function getReportedMarkers(page: number) {
 
 export const MARKER_REPORTS_PER_PAGE = 50;
 
-export function getMarkerReportsById(id: string, page: number) {
+export async function getMarkerReportsById(id: string, page: number) {
   if (page < 1) {
     page = 1;
   }
@@ -64,7 +64,7 @@ export function getMarkerReportsById(id: string, page: number) {
   });
 }
 
-export function getMarkerReportsCountById(id: string) {
+export async function getMarkerReportsCountById(id: string) {
   return db.markerReport.count({
     where: {
       markerId: id,
