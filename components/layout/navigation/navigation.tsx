@@ -26,51 +26,47 @@ export function Navigation() {
 
   const isAdmin = authUser?.role === "ADMIN";
 
+  const iconClassName = "h-4 w-4";
   const links: ILink[] = [
-    ...(isAdmin
-      ? [
-          {
-            path: "/admin",
-            name: t("admin"),
-            icon: <ShieldCheck className="h-4 w-4" />,
-          },
-        ]
-      : []),
     {
       path: "/",
       name: t("home"),
-      icon: <Home className="h-4 w-4" />,
+      icon: <Home className={iconClassName} />,
     },
     {
       path: "/questions",
       name: t("Q&A"),
-      icon: <CircleHelp className="h-4 w-4" />,
+      icon: <CircleHelp className={iconClassName} />,
     },
     {
       path: "/map",
       name: t("map"),
-      icon: <Map className="h-4 w-4" />,
+      icon: <Map className={iconClassName} />,
     },
     {
       path: authUser ? `/profile/${authUser.username}` : "/auth",
       name: authUser ? t("profile") : t("singIn"),
-      icon: <User className="h-4 w-4" />,
+      icon: <User className={iconClassName} />,
     },
     {
       path: "/settings",
       name: t("settings"),
-      icon: <Settings className="h-4 w-4" />,
+      icon: <Settings className={iconClassName} />,
     },
   ];
 
+  if (isAdmin) {
+    links.push({
+      path: "/admin",
+      name: t("admin"),
+      icon: <ShieldCheck className={iconClassName} />,
+    });
+  }
+
   return (
-    <nav className="flex justify-between">
-      {links.map((link, index) => (
-        <NavLink
-          key={link.name}
-          {...link}
-          isLastElement={index + 1 === links.length}
-        />
+    <nav className="flex items-center">
+      {links.map((l) => (
+        <NavLink key={l.name} {...l} />
       ))}
     </nav>
   );
