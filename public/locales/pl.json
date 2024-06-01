@@ -123,6 +123,7 @@
     }
   },
   "validation": {
+    "Invalid Request": "Nieprawidłowe żądanie",
     "Validation Error": "Błąd walidacji",
     "Internal Error": "Błąd wewnętrzny",
     "Incorrect password": "Nieprawidłowe hasło",
@@ -173,7 +174,7 @@
     "admin": {
       "title": "Panel administratora",
       "markers": {
-        "title": "Pineski",
+        "title": "Niezaakceptowane pineski",
         "notFound": "Brak niezaakceptowanych pinesek",
         "approve": "Zatwierdź",
         "reject": "Odrzuć",

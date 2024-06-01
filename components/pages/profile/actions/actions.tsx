@@ -36,14 +36,14 @@ export default function Actions({
   const { onOpen } = useModalStore();
 
   const isOwner = id === authUser?.id;
-  const isAdmin = authUser?.role === "admin";
+  const isAdmin = authUser?.role === "ADMIN";
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="icon">
           <MoreHorizontal className="h-6 w-6" />
-          <span className="sr-only">{t('open')}</span>
+          <span className="sr-only">{t("open")}</span>
         </Button>
       </DropdownMenuTrigger>
 
@@ -61,15 +61,11 @@ export default function Actions({
           />
 
           {!isOwner && (
-            <>
-              <FollowButton
-                id={id}
-                username={username}
-                isFollowing={isFollowing}
-              />
-
-              {isAdmin && <BlockButton id={id} blocked={blocked} />}
-            </>
+            <FollowButton
+              id={id}
+              username={username}
+              isFollowing={isFollowing}
+            />
           )}
         </DropdownMenuGroup>
 
@@ -95,6 +91,16 @@ export default function Actions({
               <DropdownMenuItem>
                 <LogOutButton />
               </DropdownMenuItem>
+            </DropdownMenuGroup>
+          </>
+        )}
+
+        {!isOwner && isAdmin && (
+          <>
+            <DropdownMenuSeparator />
+
+            <DropdownMenuGroup>
+              <BlockButton id={id} blocked={blocked} />
             </DropdownMenuGroup>
           </>
         )}

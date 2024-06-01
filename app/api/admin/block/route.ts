@@ -8,14 +8,14 @@ export async function PATCH(req: NextRequest) {
 
     // Check if the user id and bool is provided
     if (!userId || bool === undefined) {
-      return jsonResponse("User id or bool wasn't provided", 400);
+      return jsonResponse("Invalid Request", 400);
     }
 
     const user = await getUserById(userId);
 
     // Check if the user exists
     if (!user) {
-      return jsonResponse("User doesn't exist", 400);
+      return jsonResponse("Invalid Request", 400);
     }
 
     // Block the user

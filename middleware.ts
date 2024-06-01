@@ -11,7 +11,7 @@ const intlMiddleware = createIntlMiddleware({
 
 function authRedirect(req: NextRequest) {
   const loginUrl = new URL("/auth", req.url);
-  loginUrl.searchParams.set("from", req.url);
+  loginUrl.searchParams.set("redirect", req.url);
 
   return NextResponse.redirect(loginUrl);
 }
@@ -64,16 +64,18 @@ export async function middleware(req: NextRequest) {
         return new NextResponse("Unauthorized", { status: 401 });
       }
 
+      if (authUser.blocked) {
+        return new NextResponse("Forbidden", { status: 403 });
+      }
+
       // If user is not an admin and trying to access an admin route, return a Forbidden response
       const isAdminRoute = req.nextUrl.pathname.startsWith("/api/admin");
       if (isAdminRoute && authUser.role !== "ADMIN") {
         return new NextResponse("Forbidden", { status: 403 });
       }
 
-      // If user is authenticated
-      const reqHeaders = new Headers(req.headers);
-
       // Adding header with the authenticated user data
+      const reqHeaders = new Headers(req.headers);
       reqHeaders.set("x-auth-user", JSON.stringify(authUser));
 
       // Allowing the request to proceed with the updated headers
@@ -96,8 +98,13 @@ export async function middleware(req: NextRequest) {
     const authUser = await authValidation();
 
     // If not authenticated, redirect to the login page and store the original URL
-    if (!authUser || authUser.role !== "ADMIN") {
+    if (!authUser) {
       return authRedirect(req);
+    }
+
+    if (authUser.role !== "ADMIN") {
+      const notFoundUrl = new URL("/404", req.url);
+      return NextResponse.redirect(notFoundUrl);
     }
 
     // If authenticated and user is admin allow the request to proceed
@@ -131,9 +138,9 @@ export async function middleware(req: NextRequest) {
     }
 
     // If authenticated, redirect to the specified URL or default to "/profile"
-    const fromUrl = req.nextUrl.searchParams.get("from");
+    const redirectTo = req.nextUrl.searchParams.get("redirect");
     const redirectUrl = new URL(
-      fromUrl || `/profile/${authUser.username}`,
+      redirectTo || `/profile/${authUser.username}`,
       req.url,
     );
 

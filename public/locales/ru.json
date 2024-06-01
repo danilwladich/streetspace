@@ -123,6 +123,7 @@
     }
   },
   "validation": {
+    "Invalid Request": "Неправильный запрос",
     "Validation Error": "Ошибка валидации",
     "Internal Error": "Внутренняя ошибка",
     "Incorrect password": "Неверный пароль",
@@ -173,7 +174,7 @@
     "admin": {
       "title": "Панель администратора",
       "markers": {
-        "title": "Маркеры",
+        "title": "Не подтвержденные маркеры",
         "notFound": "Нет не подтвержденных маркеров",
         "approve": "Подтвердить",
         "reject": "Отклонить",

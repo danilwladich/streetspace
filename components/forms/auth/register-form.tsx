@@ -82,7 +82,7 @@ export default function Register() {
       setUser(data);
 
       const redirectUrl =
-        searchParams.get("from") || `/profile/${data.username}`;
+        searchParams.get("redirect") || `/profile/${data.username}`;
       router.replace(redirectUrl);
     } catch (e: unknown) {
       // Handling AxiosError

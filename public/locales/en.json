@@ -123,6 +123,7 @@
     }
   },
   "validation": {
+    "Invalid Request": "Invalid Request",
     "Validation Error": "Validation Error",
     "Internal Error": "Internal Error",
     "Incorrect password": "Incorrect password",
@@ -173,7 +174,7 @@
     "admin": {
       "title": "Admin panel",
       "markers": {
-        "title": "Markers",
+        "title": "Unconfirmed markers",
         "notFound": "No unconfirmed markers",
         "approve": "Approve",
         "reject": "Reject",

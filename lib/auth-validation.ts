@@ -17,10 +17,10 @@ export async function authValidation(): Promise<User | undefined> {
 
     // Verifying the JWT token using the provided secret
     const key = new TextEncoder().encode(jwtSecret);
-    const { payload: user } = await jwtVerify(jwtToken, key);
+    const { payload: user } = await jwtVerify<User>(jwtToken, key);
 
     // Returning the authenticated user information
-    return user as User;
+    return user;
   } catch (e) {
     return undefined;
   }
