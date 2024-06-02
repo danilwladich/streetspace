@@ -1,7 +1,7 @@
 "use client";
 
 import { ACCEPTED_IMAGE_TYPES } from "@/lib/form-schema";
-import { useState } from "react";
+import { useMemo } from "react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUserImageSrc } from "@/hooks/use-user-image-src";
@@ -25,13 +25,14 @@ export default function AvatarField({
 }) {
   const { user: authUser } = useAuthStore();
 
-  const [selectedImage, setSelectedImage] = useState<File>();
+  const value = field.value as File | undefined;
 
   const defaultImageSrc = useUserImageSrc(authUser?.avatar);
 
-  const imageSrc = selectedImage
-    ? URL.createObjectURL(selectedImage)
-    : defaultImageSrc;
+  const imageSrc = useMemo(
+    () => (value ? URL.createObjectURL(value) : defaultImageSrc),
+    [value],
+  );
   const alt = authUser!.username;
   const fallback = authUser!.username[0];
 
@@ -58,9 +59,7 @@ export default function AvatarField({
         <Input
           {...field}
           onChange={(e) => {
-            const image = e.target.files?.[0] || undefined;
-            setSelectedImage(image);
-            field.onChange(image);
+            field.onChange(e.target.files?.[0] || undefined);
           }}
           value=""
           type="file"
