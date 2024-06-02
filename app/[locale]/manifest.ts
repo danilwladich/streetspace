@@ -1,9 +1,9 @@
 import { getAppTitle } from "@/lib/get-app-title";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { MetadataRoute } from "next";
 
-export default function manifest(): MetadataRoute.Manifest {
-  const t = useTranslations("metadata");
+export default async function manifest(): Promise<MetadataRoute.Manifest> {
+  const t = await getTranslations("metadata");
 
   return {
     name: getAppTitle(),
