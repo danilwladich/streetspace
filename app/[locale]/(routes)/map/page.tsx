@@ -25,7 +25,7 @@ export default function Map() {
   );
 
   return (
-    <div>
+    <div className="absolute left-0 top-0 h-dvh w-dvw">
       <MapContainer />
     </div>
   );
