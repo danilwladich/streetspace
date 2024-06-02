@@ -1,5 +1,5 @@
 import { MAX_FILES_COUNT, ACCEPTED_IMAGE_TYPES } from "@/lib/form-schema";
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useTranslations } from "next-intl";
 import type { ControllerRenderProps } from "react-hook-form";
 
@@ -43,13 +43,16 @@ export default function ImagesField({
     field.onChange(newImages);
   }
 
-  function handleImageRemove(index: number) {
-    clearError();
+  const handleImageRemove = useCallback(
+    (index: number) => {
+      clearError();
 
-    const newImages = [...value].filter((_, i) => i !== index);
+      const newImages = [...value].filter((_, i) => i !== index);
 
-    field.onChange(newImages);
-  }
+      field.onChange(newImages);
+    },
+    [field, value, clearError],
+  );
 
   return (
     <FormItem>
@@ -66,7 +69,7 @@ export default function ImagesField({
                   removeImage={() => handleImageRemove(i)}
                 />
               )),
-            [value],
+            [value, handleImageRemove],
           )}
 
           {Array.from({

@@ -31,7 +31,7 @@ export default function AvatarField({
 
   const imageSrc = useMemo(
     () => (value ? URL.createObjectURL(value) : defaultImageSrc),
-    [value],
+    [value, defaultImageSrc],
   );
   const alt = authUser!.username;
   const fallback = authUser!.username[0];

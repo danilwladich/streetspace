@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 
-import MarkerForm from "@/components/forms/map/marker-form";
+import MarkerForm from "@/components/forms/marker/adding/marker-form";
 import {
   Card,
   CardHeader,
