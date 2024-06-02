@@ -2,7 +2,7 @@
 
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useClientFetching } from "@/hooks/use-client-fetching";
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 import type { User } from "@prisma/client";
 
 import { AppLoader } from "@/components/ui/app-loader";
@@ -11,18 +11,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { data, isLoading, error } = useClientFetching<User>("/api/auth/me", {
     errorRetryCount: 0,
   });
-  const { isChecked, setUser } = useAuthStore();
+  const { setUser } = useAuthStore();
 
-  useLayoutEffect(() => {
-    if (!error && data) {
-      setUser(data);
-    } else {
-      setUser(null);
+  useEffect(() => {
+    if (isLoading) {
+      return;
     }
-  }, [data, error, setUser]);
 
-  // First fetching loader
-  if (isLoading || !isChecked) {
+    if (error || !data) {
+      setUser(null);
+      return;
+    }
+
+    setUser(data);
+  }, [isLoading, data, error, setUser]);
+
+  if (isLoading) {
     return <AppLoader />;
   }
 

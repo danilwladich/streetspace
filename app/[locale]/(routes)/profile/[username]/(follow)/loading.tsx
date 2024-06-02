@@ -8,7 +8,7 @@ import { FOLLOWS_PER_PAGE } from "@/services/follow";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function ProfileLoader() {
+export default function FollowsLoader() {
   return (
     <Card className="max-w-lg">
       <CardHeader>
