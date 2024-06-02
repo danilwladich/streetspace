@@ -171,6 +171,10 @@
   },
   "pages": {
     "notFound": "Page not found",
+    "auth": {
+      "title": "authentication",
+      "description": "Login to your existing account or create free account now and join our community"
+    },
     "admin": {
       "title": "Admin panel",
       "markers": {

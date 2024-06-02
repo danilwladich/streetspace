@@ -1,11 +1,15 @@
 import { getAppTitle } from "@/lib/get-app-title";
+import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: getAppTitle("auth"),
-  description:
-    "Login to your existing account or create free account now and join our community",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("pages.auth");
+
+  return {
+    title: getAppTitle(t("title")),
+    description: t("description"),
+  };
+}
 
 export default function AuthLayout({
   children,
