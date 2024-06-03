@@ -66,11 +66,6 @@ export const markerSchema = z.object({
       /^(-?\d+(\.\d+)?)\,\s*(-?\d+(\.\d+)?)$/g,
       "Must be a latitude and longitude separated by a comma",
     ),
-  address: z
-    .string()
-    .trim()
-    .min(4, { message: "Address must be at least 4 characters" })
-    .max(100, { message: "Address must be less than 100 characters" }),
   images: z
     .any()
     .refine(

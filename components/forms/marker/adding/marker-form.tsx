@@ -40,7 +40,6 @@ export default function MarkerForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       coords: lat && lng ? `${lat}, ${lng}` : "",
-      address: "",
       images: [],
       recaptchaToken: "",
     },
@@ -126,24 +125,6 @@ export default function MarkerForm() {
                 <Input
                   {...field}
                   placeholder={t("coordsPlaceholder")}
-                  disabled={isSubmitting}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="address"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("address")}</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  placeholder={t("address")}
                   disabled={isSubmitting}
                 />
               </FormControl>

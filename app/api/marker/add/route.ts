@@ -3,7 +3,7 @@ import { jsonResponse } from "@/lib/json-response";
 import { markerSchema } from "@/lib/form-schema";
 import { getAuthUser } from "@/lib/get-auth-user";
 import { parseJsonFromFormData } from "@/lib/formdata-parser";
-import { verifyCaptcha } from "@/lib/server-actions";
+import { reverseGeocode, verifyCaptcha } from "@/lib/server-actions";
 import { createMarker } from "@/services/marker";
 import { uploadImage } from "@/lib/upload-image";
 
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
       return jsonResponse("Validation Error", 400);
     }
 
-    const { coords, address, images, recaptchaToken } = body.data;
+    const { coords, images, recaptchaToken } = body.data;
     const [lat, lng] = coords.split(",").map(Number);
 
     // Verifying the recaptcha token
@@ -27,6 +27,13 @@ export async function POST(req: NextRequest) {
     // Handling recaptcha verification failure
     if (!isRecaptchaCorrect) {
       return jsonResponse("Antibot system not passed", 400);
+    }
+
+    // Reverse geocoding the coordinates
+    const { address, success } = await reverseGeocode(lat, lng);
+
+    if (!success || !address) {
+      return jsonResponse("Invalid coordinates", 400);
     }
 
     const authUser = getAuthUser();
