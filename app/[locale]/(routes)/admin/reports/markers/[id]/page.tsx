@@ -54,7 +54,7 @@ export default async function MarkerReports({
   return (
     <Card>
       <CardHeader>
-        <Link href={`/map/location/${id}`}>
+        <Link href={`/location/${id}`}>
           <Button tabIndex={-1} variant="outline" size="sm">
             {id}
           </Button>

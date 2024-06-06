@@ -18,7 +18,7 @@ export default function MapItem({ id, lat, lng, address, images }: MarkerType) {
   return (
     <Marker position={[lat, lng]} icon={getIcon()}>
       <Popup autoPan={false} maxWidth={280} minWidth={280}>
-        <Link href={`/map/location/${id}`} className="block py-1 !text-black">
+        <Link href={`/location/${id}`} className="block py-1 !text-black">
           <div className="relative aspect-video w-full">
             {!isLoaded && (
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">

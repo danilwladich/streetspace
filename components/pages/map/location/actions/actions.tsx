@@ -49,10 +49,7 @@ export default function Actions({
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
-          <ShareButton
-            url={`/map/location/${id}`}
-            text={getAppTitle(address)}
-          />
+          <ShareButton url={`/location/${id}`} text={getAppTitle(address)} />
         </DropdownMenuGroup>
 
         <DropdownMenuSeparator />
@@ -68,7 +65,7 @@ export default function Actions({
             <DropdownMenuSeparator />
 
             <DropdownMenuGroup>
-              <DeleteButton id={id}/>
+              <DeleteButton id={id} />
             </DropdownMenuGroup>
           </>
         )}

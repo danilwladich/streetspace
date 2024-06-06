@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 
 import { NavLink } from "./nav-link";
 import {
-  Home,
   Map,
   User,
   Settings,
@@ -30,19 +29,14 @@ export function Navigation() {
   const links: ILink[] = [
     {
       path: "/",
-      name: t("home"),
-      icon: <Home className={iconClassName} />,
-    },
-    {
-      path: "/questions",
-      name: t("Q&A"),
-      icon: <CircleHelp className={iconClassName} />,
-    },
-    {
-      path: "/map",
       name: t("map"),
       icon: <Map className={iconClassName} />,
     },
+    // {
+    //   path: "/questions",
+    //   name: t("Q&A"),
+    //   icon: <CircleHelp className={iconClassName} />,
+    // },
     {
       path: authUser ? `/profile/${authUser.username}` : "/auth",
       name: authUser ? t("profile") : t("singIn"),

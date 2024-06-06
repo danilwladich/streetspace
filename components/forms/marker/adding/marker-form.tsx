@@ -81,7 +81,7 @@ export default function MarkerForm() {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      router.replace("/map");
+      router.replace("/");
 
       toast.success(t("success"));
     } catch (e: unknown) {

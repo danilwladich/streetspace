@@ -33,7 +33,7 @@ const protectedAdminPathnameRegex = RegExp(
   "i",
 );
 
-const protectedPages = ["/map/adding"];
+const protectedPages = ["/adding"];
 const protectedPathnameRegex = RegExp(
   `^(/(${locales.join("|")}))?(${protectedPages.join("|")})(/.*|/?)$`,
   "i",
