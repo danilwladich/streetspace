@@ -52,7 +52,7 @@ export default function FavoriteButton({
       }
 
       if (res.status === 401) {
-        router.push(`/auth?from=/location/${id}`);
+        router.push(`/auth?redirect=/location/${id}`);
       }
     }
 

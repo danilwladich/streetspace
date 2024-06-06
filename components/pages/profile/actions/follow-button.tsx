@@ -54,7 +54,7 @@ export default function FollowButton({
       }
 
       if (res.status === 401) {
-        router.push(`/auth?from=/profile/${username}`);
+        router.push(`/auth?redirect=/profile/${username}`);
       }
     }
 

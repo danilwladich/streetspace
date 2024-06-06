@@ -77,7 +77,7 @@ export default function ReportMarkerForm({ id }: { id: string }) {
 
       // Unauthorized handler
       if (res.status === 401) {
-        router.push(`/auth?from=/location/${id}`);
+        router.push(`/auth?redirect=/location/${id}`);
       }
 
       // Validation, or internal server error handler
