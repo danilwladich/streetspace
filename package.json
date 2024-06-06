@@ -3,12 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "server": "npm run prisma && pm2 start npm -- production",
-    "prisma": "npx prisma generate && npx prisma db push",
-    "production": "next build && next start -p 80",
+    "server": "pm2 start npm -- start",
+    "preserver": "npx prisma generate && npx prisma db push && next build && next start",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 80",
     "lint": "next lint"
   },
   "dependencies": {
