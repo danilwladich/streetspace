@@ -5,17 +5,17 @@ import { addFavoriteMarker, removeFavoriteMarker } from "@/services/marker";
 
 export async function POST(req: NextRequest) {
   try {
-    const { markerId } = await req.json();
+    const { id } = await req.json();
 
     // Check if the marker id is provided
-    if (!markerId) {
-      return jsonResponse("Marker id required", 400);
+    if (!id) {
+      return jsonResponse("Invalid Request", 400);
     }
 
     const authUser = getAuthUser();
 
     // Update the marker
-    await addFavoriteMarker(markerId, authUser.id);
+    await addFavoriteMarker(id, authUser.id);
 
     return jsonResponse("Location added to favorites successfully", 201);
   } catch (error) {
@@ -27,17 +27,17 @@ export async function POST(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
-    const { markerId } = await req.json();
+    const { id } = await req.json();
 
     // Check if the marker id is provided
-    if (!markerId) {
-      return jsonResponse("Marker id required", 400);
+    if (!id) {
+      return jsonResponse("Invalid Request", 400);
     }
 
     const authUser = getAuthUser();
 
     // Update the marker
-    await removeFavoriteMarker(markerId, authUser.id);
+    await removeFavoriteMarker(id, authUser.id);
 
     return jsonResponse("Location removed from favorites successfully", 201);
   } catch (error) {

@@ -1,4 +1,7 @@
+"use client";
+
 import { getAppTitle } from "@/lib/get-app-title";
+import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useTranslations } from "next-intl";
 
 import ShareButton from "@/components/common/dropdown/share-button";
@@ -14,6 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal } from "lucide-react";
+import DeleteButton from "./delete-button";
 
 export default function Actions({
   id,
@@ -25,6 +29,10 @@ export default function Actions({
   isFavorite: boolean;
 }) {
   const t = useTranslations("pages.map.location.actions");
+
+  const { user: authUser } = useAuthStore();
+
+  const isAdmin = authUser?.role === "ADMIN";
 
   return (
     <DropdownMenu>
@@ -55,7 +63,15 @@ export default function Actions({
           <ReportButton id={id} />
         </DropdownMenuGroup>
 
-        {/* TODO: ADMIN ACTIONS */}
+        {isAdmin && (
+          <>
+            <DropdownMenuSeparator />
+
+            <DropdownMenuGroup>
+              <DeleteButton id={id}/>
+            </DropdownMenuGroup>
+          </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

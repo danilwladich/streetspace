@@ -30,10 +30,10 @@ export default function FavoriteButton({
     try {
       if (isFavorite) {
         // Making a DELETE request to the favorite API endpoint
-        await axios.delete("/api/marker/favorite", { data: { markerId: id } });
+        await axios.delete("/api/marker/favorite", { data: { id } });
       } else {
         // Making a POST request to the favorite API endpoint
-        await axios.post("/api/marker/favorite", { markerId: id });
+        await axios.post("/api/marker/favorite", { id });
       }
 
       // Refresh page to get new marker data

@@ -45,13 +45,6 @@
       "submit": "Save",
       "submitError": "Change username error"
     },
-    "deleteAvatar": {
-      "title": "Are you absolutely sure?",
-      "description": "This will permanently delete your avatar",
-      "cancel": "Cancel",
-      "submit": "Delete",
-      "submitError": "Delete avatar error"
-    },
     "editProfile": {
       "title": "Edit profile",
       "description": "Update your profile information",
@@ -120,6 +113,13 @@
       "next": "Next",
       "nextLabel": "Go to next page",
       "more": "More pages"
+    },
+    "modal": {
+      "submitAction": {
+        "title": "Are you absolutely sure?",
+        "cancel": "Cancel",
+        "submit": "Submit"
+      }
     }
   },
   "validation": {
@@ -226,7 +226,12 @@
           "favoriteError": "Favorite location error",
           "unfavorite": "Unfavorite",
           "favorite": "Favorite",
-          "report": "Report"
+          "report": "Report",
+          "delete": {
+            "button": "Delete",
+            "description": "This will permanently delete the location",
+            "submitError": "Delete location error"
+          }
         }
       }
     },
@@ -261,7 +266,11 @@
         "title": "Avatar",
         "fullscreen": "Fullscreen",
         "change": "Change",
-        "delete": "Delete"
+        "delete": {
+          "button": "Delete",
+          "description": "This will permanently delete your avatar",
+          "submitError": "Delete avatar error"
+        }
       },
       "actions": {
         "open": "Open menu",

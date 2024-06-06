@@ -175,6 +175,12 @@ export async function removeFavoriteMarker(markerId: string, userId: string) {
 }
 
 export async function deleteMarker(id: string) {
+  await db.markerReport.deleteMany({
+    where: {
+      markerId: id,
+    },
+  });
+
   return db.marker.delete({
     where: {
       id,

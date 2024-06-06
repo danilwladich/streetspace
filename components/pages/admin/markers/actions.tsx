@@ -39,7 +39,7 @@ export default function Actions({ id }: { id: string }) {
 
     try {
       // Send DELETE request to delete marker
-      await axios.delete("/api/admin/marker/add", { data: { id } });
+      await axios.delete("/api/admin/marker", { data: { id } });
 
       // Refresh page to get new markers data
       router.refresh();

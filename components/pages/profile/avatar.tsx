@@ -1,10 +1,13 @@
 "use client";
 
+import axios, { AxiosError } from "axios";
 import { useModalStore } from "@/hooks/store/use-modal-store";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useUserImageSrc } from "@/hooks/use-user-image-src";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { useRouter } from "@/lib/navigation";
+import { toast } from "sonner";
 import type { User } from "@prisma/client";
 
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -22,8 +25,10 @@ import { Fullscreen, ImagePlus, Trash2 } from "lucide-react";
 export default function UserAvatar({ id, username, avatar }: User) {
   const t = useTranslations("pages.profile.avatar");
 
+  const router = useRouter();
+
   const { onOpen } = useModalStore();
-  const { user: authUser } = useAuthStore();
+  const { user: authUser, setUser } = useAuthStore();
 
   const isOwner = id === authUser?.id;
 
@@ -35,6 +40,32 @@ export default function UserAvatar({ id, username, avatar }: User) {
       images: [{ src: avatarSrc, alt: username }],
     };
     onOpen("fullscreen images", { imagesData });
+  }
+
+  function onDeleteAvatar() {
+    const submitActionData = {
+      description: t("delete.description"),
+      onSubmit: async () => {
+        try {
+          // Making a DELETE request to the user avatar API endpoint
+          const { data } = await axios.delete("/api/user/avatar");
+
+          // Updating the user state with the new avatar
+          setUser(data);
+
+          router.refresh();
+        } catch (e: unknown) {
+          // Handling AxiosError
+          const error = e as AxiosError;
+
+          toast.error(t("delete.submitError"), { description: error.message });
+          return;
+        }
+      },
+    };
+    onOpen("submit action", {
+      submitActionData,
+    });
   }
 
   return (
@@ -63,7 +94,7 @@ export default function UserAvatar({ id, username, avatar }: User) {
 
                 <DropdownMenuGroup>
                   {!isDefaultAvatar && (
-                    <DropdownMenuItem onClick={() => onPreviewOpen()}>
+                    <DropdownMenuItem onClick={onPreviewOpen}>
                       <Fullscreen className="mr-2 h-4 w-4" />
                       <span>{t("fullscreen")}</span>
                     </DropdownMenuItem>
@@ -75,9 +106,9 @@ export default function UserAvatar({ id, username, avatar }: User) {
                   </DropdownMenuItem>
 
                   {!isDefaultAvatar && (
-                    <DropdownMenuItem onClick={() => onOpen("delete avatar")}>
+                    <DropdownMenuItem onClick={onDeleteAvatar}>
                       <Trash2 className="mr-2 h-4 w-4" />
-                      <span>{t("delete")}</span>
+                      <span>{t("delete.button")}</span>
                     </DropdownMenuItem>
                   )}
                 </DropdownMenuGroup>

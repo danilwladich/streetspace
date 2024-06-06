@@ -45,13 +45,6 @@
       "submit": "Zapisz",
       "submitError": "Błąd zmiany nazwy użytkownika"
     },
-    "deleteAvatar": {
-      "title": "Jesteś absolutnie pewny?",
-      "description": "Spowoduje to całkowite usunięcie twojego zdjęcia profilowego",
-      "cancel": "Anuluj",
-      "submit": "Usuń",
-      "submitError": "Błąd usuwania zdjęcia profilowego"
-    },
     "editProfile": {
       "title": "Edytuj profil",
       "description": "Zaktualizuj swoje informacje profilowe",
@@ -120,6 +113,13 @@
       "next": "Następna",
       "nextLabel": "Przejdź do następnej strony",
       "more": "Więcej stron"
+    },
+    "modal": {
+      "submitAction": {
+        "title": "Czy na pewno chcesz to zrobić?",
+        "cancel": "Anuluj",
+        "submit": "Zatwierdź"
+      }
     }
   },
   "validation": {
@@ -226,7 +226,12 @@
           "favoriteError": "Błąd ulubionej lokalizacji",
           "unfavorite": "Usuń z ulubionych",
           "favorite": "Dodaj do ulubionych",
-          "report": "Zgłoś"
+          "report": "Zgłoś",
+          "delete": {
+            "button": "Usuń",
+            "description": "Ta lokalizacja zostanie całkowicie usunięta",
+            "submitError": "Błąd usuwania lokalizacji"
+          }
         }
       }
     },
@@ -261,7 +266,11 @@
         "title": "Zdjęcie profilowe",
         "fullscreen": "Pełny ekran",
         "change": "Zmień",
-        "delete": "Usuń"
+        "delete": {
+          "button": "Usuń",
+          "description": "Zdjęcie profilowe zostanie całkowicie usunięte",
+          "submitError": "Błąd usuwania zdjęcia profilowego"
+        }
       },
       "actions": {
         "open": "Otwórz menu",

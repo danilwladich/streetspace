@@ -6,7 +6,7 @@ export type ModalType =
   | "change password"
   | "change avatar"
   | "fullscreen images"
-  | "delete avatar"
+  | "submit action"
   | "report marker";
 
 type ModalData = {
@@ -19,6 +19,10 @@ type ModalData = {
   };
   reportMarkerData?: {
     id: string;
+  };
+  submitActionData?: {
+    description: string;
+    onSubmit: () => void;
   };
 };
 
