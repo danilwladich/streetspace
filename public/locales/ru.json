@@ -123,6 +123,8 @@
     }
   },
   "validation": {
+    "Unauthorized": "Неавторизованный",
+    "Forbidden": "Запрещено",
     "Invalid Request": "Неправильный запрос",
     "Validation Error": "Ошибка валидации",
     "Internal Error": "Внутренняя ошибка",

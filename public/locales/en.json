@@ -123,6 +123,8 @@
     }
   },
   "validation": {
+    "Unauthorized": "Unauthorized",
+    "Forbidden": "Forbidden",
     "Invalid Request": "Invalid Request",
     "Validation Error": "Validation Error",
     "Internal Error": "Internal Error",
