@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "server": "pm2 start npm -- start",
+    "server": "npm run prisma && pm2 start npm -- production",
+    "prisma": "npx prisma generate && npx prisma db push",
+    "production": "next build && next start -p 80",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
