@@ -15,7 +15,8 @@ export const MAX_FILES_COUNT = 6;
 export const loginSchema = z.object({
   emailOrUsername: z
     .string()
-    .min(3, { message: "This field must be at least 3 characters" }),
+    .min(3, { message: "This field must be at least 3 characters" })
+    .toLowerCase(),
   password: z.string().min(6, {
     message: "Password must be at least 6 characters",
   }),
@@ -31,8 +32,9 @@ export const registerSchema = z
       .min(3, {
         message: "Username must be at least 3 characters",
       })
-      .max(16, { message: "Username must be less than 16 characters" }),
-    email: z.string().trim().email("This is not a valid email"),
+      .max(16, { message: "Username must be less than 16 characters" })
+      .toLowerCase(),
+    email: z.string().trim().email("This is not a valid email").toLowerCase(),
     password: z
       .string()
       .trim()
@@ -96,7 +98,8 @@ export const editUsernameSchema = z.object({
     .min(3, {
       message: "Username must be at least 3 characters",
     })
-    .max(16, { message: "Username must be less than 16 characters" }),
+    .max(16, { message: "Username must be less than 16 characters" })
+    .toLowerCase(),
 });
 
 export const editProfileSchema = z
