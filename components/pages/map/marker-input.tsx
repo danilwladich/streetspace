@@ -30,7 +30,7 @@ export default function MarkerInput() {
   }
 
   const href: Url = {
-    pathname: "/map/adding",
+    pathname: "/adding",
     query: {
       lat: position.lat,
       lng: position.lng,
@@ -40,12 +40,13 @@ export default function MarkerInput() {
   return (
     <Marker position={position} icon={getIcon()}>
       <Popup autoPan={false} maxWidth={320}>
-        <Link
-          href={href}
-          className="block px-4 py-1 !text-black hover:underline"
-        >
-          {t("input")}
-        </Link>
+        <div className="px-4 py-1">
+          <Link href={href} className="group relative !text-black">
+            {t("input")}
+
+            <div className="absolute bottom-0 left-0 h-[1px] w-full bg-current opacity-0 transition-opacity group-hover:opacity-100" />
+          </Link>
+        </div>
       </Popup>
     </Marker>
   );
