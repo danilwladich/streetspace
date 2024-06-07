@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 import { cookies } from "next/headers";
 import type { User } from "@prisma/client";
 
-const JWT_TOKEN = "jwtToken";
+const JWT_TOKEN = "JWT_TOKEN";
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 28;
 const jwtSecret = process.env.JWT_SECRET || "jwt_secret";
 

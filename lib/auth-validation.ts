@@ -6,9 +6,9 @@ const jwtSecret = process.env.JWT_SECRET || "jwt_secret";
 
 export async function authValidation(): Promise<User | undefined> {
   try {
-    // Extracting JWT token from the "jwtToken" cookie
+    // Extracting JWT token from the "JWT_TOKEN" cookie
     const cookieStore = cookies();
-    const jwtToken = cookieStore.get("jwtToken")?.value;
+    const jwtToken = cookieStore.get("JWT_TOKEN")?.value;
 
     // Checking if the JWT token is present
     if (!jwtToken) {
