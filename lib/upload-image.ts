@@ -20,7 +20,7 @@ export async function uploadImage(image: File, dir: string, name: string) {
     .jpeg()
     .toBuffer();
 
-  const filename = `${Date.now()}_${name}_${image.name.replaceAll(/\s|\./g, "_")}`;
+  const filename = `${Date.now()}_${name}_${image.name.replaceAll(/\s|\./g, "_")}.jpeg`;
 
   // Saving image to disk
   await fs.writeFile(path.join(filepath, filename), optimizedBuffer);
