@@ -34,12 +34,10 @@ export async function PATCH(req: NextRequest) {
     // Updating the user's avatar
     const user = await updateUser(authUser.id, { avatar: avatarUrl });
 
-    const serialized = await serializeJwt(user);
+    await serializeJwt(user);
 
-    // Returning a JSON response with user information and set cookie header
-    return jsonResponse(user, 201, {
-      headers: { "Set-Cookie": serialized },
-    });
+    // Returning a JSON response with user information
+    return jsonResponse(user, 201);
   } catch (error) {
     // Handling internal error
     console.log("[USER_AVATAR_PATCH]", error);
@@ -60,12 +58,10 @@ export async function DELETE(req: NextRequest) {
     // Updating the user's avatar
     const user = await updateUser(authUser.id, { avatar: null });
 
-    const serialized = await serializeJwt(user);
+    await serializeJwt(user);
 
-    // Returning a JSON response with user information and set cookie header
-    return jsonResponse(user, 200, {
-      headers: { "Set-Cookie": serialized },
-    });
+    // Returning a JSON response with user information
+    return jsonResponse(user, 200);
   } catch (error) {
     // Handling internal error
     console.log("[USER_AVATAR_DELETE]", error);

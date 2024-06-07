@@ -65,12 +65,10 @@ export async function POST(req: NextRequest) {
     });
 
     // Serializing the user object into a JWT token
-    const serialized = await serializeJwt(user);
+    await serializeJwt(user);
 
-    // Returning a JSON response with user information and set cookie header
-    return jsonResponse(user, 201, {
-      headers: { "Set-Cookie": serialized },
-    });
+    // Returning a JSON response with user
+    return jsonResponse(user, 201);
   } catch (error) {
     // Handling internal error
     console.log("[REGISTER_POST]", error);

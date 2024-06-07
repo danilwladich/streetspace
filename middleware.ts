@@ -75,13 +75,13 @@ export async function middleware(req: NextRequest) {
       }
 
       // Adding header with the authenticated user data
-      const reqHeaders = new Headers(req.headers);
-      reqHeaders.set("x-auth-user", JSON.stringify(authUser));
+      const headers = new Headers(req.headers);
+      headers.set("x-auth-user", JSON.stringify(authUser));
 
       // Allowing the request to proceed with the updated headers
       return NextResponse.next({
         request: {
-          headers: reqHeaders,
+          headers,
         },
       });
     }

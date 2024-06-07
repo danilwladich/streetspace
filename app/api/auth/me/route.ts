@@ -14,9 +14,7 @@ export function GET(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-  const serialized = emptyJwt();
+  emptyJwt();
 
-  return jsonResponse("User logged out successfully", 200, {
-    headers: { "Set-Cookie": serialized },
-  });
+  return jsonResponse("User logged out successfully", 200);
 }

@@ -1,6 +1,6 @@
 import { SignJWT } from "jose";
 import { nanoid } from "nanoid";
-import cookie from "cookie";
+import { cookies } from "next/headers";
 import type { User } from "@prisma/client";
 
 const JWT_TOKEN = "jwtToken";
@@ -16,26 +16,18 @@ export async function serializeJwt(user: User) {
     .setExpirationTime("28d")
     .sign(new TextEncoder().encode(jwtSecret));
 
-  // Serializing the JWT token as a cookie and setting the response headers
-  const serialized = cookie.serialize(JWT_TOKEN, jwtToken, {
+  // Setting the JWT token in a cookie
+  cookies().set({
+    name: JWT_TOKEN,
+    value: jwtToken,
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    path: "/",
     maxAge: COOKIE_MAX_AGE,
     sameSite: "strict",
-    path: "/",
+    secure: process.env.NODE_ENV === "production",
   });
-
-  return serialized;
 }
 
 export function emptyJwt() {
-  const serialized = cookie.serialize(JWT_TOKEN, "", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    maxAge: -1,
-    sameSite: "strict",
-    path: "/",
-  });
-
-  return serialized;
+  cookies().delete(JWT_TOKEN);
 }
