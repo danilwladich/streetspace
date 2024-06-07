@@ -1,8 +1,9 @@
 import fs from "fs/promises";
 import path from "path";
 import sharp from "sharp";
+import { nanoid } from "nanoid";
 
-export async function uploadImage(image: File, dir: string, name: string) {
+export async function uploadImage(image: File, dir: string) {
   const filepath = path.join(process.cwd(), "public/uploads", dir);
 
   // Create directory if it doesn't exist
@@ -20,7 +21,7 @@ export async function uploadImage(image: File, dir: string, name: string) {
     .jpeg()
     .toBuffer();
 
-  const filename = `${Date.now()}_${name}_${image.name.replaceAll(/\s|\./g, "_")}.jpeg`;
+  const filename = `${Date.now()}_${nanoid()}.jpeg`;
 
   // Saving image to disk
   await fs.writeFile(path.join(filepath, filename), optimizedBuffer);
@@ -30,5 +31,7 @@ export async function uploadImage(image: File, dir: string, name: string) {
 }
 
 export async function deleteImage(url: string) {
-  await fs.unlink(path.join(process.cwd(), "public", url));
+  try {
+    await fs.unlink(path.join(process.cwd(), "public", url));
+  } catch {}
 }

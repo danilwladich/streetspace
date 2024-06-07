@@ -42,8 +42,7 @@ export async function POST(req: NextRequest) {
     const imagesUrl = [];
 
     for (const image of images as File[]) {
-      const name = `${authUser.id}_${imagesUrl.length}`;
-      const imageUrl = await uploadImage(image, "marker", name);
+      const imageUrl = await uploadImage(image, "marker");
       imagesUrl.push(imageUrl);
     }
 

@@ -33,7 +33,7 @@ export async function PATCH(req: NextRequest) {
       }
 
       // Saving the new avatar image
-      const avatarUrl = await uploadImage(avatar, "avatar", authUser.id);
+      const avatarUrl = await uploadImage(avatar, "avatar");
 
       // Updating the user's avatar
       await updateUser(authUser.id, { avatar: avatarUrl });
