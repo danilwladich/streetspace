@@ -32,8 +32,8 @@ export default function ImageItem({ src, alt }: { src: string; alt: string }) {
         width={25}
         height={25}
         className={cn(
-          "absolute left-0 top-0 hidden h-full w-full object-cover opacity-20 blur-lg",
-          isLoaded && "block",
+          "absolute left-0 top-0 h-full w-full object-cover opacity-0 blur-lg",
+          isLoaded && "opacity-20",
         )}
       />
     </>
