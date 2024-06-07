@@ -115,6 +115,7 @@
       "more": "Więcej stron"
     },
     "modal": {
+      "close": "Zamknąć",
       "submitAction": {
         "title": "Czy na pewno chcesz to zrobić?",
         "cancel": "Anuluj",

@@ -2,13 +2,14 @@ import { Inter } from "next/font/google";
 import { getAppTitle } from "@/lib/get-app-title";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { AuthProvider } from "@/components/providers/auth-provider";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { cn } from "../../lib/utils";
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -45,6 +46,13 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export default function RootLayout({
   children,
   params: { locale },
@@ -56,7 +64,7 @@ export default function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={font.className}>
+      <body className={cn(font.className, "mih-h-[100dvh]")}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider>
             <AuthProvider>

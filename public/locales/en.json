@@ -115,6 +115,7 @@
       "more": "More pages"
     },
     "modal": {
+      "close": "Close",
       "submitAction": {
         "title": "Are you absolutely sure?",
         "cancel": "Cancel",

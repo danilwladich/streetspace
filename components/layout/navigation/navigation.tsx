@@ -4,13 +4,7 @@ import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useTranslations } from "next-intl";
 
 import { NavLink } from "./nav-link";
-import {
-  Map,
-  User,
-  Settings,
-  CircleHelp,
-  ShieldCheck,
-} from "lucide-react";
+import { Map, User, Settings, CircleHelp, ShieldCheck } from "lucide-react";
 
 export interface ILink {
   path: string;
@@ -25,7 +19,7 @@ export function Navigation() {
 
   const isAdmin = authUser?.role === "ADMIN";
 
-  const iconClassName = "h-4 w-4";
+  const iconClassName = "md:h-4 h-5 md:w-4 w-5";
   const links: ILink[] = [
     {
       path: "/",
