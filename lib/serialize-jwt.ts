@@ -24,7 +24,7 @@ export async function serializeJwt(user: User) {
     path: "/",
     maxAge: COOKIE_MAX_AGE,
     sameSite: "strict",
-    secure: process.env.NODE_ENV === "production",
+    // secure: process.env.NODE_ENV === "production",
   });
 }
 

@@ -10,7 +10,6 @@ import { useRouter } from "@/lib/navigation";
 import { toast } from "sonner";
 import type { User } from "@prisma/client";
 
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -69,58 +68,11 @@ export default function UserAvatar({ id, username, avatar }: User) {
   }
 
   return (
-    <Avatar className="h-24 w-24 has-[button:focus-visible]:ring-2 has-[button:focus-visible]:ring-ring md:h-36 md:w-36">
-      <AvatarImage asChild src={avatarSrc}>
-        <>
-          {isOwner && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="relative h-full w-full">
-                  <Image
-                    src={avatarSrc}
-                    alt={username}
-                    priority
-                    width={150}
-                    height={150}
-                    className="absolute left-0 top-0 h-full w-full object-cover"
-                  />
-                </button>
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>{t("title")}</DropdownMenuLabel>
-
-                <DropdownMenuSeparator />
-
-                <DropdownMenuGroup>
-                  {!isDefaultAvatar && (
-                    <DropdownMenuItem onClick={onPreviewOpen}>
-                      <Fullscreen className="mr-2 h-4 w-4" />
-                      <span>{t("fullscreen")}</span>
-                    </DropdownMenuItem>
-                  )}
-
-                  <DropdownMenuItem onClick={() => onOpen("change avatar")}>
-                    <ImagePlus className="mr-2 h-4 w-4" />
-                    <span>{t("change")}</span>
-                  </DropdownMenuItem>
-
-                  {!isDefaultAvatar && (
-                    <DropdownMenuItem onClick={onDeleteAvatar}>
-                      <Trash2 className="mr-2 h-4 w-4" />
-                      <span>{t("delete.button")}</span>
-                    </DropdownMenuItem>
-                  )}
-                </DropdownMenuGroup>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
-
-          {!isOwner && !isDefaultAvatar && (
-            <button
-              onClick={() => onPreviewOpen()}
-              className="relative h-full w-full"
-            >
+    <div className="aspect-square h-24 w-24 overflow-hidden rounded-full has-[button:focus-visible]:ring-2 has-[button:focus-visible]:ring-ring md:h-36 md:w-36">
+      {isOwner && (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button className="relative h-full w-full">
               <Image
                 src={avatarSrc}
                 alt={username}
@@ -130,23 +82,65 @@ export default function UserAvatar({ id, username, avatar }: User) {
                 className="absolute left-0 top-0 h-full w-full object-cover"
               />
             </button>
-          )}
+          </DropdownMenuTrigger>
 
-          {!isOwner && isDefaultAvatar && (
-            <div className="relative h-full w-full">
-              <Image
-                src={avatarSrc}
-                alt={username}
-                priority
-                width={150}
-                height={150}
-                className="absolute left-0 top-0 h-full w-full object-cover"
-              />
-            </div>
-          )}
-        </>
-      </AvatarImage>
-      <AvatarFallback>{username[0]}</AvatarFallback>
-    </Avatar>
+          <DropdownMenuContent className="w-56">
+            <DropdownMenuLabel>{t("title")}</DropdownMenuLabel>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuGroup>
+              {!isDefaultAvatar && (
+                <DropdownMenuItem onClick={onPreviewOpen}>
+                  <Fullscreen className="mr-2 h-4 w-4" />
+                  <span>{t("fullscreen")}</span>
+                </DropdownMenuItem>
+              )}
+
+              <DropdownMenuItem onClick={() => onOpen("change avatar")}>
+                <ImagePlus className="mr-2 h-4 w-4" />
+                <span>{t("change")}</span>
+              </DropdownMenuItem>
+
+              {!isDefaultAvatar && (
+                <DropdownMenuItem onClick={onDeleteAvatar}>
+                  <Trash2 className="mr-2 h-4 w-4" />
+                  <span>{t("delete.button")}</span>
+                </DropdownMenuItem>
+              )}
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
+
+      {!isOwner && !isDefaultAvatar && (
+        <button
+          onClick={() => onPreviewOpen()}
+          className="relative h-full w-full"
+        >
+          <Image
+            src={avatarSrc}
+            alt={username}
+            priority
+            width={150}
+            height={150}
+            className="absolute left-0 top-0 h-full w-full object-cover"
+          />
+        </button>
+      )}
+
+      {!isOwner && isDefaultAvatar && (
+        <div className="relative h-full w-full">
+          <Image
+            src={avatarSrc}
+            alt={username}
+            priority
+            width={150}
+            height={150}
+            className="absolute left-0 top-0 h-full w-full object-cover"
+          />
+        </div>
+      )}
+    </div>
   );
 }

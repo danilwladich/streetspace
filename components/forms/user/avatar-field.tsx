@@ -3,7 +3,6 @@
 import { ACCEPTED_IMAGE_TYPES } from "@/lib/form-schema";
 import { useMemo } from "react";
 import Image from "next/image";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUserImageSrc } from "@/hooks/use-user-image-src";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import type { ControllerRenderProps } from "react-hook-form";
@@ -34,25 +33,19 @@ export default function AvatarField({
     [value, defaultImageSrc],
   );
   const alt = authUser!.username;
-  const fallback = authUser!.username[0];
 
   return (
     <FormItem className="[&_label]:has-[input:focus-visible]:ring-2 [&_label]:has-[input:focus-visible]:ring-ring">
       <div className="mt-4 flex justify-center">
-        <FormLabel className="rounded-full">
-          <Avatar className="relative h-24 w-24 cursor-pointer">
-            <AvatarImage src={imageSrc} asChild>
-              <Image
-                src={imageSrc}
-                alt={alt}
-                priority
-                width={100}
-                height={100}
-                className="absolute left-0 top-0 h-full w-full object-cover"
-              />
-            </AvatarImage>
-            <AvatarFallback>{fallback}</AvatarFallback>
-          </Avatar>
+        <FormLabel className="relative aspect-square h-24 w-24 cursor-pointer overflow-hidden rounded-full">
+          <Image
+            src={imageSrc}
+            alt={alt}
+            priority
+            width={100}
+            height={100}
+            className="absolute left-0 top-0 h-full w-full object-cover"
+          />
         </FormLabel>
       </div>
       <FormControl>
