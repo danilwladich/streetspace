@@ -47,7 +47,7 @@ export default async function Profile({
   return (
     <>
       <Card className="max-w-4xl">
-        <CardContent className="relative flex flex-col justify-between gap-4 md:flex-row">
+        <CardContent className="relative flex flex-col justify-between gap-4 pt-2 md:flex-row md:pt-0">
           <div className="flex w-full flex-1 flex-col items-center gap-2 md:flex-row md:gap-4">
             <UserAvatar {...user} />
 
@@ -62,7 +62,7 @@ export default async function Profile({
             </div>
           </div>
 
-          <div className="absolute right-2 top-0 md:static">
+          <div className="absolute right-2 top-2 md:static">
             <Actions {...user} isFollowing={isFollowing} />
           </div>
         </CardContent>
