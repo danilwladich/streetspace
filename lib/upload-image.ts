@@ -4,7 +4,7 @@ import sharp from "sharp";
 import { nanoid } from "nanoid";
 
 export async function uploadImage(image: File, dir: string) {
-  const filepath = path.join(process.cwd(), "public/uploads", dir);
+  const filepath = path.join(process.cwd(), "uploads", dir);
 
   // Create directory if it doesn't exist
   try {
@@ -30,8 +30,16 @@ export async function uploadImage(image: File, dir: string) {
   return path.join("/uploads", dir, filename);
 }
 
-export async function deleteImage(url: string) {
+export async function readImage(pathname: string) {
   try {
-    await fs.unlink(path.join(process.cwd(), "public", url));
+    return await fs.readFile(path.join(process.cwd(), pathname));
+  } catch {
+    return null;
+  }
+}
+
+export async function deleteImage(pathname: string) {
+  try {
+    await fs.unlink(path.join(process.cwd(), pathname));
   } catch {}
 }
