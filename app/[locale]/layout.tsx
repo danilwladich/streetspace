@@ -9,7 +9,6 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { AuthProvider } from "@/components/providers/auth-provider";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { Toaster } from "@/components/ui/sonner";
-import { cn } from "../../lib/utils";
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -64,7 +63,7 @@ export default function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={cn(font.className, "mih-h-[100dvh]")}>
+      <body className={font.className}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider>
             <AuthProvider>

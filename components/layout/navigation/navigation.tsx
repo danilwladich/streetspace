@@ -4,7 +4,14 @@ import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useTranslations } from "next-intl";
 
 import { NavLink } from "./nav-link";
-import { Map, User, Settings, CircleHelp, ShieldCheck } from "lucide-react";
+import {
+  Map,
+  User,
+  LogIn,
+  Settings,
+  CircleHelp,
+  ShieldCheck,
+} from "lucide-react";
 
 export interface ILink {
   path: string;
@@ -34,7 +41,11 @@ export function Navigation() {
     {
       path: authUser ? `/profile/${authUser.username}` : "/auth",
       name: authUser ? t("profile") : t("singIn"),
-      icon: <User className={iconClassName} />,
+      icon: authUser ? (
+        <User className={iconClassName} />
+      ) : (
+        <LogIn className={iconClassName} />
+      ),
     },
     {
       path: "/settings",
