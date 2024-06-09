@@ -12,8 +12,13 @@ const intlMiddleware = createIntlMiddleware({
 function authRedirect(req: NextRequest) {
   const loginUrl = new URL("/auth", req.url);
   loginUrl.searchParams.set("redirect", req.url);
-
   return NextResponse.redirect(loginUrl);
+}
+
+function secureRedirect(req: NextRequest) {
+  const httpsUrl = new URL(req.url);
+  httpsUrl.protocol = "https";
+  return NextResponse.redirect(httpsUrl);
 }
 
 const protectedApiRoutes = [
@@ -50,6 +55,13 @@ const profilePagePathnameRegex = RegExp(
 );
 
 export async function middleware(req: NextRequest) {
+  if (
+    process.env.NODE_ENV === "production" &&
+    req.nextUrl.protocol !== "https:"
+  ) {
+    // return secureRedirect(req);
+  }
+
   if (req.nextUrl.pathname.startsWith("/api")) {
     const isProtectedApiRoute = protectedApiPathnameRegex.test(
       req.nextUrl.pathname,
@@ -178,5 +190,3 @@ export async function middleware(req: NextRequest) {
 export const config = {
   matcher: ["/((?!_next|.*\\..*).*)"],
 };
-
-// TODO: Redirect from http to https
