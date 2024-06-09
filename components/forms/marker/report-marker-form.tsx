@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import {
-  reportMarkerSchema as formSchema,
+  markerReportSchema as formSchema,
   reportMarkerTypes,
 } from "@/lib/form-schema";
 import { useState } from "react";
@@ -26,7 +26,6 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Input } from "@/components/ui/input";
 
 export default function ReportMarkerForm({ id }: { id: string }) {
   const t = useTranslations("forms.reportMarker");
@@ -40,6 +39,7 @@ export default function ReportMarkerForm({ id }: { id: string }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      markerId: id,
       type: undefined,
       message: "",
     },
@@ -55,7 +55,7 @@ export default function ReportMarkerForm({ id }: { id: string }) {
 
     try {
       // Making a POST request to the marker report API endpoint
-      await axios.post("/api/marker/report", { id, ...values });
+      await axios.post("/api/marker/report", { ...values });
 
       // Close the modal
       onClose();

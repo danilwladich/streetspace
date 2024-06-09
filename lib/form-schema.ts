@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { getYearsDiff } from "@/lib//dates";
+import { getYearsDiff } from "@/lib/dates";
 
 const MAX_FILE_SIZE = 1024 * 1024 * 10;
 const MAX_FILE_SIZE_STRING = "10MB";
@@ -270,8 +270,9 @@ export const reportMarkerTypes = [
   "other",
 ] as const;
 
-export const reportMarkerSchema = z
+export const markerReportSchema = z
   .object({
+    markerId: z.string().max(50),
     type: z.enum(reportMarkerTypes, {
       message: "Provide a reason for reporting",
     }),
