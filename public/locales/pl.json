@@ -82,6 +82,12 @@
       "incorrectLocation": "Nieprawidłowa lokalizacja",
       "inappropriateContent": "Nieodpowiednia treść",
       "other": "Inne"
+    },
+    "markerCommentInput": {
+      "title": "Napisz nowy komentarz",
+      "submitError": "Błąd komentarza lokalizacji",
+      "submit": "Zatwierdź",
+      "comment": "Komentarz"
     }
   },
   "layout": {
@@ -223,6 +229,17 @@
         "notFound": "Lokalizacja nie znaleziona",
         "navigate": "Nawiguj",
         "added": "Dodano",
+        "comments": {
+          "title": "Komentarze",
+          "input": "Napisz nowy komentarz",
+          "actions": {
+            "open": "Otwórz menu",
+            "label": "Komentarz",
+            "button": "Usuń",
+            "description": "Ten komentarz zostanie całkowicie usunięty",
+            "deleteError": "Błąd usuwania komentarza"
+          }
+        },
         "actions": {
           "open": "Otwórz menu",
           "label": "Lokalizacja",

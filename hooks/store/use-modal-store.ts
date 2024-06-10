@@ -7,7 +7,8 @@ export type ModalType =
   | "change avatar"
   | "fullscreen images"
   | "submit action"
-  | "report marker";
+  | "report marker"
+  | "new marker comment";
 
 type ModalData = {
   imagesData?: {
@@ -23,6 +24,10 @@ type ModalData = {
   submitActionData?: {
     description: string;
     onSubmit: () => void;
+  };
+  newMarkerCommentData?: {
+    id: string;
+    address: string;
   };
 };
 

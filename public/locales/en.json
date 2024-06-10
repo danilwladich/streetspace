@@ -82,6 +82,12 @@
       "incorrectLocation": "Incorrect location",
       "inappropriateContent": "Inappropriate content",
       "other": "Other"
+    },
+    "markerCommentInput": {
+      "title": "Write new comment",
+      "submitError": "Location comment error",
+      "submit": "Submit",
+      "comment": "Comment"
     }
   },
   "layout": {
@@ -223,6 +229,17 @@
         "notFound": "Location not found",
         "navigate": "Navigate",
         "added": "Added",
+        "comments": {
+          "title": "Comments",
+          "input": "Write new comment",
+          "actions": {
+            "open": "Open menu",
+            "label": "Comment",
+            "button": "Delete",
+            "description": "This will permanently delete the comment",
+            "deleteError": "Delete comment error"
+          }
+        },
         "actions": {
           "open": "Open menu",
           "label": "Location",

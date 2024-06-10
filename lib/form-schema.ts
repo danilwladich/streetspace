@@ -20,7 +20,7 @@ export const loginSchema = z.object({
   password: z.string().min(6, {
     message: "Password must be at least 6 characters",
   }),
-  recaptchaToken: z.string(),
+  recaptchaToken: z.string().max(1000),
 });
 
 export const registerSchema = z
@@ -50,7 +50,7 @@ export const registerSchema = z
     confirmPassword: z.string().trim().min(1, {
       message: "This field has to be filled",
     }),
-    recaptchaToken: z.string(),
+    recaptchaToken: z.string().max(1000),
   })
   .refine(
     // Additional refinement to check if passwords match in client
@@ -87,7 +87,7 @@ export const markerSchema = z.object({
         files.every((file) => ACCEPTED_IMAGE_TYPES.includes(file.type)),
       "Invalid image format",
     ),
-  recaptchaToken: z.string(),
+  recaptchaToken: z.string().max(1000),
 });
 
 export const editUsernameSchema = z.object({
@@ -286,3 +286,12 @@ export const markerReportSchema = z
     message: "Provide a reason for reporting",
     path: ["message"],
   });
+
+export const markerCommentSchema = z.object({
+  markerId: z.string().max(50),
+  message: z
+    .string()
+    .trim()
+    .max(500, { message: "Message must be less than 500 characters" }),
+  recaptchaToken: z.string().max(1000),
+});

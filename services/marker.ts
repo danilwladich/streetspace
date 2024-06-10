@@ -8,7 +8,12 @@ export async function getMarkerById(id: string) {
       id,
     },
     include: {
-      addedBy: true,
+      addedBy: {
+        select: {
+          id: true,
+          username: true,
+        },
+      },
     },
   });
 }
@@ -102,6 +107,7 @@ export async function getUnconfirmedMarkers(page: number) {
     include: {
       addedBy: {
         select: {
+          id: true,
           username: true,
         },
       },

@@ -4,11 +4,9 @@ import axios, { AxiosError } from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import {
-  markerReportSchema as formSchema,
-  reportMarkerTypes,
-} from "@/lib/form-schema";
+import { markerCommentSchema as formSchema } from "@/lib/form-schema";
 import { useState } from "react";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useRouter } from "@/lib/navigation";
 import { useModalStore } from "@/hooks/store/use-modal-store";
 import { toast } from "sonner";
@@ -25,10 +23,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-export default function ReportMarkerForm({ id }: { id: string }) {
-  const t = useTranslations("forms.reportMarker");
+export default function MarkerCommentForm({ id }: { id: string }) {
+  const t = useTranslations("forms.markerCommentInput");
 
   const router = useRouter();
   const { onClose } = useModalStore();
@@ -40,10 +37,12 @@ export default function ReportMarkerForm({ id }: { id: string }) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       markerId: id,
-      type: undefined,
       message: "",
+      recaptchaToken: "",
     },
   });
+
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   // Checking if the form is currently submitting
   const isSubmitting = form.formState.isSubmitting;
@@ -54,14 +53,22 @@ export default function ReportMarkerForm({ id }: { id: string }) {
     setSubmitError("");
 
     try {
-      // Making a POST request to the marker report API endpoint
-      await axios.post("/api/marker/report", values);
+      if (!executeRecaptcha) {
+        setSubmitError(t("recaptchaError"));
+        return;
+      }
+
+      // Executing recaptcha to get the token
+      const recaptchaToken = await executeRecaptcha();
+
+      // Making a POST request to the marker comment API endpoint
+      await axios.post("/api/marker/comment", { ...values, recaptchaToken });
 
       // Close the modal
       onClose();
 
-      // Show a success toast
-      toast.success(t("submitSuccess"));
+      // Refreshing the current page
+      router.refresh();
     } catch (e: unknown) {
       // Handling AxiosError
       const error = e as AxiosError;
@@ -100,51 +107,21 @@ export default function ReportMarkerForm({ id }: { id: string }) {
       >
         <FormField
           control={form.control}
-          name="type"
+          name="message"
           render={({ field }) => (
             <FormItem>
+              <FormLabel>{t("comment")}</FormLabel>
               <FormControl>
-                <RadioGroup
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                  className="flex flex-col space-y-1"
-                >
-                  {reportMarkerTypes.map((type) => (
-                    <FormItem
-                      key={type}
-                      className="flex items-center space-x-3 space-y-0"
-                    >
-                      <FormControl>
-                        <RadioGroupItem value={type} />
-                      </FormControl>
-                      <FormLabel className="font-normal">{t(type)}</FormLabel>
-                    </FormItem>
-                  ))}
-                </RadioGroup>
+                <Textarea
+                  {...field}
+                  placeholder={t("comment")}
+                  disabled={isSubmitting}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
-        {form.watch("type") === "other" && (
-          <FormField
-            control={form.control}
-            name="message"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Textarea
-                    {...field}
-                    placeholder={t("reason")}
-                    disabled={isSubmitting}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        )}
 
         {!!submitError && (
           <p className="text-center text-sm font-medium text-destructive">

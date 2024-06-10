@@ -11,7 +11,7 @@ export function NavLink({ path, name, icon }: ILink) {
         <Button tabIndex={-1} variant="link" className="gap-2">
           {icon}
 
-          <span className="sr-only md:not-sr-only md:relative md:whitespace-nowrap">
+          <span className="sr-only select-none md:not-sr-only md:relative md:whitespace-nowrap">
             {name}
 
             <div className="absolute bottom-0 left-0 h-[1px] w-full bg-current opacity-0 transition-opacity group-hover:opacity-100" />

@@ -19,7 +19,7 @@ export function useFetchMarkers() {
     setLoadingMarkers(true);
 
     try {
-      const { data } = await axios.get<Marker[]>(`/api/map`, {
+      const { data } = await axios.get<Marker[]>("/api/map", {
         params: bounds,
       });
 

@@ -8,7 +8,8 @@ import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 
 import NotFound from "@/components/common/not-found";
-import { Marker } from "@/components/pages/map/location/marker";
+import Marker from "@/components/pages/map/location/marker";
+import Comments from "@/components/pages/map/location/comments/comments";
 
 export async function generateMetadata({
   params,
@@ -26,8 +27,12 @@ export async function generateMetadata({
 
 export default async function Location({
   params: { id },
+  searchParams,
 }: {
   params: { id: string };
+  searchParams?: {
+    page?: string;
+  };
 }) {
   const t = await getTranslations("pages.map.location");
 
@@ -41,10 +46,18 @@ export default async function Location({
   const favoritesCount = await getMarkerFavoritesCount(id);
 
   return (
-    <Marker
-      {...marker}
-      isFavorite={isFavorite}
-      favoritesCount={favoritesCount}
-    />
+    <>
+      <Marker
+        {...marker}
+        isFavorite={isFavorite}
+        favoritesCount={favoritesCount}
+      />
+
+      <Comments
+        searchParams={searchParams}
+        markerId={id}
+        address={marker.address}
+      />
+    </>
   );
 }

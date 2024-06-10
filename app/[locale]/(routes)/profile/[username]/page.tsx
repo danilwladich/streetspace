@@ -52,9 +52,9 @@ export default async function Profile({
             <UserAvatar {...user} />
 
             <div className="flex max-w-full flex-col items-center gap-1 md:items-start">
-              <h3 className="max-w-full truncate text-2xl font-semibold">
+              <h2 className="max-w-full truncate text-2xl font-semibold">
                 {username}
-              </h3>
+              </h2>
 
               <div className="flex gap-2">
                 <UserFollowers username={username} />
@@ -74,7 +74,7 @@ export default async function Profile({
             <h4 className="text-base font-semibold md:text-lg">
               {t("aboutMe")}
             </h4>
-            <p lang="" className="pt-0.5 text-sm">
+            <p lang="" className="break-all pt-0.5 text-sm">
               {user.bio}
             </p>
           </CardContent>

@@ -19,10 +19,17 @@ import { DateToShow } from "@/components/common/date-to-show";
 import { Skeleton } from "@/components/ui/skeleton";
 
 type MarkerType = Prisma.MarkerGetPayload<{
-  include: { addedBy: true };
+  include: {
+    addedBy: {
+      select: {
+        id: true;
+        username: true;
+      };
+    };
+  };
 }>;
 
-export function Marker({
+export default function Marker({
   id,
   address,
   lat,
@@ -85,10 +92,10 @@ export function Marker({
             <DateToShow date={createdAt} />
           </div>
 
-          <Link href={`/profile/${addedBy?.username}`}>
+          <Link href={`/profile/${addedBy.username}`}>
             <Button tabIndex={-1} size="sm" className="gap-2">
               <User className="h-4 w-4" />
-              <span>{addedBy?.username}</span>
+              <span>{addedBy.username}</span>
             </Button>
           </Link>
         </div>

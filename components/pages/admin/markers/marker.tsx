@@ -23,6 +23,7 @@ type Marker = Prisma.MarkerGetPayload<{
   include: {
     addedBy: {
       select: {
+        id: true;
         username: true;
       };
     };
@@ -84,10 +85,10 @@ export function Marker({
             <DateToShow date={createdAt} />
           </div>
 
-          <Link href={`/profile/${addedBy?.username}`}>
+          <Link href={`/profile/${addedBy.username}`}>
             <Button tabIndex={-1} size="sm" className="gap-2">
               <User className="h-4 w-4" />
-              <span>{addedBy?.username}</span>
+              <span>{addedBy.username}</span>
             </Button>
           </Link>
         </div>
