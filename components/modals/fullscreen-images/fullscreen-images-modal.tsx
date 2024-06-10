@@ -26,14 +26,14 @@ export default function FullscreenImagesModal() {
   const hasMultipleImages = images.length > 1;
 
   return (
-    <DialogContent className="aspect-square max-h-dvh sm:max-w-3xl">
+    <DialogContent className="aspect-square max-h-dvh p-0 sm:max-w-3xl">
       {hasMultipleImages && (
         <Carousel
           opts={{
             startIndex,
           }}
         >
-          <CarouselContent className="rounded-sm">
+          <CarouselContent>
             {images.map((img, index) => (
               <CarouselItem
                 key={`${index}_${img.src}`}
@@ -50,7 +50,7 @@ export default function FullscreenImagesModal() {
       )}
 
       {!hasMultipleImages && (
-        <div className="relative h-full w-full overflow-hidden rounded-sm">
+        <div className="relative h-full w-full overflow-hidden">
           <ImageItem {...images[0]} />
         </div>
       )}
