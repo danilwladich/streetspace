@@ -2,15 +2,24 @@ import type { NextRequest } from "next/server";
 import { jsonResponse } from "@/lib/json-response";
 import { getAuthUser } from "@/lib/get-auth-user";
 import { emptyJwt } from "@/lib/serialize-jwt";
+import { getUserById } from "@/services/user";
 
-export function GET(req: NextRequest) {
-  const authUser = getAuthUser();
+export async function GET(req: NextRequest) {
+  try {
+    const authUser = getAuthUser();
 
-  if (!authUser) {
-    return jsonResponse("Unauthorized", 401);
+    const user = await getUserById(authUser.id);
+
+    if (!user) {
+      return jsonResponse("Unauthorized", 401);
+    }
+
+    return jsonResponse(user, 200);
+  } catch (error) {
+    // Handling internal error
+    console.log("[AUTH_ME_GET]", error);
+    return jsonResponse("Internal Error", 500);
   }
-
-  return jsonResponse(authUser, 200);
 }
 
 export async function DELETE(req: NextRequest) {
