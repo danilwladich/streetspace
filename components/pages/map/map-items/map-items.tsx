@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useMapStore } from "@/hooks/store/use-map-store";
 
 import MapItem from "./map-item";
@@ -15,5 +15,8 @@ export default function MapItems() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return markers.map((c) => <MapItem key={c.id} {...c} />);
+  return useMemo(
+    () => markers.map((c) => <MapItem key={c.id} {...c} />),
+    [markers],
+  );
 }
