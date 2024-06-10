@@ -5,8 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { loginSchema as formSchema } from "@/lib/form-schema";
-import { useState, useRef } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
+import { useState } from "react";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/lib/navigation";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
@@ -14,7 +14,6 @@ import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import type { ErrorResponse } from "@/types/ErrorResponse";
 
-import Recaptcha from "@/components/common/forms/recaptcha";
 import FormPasswordInput from "@/components/common/forms/form-password-input";
 import { Button } from "@/components/ui/button";
 import {
@@ -40,7 +39,7 @@ export default function Login() {
     },
   });
 
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   // State for handling submit errors
   const [submitError, setSubmitError] = useState("");
@@ -60,15 +59,13 @@ export default function Login() {
     setSubmitError("");
 
     try {
-      // Executing recaptcha to get the token
-      const recaptchaToken = await recaptchaRef.current?.executeAsync();
-
-      // Handling recaptcha errors
-      if (!recaptchaToken) {
-        recaptchaRef.current?.reset();
+      if (!executeRecaptcha) {
         setSubmitError(t("recaptchaError"));
         return;
       }
+
+      // Executing recaptcha to get the token
+      const recaptchaToken = await executeRecaptcha();
 
       // Making a POST request to the login API endpoint
       const { data } = await axios.post("/api/auth/login", {
@@ -85,9 +82,6 @@ export default function Login() {
     } catch (e: unknown) {
       // Handling AxiosError
       const error = e as AxiosError;
-
-      // Resetting recaptcha
-      recaptchaRef.current?.reset();
 
       // Extracting response from AxiosError
       const res = error?.response as ErrorResponse<typeof formSchema>;
@@ -146,8 +140,6 @@ export default function Login() {
             </FormItem>
           )}
         />
-
-        <Recaptcha ref={recaptchaRef} />
 
         {!!submitError && (
           <p className="text-center text-sm font-medium text-destructive">

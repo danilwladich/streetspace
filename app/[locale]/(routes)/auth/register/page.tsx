@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Link } from "@/lib/navigation";
 import { Button } from "@/components/ui/button";
+import RecaptchaProvider from "@/components/providers/recaptcha-provider";
 
 export default function Auth() {
   const t = useTranslations("forms");
@@ -22,7 +23,9 @@ export default function Auth() {
           <CardDescription>{t("signUp.description")}</CardDescription>
         </CardHeader>
         <CardContent>
-          <RegisterForm />
+          <RecaptchaProvider>
+            <RegisterForm />
+          </RecaptchaProvider>
         </CardContent>
       </Card>
 

@@ -8,6 +8,7 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
+import RecaptchaProvider from "@/components/providers/recaptcha-provider";
 
 export default function Adding() {
   const t = useTranslations("pages.map.adding");
@@ -20,7 +21,9 @@ export default function Adding() {
       </CardHeader>
 
       <CardContent>
-        <MarkerForm />
+        <RecaptchaProvider>
+          <MarkerForm />
+        </RecaptchaProvider>
       </CardContent>
     </Card>
   );

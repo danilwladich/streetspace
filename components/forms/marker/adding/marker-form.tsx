@@ -6,16 +6,15 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { markerSchema as formSchema } from "@/lib/form-schema";
 import { parseFormDataFromJson } from "@/lib/formdata-parser";
-import { useState, useRef } from "react";
+import { useState } from "react";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { toast } from "sonner";
 import { ErrorResponse } from "@/types/ErrorResponse";
 import ImagesField from "./images-field";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/lib/navigation";
 import { useTranslations } from "next-intl";
-import type ReCAPTCHA from "react-google-recaptcha";
 
-import Recaptcha from "@/components/common/forms/recaptcha";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -45,7 +44,7 @@ export default function MarkerForm() {
     },
   });
 
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   // State for handling submit errors
   const [submitError, setSubmitError] = useState("");
@@ -61,15 +60,13 @@ export default function MarkerForm() {
     setSubmitError("");
 
     try {
-      // Executing recaptcha to get the token
-      const recaptchaToken = await recaptchaRef.current?.executeAsync();
-
-      // Handling recaptcha errors
-      if (!recaptchaToken) {
-        recaptchaRef.current?.reset();
+      if (!executeRecaptcha) {
         setSubmitError(t("recaptchaError"));
         return;
       }
+
+      // Executing recaptcha to get the token
+      const recaptchaToken = await executeRecaptcha();
 
       const formData = parseFormDataFromJson({
         ...values,
@@ -87,9 +84,6 @@ export default function MarkerForm() {
     } catch (e: unknown) {
       // Handling AxiosError
       const error = e as AxiosError;
-
-      // Resetting recaptcha
-      recaptchaRef.current?.reset();
 
       // Extracting response from AxiosError
       const res = error?.response as ErrorResponse<typeof formSchema>;
@@ -149,8 +143,6 @@ export default function MarkerForm() {
             />
           )}
         />
-
-        <Recaptcha ref={recaptchaRef} />
 
         {!!submitError && (
           <p className="text-center text-sm font-medium text-destructive">
