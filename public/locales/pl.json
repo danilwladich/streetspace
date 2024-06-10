@@ -232,6 +232,7 @@
         "comments": {
           "title": "Komentarze",
           "input": "Napisz nowy komentarz",
+          "noComments": "Brak komentarzy",
           "actions": {
             "open": "Otwórz menu",
             "label": "Komentarz",

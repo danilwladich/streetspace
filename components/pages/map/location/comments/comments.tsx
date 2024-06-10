@@ -36,11 +36,17 @@ export default async function Comments({
       <CardContent className="space-y-2">
         <CommentInput markerId={markerId} address={address} />
 
-        <div className="space-y-2">
-          {comments.map((c) => (
-            <Comment key={c.id} {...c} />
-          ))}
-        </div>
+        {comments.length ? (
+          <div className="space-y-2">
+            {comments.map((c) => (
+              <Comment key={c.id} {...c} />
+            ))}
+          </div>
+        ) : (
+          <p className="pt-4 text-center text-muted-foreground">
+            {t("noComments")}
+          </p>
+        )}
 
         {totalCount > COMMENTS_PER_PAGE && (
           <Pagination
