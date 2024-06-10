@@ -1,5 +1,5 @@
 import { Link } from "@/lib/navigation";
-import { checkIsFollowingByUsername } from "@/services/follow";
+import { checkIsFollowingById } from "@/services/follow";
 import type { User } from "@prisma/client";
 
 import FollowAvatar from "./avatar";
@@ -13,18 +13,18 @@ export default async function User({
   user: User;
   authUser: User | undefined;
 }) {
-  const { username, avatar } = user;
+  const { id, username, avatar } = user;
 
   const isFollowing = authUser
-    ? await checkIsFollowingByUsername(authUser.username, username)
+    ? await checkIsFollowingById(authUser.id, id)
     : false;
 
-  const isOwner = username === authUser?.username;
+  const isOwner = id === authUser?.id;
 
   return (
     <>
       <div className="relative flex w-full items-center gap-2 p-2">
-        <Link href={`/profile/${username}`}>
+        <Link tabIndex={-1} href={`/profile/${username}`}>
           <FollowAvatar avatar={avatar} username={username} />
         </Link>
 

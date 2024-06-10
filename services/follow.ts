@@ -1,20 +1,20 @@
 import { db } from "@/lib/db";
 
-export async function checkIsFollowingByUsername(
-  whoFollowUsername: string,
-  whomFollowUsername: string,
+export async function checkIsFollowingById(
+  whoFollowId: string,
+  whomFollowId: string,
 ) {
-  if (whoFollowUsername === whomFollowUsername) {
+  if (whoFollowId === whomFollowId) {
     return false;
   }
 
   const follow = await db.follow.findFirst({
     where: {
       whomFollowUser: {
-        username: whomFollowUsername
+        id: whomFollowId,
       },
       whoFollowUser: {
-        username: whoFollowUsername
+        id: whoFollowId,
       },
     },
   });
