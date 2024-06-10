@@ -1,5 +1,5 @@
 import { getAppTitle } from "@/lib/get-app-title";
-import { checkIsFollowingByUsername } from "@/services/follow";
+import { checkIsFollowingById } from "@/services/follow";
 import { getUserByUsername } from "@/services/user";
 import { getTranslations } from "next-intl/server";
 import { authValidation } from "@/lib/auth-validation";
@@ -41,7 +41,7 @@ export default async function Profile({
 
   const authUser = await authValidation();
   const isFollowing = authUser
-    ? await checkIsFollowingByUsername(authUser.username, username)
+    ? await checkIsFollowingById(authUser.id, user.id)
     : false;
 
   return (
