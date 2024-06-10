@@ -21,7 +21,7 @@ export default function Pagination({
 
   const totalPages = Math.ceil(totalCount / pageCount);
 
-  if (currentPage === totalPages) {
+  if (currentPage === totalPages && totalPages > 2) {
     items.push(currentPage - 2);
   }
   for (let i = -1; i <= 1; i++) {
