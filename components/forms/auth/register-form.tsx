@@ -63,15 +63,16 @@ export default function Register() {
       // Executing recaptcha to get the token
       const recaptchaToken = await executeRecaptcha();
 
-      // Making a POST request to the register API endpoint
+      // Making a POST request to the /api/auth/register API endpoint
       const { data } = await axios.post("/api/auth/register", {
         ...values,
         recaptchaToken,
       });
 
-      // Setting the authenticated user and redirecting
+      // Setting the authenticated user
       setUser(data);
 
+      // Redirecting
       const redirectUrl =
         searchParams.get("redirect") || `/profile/${data.username}`;
       router.replace(redirectUrl);

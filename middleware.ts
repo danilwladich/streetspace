@@ -11,7 +11,14 @@ const intlMiddleware = createIntlMiddleware({
 
 function authRedirect(req: NextRequest) {
   const loginUrl = new URL("/auth", req.nextUrl);
-  const redirectUrl = req.nextUrl.pathname + req.nextUrl.search;
+
+  // Getting pathname without locale prefix
+  const pathname = req.nextUrl.pathname.replace(
+    RegExp(`(/(${locales.join("|")}))?`, "i"),
+    "",
+  );
+
+  const redirectUrl = pathname + req.nextUrl.search;
   loginUrl.searchParams.set("redirect", redirectUrl);
   return NextResponse.redirect(loginUrl);
 }
