@@ -3,6 +3,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { useRouter } from "@/lib/navigation";
 import { toast } from "sonner";
+import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useTranslations } from "next-intl";
 
 import { LogOut } from "lucide-react";
@@ -11,11 +12,17 @@ export default function LogOutButton() {
   const t = useTranslations("pages.profile.actions.logOut");
 
   const router = useRouter();
+  const { setUser } = useAuthStore();
 
   async function onLogOut() {
     try {
+      // Sending a DELETE request to the /api/auth/me endpoint
       await axios.delete("/api/auth/me");
 
+      // Clearing the user from the store
+      setUser(null);
+
+      // Redirecting to the auth page
       router.push("/auth");
     } catch (e: unknown) {
       // Handling AxiosError
