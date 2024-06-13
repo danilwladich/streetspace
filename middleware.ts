@@ -10,15 +10,15 @@ const intlMiddleware = createIntlMiddleware({
 });
 
 function authRedirect(req: NextRequest) {
-  const loginUrl = new URL("/auth", req.url);
-  loginUrl.searchParams.set("redirect", req.url);
+  const loginUrl = new URL("/auth", req.nextUrl);
+  const redirectUrl = req.nextUrl.pathname + req.nextUrl.search;
+  loginUrl.searchParams.set("redirect", redirectUrl);
   return NextResponse.redirect(loginUrl);
 }
 
 function secureRedirect(req: NextRequest) {
-  const httpsUrl = new URL(req.url);
-  httpsUrl.protocol = "https";
-  return NextResponse.redirect(httpsUrl);
+  req.nextUrl.protocol = "https";
+  return NextResponse.redirect(req.nextUrl);
 }
 
 const protectedApiRoutes = [
