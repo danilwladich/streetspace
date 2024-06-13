@@ -215,7 +215,15 @@
     "map": {
       "title": "workout map",
       "userLocation": "Your location",
-      "input": "Add new location",
+      "controls": {
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out",
+        "locate": "Locate me",
+        "noLocation": "Location not found",
+        "input": "Add location",
+        "inputConfirm": "Confirm",
+        "inputCancel": "Cancel"
+      },
       "adding": {
         "title": "Add new location",
         "description": "Your location will be added to the map after moderation"

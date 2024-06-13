@@ -215,7 +215,15 @@
     "map": {
       "title": "mapa treningowa",
       "userLocation": "Twoja lokalizacja",
-      "input": "Dodaj lokalizację",
+      "controls": {
+        "zoomIn": "Powiększ",
+        "zoomOut": "Pomniejsz",
+        "locate": "Zlokalizuj mnie",
+        "noLocation": "Nie znaleziono lokalizacji",
+        "input": "Dodaj lokalizację",
+        "inputConfirm": "Potwierdź",
+        "inputCancel": "Anuluj"
+      },
       "adding": {
         "title": "Dodaj nową lokalizację",
         "description": "Twoja lokalizacja zostanie dodana do mapy po moderacji"

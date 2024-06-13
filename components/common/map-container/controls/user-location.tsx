@@ -2,19 +2,16 @@
 
 import { useCallback } from "react";
 import { useMapStore } from "@/hooks/store/use-map-store";
+import { useTranslations } from "next-intl";
 import type { Map } from "leaflet";
 
 import { Button } from "@/components/ui/button";
 import { Navigation, NavigationOff } from "lucide-react";
 
 export default function UserLocation({ map }: { map: Map }) {
-  const { userPosition } = useMapStore();
+  const t = useTranslations("pages.map.controls");
 
-  const locationIcon = userPosition ? (
-    <Navigation className="h-4 w-4" />
-  ) : (
-    <NavigationOff className="h-4 w-4" />
-  );
+  const { userPosition } = useMapStore();
 
   const locationOnClick = useCallback(() => {
     if (!userPosition) {
@@ -26,7 +23,17 @@ export default function UserLocation({ map }: { map: Map }) {
 
   return (
     <Button variant="outline" size="icon" onClick={locationOnClick}>
-      {locationIcon}
+      {userPosition ? (
+        <Navigation className="h-4 w-4" />
+      ) : (
+        <NavigationOff className="h-4 w-4" />
+      )}
+
+      {userPosition ? (
+        <span className="sr-only">{t("locate")}</span>
+      ) : (
+        <span className="sr-only">{t("noLocation")}</span>
+      )}
     </Button>
   );
 }

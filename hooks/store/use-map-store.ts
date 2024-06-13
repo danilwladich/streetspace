@@ -20,6 +20,7 @@ interface MapStore {
   userPosition: LatLng | null;
   bounds: Bounds | null;
   searchIsVisible: boolean;
+  isInput: boolean;
   setMarkers: (markers: Marker[]) => void;
   setLoadingUserPosition: (loadingUserPosition: boolean) => void;
   setLoadingMarkers: (loadingMarkers: boolean) => void;
@@ -28,6 +29,7 @@ interface MapStore {
   setUserPosition: (userPosition: LatLng | null) => void;
   setBounds: (bounds: Bounds) => void;
   setSearchIsVisible: (searchIsVisible: boolean) => void;
+  setIsInput: (isInput: boolean) => void;
 }
 
 const initialValues: {
@@ -45,6 +47,7 @@ export const useMapStore = create<MapStore>((set) => ({
   userPosition: null,
   bounds: initialValues.bounds || null,
   searchIsVisible: false,
+  isInput: false,
   setMarkers: (markers) => set({ markers }),
   setLoadingUserPosition: (loadingUserPosition) => set({ loadingUserPosition }),
   setLoadingMarkers: (loadingMarkers) => set({ loadingMarkers }),
@@ -53,4 +56,5 @@ export const useMapStore = create<MapStore>((set) => ({
   setUserPosition: (userPosition) => set({ userPosition }),
   setBounds: (bounds) => set({ bounds }),
   setSearchIsVisible: (searchIsVisible) => set({ searchIsVisible }),
+  setIsInput: (isInput) => set({ isInput }),
 }));
