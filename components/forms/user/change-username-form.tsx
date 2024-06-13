@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { editUsernameSchema as formSchema } from "@/lib/form-schema";
-import { useState } from "react";
 import { useRouter } from "@/lib/navigation";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useModalStore } from "@/hooks/store/use-modal-store";
@@ -21,6 +20,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormRootError
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 

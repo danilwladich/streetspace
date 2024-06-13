@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { changeAvatarSchema as formSchema } from "@/lib/form-schema";
-import { useState } from "react";
 import { useRouter } from "@/lib/navigation";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { toast } from "sonner";
@@ -15,7 +14,7 @@ import { useTranslations } from "next-intl";
 import type { ErrorResponse } from "@/types/ErrorResponse";
 
 import { Button } from "@/components/ui/button";
-import { Form, FormField } from "@/components/ui/form";
+import { Form, FormField, FormRootError } from "@/components/ui/form";
 import AvatarField from "./avatar-field";
 
 export default function ChangeAvatarForm() {
