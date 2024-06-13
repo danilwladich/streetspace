@@ -193,7 +193,7 @@ const FormRootError = React.forwardRef<
     </p>
   );
 });
-FormMessage.displayName = "FormMessage";
+FormRootError.displayName = "FormRootError";
 
 export {
   useFormField,
