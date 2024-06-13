@@ -29,9 +29,6 @@ export default function ChangeAvatarForm() {
     },
   });
 
-  // State for handling submit errors
-  const [submitError, setSubmitError] = useState("");
-
   // Checking if the form is currently submitting
   const isSubmitting = form.formState.isSubmitting;
 
@@ -41,9 +38,6 @@ export default function ChangeAvatarForm() {
 
   // Handler for form submission
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Clearing any previous submit errors
-    setSubmitError("");
-
     try {
       const formData = parseFormDataFromJson(values);
 
@@ -74,7 +68,7 @@ export default function ChangeAvatarForm() {
 
       // Validation, recaptcha, or internal server error handler
       if (typeof res.data === "string") {
-        setSubmitError(res.data);
+        form.setError("root", { message: res.data });
         return;
       }
 
@@ -95,11 +89,7 @@ export default function ChangeAvatarForm() {
           )}
         />
 
-        {!!submitError && (
-          <p className="text-center text-sm font-medium text-destructive">
-            {submitError}
-          </p>
-        )}
+        <FormRootError />
 
         <Button type="submit" disabled={isSubmitting}>
           {t("submit")}

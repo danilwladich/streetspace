@@ -93,6 +93,28 @@ export async function getMarkers({
   });
 }
 
+const DUPLICATE_DEVIATION = 5 / 1000;
+
+export async function checkMarkerDuplicate(lat: number, lng: number) {
+  const marker = await db.marker.findFirst({
+    where: {
+      lat: {
+        gte: lat - DUPLICATE_DEVIATION,
+        lte: lat + DUPLICATE_DEVIATION,
+      },
+      lng: {
+        gte: lng - DUPLICATE_DEVIATION,
+        lte: lng + DUPLICATE_DEVIATION,
+      },
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  return !!marker;
+}
+
 export const UNCONFIRMED_MARKERS_PER_PAGE = 10;
 
 export async function getUnconfirmedMarkers(page: number) {

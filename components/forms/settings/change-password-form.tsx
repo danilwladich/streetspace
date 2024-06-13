@@ -35,9 +35,6 @@ export default function ChangePasswordForm() {
     },
   });
 
-  // State for handling submit errors
-  const [submitError, setSubmitError] = useState("");
-
   // Checking if the form is currently submitting
   const isSubmitting = form.formState.isSubmitting;
 
@@ -47,9 +44,6 @@ export default function ChangePasswordForm() {
 
   // Handler for form submission
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Clearing any previous submit errors
-    setSubmitError("");
-
     try {
       // Making a PATCH request to the user password API endpoint
       await axios.patch("/api/user/password", values);
@@ -73,7 +67,7 @@ export default function ChangePasswordForm() {
 
       // Validation, recaptcha, or internal server error handler
       if (typeof res.data === "string") {
-        setSubmitError(res.data);
+        form.setError("root", { message: res.data });
         return;
       }
 
@@ -140,11 +134,7 @@ export default function ChangePasswordForm() {
           )}
         />
 
-        {!!submitError && (
-          <p className="text-center text-sm font-medium text-destructive">
-            {submitError}
-          </p>
-        )}
+        <FormRootError />
 
         <Button type="submit" disabled={isSubmitting}>
           {t("submit")}

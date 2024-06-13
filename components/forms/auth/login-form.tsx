@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { loginSchema as formSchema } from "@/lib/form-schema";
-import { useState } from "react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/lib/navigation";
@@ -23,6 +22,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormRootError,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
@@ -41,9 +41,6 @@ export default function Login() {
 
   const { executeRecaptcha } = useGoogleReCaptcha();
 
-  // State for handling submit errors
-  const [submitError, setSubmitError] = useState("");
-
   // Checking if the form is currently submitting
   const isSubmitting = form.formState.isSubmitting;
 
@@ -55,12 +52,9 @@ export default function Login() {
 
   // Handler for form submission
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Clearing any previous submit errors
-    setSubmitError("");
-
     try {
       if (!executeRecaptcha) {
-        setSubmitError(t("recaptchaError"));
+        form.setError("root", { message: "Antibot system error" });
         return;
       }
 
@@ -94,7 +88,7 @@ export default function Login() {
 
       // Validation, recaptcha, or internal server error handler
       if (typeof res.data === "string") {
-        setSubmitError(res.data);
+        form.setError("root", { message: res.data });
         return;
       }
 
@@ -141,11 +135,7 @@ export default function Login() {
           )}
         />
 
-        {!!submitError && (
-          <p className="text-center text-sm font-medium text-destructive">
-            {submitError}
-          </p>
-        )}
+        <FormRootError />
 
         <Button type="submit" className="w-full" disabled={isSubmitting}>
           {t("submit")}

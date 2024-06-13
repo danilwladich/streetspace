@@ -8,7 +8,6 @@ import {
   markerReportSchema as formSchema,
   reportMarkerTypes,
 } from "@/lib/form-schema";
-import { useState } from "react";
 import { useRouter } from "@/lib/navigation";
 import { useModalStore } from "@/hooks/store/use-modal-store";
 import { toast } from "sonner";
@@ -23,6 +22,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormRootError,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -32,8 +32,6 @@ export default function ReportMarkerForm({ id }: { id: string }) {
 
   const router = useRouter();
   const { onClose } = useModalStore();
-
-  const [submitError, setSubmitError] = useState("");
 
   // Setting up the form using react-hook-form with Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({
@@ -50,9 +48,6 @@ export default function ReportMarkerForm({ id }: { id: string }) {
 
   // Handler for form submission
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Clearing any previous submit errors
-    setSubmitError("");
-
     try {
       // Making a POST request to the marker report API endpoint
       await axios.post("/api/marker/report", values);
@@ -82,7 +77,7 @@ export default function ReportMarkerForm({ id }: { id: string }) {
 
       // Validation, or internal server error handler
       if (typeof res.data === "string") {
-        setSubmitError(res.data);
+        form.setError("root", { message: res.data });
         return;
       }
 
@@ -146,11 +141,7 @@ export default function ReportMarkerForm({ id }: { id: string }) {
           />
         )}
 
-        {!!submitError && (
-          <p className="text-center text-sm font-medium text-destructive">
-            {submitError}
-          </p>
-        )}
+        <FormRootError />
 
         <Button type="submit" disabled={isSubmitting}>
           {t("submit")}

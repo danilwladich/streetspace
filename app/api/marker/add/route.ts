@@ -4,7 +4,7 @@ import { markerSchema } from "@/lib/form-schema";
 import { getAuthUser } from "@/lib/get-auth-user";
 import { parseJsonFromFormData } from "@/lib/formdata-parser";
 import { reverseGeocode, verifyCaptcha } from "@/lib/server-actions";
-import { createMarker } from "@/services/marker";
+import { checkMarkerDuplicate, createMarker } from "@/services/marker";
 import { uploadImage } from "@/lib/upload-image";
 
 export async function POST(req: NextRequest) {
@@ -27,6 +27,16 @@ export async function POST(req: NextRequest) {
     // Handling recaptcha verification failure
     if (!isRecaptchaCorrect) {
       return jsonResponse("Antibot system not passed", 400);
+    }
+
+    // Checking if the marker is already added
+    const isAlreadyAdded = await checkMarkerDuplicate(lat, lng);
+
+    if (isAlreadyAdded) {
+      return jsonResponse(
+        "The location has already been added or sent for moderation",
+        400,
+      );
     }
 
     // Reverse geocoding the coordinates

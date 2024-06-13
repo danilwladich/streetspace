@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { editProfileSchema as formSchema } from "@/lib/form-schema";
-import { useState } from "react";
 import { useRouter } from "@/lib/navigation";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useModalStore } from "@/hooks/store/use-modal-store";
@@ -22,6 +21,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormRootError,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -34,8 +34,6 @@ export default function EditProfileForm() {
 
   const router = useRouter();
   const { onClose } = useModalStore();
-
-  const [submitError, setSubmitError] = useState("");
 
   // Initial values for the form
   const socialMedia = JSON.parse(authUser!.socialMedia || "{}");
@@ -65,9 +63,6 @@ export default function EditProfileForm() {
 
   // Handler for form submission
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Clearing any previous submit errors
-    setSubmitError("");
-
     try {
       const formData = parseFormDataFromJson({
         ...values,
@@ -101,7 +96,7 @@ export default function EditProfileForm() {
 
       // Validation, recaptcha, or internal server error handler
       if (typeof res.data === "string") {
-        setSubmitError(res.data);
+        form.setError("root", { message: res.data });
         return;
       }
 
@@ -281,11 +276,7 @@ export default function EditProfileForm() {
           />
         </div>
 
-        {!!submitError && (
-          <p className="text-center text-sm font-medium text-destructive">
-            {submitError}
-          </p>
-        )}
+        <FormRootError />
 
         <Button type="submit" disabled={isSubmitting || !isDirty}>
           {t("submit")}

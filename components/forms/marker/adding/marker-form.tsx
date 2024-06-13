@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { markerSchema as formSchema } from "@/lib/form-schema";
 import { parseFormDataFromJson } from "@/lib/formdata-parser";
-import { useState } from "react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { toast } from "sonner";
 import { ErrorResponse } from "@/types/ErrorResponse";
@@ -23,6 +22,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormRootError,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
@@ -46,9 +46,6 @@ export default function MarkerForm() {
 
   const { executeRecaptcha } = useGoogleReCaptcha();
 
-  // State for handling submit errors
-  const [submitError, setSubmitError] = useState("");
-
   // Checking if the form is currently submitting
   const isSubmitting = form.formState.isSubmitting;
 
@@ -56,12 +53,9 @@ export default function MarkerForm() {
 
   // Handler for form submission
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Clearing any previous submit errors
-    setSubmitError("");
-
     try {
       if (!executeRecaptcha) {
-        setSubmitError(t("recaptchaError"));
+        form.setError("root", { message: "Antibot system error" });
         return;
       }
 
@@ -96,7 +90,7 @@ export default function MarkerForm() {
 
       // Validation, recaptcha, or internal server error handler
       if (typeof res.data === "string") {
-        setSubmitError(res.data);
+        form.setError("root", { message: res.data });
         return;
       }
 
@@ -144,11 +138,7 @@ export default function MarkerForm() {
           )}
         />
 
-        {!!submitError && (
-          <p className="text-center text-sm font-medium text-destructive">
-            {submitError}
-          </p>
-        )}
+        <FormRootError />
 
         <Button type="submit" disabled={isSubmitting}>
           {t("submit")}

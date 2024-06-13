@@ -18,7 +18,6 @@
       "emailOrUsername": "Email или имя пользователя",
       "password": "Пароль",
       "submit": "Войти",
-      "recaptchaError": "Ошибка системы антиспама",
       "submitError": "Ошибка входа"
     },
     "signUp": {
@@ -29,7 +28,6 @@
       "password": "Пароль",
       "passwordConfirmation": "Подтвердите пароль",
       "submit": "Зарегистрироваться",
-      "recaptchaError": "Ошибка системы антиспама",
       "submitError": "Ошибка регистрации"
     },
     "changeAvatar": {
@@ -67,7 +65,6 @@
         "select": "Выбрать изображение"
       },
       "success": "Местоположение отправлено на рассмотрение",
-      "recaptchaError": "Ошибка системы антиспама",
       "submit": "Отправить",
       "submitError": "Ошибка добавления местоположения"
     },
@@ -134,6 +131,7 @@
     "Forbidden": "Запрещено",
     "Invalid Request": "Неправильный запрос",
     "Validation Error": "Ошибка валидации",
+    "Antibot system error": "Ошибка системы антиспама",
     "Internal Error": "Внутренняя ошибка",
     "Incorrect password": "Неверный пароль",
     "Incorrect email or password": "Неверный email или пароль",
@@ -175,7 +173,8 @@
     "You cannot upload more than 6 images": "Вы не можете загрузить более 6 изображений",
     "Bio must be less than 1000 characters": "Биография должна содержать не более 1000 символов",
     "Provide a reason for reporting": "Укажите причину жалобы",
-    "Message must be less than 500 characters": "Сообщение должно содержать менее 500 символов"
+    "Message must be less than 500 characters": "Сообщение должно содержать менее 500 символов",
+    "The location has already been added or sent for moderation": "Местоположение уже добавлено или отправлено на модерацию"
   },
   "pages": {
     "notFound": "Страница не найдена",
