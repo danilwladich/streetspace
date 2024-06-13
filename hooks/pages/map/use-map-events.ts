@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
 import { useMapStore, type Bounds } from "@/hooks/store/use-map-store";
+import { type LeafletEvent } from "leaflet";
 
 export function useMapEvents() {
   const { setBounds, setZoom, setPosition, setSearchIsVisible } = useMapStore();
@@ -8,7 +9,7 @@ export function useMapEvents() {
   const map = useMap();
 
   useEffect(() => {
-    map.on("moveend", (e) => {
+    function onMoveEnd(e: LeafletEvent) {
       const b = e.target.getBounds().toBBoxString().split(",");
       const currentBounds: Bounds = {
         latMin: parseFloat(b[1]),
@@ -31,10 +32,12 @@ export function useMapEvents() {
           bounds: currentBounds,
         }),
       );
-    });
+    }
+
+    map.on("moveend", onMoveEnd);
 
     return () => {
-      map.off();
+      map.off("moveend", onMoveEnd);
     };
   }, [map, setBounds, setPosition, setZoom]);
 }

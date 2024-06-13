@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Marker, useMap } from "react-leaflet";
 import { MAP_ICON_SIZE, useMapStore } from "@/hooks/store/use-map-store";
-import { Point, divIcon } from "leaflet";
+import { type LeafletEvent, Point, divIcon } from "leaflet";
 
 export default function MarkerInput() {
   const { isInput } = useMapStore();
@@ -17,12 +17,15 @@ export default function MarkerInput() {
       return;
     }
 
-    map.on("move", (e) => {
+    setPosition(map.getCenter());
+
+    function onMove(e: LeafletEvent) {
       setPosition(e.target.getCenter());
-    });
+    }
+    map.on("move", onMove);
 
     return () => {
-      map.off();
+      map.off("move", onMove);
     };
   }, [map, isInput]);
 
