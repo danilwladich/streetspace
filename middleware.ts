@@ -122,7 +122,7 @@ export async function middleware(req: NextRequest) {
     }
 
     if (authUser.role !== "ADMIN") {
-      const notFoundUrl = new URL("/404", req.url);
+      const notFoundUrl = new URL("/404", req.nextUrl);
       return NextResponse.redirect(notFoundUrl);
     }
 
@@ -160,7 +160,7 @@ export async function middleware(req: NextRequest) {
     const redirectTo = req.nextUrl.searchParams.get("redirect");
     const redirectUrl = new URL(
       redirectTo || `/profile/${authUser.username}`,
-      req.url,
+      req.nextUrl,
     );
 
     return NextResponse.redirect(redirectUrl);

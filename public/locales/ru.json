@@ -138,6 +138,7 @@
     "Incorrect username or password": "Неверное имя пользователя или пароль",
     "Email already exists": "Email уже существует",
     "Username already taken": "Имя пользователя уже занято",
+    "It is already your username": "Это уже ваше имя пользователя",
     "Password must be at least 6 characters": "Пароль должен содержать не менее 6 символов",
     "Password must contain at least 1 uppercase letter": "Пароль должен содержать хотя бы одну заглавную букву",
     "Password must contain at least 1 lowercase letter": "Пароль должен содержать хотя бы одну строчную букву",

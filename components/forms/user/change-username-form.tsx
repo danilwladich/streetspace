@@ -20,9 +20,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  FormRootError
+  FormRootError,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useEffect } from "react";
 
 export default function ChangeUsernameForm() {
   const t = useTranslations("forms.changeUsername");
@@ -44,8 +45,14 @@ export default function ChangeUsernameForm() {
 
   // Handler for form submission
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    // Checking if the new username is the same as the current username
+    if (authUser?.username === values.username) {
+      form.setError("username", { message: "It is already your username" });
+      return;
+    }
+
     try {
-      // Making a PATCH request to the user username API endpoint
+      // Making a PATCH request to the /api/user/username API endpoint
       const { data } = await axios.patch("/api/user/username", values);
 
       // Updating the user state with the new username
@@ -54,6 +61,7 @@ export default function ChangeUsernameForm() {
       // Close the modal
       onClose();
 
+      // Redirecting to the new profile page
       router.push(`/profile/${values.username}`);
     } catch (e: unknown) {
       // Handling AxiosError

@@ -138,6 +138,7 @@
     "Incorrect username or password": "Incorrect username or password",
     "Email already exists": "Email already exists",
     "Username already taken": "Username already taken",
+    "It is already your username": "It is already your username",
     "Password must be at least 6 characters": "Password must be at least 6 characters",
     "Password must contain at least 1 uppercase letter": "Password must contain at least 1 uppercase letter",
     "Password must contain at least 1 lowercase letter": "Password must contain at least 1 lowercase letter",
