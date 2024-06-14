@@ -5,7 +5,6 @@ import { useRouter } from "@/lib/navigation";
 import { useTranslations } from "next-intl";
 
 import { Star } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
 import { CommandItem } from "@/components/ui/command";
 
 export default function StarsButton() {
@@ -13,10 +12,10 @@ export default function StarsButton() {
 
   const router = useRouter();
 
-  const { data, isLoading } = useClientFetching<any[]>(
-    "https://api.github.com/repos/danilwladich/streetspace/stargazers",
+  const { data, isLoading } = useClientFetching<any>(
+    "https://api.github.com/repos/danilwladich/streetspace",
   );
-  const starsCount = data?.length;
+  const starsCount = data?.stargazers_count;
 
   function onClick() {
     router.push("https://github.com/danilwladich/streetspace");
@@ -24,19 +23,9 @@ export default function StarsButton() {
 
   return (
     <CommandItem className="flex w-full items-center gap-2" onSelect={onClick}>
-      {isLoading ? (
-        <Skeleton className="h-5 w-full" />
-      ) : (
-        <>
-          <div className="flex items-center gap-1">
-            <Star className="h-4 w-4" />
-
-            <span>{starsCount}</span>
-          </div>
-
-          <span className="flex-1">{t("stars")}</span>
-        </>
-      )}
+      <Star className="h-4 w-4" />
+      <span>{t("stars")}</span>
+      {!isLoading && <span className="text-nowrap">{`( ${starsCount} )`}</span>}
     </CommandItem>
   );
 }

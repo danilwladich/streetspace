@@ -23,7 +23,6 @@ import {
   FormRootError,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect } from "react";
 
 export default function ChangeUsernameForm() {
   const t = useTranslations("forms.changeUsername");
