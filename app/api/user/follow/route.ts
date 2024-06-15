@@ -10,20 +10,13 @@ export async function POST(req: NextRequest) {
 
     // Check if the user id is provided
     if (!userId) {
-      return jsonResponse("User id required", 400);
-    }
-
-    const user = await getUserById(userId);
-
-    // Check if the user exists
-    if (!user) {
-      return jsonResponse("User doesn't exist", 400);
+      return jsonResponse("Invalid Request", 400);
     }
 
     const authUser = getAuthUser();
 
     // Check if the user is trying to follow themselves
-    if (user.id === authUser.id) {
+    if (userId === authUser.id) {
       return jsonResponse("You can't follow yourself", 400);
     }
 
@@ -44,20 +37,13 @@ export async function DELETE(req: NextRequest) {
 
     // Check if the user id is provided
     if (!userId) {
-      return jsonResponse("User id required", 400);
-    }
-
-    const user = await getUserById(userId);
-
-    // Check if the user exists
-    if (!user) {
-      return jsonResponse("User doesn't exist", 400);
+      return jsonResponse("Invalid Request", 400);
     }
 
     const authUser = getAuthUser();
 
     // Check if the user is trying to unfollow themselves
-    if (user.id === authUser.id) {
+    if (userId === authUser.id) {
       return jsonResponse("You can't unfollow yourself", 400);
     }
 
