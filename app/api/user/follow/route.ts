@@ -1,7 +1,6 @@
 import type { NextRequest } from "next/server";
 import { jsonResponse } from "@/lib/json-response";
 import { getAuthUser } from "@/lib/get-auth-user";
-import { getUserById } from "@/services/user";
 import { createFollow, deleteFollow } from "@/services/follow";
 
 export async function POST(req: NextRequest) {
@@ -21,7 +20,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Create a new follow
-    await createFollow(authUser.id, user.id);
+    await createFollow(authUser.id, userId);
 
     return jsonResponse("User followed successfully", 201);
   } catch (error) {
@@ -48,7 +47,7 @@ export async function DELETE(req: NextRequest) {
     }
 
     // Delete the follow
-    await deleteFollow(authUser.id, user.id);
+    await deleteFollow(authUser.id, userId);
 
     return jsonResponse("User unfollowed successfully", 201);
   } catch (error) {
