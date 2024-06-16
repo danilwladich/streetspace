@@ -175,7 +175,10 @@
     "Bio must be less than 1000 characters": "Биография должна содержать не более 1000 символов",
     "Provide a reason for reporting": "Укажите причину жалобы",
     "Message must be less than 500 characters": "Сообщение должно содержать менее 500 символов",
-    "The location has already been added or sent for moderation": "Местоположение уже добавлено или отправлено на модерацию"
+    "The location has already been added or sent for moderation": "Местоположение уже добавлено или отправлено на модерацию",
+    "Country must be alphabetic": "Страна должна содержать только буквы",
+    "City must be alphabetic": "Город должен содержать только буквы",
+    "Provide a message": "Укажите сообщение"
   },
   "pages": {
     "notFound": {

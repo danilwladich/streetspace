@@ -136,13 +136,17 @@ export const editProfileSchema = z
     country: z
       .string()
       .trim()
+      .regex(/^[a-zA-Z\s]+$/g, "Country must be alphabetic")
       .max(20, { message: "Country must be less than 20 characters" })
-      .optional(),
+      .optional()
+      .or(z.literal("")),
     city: z
       .string()
       .trim()
+      .regex(/^[a-zA-Z\s]+$/g, "City must be alphabetic")
       .max(20, { message: "City must be less than 20 characters" })
-      .optional(),
+      .optional()
+      .or(z.literal("")),
     socialMedia: z.object({
       facebook: z
         .string()
@@ -292,6 +296,7 @@ export const markerCommentSchema = z.object({
   message: z
     .string()
     .trim()
+    .min(1, { message: "Provide a message" })
     .max(500, { message: "Message must be less than 500 characters" }),
   recaptchaToken: z.string().max(1000),
 });

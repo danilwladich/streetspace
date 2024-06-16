@@ -175,7 +175,10 @@
     "Bio must be less than 1000 characters": "Bio must be less than 1000 characters",
     "Provide a reason for reporting": "Provide a reason for reporting",
     "Message must be less than 500 characters": "Message must be less than 500 characters",
-    "The location has already been added or sent for moderation": "The location has already been added or sent for moderation"
+    "The location has already been added or sent for moderation": "The location has already been added or sent for moderation",
+    "Country must be alphabetic": "Country must be alphabetic",
+    "City must be alphabetic": "City must be alphabetic",
+    "Provide a message": "Provide a message"
   },
   "pages": {
     "notFound": {

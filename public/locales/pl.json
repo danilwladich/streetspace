@@ -175,7 +175,10 @@
     "Bio must be less than 1000 characters": "Biografia musi mieć mniej niż 1000 znaków",
     "Provide a reason for reporting": "Podaj powód zgłoszenia",
     "Message must be less than 500 characters": "Wiadomość musi mieć mniej niż 500 znaków",
-    "The location has already been added or sent for moderation": "Lokalizacja została już dodana lub wysłana do moderacji"
+    "The location has already been added or sent for moderation": "Lokalizacja została już dodana lub wysłana do moderacji",
+    "Country must be alphabetic": "Kraj musi zawierać tylko litery",
+    "City must be alphabetic": "Miasto musi zawierać tylko litery",
+    "Provide a message": "Podaj treść"
   },
   "pages": {
     "notFound": {
