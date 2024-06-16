@@ -64,6 +64,7 @@ export const registerSchema = z
 export const markerSchema = z.object({
   coords: z
     .string()
+    .trim()
     .regex(
       /^(-?\d+(\.\d+)?)\,\s*(-?\d+(\.\d+)?)$/g,
       "Must be a latitude and longitude separated by a comma",
@@ -133,18 +134,13 @@ export const editProfileSchema = z
       .trim()
       .max(1000, { message: "Bio must be less than 1000 characters" })
       .optional(),
-    country: z
+    coords: z
       .string()
       .trim()
-      .regex(/^[a-zA-Z\s]+$/g, "Country must be alphabetic")
-      .max(20, { message: "Country must be less than 20 characters" })
-      .optional()
-      .or(z.literal("")),
-    city: z
-      .string()
-      .trim()
-      .regex(/^[a-zA-Z\s]+$/g, "City must be alphabetic")
-      .max(20, { message: "City must be less than 20 characters" })
+      .regex(
+        /^(-?\d+(\.\d+)?)\,\s*(-?\d+(\.\d+)?)$/g,
+        "Must be a latitude and longitude separated by a comma",
+      )
       .optional()
       .or(z.literal("")),
     socialMedia: z.object({
@@ -185,10 +181,6 @@ export const editProfileSchema = z
         .optional()
         .or(z.literal("")),
     }),
-  })
-  .refine((data) => !(!data.country && !!data.city), {
-    message: "Provide the country",
-    path: ["country"],
   })
   .refine(
     (data) =>

@@ -25,7 +25,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import AvatarField from "./avatar-field";
+import AvatarField from "../avatar-field";
+import CoordsField from "./coords-field";
 
 export default function EditProfileForm() {
   const t = useTranslations("forms.editProfile");
@@ -48,8 +49,7 @@ export default function EditProfileForm() {
       avatar: undefined,
       dateOfBirth,
       bio: authUser!.bio || "",
-      country: authUser!.country || "",
-      city: authUser!.city || "",
+      coords: authUser!.coords || "",
       socialMedia,
     },
   });
@@ -163,39 +163,16 @@ export default function EditProfileForm() {
 
           <FormField
             control={form.control}
-            name="country"
+            name="coords"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("country")}</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    placeholder={authUser!.country || t("country")}
-                    autoComplete="country-name"
-                    disabled={isSubmitting}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="city"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("city")}</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    placeholder={authUser!.city || t("city")}
-                    autoComplete="address-level2"
-                    disabled={isSubmitting}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+              <CoordsField
+                field={field}
+                isSubmitting={isSubmitting}
+                setError={(message: string) =>
+                  form.setError("coords", { message })
+                }
+                clearError={() => form.clearErrors("coords")}
+              />
             )}
           />
         </div>

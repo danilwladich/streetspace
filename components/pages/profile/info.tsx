@@ -53,7 +53,10 @@ export default async function UserInfo({
             </p>
           )}
           {!!country && (
-            <p className="py-0.5 text-xs text-muted-foreground md:text-sm">
+            <p
+              lang=""
+              className="py-0.5 text-xs text-muted-foreground md:text-sm"
+            >
               {`${city ? city + ", " : ""}${country}`}
             </p>
           )}

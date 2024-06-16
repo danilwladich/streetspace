@@ -1,7 +1,7 @@
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useTranslations } from "next-intl";
 
-import EditProfileForm from "@/components/forms/user/edit-profile-form";
+import EditProfileForm from "@/components/forms/user/edit-profile/edit-profile-form";
 import {
   DialogContent,
   DialogDescription,

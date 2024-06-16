@@ -49,8 +49,10 @@
       "dateOfBirth": "Data urodzenia",
       "bio": "Biografia",
       "location": "Lokalizacja",
-      "country": "Kraj",
-      "city": "Miasto",
+      "coords": "Współrzędne",
+      "coordsPlaceholder": "Szerokość, długość geograficzna",
+      "getLocation": "Pobierz lokalizację",
+      "coordsDescription": "Twoja lokalizacja będzie wykorzystywana do wyświetlania twojego kraju i miasta",
       "social": "Media społecznościowe",
       "submit": "Zapisz",
       "submitError": "Błąd edycji profilu"
@@ -154,13 +156,10 @@
     "This is not a valid email": "To nie jest poprawny adres email",
     "Must be a latitude/longitude": "Musi być szerokość/długość geograficzna",
     "At least one field must be filled": "Co najmniej jedno pole musi być wypełnione",
-    "Provide the country": "Podaj kraj",
     "Invalid Facebook URL": "Nieprawidłowy adres URL Facebooka",
     "Invalid Instagram URL": "Nieprawidłowy adres URL Instagrama",
     "Invalid Twitter URL": "Nieprawidłowy adres URL Twittera",
     "Invalid YouTube URL": "Nieprawidłowy adres URL YouTube'a",
-    "Country must be less than 20 characters": "Kraj musi mieć mniej niż 20 znaków",
-    "City must be less than 20 characters": "Miasto musi mieć mniej niż 20 znaków",
     "You must be at least 16 years old": "Musisz mieć co najmniej 16 lat",
     "You must be at most 120 years old": "Musisz mieć maksymalnie 120 lat",
     "Invalid date format": "Nieprawidłowy format daty",
@@ -176,9 +175,9 @@
     "Provide a reason for reporting": "Podaj powód zgłoszenia",
     "Message must be less than 500 characters": "Wiadomość musi mieć mniej niż 500 znaków",
     "The location has already been added or sent for moderation": "Lokalizacja została już dodana lub wysłana do moderacji",
-    "Country must be alphabetic": "Kraj musi zawierać tylko litery",
-    "City must be alphabetic": "Miasto musi zawierać tylko litery",
-    "Provide a message": "Podaj treść"
+    "Provide a message": "Podaj treść",
+    "Geolocation is not available in your browser": "Geolokalizacja nie jest dostępna w twojej przeglądarce",
+    "Unable to get your location": "Nie można pobrać twojej lokalizacji"
   },
   "pages": {
     "notFound": {

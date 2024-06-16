@@ -4,8 +4,9 @@ import { editProfileSchema } from "@/lib/form-schema";
 import { parseJsonFromFormData } from "@/lib/formdata-parser";
 import { getAuthUser } from "@/lib/get-auth-user";
 import { deleteImage, uploadImage } from "@/lib/upload-image";
-import { getUserById, updateUser } from "@/services/user";
+import { updateUser } from "@/services/user";
 import { serializeJwt } from "@/lib/serialize-jwt";
+import { reverseGeocode } from "@/lib/server-actions";
 
 export async function PATCH(req: NextRequest) {
   try {
@@ -21,7 +22,7 @@ export async function PATCH(req: NextRequest) {
       return jsonResponse("Validation Error", 400);
     }
 
-    const { avatar, dateOfBirth, bio, country, city, socialMedia } = body.data;
+    const { avatar, dateOfBirth, bio, coords, socialMedia } = body.data;
 
     const authUser = getAuthUser();
 
@@ -39,12 +40,19 @@ export async function PATCH(req: NextRequest) {
       await updateUser(authUser.id, { avatar: avatarUrl });
     }
 
+    // Reverse geocoding the coordinates
+    const [lat, lng] = coords?.split(",").map(Number) || [];
+    const { address } =
+      lat && lng ? await reverseGeocode(lat, lng) : { address: undefined };
+    const { country, city, village } = address || {};
+
     // Updating the user's info
     const user = await updateUser(authUser.id, {
       dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : null,
       bio: bio || null,
+      coords: coords || null,
       country: country || null,
-      city: city || null,
+      city: city || village || null,
       socialMedia: JSON.stringify(socialMedia || {}),
     });
 

@@ -10,11 +10,19 @@ export async function verifyCaptcha(token: string): Promise<boolean> {
   return res.data.success;
 }
 
+interface Address {
+  road: string;
+  city?: string;
+  village?: string;
+  postcode: string;
+  country: string;
+}
+
 export async function reverseGeocode(
   lat: number,
   lng: number,
-): Promise<{ address?: string; success: boolean }> {
-  const { data } = await axios.get(
+): Promise<{ address?: Address; success: boolean }> {
+  const { data } = await axios.get<{ address: Address; error: any }>(
     `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`,
   );
 
@@ -22,8 +30,5 @@ export async function reverseGeocode(
     return { success: false };
   }
 
-  const { road, city, village, postcode, country } = data.address;
-  const address = `${road}, ${city || village}, ${postcode}, ${country}`;
-
-  return { address, success: true };
+  return { address: data.address, success: true };
 }

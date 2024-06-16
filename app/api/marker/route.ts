@@ -19,7 +19,6 @@ export async function POST(req: NextRequest) {
     }
 
     const { coords, images, recaptchaToken } = body.data;
-    const [lat, lng] = coords.split(",").map(Number);
 
     // Verifying the recaptcha token
     const isRecaptchaCorrect = await verifyCaptcha(recaptchaToken);
@@ -30,6 +29,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Checking if the marker is already added
+    const [lat, lng] = coords.split(",").map(Number);
     const isAlreadyAdded = await checkMarkerDuplicate(lat, lng);
 
     if (isAlreadyAdded) {
@@ -46,6 +46,8 @@ export async function POST(req: NextRequest) {
       return jsonResponse("Invalid coordinates", 400);
     }
 
+    const { road, city, village, postcode, country } = address;
+
     const authUser = getAuthUser();
 
     // Handling image upload
@@ -60,7 +62,7 @@ export async function POST(req: NextRequest) {
     const marker = await createMarker({
       lat,
       lng,
-      address,
+      address: `${road}, ${city || village}, ${postcode}, ${country}`,
       images: JSON.stringify(imagesUrl),
       confirmed: authUser.role === "ADMIN",
       addedByUserId: authUser.id,
