@@ -38,7 +38,7 @@ export default function ShareButton({
       <DropdownMenuItem onClick={onShare} className="gap-2">
         <Share className="h-4 w-4" />
 
-        <span>{t("share")}</span>
+        <span className="flex-1">{t("share")}</span>
       </DropdownMenuItem>
     );
   }
@@ -69,11 +69,9 @@ export default function ShareButton({
 
   return (
     <DropdownMenuItem onClick={onCopy} className="gap-2">
-      <>
-        {copyIcon}
+      {copyIcon}
 
-        <span>{copyText}</span>
-      </>
+      <span className="flex-1">{copyText}</span>
     </DropdownMenuItem>
   );
 }

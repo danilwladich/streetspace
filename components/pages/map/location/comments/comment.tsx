@@ -4,8 +4,8 @@ import { Link } from "@/lib/navigation";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import type { Prisma } from "@prisma/client";
 
-import CommentAvatar from "./avatar";
 import Actions from "./actions/actions";
+import Avatar from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { DateToShow } from "@/components/common/date-to-show";
 
@@ -33,7 +33,13 @@ export default function Comment({
     <>
       <div className="flex items-start gap-2 p-2">
         <Link tabIndex={-1} href={`/profile/${username}`}>
-          <CommentAvatar avatar={avatar} username={username} />
+          <Avatar
+            avatar={avatar}
+            username={username}
+            width={60}
+            height={60}
+            className="w-12 md:w-14"
+          />
         </Link>
 
         <div className="flex-1 space-y-px text-sm">

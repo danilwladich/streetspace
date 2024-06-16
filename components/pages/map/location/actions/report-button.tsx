@@ -14,11 +14,11 @@ export default function ReportButton({ id }: { id: string }) {
   return (
     <DropdownMenuItem
       onClick={() => onOpen("report marker", { reportMarkerData: { id } })}
-      className="flex gap-2"
+      className="gap-2"
     >
       <Flag className="h-4 w-4" />
 
-      <span>{t("report")}</span>
+      <span className="flex-1">{t("report")}</span>
     </DropdownMenuItem>
   );
 }

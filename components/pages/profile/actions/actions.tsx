@@ -76,12 +76,12 @@ export default function Actions({
             <DropdownMenuGroup>
               <DropdownMenuItem onClick={() => onOpen("change username")}>
                 <Pencil className="mr-2 h-4 w-4" />
-                <span>{t("changeUsername")}</span>
+                <span className="flex-1">{t("changeUsername")}</span>
               </DropdownMenuItem>
 
               <DropdownMenuItem onClick={() => onOpen("edit profile")}>
                 <UserCog className="mr-2 h-4 w-4" />
-                <span>{t("editProfile")}</span>
+                <span className="flex-1">{t("editProfile")}</span>
               </DropdownMenuItem>
             </DropdownMenuGroup>
 

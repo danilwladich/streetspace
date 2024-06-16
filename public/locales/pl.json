@@ -178,7 +178,10 @@
     "The location has already been added or sent for moderation": "Lokalizacja została już dodana lub wysłana do moderacji"
   },
   "pages": {
-    "notFound": "Strona nie znaleziona",
+    "notFound": {
+      "title": "Strona nie znaleziona",
+      "back": "Wróć"
+    },
     "auth": {
       "title": "autoryzacja",
       "description": "Zaloguj się na swoje istniejące konto lub stwórz darmowe konto już teraz i dołącz do naszej społeczności"
@@ -237,6 +240,10 @@
         "notFound": "Lokalizacja nie znaleziona",
         "navigate": "Nawiguj",
         "added": "Dodano",
+        "visitors": {
+          "title": "Odwiedzający",
+          "showAll": "Pokaż {count} użytkowników"
+        },
         "comments": {
           "title": "Komentarze",
           "input": "Napisz nowy komentarz",
@@ -252,9 +259,11 @@
         "actions": {
           "open": "Otwórz menu",
           "label": "Lokalizacja",
-          "favoriteError": "Błąd ulubionej lokalizacji",
-          "unfavorite": "Usuń z ulubionych",
-          "favorite": "Dodaj do ulubionych",
+          "visitor": {
+            "submitError": "Błąd odwiedzania lokalizacji",
+            "unVisitor": "Nie odwiedzam tego miejsca",
+            "visitor": "Odwiedzam to miejsce"
+          },
           "report": "Zgłoś",
           "delete": {
             "button": "Usuń",

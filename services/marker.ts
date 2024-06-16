@@ -1,4 +1,3 @@
-import { authValidation } from "@/lib/auth-validation";
 import { db } from "@/lib/db";
 import type { Marker } from "@prisma/client";
 
@@ -16,42 +15,6 @@ export async function getMarkerById(id: string) {
       },
     },
   });
-}
-
-export async function checkAuthIsFavoriteMarker(markerId: string) {
-  const authUser = await authValidation();
-
-  if (!authUser) {
-    return false;
-  }
-
-  const marker = await db.marker.findFirst({
-    where: {
-      id: markerId,
-      favorites: {
-        some: {
-          id: authUser.id,
-        },
-      },
-    },
-  });
-
-  return !!marker;
-}
-
-export async function getMarkerFavoritesCount(markerId: string) {
-  const marker = await db.marker.findFirst({
-    where: {
-      id: markerId,
-    },
-    select: {
-      _count: {
-        select: { favorites: true },
-      },
-    },
-  });
-
-  return marker?._count.favorites || 0;
 }
 
 export async function getMarkers({
@@ -86,7 +49,7 @@ export async function getMarkers({
     },
     take: 100,
     orderBy: {
-      favorites: {
+      visitors: {
         _count: "desc",
       },
     },
@@ -169,36 +132,6 @@ export async function updateMarker(id: string, data: Partial<Marker>) {
       id,
     },
     data,
-  });
-}
-
-export async function addFavoriteMarker(markerId: string, userId: string) {
-  return db.marker.update({
-    where: {
-      id: markerId,
-    },
-    data: {
-      favorites: {
-        connect: {
-          id: userId,
-        },
-      },
-    },
-  });
-}
-
-export async function removeFavoriteMarker(markerId: string, userId: string) {
-  return db.marker.update({
-    where: {
-      id: markerId,
-    },
-    data: {
-      favorites: {
-        disconnect: {
-          id: userId,
-        },
-      },
-    },
   });
 }
 

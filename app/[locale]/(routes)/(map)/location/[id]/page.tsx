@@ -1,14 +1,11 @@
 import { getAppTitle } from "@/lib/get-app-title";
-import {
-  checkAuthIsFavoriteMarker,
-  getMarkerById,
-  getMarkerFavoritesCount,
-} from "@/services/marker";
+import { getMarkerById } from "@/services/marker";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 
 import NotFound from "@/components/common/not-found";
 import Marker from "@/components/pages/map/location/marker";
+import Visitors from "@/components/pages/map/location/visitors/visitors";
 import Comments from "@/components/pages/map/location/comments/comments";
 
 export async function generateMetadata({
@@ -42,16 +39,11 @@ export default async function Location({
     return <NotFound text={t("notFound")} />;
   }
 
-  const isFavorite = await checkAuthIsFavoriteMarker(id);
-  const favoritesCount = await getMarkerFavoritesCount(id);
-
   return (
     <>
-      <Marker
-        {...marker}
-        isFavorite={isFavorite}
-        favoritesCount={favoritesCount}
-      />
+      <Marker {...marker} />
+
+      <Visitors id={id} />
 
       <Comments
         searchParams={searchParams}

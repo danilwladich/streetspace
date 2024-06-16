@@ -5,7 +5,7 @@ import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useTranslations } from "next-intl";
 
 import ShareButton from "@/components/common/dropdown/share-button";
-import FavoriteButton from "./favorite-button";
+import VisitorButton from "./visitor-button";
 import ReportButton from "./report-button";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,11 +22,11 @@ import DeleteButton from "./delete-button";
 export default function Actions({
   id,
   address,
-  isFavorite,
+  isVisitor,
 }: {
   id: string;
   address: string;
-  isFavorite: boolean;
+  isVisitor: boolean;
 }) {
   const t = useTranslations("pages.map.location.actions");
 
@@ -55,7 +55,7 @@ export default function Actions({
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
-          <FavoriteButton id={id} isFavorite={isFavorite} />
+          <VisitorButton id={id} isVisitor={isVisitor} />
 
           <ReportButton id={id} />
         </DropdownMenuGroup>

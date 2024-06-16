@@ -58,14 +58,10 @@ export default function BlockButton({
   );
 
   return (
-    <DropdownMenuItem
-      disabled={isLoading}
-      onClick={onBlock}
-      className="flex gap-2"
-    >
+    <DropdownMenuItem disabled={isLoading} onClick={onBlock} className="gap-2">
       {blockIcon}
 
-      <span>{blockText}</span>
+      <span className="flex-1">{blockText}</span>
     </DropdownMenuItem>
   );
 }

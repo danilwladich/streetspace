@@ -69,14 +69,10 @@ export default function FollowButton({
   );
 
   return (
-    <DropdownMenuItem
-      disabled={isLoading}
-      onClick={onFollow}
-      className="flex gap-2"
-    >
+    <DropdownMenuItem disabled={isLoading} onClick={onFollow} className="gap-2">
       {icon}
 
-      <span>{text}</span>
+      <span className="flex-1">{text}</span>
     </DropdownMenuItem>
   );
 }

@@ -178,7 +178,10 @@
     "The location has already been added or sent for moderation": "The location has already been added or sent for moderation"
   },
   "pages": {
-    "notFound": "Page not found",
+    "notFound": {
+      "title": "Page not found",
+      "back": "Go back"
+    },
     "auth": {
       "title": "authentication",
       "description": "Login to your existing account or create free account now and join our community"
@@ -237,6 +240,10 @@
         "notFound": "Location not found",
         "navigate": "Navigate",
         "added": "Added",
+        "visitors": {
+          "title": "Visitors",
+          "showAll": "Show all {count} users"
+        },
         "comments": {
           "title": "Comments",
           "input": "Write new comment",
@@ -252,9 +259,11 @@
         "actions": {
           "open": "Open menu",
           "label": "Location",
-          "favoriteError": "Favorite location error",
-          "unfavorite": "Unfavorite",
-          "favorite": "Favorite",
+          "visitor": {
+            "submitError": "Visitor location error",
+            "unVisitor": "I don't visit this place",
+            "visitor": "I visit this place"
+          },
           "report": "Report",
           "delete": {
             "button": "Delete",

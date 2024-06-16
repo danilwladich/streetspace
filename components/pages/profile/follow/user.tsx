@@ -2,8 +2,8 @@ import { Link } from "@/lib/navigation";
 import { checkIsFollowingById } from "@/services/follow";
 import type { User } from "@prisma/client";
 
-import FollowAvatar from "./avatar";
 import { Separator } from "@/components/ui/separator";
+import Avatar from "@/components/ui/avatar";
 import Actions from "@/components/pages/profile/actions/actions";
 
 export default async function User({
@@ -25,7 +25,13 @@ export default async function User({
     <>
       <div className="relative flex w-full items-center gap-2 p-2">
         <Link tabIndex={-1} href={`/profile/${username}`}>
-          <FollowAvatar avatar={avatar} username={username} />
+          <Avatar
+            avatar={avatar}
+            username={username}
+            width={65}
+            height={65}
+            className="w-12 md:w-16"
+          />
         </Link>
 
         <span className="flex-1 truncate font-semibold">

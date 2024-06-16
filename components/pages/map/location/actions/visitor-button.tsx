@@ -9,31 +9,31 @@ import { useTranslations } from "next-intl";
 import { Star, StarOff } from "lucide-react";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
-export default function FavoriteButton({
+export default function VisitorButton({
   id,
-  isFavorite,
+  isVisitor,
 }: {
   id: string;
-  isFavorite: boolean;
+  isVisitor: boolean;
 }) {
-  const t = useTranslations("pages.map.location.actions");
+  const t = useTranslations("pages.map.location.actions.visitor");
 
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
-  async function onFavorite(e: React.MouseEvent<HTMLDivElement>) {
+  async function onVisit(e: React.MouseEvent<HTMLDivElement>) {
     e.preventDefault();
 
     setIsLoading(true);
 
     try {
-      if (isFavorite) {
-        // Making a DELETE request to the favorite API endpoint
-        await axios.delete("/api/marker/favorite", { data: { id } });
+      if (isVisitor) {
+        // Making a DELETE request to the visitor API endpoint
+        await axios.delete("/api/marker/visitor", { data: { id } });
       } else {
-        // Making a POST request to the favorite API endpoint
-        await axios.post("/api/marker/favorite", { id });
+        // Making a POST request to the visitor API endpoint
+        await axios.post("/api/marker/visitor", { id });
       }
 
       // Refresh page to get new marker data
@@ -47,7 +47,7 @@ export default function FavoriteButton({
 
       // Handling non-response errors
       if (!res) {
-        toast.error(t("favoriteError"), { description: error.message });
+        toast.error(t("submitError"), { description: error.message });
         return;
       }
 
@@ -59,22 +59,18 @@ export default function FavoriteButton({
     setIsLoading(false);
   }
 
-  const text = t(isFavorite ? "unfavorite" : "favorite");
-  const icon = isFavorite ? (
+  const text = t(isVisitor ? "unVisitor" : "visitor");
+  const icon = isVisitor ? (
     <StarOff className="h-4 w-4" />
   ) : (
     <Star className="h-4 w-4" />
   );
 
   return (
-    <DropdownMenuItem
-      disabled={isLoading}
-      onClick={onFavorite}
-      className="flex gap-2"
-    >
+    <DropdownMenuItem disabled={isLoading} onClick={onVisit} className="gap-2">
       {icon}
 
-      <span>{text}</span>
+      <span className="flex-1">{text}</span>
     </DropdownMenuItem>
   );
 }

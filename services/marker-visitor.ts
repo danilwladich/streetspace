@@ -1,0 +1,89 @@
+import { authValidation } from "@/lib/auth-validation";
+import { db } from "@/lib/db";
+
+export async function createMarkerVisitor(markerId: string, userId: string) {
+  await db.markerVisitor.create({
+    data: {
+      markerId,
+      userId,
+    },
+  });
+}
+
+export async function deleteMarkerVisitor(markerId: string, userId: string) {
+  await db.markerVisitor.delete({
+    where: {
+      markerId_userId: {
+        markerId,
+        userId,
+      },
+    },
+  });
+}
+
+export async function checkAuthIsMarkerVisitor(markerId: string) {
+  const authUser = await authValidation();
+
+  if (!authUser) {
+    return false;
+  }
+
+  const marker = await db.markerVisitor.findFirst({
+    where: {
+      markerId,
+      userId: authUser.id,
+    },
+  });
+
+  return !!marker;
+}
+
+export const MARKER_VISITORS_PER_PAGE = 25;
+
+export async function getMarkerVisitorsById(
+  markerId: string,
+  page: number,
+  perPage: number = MARKER_VISITORS_PER_PAGE,
+) {
+  if (page < 1) {
+    page = 1;
+  }
+
+  const marker = await db.markerVisitor.findMany({
+    where: {
+      markerId,
+    },
+    select: {
+      user: {
+        select: {
+          id: true,
+          username: true,
+          avatar: true,
+        },
+      },
+    },
+    take: perPage,
+    skip: (page - 1) * perPage,
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+
+  return marker.map((m) => m.user);
+}
+
+export async function getMarkerVisitorsCount(markerId: string) {
+  return db.markerVisitor.count({
+    where: {
+      markerId,
+    },
+  });
+}
+
+export async function getUserMarkersVisitsCunt(userId: string) {
+  return db.markerVisitor.count({
+    where: {
+      userId,
+    },
+  });
+}

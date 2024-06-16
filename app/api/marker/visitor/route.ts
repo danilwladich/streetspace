@@ -1,7 +1,10 @@
 import type { NextRequest } from "next/server";
 import { jsonResponse } from "@/lib/json-response";
 import { getAuthUser } from "@/lib/get-auth-user";
-import { addFavoriteMarker, removeFavoriteMarker } from "@/services/marker";
+import {
+  createMarkerVisitor,
+  deleteMarkerVisitor,
+} from "@/services/marker-visitor";
 
 export async function POST(req: NextRequest) {
   try {
@@ -14,13 +17,13 @@ export async function POST(req: NextRequest) {
 
     const authUser = getAuthUser();
 
-    // Update the marker
-    await addFavoriteMarker(id, authUser.id);
+    // Create marker visitor
+    await createMarkerVisitor(id, authUser.id);
 
-    return jsonResponse("Location added to favorites successfully", 201);
+    return jsonResponse("Location added to users visits successfully", 201);
   } catch (error) {
     // Handling internal error
-    console.log("[MARKER_FAVORITE_POST]", error);
+    console.log("[MARKER_VISITOR_POST]", error);
     return jsonResponse("Internal Error", 500);
   }
 }
@@ -36,13 +39,13 @@ export async function DELETE(req: NextRequest) {
 
     const authUser = getAuthUser();
 
-    // Update the marker
-    await removeFavoriteMarker(id, authUser.id);
+    // Delete marker visitor
+    await deleteMarkerVisitor(id, authUser.id);
 
-    return jsonResponse("Location removed from favorites successfully", 201);
+    return jsonResponse("Location removed from users visits successfully", 201);
   } catch (error) {
     // Handling internal error
-    console.log("[MARKER_FAVORITE_DELETE]", error);
+    console.log("[MARKER_VISITOR_DELETE]", error);
     return jsonResponse("Internal Error", 500);
   }
 }

@@ -55,14 +55,10 @@ export default function DeleteButton({ id }: { id: string }) {
   }
 
   return (
-    <DropdownMenuItem
-      disabled={isLoading}
-      onClick={onDelete}
-      className="flex gap-2"
-    >
+    <DropdownMenuItem disabled={isLoading} onClick={onDelete} className="gap-2">
       <Trash2 className="h-4 w-4" />
 
-      <span>{t("button")}</span>
+      <span className="flex-1">{t("button")}</span>
     </DropdownMenuItem>
   );
 }

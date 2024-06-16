@@ -58,10 +58,12 @@ export async function deleteFollow(
   whoFollowUserId: string,
   whomFollowUserId: string,
 ) {
-  return db.follow.deleteMany({
+  return db.follow.delete({
     where: {
-      whoFollowUserId,
-      whomFollowUserId,
+      whoFollowUserId_whomFollowUserId: {
+        whoFollowUserId,
+        whomFollowUserId,
+      },
     },
   });
 }
