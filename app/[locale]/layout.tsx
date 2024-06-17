@@ -23,7 +23,7 @@ export async function generateMetadata({
     title: getAppTitle(),
     description: t("description"),
     keywords:
-      "street workout, workout, street, streetspace, street workout map, map, streetworkout",
+      "street workout, workout, street, streetspace, map, streetworkout, карта стритворкаута, карта, стритворкаута, стритворкаут, стрит, уличный спорт, уличный, спорт, карта street workout, street workout карта, mapa streetworkout, mapa, street workout mapa, калистеника, карта калистеники, kalistenika, calisthenics, calisthenics map",
     authors: [
       { name: "Daniel Władyczewski", url: "https://github.com/danilwladich" },
     ],
