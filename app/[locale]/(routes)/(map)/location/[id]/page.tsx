@@ -19,6 +19,9 @@ export async function generateMetadata({
 
   return {
     title: getAppTitle(marker?.address || t("notFound")),
+    openGraph: {
+      title: getAppTitle(marker?.address || t("notFound"))
+    },
   };
 }
 

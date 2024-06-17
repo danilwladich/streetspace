@@ -23,6 +23,9 @@ export async function generateMetadata({
 
   return {
     title: getAppTitle(user?.username || t("notFound")),
+    openGraph: {
+      title: getAppTitle(user?.username || t("notFound")),
+    },
   };
 }
 

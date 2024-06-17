@@ -12,7 +12,11 @@ import { Toaster } from "@/components/ui/sonner";
 
 const font = Inter({ subsets: ["latin"] });
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
   const t = await getTranslations("metadata");
 
   return {
@@ -42,6 +46,13 @@ export async function generateMetadata(): Promise<Metadata> {
         type: "image/png",
       },
     ],
+    openGraph: {
+      type: "website",
+      locale,
+      siteName: getAppTitle(),
+      title: getAppTitle(),
+      description: t("description"),
+    },
   };
 }
 

@@ -11,6 +11,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: getAppTitle(t("title")),
+    openGraph: {
+      title: getAppTitle(t("title")),
+    },
   };
 }
 
