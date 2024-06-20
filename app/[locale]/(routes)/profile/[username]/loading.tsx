@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ProfileLoader() {
@@ -25,9 +25,13 @@ export default function ProfileLoader() {
       </Card>
 
       <Card className="max-w-4xl">
-        <CardContent>
-          <Skeleton className="mb-1 mt-0.5 h-5 w-full max-w-32 md:h-6" />
+        <CardHeader>
+          <CardTitle>
+            <Skeleton className="h-6 w-full max-w-32" />
+          </CardTitle>
+        </CardHeader>
 
+        <CardContent>
           <Skeleton className="h-5 w-full" />
         </CardContent>
       </Card>

@@ -74,10 +74,34 @@ export async function getMarkerVisitorsCount(markerId: string) {
   });
 }
 
-export async function getUserMarkersVisitsCunt(userId: string) {
+export async function getUserMarkersVisitsCount(userId: string) {
   return db.markerVisitor.count({
     where: {
       userId,
     },
   });
+}
+
+export const USER_MARKERS_VISITS_PER_PAGE = 25;
+
+export async function getUserMarkersVisits(
+  userId: string,
+  page: number,
+  perPage: number = USER_MARKERS_VISITS_PER_PAGE,
+) {
+  const marker = await db.markerVisitor.findMany({
+    where: {
+      userId,
+    },
+    select: {
+      marker: true,
+    },
+    take: perPage,
+    skip: (page - 1) * perPage,
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return marker.map((m) => m.marker);
 }

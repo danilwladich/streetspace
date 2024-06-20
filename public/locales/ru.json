@@ -343,6 +343,10 @@
         "social": {
           "title": "Социальные сети"
         }
+      },
+      "visits": {
+        "title": "Посещаемые локации",
+        "showAll": "Показать {count, plural, few {# локации} other {# локаций}}"
       }
     },
     "followers": {

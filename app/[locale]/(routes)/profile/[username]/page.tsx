@@ -7,6 +7,7 @@ import NotFound from "@/components/common/not-found";
 import ProfileMain from "@/components/pages/profile/main";
 import Bio from "@/components/pages/profile/bio";
 import UserInfo from "@/components/pages/profile/info";
+import Visits from "@/components/pages/profile/visits/visits";
 
 export async function generateMetadata({
   params: { username },
@@ -45,6 +46,8 @@ export default async function Profile({
       <Bio bio={user.bio} />
 
       <UserInfo {...user} />
+
+      <Visits userId={user.id} username={username} />
     </>
   );
 }

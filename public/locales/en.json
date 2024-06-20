@@ -343,6 +343,10 @@
         "social": {
           "title": "Social media"
         }
+      },
+      "visits": {
+        "title": "Visited locations",
+        "showAll": "Show all {count} locations"
       }
     },
     "followers": {
