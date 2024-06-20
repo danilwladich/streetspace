@@ -61,7 +61,7 @@ export default async function Visitors({
   const totalCount = await getMarkerVisitorsCount(id);
 
   if (!visitors.length) {
-    return <NotFound text={t("visitors.notFound")} />;
+    return <NotFound text={t("visitors.noVisitors")} />;
   }
 
   const authUser = await authValidation();
