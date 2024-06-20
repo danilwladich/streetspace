@@ -7,9 +7,9 @@ import { useTranslations } from "next-intl";
 import type { User } from "@prisma/client";
 
 import ShareButton from "@/components/common/dropdown/share-button";
-import LogOutButton from "@/components/pages/profile/actions/log-out-button";
-import FollowButton from "@/components/pages/profile/actions/follow-button";
-import BlockButton from "@/components/pages/profile/actions/block-button";
+import LogOutButton from "./log-out-button";
+import FollowButton from "./follow-button";
+import BlockButton from "./block-button";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal, Pencil, UserCog } from "lucide-react";
 
-export default function Actions({
+export default function UserActions({
   id,
   username,
   blocked,

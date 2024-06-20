@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 
 import NotFound from "@/components/common/not-found";
 import UserAvatar from "@/components/pages/profile/avatar";
-import Actions from "@/components/pages/profile/actions/actions";
+import UserActions from "@/components/common/user/actions/actions";
 import UserFollowers from "@/components/pages/profile/followers";
 import UserInfo from "@/components/pages/profile/info";
 import { Card, CardContent } from "@/components/ui/card";
@@ -66,7 +66,7 @@ export default async function Profile({
           </div>
 
           <div className="absolute right-2 top-2 md:static">
-            <Actions {...user} isFollowing={isFollowing} />
+            <UserActions {...user} isFollowing={isFollowing} />
           </div>
         </CardContent>
       </Card>

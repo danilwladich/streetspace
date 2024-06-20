@@ -17,7 +17,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import User from "@/components/pages/profile/follow/user";
+import UserRow from "@/components/common/user/user-row";
 import Pagination from "@/components/common/pagination";
 
 export async function generateMetadata({
@@ -76,7 +76,7 @@ export default async function Followers({
 
       <CardContent className="space-y-1">
         {followers.map((f) => (
-          <User key={f.id} user={f} authUser={authUser} />
+          <UserRow key={f.id} user={f} authUser={authUser} />
         ))}
       </CardContent>
 

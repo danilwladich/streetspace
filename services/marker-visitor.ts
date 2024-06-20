@@ -54,13 +54,7 @@ export async function getMarkerVisitorsById(
       markerId,
     },
     select: {
-      user: {
-        select: {
-          id: true,
-          username: true,
-          avatar: true,
-        },
-      },
+      user: true,
     },
     take: perPage,
     skip: (page - 1) * perPage,

@@ -244,7 +244,8 @@
         "added": "Added",
         "visitors": {
           "title": "Visitors",
-          "showAll": "Show all {count} users"
+          "showAll": "Show all {count} users",
+          "noVisitors": "No visitors at this location"
         },
         "comments": {
           "title": "Comments",

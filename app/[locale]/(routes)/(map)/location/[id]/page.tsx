@@ -9,18 +9,18 @@ import Visitors from "@/components/pages/map/location/visitors/visitors";
 import Comments from "@/components/pages/map/location/comments/comments";
 
 export async function generateMetadata({
-  params,
+  params: { id },
 }: {
   params: { id: string };
 }): Promise<Metadata> {
   const t = await getTranslations("pages.map.location");
 
-  const marker = await getMarkerById(params.id);
+  const marker = await getMarkerById(id);
 
   return {
     title: getAppTitle(marker?.address || t("notFound")),
     openGraph: {
-      title: getAppTitle(marker?.address || t("notFound"))
+      title: getAppTitle(marker?.address || t("notFound")),
     },
   };
 }

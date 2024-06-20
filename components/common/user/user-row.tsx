@@ -3,10 +3,10 @@ import { checkIsFollowingById } from "@/services/follow";
 import type { User } from "@prisma/client";
 
 import { Separator } from "@/components/ui/separator";
+import UserActions from "./actions/actions";
 import Avatar from "@/components/ui/avatar";
-import Actions from "@/components/pages/profile/actions/actions";
 
-export default async function User({
+export default async function UserRow({
   user,
   authUser,
 }: {
@@ -38,7 +38,7 @@ export default async function User({
           <Link href={`/profile/${username}`}>{username}</Link>
         </span>
 
-        {!isOwner && <Actions {...user} isFollowing={isFollowing} />}
+        {!isOwner && <UserActions {...user} isFollowing={isFollowing} />}
       </div>
 
       <Separator className="block last:hidden" />
