@@ -244,7 +244,8 @@
         "added": "Dodano",
         "visitors": {
           "title": "Odwiedzający",
-          "showAll": "Pokaż {count} użytkowników"
+          "showAll": "Pokaż {count} użytkowników",
+          "noVisitors": "Brak odwiedzających na tej lokalizacji"
         },
         "comments": {
           "title": "Komentarze",

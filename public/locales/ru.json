@@ -244,7 +244,8 @@
         "added": "Добавлено",
         "visitors": {
           "title": "Посетители",
-          "showAll": "Показать {count, plural, few {# пользователя} other {# пользователей}}"
+          "showAll": "Показать {count, plural, few {# пользователя} other {# пользователей}}",
+          "noVisitors": "Нет посетителей на этом месте"
         },
         "comments": {
           "title": "Комментарии",
