@@ -1,16 +1,12 @@
 import { getAppTitle } from "@/lib/get-app-title";
-import { checkIsFollowingById } from "@/services/follow";
 import { getUserByUsername } from "@/services/user";
 import { getTranslations } from "next-intl/server";
-import { authValidation } from "@/lib/auth-validation";
 import type { Metadata } from "next";
 
 import NotFound from "@/components/common/not-found";
-import UserAvatar from "@/components/pages/profile/avatar";
-import UserActions from "@/components/common/user/actions/actions";
-import UserFollowers from "@/components/pages/profile/followers";
+import ProfileMain from "@/components/pages/profile/main";
+import Bio from "@/components/pages/profile/bio";
 import UserInfo from "@/components/pages/profile/info";
-import { Card, CardContent } from "@/components/ui/card";
 
 export async function generateMetadata({
   params: { username },
@@ -42,53 +38,13 @@ export default async function Profile({
     return <NotFound text={t("notFound")} />;
   }
 
-  const authUser = await authValidation();
-  const isFollowing = authUser
-    ? await checkIsFollowingById(authUser.id, user.id)
-    : false;
-
   return (
     <>
-      <Card className="max-w-4xl">
-        <CardContent className="relative flex flex-col justify-between gap-4 pt-2 md:flex-row md:pt-0">
-          <div className="flex w-full flex-1 flex-col items-center gap-2 md:flex-row md:gap-4">
-            <UserAvatar {...user} />
+      <ProfileMain {...user} />
 
-            <div className="flex max-w-full flex-col items-center gap-1 md:items-start">
-              <h2 className="max-w-full truncate text-2xl font-semibold">
-                {username}
-              </h2>
+      <Bio bio={user.bio} />
 
-              <div className="flex gap-2">
-                <UserFollowers username={username} />
-              </div>
-            </div>
-          </div>
-
-          <div className="absolute right-2 top-2 md:static">
-            <UserActions {...user} isFollowing={isFollowing} />
-          </div>
-        </CardContent>
-      </Card>
-
-      {!!user.bio && (
-        <Card className="max-w-4xl">
-          <CardContent>
-            <h4 className="text-base font-semibold md:text-lg">
-              {t("aboutMe")}
-            </h4>
-            <p lang="" className="break-all pt-0.5 text-sm">
-              {user.bio}
-            </p>
-          </CardContent>
-        </Card>
-      )}
-
-      <Card className="max-w-4xl">
-        <CardContent className="flex flex-wrap justify-center gap-4 [&>*]:w-full [&>*]:max-w-[calc(50%-1rem)] md:[&>*]:max-w-[calc(33.333%-1rem)]">
-          <UserInfo {...user} />
-        </CardContent>
-      </Card>
+      <UserInfo {...user} />
     </>
   );
 }
