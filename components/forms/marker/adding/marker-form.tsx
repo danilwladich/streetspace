@@ -4,6 +4,7 @@ import axios, { AxiosError } from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { useMapStore } from "@/hooks/store/use-map-store";
 import { markerSchema as formSchema } from "@/lib/form-schema";
 import { parseFormDataFromJson } from "@/lib/formdata-parser";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
@@ -50,6 +51,7 @@ export default function MarkerForm() {
   const isSubmitting = form.formState.isSubmitting;
 
   const router = useRouter();
+  const { setIsInput: setMapInputMode } = useMapStore();
 
   // Handler for form submission
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -71,6 +73,9 @@ export default function MarkerForm() {
       await axios.post("/api/marker", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+
+      // Disable the input mode
+      setMapInputMode(false);
 
       // Redirecting
       router.push("/");
