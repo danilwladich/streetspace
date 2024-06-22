@@ -6,7 +6,7 @@ export default function VisitMarker({ id, address, images }: Marker) {
   const imageSrc = JSON.parse(images)[0];
 
   return (
-    <Link href={`/location/${id}`} className="block">
+    <Link href={`/location/${id}`} className="block space-y-1">
       <div className="relative aspect-video w-full overflow-hidden rounded-md">
         <Image
           src={imageSrc}
@@ -17,7 +17,7 @@ export default function VisitMarker({ id, address, images }: Marker) {
         />
       </div>
 
-      <h4 className="mt-1 text-xs font-semibold">{address}</h4>
+      <h4 className="text-xs font-semibold">{address}</h4>
     </Link>
   );
 }

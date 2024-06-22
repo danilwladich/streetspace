@@ -17,8 +17,11 @@ export default function MapItem({ id, lat, lng, address, images }: MarkerType) {
 
   return (
     <Marker position={[lat, lng]} icon={getIcon()}>
-      <Popup autoPan={false} maxWidth={280} minWidth={280}>
-        <Link href={`/location/${id}`} className="block py-1 !text-black">
+      <Popup autoPan={false} maxWidth={300} minWidth={300}>
+        <Link
+          href={`/location/${id}`}
+          className="block space-y-1 !text-black dark:!text-white"
+        >
           <div className="relative aspect-video w-full overflow-hidden rounded-md">
             {!isLoaded && (
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -29,14 +32,14 @@ export default function MapItem({ id, lat, lng, address, images }: MarkerType) {
             <Image
               src={imageSrc}
               alt={address}
-              width={280}
-              height={280}
+              width={270}
+              height={270}
               onLoad={() => setIsLoaded(true)}
               className="absolute left-0 top-0 h-full w-full rounded object-cover"
             />
           </div>
 
-          <h4 className="mt-1 text-sm font-semibold">{address}</h4>
+          <h4 className="text-xs font-semibold">{address}</h4>
         </Link>
       </Popup>
     </Marker>

@@ -91,7 +91,9 @@ export default function UserMarker() {
 
   return (
     <Marker position={userPosition} icon={getIcon(avatarSrc)}>
-      <Popup>{t("userLocation")}</Popup>
+      <Popup>
+        <span className="text-sm">{t("userLocation")}</span>
+      </Popup>
     </Marker>
   );
 }
@@ -105,7 +107,7 @@ function getIcon(src: string) {
         priority
         width={MAP_ICON_SIZE}
         height={MAP_ICON_SIZE}
-        className="absolute left-0 top-0 !h-full !w-full rounded-full object-cover"
+        className="absolute left-0 top-0 !h-full !w-full rounded-full border border-white object-cover"
       />,
     ),
     iconSize: new Point(MAP_ICON_SIZE, MAP_ICON_SIZE),

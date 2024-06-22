@@ -15,10 +15,18 @@ export default function MapSingleMarker({
     <MapMainContainer
       position={position}
       zoom={16}
-      props={{ scrollWheelZoom: false }}
+      props={{
+        scrollWheelZoom: false,
+        dragging: false,
+      }}
       singleMarker={true}
     >
-      <Marker position={position} icon={getIcon()} />
+      <Marker
+        position={position}
+        icon={getIcon()}
+        interactive={false}
+        keyboard={false}
+      />
     </MapMainContainer>
   );
 }
