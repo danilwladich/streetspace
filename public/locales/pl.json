@@ -350,12 +350,12 @@
       }
     },
     "followers": {
-      "title": "Obserwujący {username}",
+      "title": "Obserwujący",
       "userNotFound": "Nie znaleziono użytkownika",
       "followsNotFound": "Brak obserwujących"
     },
     "followings": {
-      "title": "Obserwowani przez {username}",
+      "title": "Obserwowani",
       "userNotFound": "Nie znaleziono użytkownika",
       "followsNotFound": "Brak obserwowanych"
     }

@@ -350,12 +350,12 @@
       }
     },
     "followers": {
-      "title": "{username} followers",
+      "title": "Followers",
       "userNotFound": "User not found",
       "followsNotFound": "No followers"
     },
     "followings": {
-      "title": "{username} followings",
+      "title": "Followings",
       "userNotFound": "User not found",
       "followsNotFound": "No followings"
     }

@@ -7,12 +7,14 @@ import {
 import { getUserByUsername } from "@/services/user";
 import { getTranslations } from "next-intl/server";
 import { authValidation } from "@/lib/auth-validation";
+import { Link } from "@/lib/navigation";
 import type { Metadata } from "next";
 
 import NotFound from "@/components/common/not-found";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -62,22 +64,28 @@ export default async function Followers({
   const followers = await getFollowersByUsername(username, currentPage);
   const totalCount = await getFollowersCountByUsername(username);
 
-  if (!followers.length) {
-    return <NotFound text={t("followsNotFound")} />;
-  }
-
   const authUser = await authValidation();
 
   return (
     <Card className="max-w-lg">
       <CardHeader>
-        <CardTitle>{t("title", { username: user.username })}</CardTitle>
+        <CardTitle>{t("title")}</CardTitle>
+
+        <CardDescription>
+          <Link href={`/profile/${user.username}`}>{user.username}</Link>
+        </CardDescription>
       </CardHeader>
 
       <CardContent className="space-y-1">
         {followers.map((f) => (
           <UserRow key={f.id} user={f} authUser={authUser} />
         ))}
+
+        {!followers.length && (
+          <p className="text-center text-muted-foreground">
+            {t("followsNotFound")}
+          </p>
+        )}
       </CardContent>
 
       {totalCount > FOLLOWS_PER_PAGE && (

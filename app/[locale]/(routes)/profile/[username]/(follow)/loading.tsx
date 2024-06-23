@@ -12,7 +12,9 @@ export default function FollowsLoader() {
   return (
     <Card className="max-w-lg">
       <CardHeader>
-        <Skeleton className="h-6 w-full max-w-64" />
+        <Skeleton className="h-6 w-full max-w-28" />
+
+        <Skeleton className="h-5 w-full max-w-32 py-0.5" />
       </CardHeader>
 
       <CardContent className="space-y-1">

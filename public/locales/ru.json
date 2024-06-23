@@ -350,12 +350,12 @@
       }
     },
     "followers": {
-      "title": "Подписчики {username}",
+      "title": "Подписчики",
       "userNotFound": "Пользователь не найден",
       "followsNotFound": "Нет подписчиков"
     },
     "followings": {
-      "title": "Подписки {username}",
+      "title": "Подписки",
       "userNotFound": "Пользователь не найден",
       "followsNotFound": "Нет подписок"
     }
