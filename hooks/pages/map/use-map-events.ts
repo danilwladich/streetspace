@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
-import { useMapStore, type Bounds } from "@/hooks/store/use-map-store";
+import {
+  MAP_ICON_SIZE,
+  useMapStore,
+  type Bounds,
+} from "@/hooks/store/use-map-store";
 import { type LeafletEvent } from "leaflet";
 
 export function useMapEvents() {
@@ -33,11 +37,21 @@ export function useMapEvents() {
         }),
       );
     }
-
     map.on("moveend", onMoveEnd);
 
+    function onPopupOpen(e: LeafletEvent) {
+      const point = map.project(e.target._popup.getLatLng());
+      point.y -= MAP_ICON_SIZE + 20;
+
+      map.setView(map.unproject(point), map.getZoom(), {
+        animate: true,
+        duration: 0.5,
+      });
+    }
+    map.on("popupopen", onPopupOpen);
     return () => {
       map.off("moveend", onMoveEnd);
+      map.off("popupopen", onPopupOpen);
     };
   }, [map, setBounds, setPosition, setZoom]);
 }
