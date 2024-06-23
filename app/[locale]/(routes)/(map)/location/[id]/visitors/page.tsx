@@ -1,5 +1,4 @@
 import { getAppTitle } from "@/lib/get-app-title";
-import { getUserByUsername } from "@/services/user";
 import { getTranslations } from "next-intl/server";
 import { authValidation } from "@/lib/auth-validation";
 import { getMarkerById } from "@/services/marker";
@@ -31,10 +30,14 @@ export async function generateMetadata({
 
   const marker = await getMarkerById(id);
 
+  const title = getAppTitle(
+    marker ? t("visitors.title") : t("notFound"),
+  )
+
   return {
-    title: getAppTitle(marker?.address || t("notFound")),
+    title,
     openGraph: {
-      title: getAppTitle(marker?.address || t("notFound")),
+      title,
     },
   };
 }

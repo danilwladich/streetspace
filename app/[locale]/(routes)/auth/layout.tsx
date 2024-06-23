@@ -5,12 +5,15 @@ import type { Metadata } from "next";
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("pages.auth");
 
+  const title = getAppTitle(t("title"));
+  const description = t("description");
+
   return {
-    title: getAppTitle(t("title")),
-    description: t("description"),
+    title,
+    description,
     openGraph: {
-      title: getAppTitle(t("title")),
-      description: t("description"),
+      title,
+      description,
     },
   };
 }

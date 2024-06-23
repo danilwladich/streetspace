@@ -1,6 +1,10 @@
 const APP_TITLE = "streetspace";
 
-export function getAppTitle(pageName: string = "") {
+export function getAppTitle(pageName: string = "", toLower: boolean = true) {
+  if (toLower) {
+    pageName = pageName.toLowerCase();
+  }
+
   if (pageName) {
     return `${pageName} | ${APP_TITLE}`;
   }

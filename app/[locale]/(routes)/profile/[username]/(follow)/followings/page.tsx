@@ -29,14 +29,14 @@ export async function generateMetadata({
 
   const user = await getUserByUsername(username);
 
-  const title = user
-    ? t("title", { username: user.username })
-    : t("userNotFound");
+  const title = getAppTitle(
+    user ? t("title", { username: user.username }) : t("userNotFound"),
+  );
 
   return {
-    title: getAppTitle(title),
+    title,
     openGraph: {
-      title: getAppTitle(title),
+      title,
     },
   };
 }

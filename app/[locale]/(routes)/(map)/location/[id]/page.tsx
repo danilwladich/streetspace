@@ -17,10 +17,12 @@ export async function generateMetadata({
 
   const marker = await getMarkerById(id);
 
+  const title = getAppTitle(marker?.address || t("notFound"), false);
+
   return {
-    title: getAppTitle(marker?.address || t("notFound")),
+    title,
     openGraph: {
-      title: getAppTitle(marker?.address || t("notFound")),
+      title,
     },
   };
 }

@@ -18,10 +18,12 @@ export async function generateMetadata({
 
   const user = await getUserByUsername(username);
 
+  const title = getAppTitle(user?.username || t("notFound"));
+
   return {
-    title: getAppTitle(user?.username || t("notFound")),
+    title,
     openGraph: {
-      title: getAppTitle(user?.username || t("notFound")),
+      title,
     },
   };
 }
