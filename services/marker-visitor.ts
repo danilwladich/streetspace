@@ -82,7 +82,7 @@ export async function getUserMarkersVisitsCount(userId: string) {
   });
 }
 
-export const USER_MARKERS_VISITS_PER_PAGE = 25;
+export const USER_MARKERS_VISITS_PER_PAGE = 12;
 
 export async function getUserMarkersVisits(
   userId: string,

@@ -30,9 +30,7 @@ export async function generateMetadata({
 
   const marker = await getMarkerById(id);
 
-  const title = getAppTitle(
-    marker ? t("visitors.title") : t("notFound"),
-  )
+  const title = getAppTitle(marker ? t("visitors.title") : t("notFound"));
 
   return {
     title,
@@ -63,10 +61,6 @@ export default async function Visitors({
   const visitors = await getMarkerVisitorsById(id, currentPage);
   const totalCount = await getMarkerVisitorsCount(id);
 
-  if (!visitors.length) {
-    return <NotFound text={t("visitors.noVisitors")} />;
-  }
-
   const authUser = await authValidation();
 
   return (
@@ -81,6 +75,12 @@ export default async function Visitors({
         {visitors.map((u) => (
           <UserRow key={u.id} user={u} authUser={authUser} />
         ))}
+
+        {!visitors.length && (
+          <p className="text-center text-muted-foreground">
+            {t("visitors.noVisitors")}
+          </p>
+        )}
       </CardContent>
 
       {totalCount > MARKER_VISITORS_PER_PAGE && (

@@ -346,7 +346,8 @@
       },
       "visits": {
         "title": "Visited locations",
-        "showAll": "Show all {count} locations"
+        "showAll": "Show all {count} locations",
+        "noVisits": "No visited locations"
       }
     },
     "followers": {

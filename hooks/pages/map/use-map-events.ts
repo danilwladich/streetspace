@@ -43,9 +43,9 @@ export function useMapEvents() {
       const point = map.project(e.target._popup.getLatLng());
       point.y -= MAP_ICON_SIZE + 20;
 
-      map.setView(map.unproject(point), map.getZoom(), {
+      map.flyTo(map.unproject(point), map.getZoom(), {
         animate: true,
-        duration: 0.5,
+        duration: 0.4,
       });
     }
     map.on("popupopen", onPopupOpen);
