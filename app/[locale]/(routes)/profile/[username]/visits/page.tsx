@@ -6,6 +6,7 @@ import {
   getUserMarkersVisitsCount,
 } from "@/services/marker-visitor";
 import { getUserByUsername } from "@/services/user";
+import { Link } from "@/lib/navigation";
 import type { Metadata } from "next";
 
 import NotFound from "@/components/common/not-found";
@@ -60,14 +61,14 @@ export default async function Visits({
   const visits = await getUserMarkersVisits(user.id, currentPage);
   const totalCount = await getUserMarkersVisitsCount(user.id);
 
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
   return (
     <Card className="max-w-4xl">
       <CardHeader>
         <CardTitle>{t("visits.title")}</CardTitle>
 
-        <CardDescription>{user.username}</CardDescription>
+        <CardDescription>
+          <Link href={`/profile/${user.username}`}>{user.username}</Link>
+        </CardDescription>
       </CardHeader>
 
       <CardContent>

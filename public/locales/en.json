@@ -203,6 +203,7 @@
           "title": "Reported markers",
           "notFound": "No reported markers",
           "marker": {
+            "title": "Marker reports",
             "notFound": "Marker not found",
             "incorrectImages": "Incorrect images",
             "incorrectLocation": "Incorrect location",

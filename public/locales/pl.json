@@ -203,6 +203,7 @@
           "title": "Zgłoszone lokalizacje",
           "notFound": "Brak zgłoszonych lokalizacji",
           "marker": {
+            "title": "Zgłoszenia lokalizacji",
             "notFound": "Nie znaleziono lokalizacji",
             "incorrectImages": "Nieprawidłowe zdjęcia",
             "incorrectLocation": "Nieprawidłowa lokalizacja",

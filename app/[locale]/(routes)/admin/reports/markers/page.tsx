@@ -39,9 +39,14 @@ export default async function ReportedMarkers({
       <CardHeader>
         <CardTitle>{t("title")}</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-2 [&>*]:block">
+
+      <CardContent className="space-y-2">
         {markers.map((m) => (
-          <Link key={m.id} href={`/admin/reports/markers/${m.id}`}>
+          <Link
+            key={m.id}
+            href={`/admin/reports/markers/${m.id}`}
+            className="block"
+          >
             <Button
               variant="outline"
               size="sm"

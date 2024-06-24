@@ -1,11 +1,12 @@
+import { getMarkerById } from "@/services/marker";
 import {
   getMarkerReportsById,
   getMarkerReportsCountById,
   MARKER_REPORTS_PER_PAGE,
 } from "@/services/marker-report";
-import { getTranslations } from "next-intl/server";
-import { columns } from "@/components/pages/admin/reports/markers/columns";
 import { Link } from "@/lib/navigation";
+import { columns } from "@/components/pages/admin/reports/markers/columns";
+import { getTranslations } from "next-intl/server";
 
 import NotFound from "@/components/common/not-found";
 import { DataTable } from "@/components/pages/admin/reports/markers/data-table";
@@ -13,10 +14,11 @@ import Pagination from "@/components/common/pagination";
 import {
   Card,
   CardContent,
+  CardTitle,
   CardHeader,
   CardFooter,
+  CardDescription,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
 export default async function MarkerReports({
   params: { id, locale },
@@ -29,13 +31,15 @@ export default async function MarkerReports({
 }) {
   const t = await getTranslations("pages.admin.reports.markers.marker");
 
+  const marker = await getMarkerById(id);
+
+  if (!marker) {
+    return <NotFound text={t("notFound")} />;
+  }
+
   const currentPage = Number(searchParams?.page) || 1;
   const reports = await getMarkerReportsById(id, currentPage);
   const totalCount = await getMarkerReportsCountById(id);
-
-  if (!reports) {
-    return <NotFound text={t("notFound")} />;
-  }
 
   const data = reports.map((r) => ({
     id: r.id,
@@ -54,11 +58,11 @@ export default async function MarkerReports({
   return (
     <Card>
       <CardHeader>
-        <Link href={`/location/${id}`}>
-          <Button tabIndex={-1} variant="outline" size="sm">
-            {id}
-          </Button>
-        </Link>
+        <CardTitle>{t("title")}</CardTitle>
+
+        <CardDescription>
+          <Link href={`/location/${id}`}>{marker.address}</Link>
+        </CardDescription>
       </CardHeader>
 
       <CardContent>

@@ -7,6 +7,7 @@ import {
   getMarkerVisitorsById,
   getMarkerVisitorsCount,
 } from "@/services/marker-visitor";
+import { Link } from "@/lib/navigation";
 import type { Metadata } from "next";
 
 import NotFound from "@/components/common/not-found";
@@ -68,7 +69,9 @@ export default async function Visitors({
       <CardHeader>
         <CardTitle>{t("visitors.title")}</CardTitle>
 
-        <CardDescription>{marker.address}</CardDescription>
+        <CardDescription>
+          <Link href={`/location/${id}`}>{marker.address}</Link>
+        </CardDescription>
       </CardHeader>
 
       <CardContent className="space-y-1">
