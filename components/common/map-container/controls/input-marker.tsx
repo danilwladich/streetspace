@@ -13,6 +13,8 @@ export default function InputMarker({ map }: { map: Map }) {
 
   const { isInput, setIsInput } = useMapStore();
 
+  map.setMinZoom(4);
+
   if (!isInput) {
     return (
       <Button variant="outline" size="icon" onClick={() => setIsInput(true)}>
@@ -22,8 +24,9 @@ export default function InputMarker({ map }: { map: Map }) {
     );
   }
 
-  const lat = map.getCenter().lat;
-  const lng = map.getCenter().lng;
+  map.setMinZoom(16);
+
+  const { lat, lng } = map.getCenter();
 
   return (
     <div className="flex gap-1">

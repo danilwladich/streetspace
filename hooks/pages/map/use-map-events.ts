@@ -8,7 +8,8 @@ import {
 import { type LeafletEvent } from "leaflet";
 
 export function useMapEvents() {
-  const { setBounds, setZoom, setPosition, setSearchIsVisible } = useMapStore();
+  const { setBounds, setZoom, setPosition, setSearchIsVisible } =
+    useMapStore();
 
   const map = useMap();
 
@@ -49,6 +50,7 @@ export function useMapEvents() {
       });
     }
     map.on("popupopen", onPopupOpen);
+
     return () => {
       map.off("moveend", onMoveEnd);
       map.off("popupopen", onPopupOpen);
