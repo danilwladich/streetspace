@@ -25,7 +25,9 @@ export default function StarsButton() {
     <CommandItem className="flex w-full items-center gap-2" onSelect={onClick}>
       <Star className="h-4 w-4" />
       <span>{t("stars")}</span>
-      {!isLoading && <span className="text-nowrap">{`( ${starsCount} )`}</span>}
+      {!isLoading && starsCount && (
+        <span className="text-nowrap">{`( ${starsCount} )`}</span>
+      )}
     </CommandItem>
   );
 }

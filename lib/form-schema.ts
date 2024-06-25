@@ -15,9 +15,10 @@ export const MAX_FILES_COUNT = 6;
 export const loginSchema = z.object({
   emailOrUsername: z
     .string()
+    .trim()
     .min(3, { message: "This field must be at least 3 characters" })
     .toLowerCase(),
-  password: z.string().min(6, {
+  password: z.string().trim().min(6, {
     message: "Password must be at least 6 characters",
   }),
   recaptchaToken: z.string().max(1000),
