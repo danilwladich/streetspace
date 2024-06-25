@@ -5,7 +5,6 @@ import { parseJsonFromFormData } from "@/lib/formdata-parser";
 import { getAuthUser } from "@/lib/get-auth-user";
 import { deleteImage, uploadImage } from "@/lib/upload-image";
 import { updateUser } from "@/services/user";
-import { serializeJwt } from "@/lib/serialize-jwt";
 import { reverseGeocode } from "@/lib/server-actions";
 
 export async function PATCH(req: NextRequest) {
@@ -55,8 +54,6 @@ export async function PATCH(req: NextRequest) {
       city: city || village || null,
       socialMedia: JSON.stringify(socialMedia || {}),
     });
-
-    await serializeJwt(user);
 
     // Returning a JSON response with user information
     return jsonResponse(user, 201);

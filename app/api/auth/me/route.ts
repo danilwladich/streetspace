@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { jsonResponse } from "@/lib/json-response";
 import { getAuthUser } from "@/lib/get-auth-user";
-import { emptyJwt } from "@/lib/serialize-jwt";
+import { emptyJwt, serializeJwt } from "@/lib/serialize-jwt";
 import { getUserById } from "@/services/user";
 
 export async function GET(req: NextRequest) {
@@ -14,6 +14,9 @@ export async function GET(req: NextRequest) {
       return jsonResponse("Unauthorized", 401);
     }
 
+    // Serializing user data
+    await serializeJwt(user);
+
     return jsonResponse(user, 200);
   } catch (error) {
     // Handling internal error
@@ -23,6 +26,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
+  // Emptying the JWT cookie
   emptyJwt();
 
   return jsonResponse("User logged out successfully", 200);

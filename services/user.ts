@@ -7,14 +7,23 @@ export async function getUserById(id: string) {
   });
 }
 
+export async function checkUsername(username: string) {
+  const user = await db.user.findFirst({
+    where: { username },
+    select: { id: true },
+  });
+
+  return !!user;
+}
+
 export async function getUserByUsername(username: string) {
-  return await db.user.findFirst({
+  return db.user.findFirst({
     where: { username },
   });
 }
 
 export async function getUserByEmail(email: string) {
-  return await db.user.findFirst({
+  return db.user.findFirst({
     where: { email },
   });
 }
@@ -24,13 +33,13 @@ export async function createUser(data: {
   email: string;
   password: string;
 }) {
-  return await db.user.create({
+  return db.user.create({
     data,
   });
 }
 
 export async function updateUser(id: string, data: Partial<User>) {
-  return await db.user.update({
+  return db.user.update({
     where: { id },
     data,
   });

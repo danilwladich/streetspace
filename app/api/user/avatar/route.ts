@@ -5,7 +5,6 @@ import { getAuthUser } from "@/lib/get-auth-user";
 import { parseJsonFromFormData } from "@/lib/formdata-parser";
 import { deleteImage, uploadImage } from "@/lib/upload-image";
 import { updateUser } from "@/services/user";
-import { serializeJwt } from "@/lib/serialize-jwt";
 
 export async function PATCH(req: NextRequest) {
   try {
@@ -34,8 +33,6 @@ export async function PATCH(req: NextRequest) {
     // Updating the user's avatar
     const user = await updateUser(authUser.id, { avatar: avatarUrl });
 
-    await serializeJwt(user);
-
     // Returning a JSON response with user information
     return jsonResponse(user, 201);
   } catch (error) {
@@ -57,8 +54,6 @@ export async function DELETE(req: NextRequest) {
 
     // Updating the user's avatar
     const user = await updateUser(authUser.id, { avatar: null });
-
-    await serializeJwt(user);
 
     // Returning a JSON response with user information
     return jsonResponse(user, 200);
