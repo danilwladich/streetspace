@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import { getAppTitle } from "@/lib/get-app-title";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import { getTranslations } from "next-intl/server";
+import { locales, defaultLocale } from "@/i18n";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
@@ -19,14 +20,25 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const t = await getTranslations("metadata");
 
+  const title = getAppTitle();
+
+  const languages = Object.assign(
+    {},
+    ...locales.map((locale) => ({
+      [locale]: locale === defaultLocale ? "/" : `/${locale}`,
+    })),
+  );
+
   return {
-    title: getAppTitle(),
+    title,
     description: t("description"),
     keywords:
       "street workout, workout, street, streetspace, map, streetworkout, карта стритворкаута, карта, стритворкаута, стритворкаут, стрит, уличный спорт, уличный, спорт, карта street workout, street workout карта, mapa streetworkout, mapa, street workout mapa, калистеника, карта калистеники, kalistenika, calisthenics, calisthenics map",
+    applicationName: title,
     authors: [
       { name: "Daniel Władyczewski", url: "https://github.com/danilwladich" },
     ],
+    creator: "Daniel Władyczewski",
     icons: [
       {
         rel: "apple-touch-icon",
@@ -49,9 +61,13 @@ export async function generateMetadata({
     openGraph: {
       type: "website",
       locale,
-      siteName: getAppTitle(),
-      title: getAppTitle(),
+      siteName: title,
+      title,
       description: t("description"),
+    },
+    alternates: {
+      canonical: "/",
+      languages,
     },
   };
 }
