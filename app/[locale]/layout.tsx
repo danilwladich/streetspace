@@ -21,6 +21,7 @@ export async function generateMetadata({
   const t = await getTranslations("metadata");
 
   const title = getAppTitle();
+  const description = t("description");
 
   const languages = Object.assign(
     {},
@@ -31,7 +32,7 @@ export async function generateMetadata({
 
   return {
     title,
-    description: t("description"),
+    description,
     keywords:
       "street workout, workout, street, streetspace, map, streetworkout, карта стритворкаута, карта, стритворкаута, стритворкаут, стрит, уличный спорт, уличный, спорт, карта street workout, street workout карта, mapa streetworkout, mapa, street workout mapa, калистеника, карта калистеники, kalistenika, calisthenics, calisthenics map",
     applicationName: title,
@@ -63,8 +64,9 @@ export async function generateMetadata({
       locale,
       siteName: title,
       title,
-      description: t("description"),
+      description,
     },
+    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || ""),
     alternates: {
       canonical: "/",
       languages,
