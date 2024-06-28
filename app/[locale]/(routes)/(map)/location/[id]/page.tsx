@@ -1,5 +1,6 @@
 import { getAppTitle } from "@/lib/get-app-title";
 import { getMarkerById } from "@/services/marker";
+import { getOpenGraphImage } from "@/lib/opengraph";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 
@@ -19,10 +20,15 @@ export async function generateMetadata({
 
   const title = getAppTitle(marker?.address || t("notFound"), false);
 
+  const images = marker
+    ? [getOpenGraphImage(marker.address, JSON.parse(marker.images)[0])]
+    : [];
+
   return {
     title,
     openGraph: {
       title,
+      images,
     },
   };
 }

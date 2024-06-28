@@ -1,5 +1,6 @@
 import { getAppTitle } from "@/lib/get-app-title";
 import { getUserByUsername } from "@/services/user";
+import { getOpenGraphImage } from "@/lib/opengraph";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 
@@ -20,10 +21,14 @@ export async function generateMetadata({
 
   const title = getAppTitle(user?.username || t("notFound"));
 
+  const images =
+    user && user.avatar ? [getOpenGraphImage(username, user.avatar)] : [];
+
   return {
     title,
     openGraph: {
       title,
+      images,
     },
   };
 }
