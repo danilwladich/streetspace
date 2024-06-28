@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
     return new ImageResponse(
       (
         <div tw="flex w-full h-full relative flex-col text-white bg-black">
-          <img
+          <img // eslint-disable-line
             src={`data:image/jpeg;base64,${imageData}`}
             alt={title}
             width={1200}

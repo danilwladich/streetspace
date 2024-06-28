@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 
@@ -12,11 +11,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { CommandItem } from "@/components/ui/command";
+import { Moon, Sun, Laptop } from "lucide-react";
 
 export default function ThemeToggle({}) {
   const t = useTranslations("pages.settings.themeToggle");
 
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -33,13 +33,18 @@ export default function ThemeToggle({}) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start">
         <DropdownMenuItem onClick={() => setTheme("light")}>
-          {t("light")}
+          <Sun className="mr-2 h-4 w-4" />
+          <span>{t("light")}</span>
         </DropdownMenuItem>
+
         <DropdownMenuItem onClick={() => setTheme("dark")}>
-          {t("dark")}
+          <Moon className="mr-2 h-4 w-4" />
+          <span>{t("dark")}</span>
         </DropdownMenuItem>
+
         <DropdownMenuItem onClick={() => setTheme("system")}>
-          {t("system")}
+          <Laptop className="mr-2 h-4 w-4" />
+          <span>{t("system")}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
