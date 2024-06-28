@@ -297,6 +297,7 @@
       "changePassword": "Zmień hasło",
       "logOut": {
         "submit": "Wyloguj się",
+        "description": "Zostaniesz wylogowany",
         "submitError": "Błąd wylogowania"
       }
     },
@@ -327,6 +328,7 @@
         "blockError": "Błąd blokowania użytkownika",
         "logOut": {
           "submit": "Wyloguj się",
+          "description": "Zostaniesz wylogowany",
           "submitError": "Błąd wylogowania"
         }
       },

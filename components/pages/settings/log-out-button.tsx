@@ -4,6 +4,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { useRouter } from "@/lib/navigation";
 import { toast } from "sonner";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
+import { useModalStore } from "@/hooks/store/use-modal-store";
 import { useTranslations } from "next-intl";
 
 import { LogOut } from "lucide-react";
@@ -14,30 +15,39 @@ export default function LogOutButton() {
 
   const router = useRouter();
   const { setUser } = useAuthStore();
+  const { onOpen } = useModalStore();
 
-  async function onLogOut() {
-    try {
-      // Sending a DELETE request to the /api/auth/me endpoint
-      await axios.delete("/api/auth/me");
+  function onLogOut() {
+    const submitActionData = {
+      description: t("description"),
+      onSubmit: async () => {
+        try {
+          // Sending a DELETE request to the /api/auth/me endpoint
+          await axios.delete("/api/auth/me");
 
-      // Clearing the user from the store
-      setUser(null);
+          // Clearing the user from the store
+          setUser(null);
 
-      // Redirecting to the auth page
-      router.push("/auth");
-    } catch (e: unknown) {
-      // Handling AxiosError
-      const error = e as AxiosError;
+          // Redirecting to the auth page
+          router.push("/auth");
+        } catch (e: unknown) {
+          // Handling AxiosError
+          const error = e as AxiosError;
 
-      // Extracting response from AxiosError
-      const res = error?.response as AxiosResponse<string, any>;
+          // Extracting response from AxiosError
+          const res = error?.response as AxiosResponse<string, any>;
 
-      // Handling non-response errors
-      if (!res) {
-        toast.error(t("submitError"), { description: error.message });
-        return;
-      }
-    }
+          // Handling non-response errors
+          if (!res) {
+            toast.error(t("submitError"), { description: error.message });
+            return;
+          }
+        }
+      },
+    };
+    onOpen("submit action", {
+      submitActionData,
+    });
   }
 
   return (

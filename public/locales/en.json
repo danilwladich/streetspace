@@ -297,6 +297,7 @@
       "changePassword": "Change password",
       "logOut": {
         "submit": "Log out",
+        "description": "You will be logged out",
         "submitError": "Log out error"
       }
     },
@@ -327,6 +328,7 @@
         "blockError": "Block user error",
         "logOut": {
           "submit": "Log out",
+          "description": "You will be logged out",
           "submitError": "Log out error"
         }
       },

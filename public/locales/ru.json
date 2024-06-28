@@ -297,6 +297,7 @@
       "changePassword": "Изменить пароль",
       "logOut": {
         "submit": "Выйти",
+        "description": "Вы выйдете из аккаунта",
         "submitError": "Ошибка выхода"
       }
     },
@@ -327,6 +328,7 @@
         "blockError": "Ошибка блокировки пользователя",
         "logOut": {
           "submit": "Выйти",
+          "description": "Вы выйдете из аккаунта",
           "submitError": "Ошибка выхода"
         }
       },
