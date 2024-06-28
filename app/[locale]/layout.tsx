@@ -3,6 +3,7 @@ import { getAppTitle } from "@/lib/get-app-title";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { locales, defaultLocale } from "@/i18n";
+import { headers } from "next/headers";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
@@ -29,6 +30,10 @@ export async function generateMetadata({
       [locale]: locale === defaultLocale ? "/" : `/${locale}`,
     })),
   );
+
+  const headersList = headers();
+  const referer = headersList.get("referer") || "";
+  const metadataBase = new URL(new URL(referer).origin);
 
   return {
     title,
@@ -66,7 +71,7 @@ export async function generateMetadata({
       title,
       description,
     },
-    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || ""),
+    metadataBase,
     alternates: {
       canonical: "/",
       languages,
