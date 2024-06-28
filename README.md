@@ -12,6 +12,8 @@ RECAPTCHA_SECRET_KEY=recaptcha_secret_key
 
 DATABASE_URL="file:./dev.db"
 JWT_SECRET=jwt_secret
+
+NEXT_PUBLIC_URL_BASE=URL
 ```
 
 #### Run the development server:
