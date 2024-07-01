@@ -134,6 +134,7 @@
     "Invalid Request": "Неправильный запрос",
     "Validation Error": "Ошибка валидации",
     "Antibot system error": "Ошибка системы антиспама",
+    "Antibot system not passed": "Система антиспама не пройдена",
     "Internal Error": "Внутренняя ошибка",
     "Incorrect password": "Неверный пароль",
     "Incorrect email or password": "Неверный email или пароль",

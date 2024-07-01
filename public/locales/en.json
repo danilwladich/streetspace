@@ -134,6 +134,7 @@
     "Invalid Request": "Invalid Request",
     "Validation Error": "Validation Error",
     "Antibot system error": "Antibot system error",
+    "Antibot system not passed": "Antibot system not passed",
     "Internal Error": "Internal Error",
     "Incorrect password": "Incorrect password",
     "Incorrect email or password": "Incorrect email or password",
