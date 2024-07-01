@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import createIntlMiddleware from "next-intl/middleware";
 import { authValidation } from "@/lib/auth-validation";
 import { localePrefix, locales } from "@/i18n";
+import { sanitizeHeader } from "./lib/utils";
 
 const intlMiddleware = createIntlMiddleware({
   locales,
@@ -24,7 +25,7 @@ function authRedirect(req: NextRequest) {
 }
 
 function secureRedirect(req: NextRequest) {
-  req.nextUrl.protocol = "https";
+  req.nextUrl.protocol = "https:";
   return NextResponse.redirect(req.nextUrl);
 }
 
@@ -95,7 +96,8 @@ export async function middleware(req: NextRequest) {
 
       // Adding header with the authenticated user data
       const headers = new Headers(req.headers);
-      headers.set("x-auth-user", JSON.stringify(authUser));
+      const authUserHeader = JSON.stringify(sanitizeHeader(authUser));
+      headers.set("x-auth-user", authUserHeader);
 
       // Allowing the request to proceed with the updated headers
       return NextResponse.next({

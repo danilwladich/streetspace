@@ -150,7 +150,7 @@
     "New password must be different": "Новый пароль должен отличаться",
     "Passwords don't match": "Пароли не совпадают",
     "This field must be at least 3 characters": "Это поле должно содержать не менее 3 символов",
-    "Username must be alphanumeric": "Имя пользователя должно содержать только буквенно-цифровые символы",
+    "Username must be alphanumeric": "Имя пользователя может содержать только латинские буквы и цифры",
     "Username must be at least 3 characters": "Имя пользователя должно содержать не менее 3 символов",
     "Username must be less than 16 characters": "Имя пользователя должно содержать не более 16 символов",
     "This is not a valid email": "Это недействительный email",
