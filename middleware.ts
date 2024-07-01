@@ -24,11 +24,6 @@ function authRedirect(req: NextRequest) {
   return NextResponse.redirect(loginUrl);
 }
 
-function secureRedirect(req: NextRequest) {
-  req.nextUrl.protocol = "https:";
-  return NextResponse.redirect(req.nextUrl);
-}
-
 const protectedApiRoutes = [
   "/api/admin",
   "/api/auth/me",
@@ -63,13 +58,6 @@ const profilePagePathnameRegex = RegExp(
 );
 
 export async function middleware(req: NextRequest) {
-  if (
-    process.env.NODE_ENV === "production" &&
-    req.nextUrl.protocol !== "https:"
-  ) {
-    // return secureRedirect(req);
-  }
-
   if (req.nextUrl.pathname.startsWith("/api")) {
     const isProtectedApiRoute = protectedApiPathnameRegex.test(
       req.nextUrl.pathname,
