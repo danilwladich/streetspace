@@ -3,6 +3,7 @@ import { getAppTitle } from "@/lib/get-app-title";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import { locales, defaultLocale } from "@/i18n";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
@@ -105,6 +106,7 @@ export default function RootLayout({
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
+      <GoogleAnalytics gaId="G-XBDZS8Z669" />
     </html>
   );
 }
