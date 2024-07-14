@@ -30,7 +30,9 @@ export default async function Comments({
   return (
     <Card className="max-w-4xl">
       <CardHeader>
-        <CardTitle>{t("title")}</CardTitle>
+        <CardTitle>
+          <h3>{t("title")}</h3>
+        </CardTitle>
       </CardHeader>
 
       <CardContent className="space-y-2">

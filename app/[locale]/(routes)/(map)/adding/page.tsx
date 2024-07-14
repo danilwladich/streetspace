@@ -16,7 +16,9 @@ export default function Adding() {
   return (
     <Card className="max-w-4xl">
       <CardHeader>
-        <CardTitle>{t("title")}</CardTitle>
+        <CardTitle>
+          <h1>{t("title")}</h1>
+        </CardTitle>
         <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
 

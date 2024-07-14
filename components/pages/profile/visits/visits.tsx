@@ -37,7 +37,9 @@ export default async function Visits({
   return (
     <Card className="max-w-4xl">
       <CardHeader>
-        <CardTitle>{t("title")}</CardTitle>
+        <CardTitle>
+          <h3>{t("title")}</h3>
+        </CardTitle>
       </CardHeader>
 
       <CardContent className="grid grid-cols-2 gap-2 sm:grid-cols-3">

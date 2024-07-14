@@ -20,9 +20,9 @@ export default async function ProfileMain(user: User) {
           <UserAvatar {...user} />
 
           <div className="flex max-w-full flex-col items-center gap-1 md:items-start">
-            <h2 className="max-w-full truncate text-2xl font-semibold">
+            <h1 className="max-w-full truncate text-2xl font-semibold">
               {user.username}
-            </h2>
+            </h1>
 
             <div className="flex gap-2">
               <UserFollowers username={user.username} />

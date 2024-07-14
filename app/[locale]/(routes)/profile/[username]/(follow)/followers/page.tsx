@@ -69,7 +69,9 @@ export default async function Followers({
   return (
     <Card className="max-w-lg">
       <CardHeader>
-        <CardTitle>{t("title")}</CardTitle>
+        <CardTitle>
+          <h1>{t("title")}</h1>
+        </CardTitle>
 
         <CardDescription>
           <Link href={`/profile/${user.username}`}>{user.username}</Link>

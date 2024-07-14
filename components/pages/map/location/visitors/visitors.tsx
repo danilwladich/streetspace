@@ -31,7 +31,9 @@ export default async function Visitors({ id }: { id: string }) {
   return (
     <Card className="max-w-4xl">
       <CardHeader>
-        <CardTitle>{t("title")}</CardTitle>
+        <CardTitle>
+          <h3>{t("title")}</h3>
+        </CardTitle>
       </CardHeader>
 
       <CardContent className="grid grid-cols-5 gap-4 sm:grid-cols-10">

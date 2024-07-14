@@ -12,7 +12,9 @@ export default function Bio({ bio }: { bio: string | null }) {
   return (
     <Card className="max-w-4xl">
       <CardHeader>
-        <CardTitle>{t("aboutMe")}</CardTitle>
+        <CardTitle>
+          <h3>{t("aboutMe")}</h3>
+        </CardTitle>
       </CardHeader>
 
       <CardContent>

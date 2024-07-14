@@ -17,7 +17,7 @@ export function Header() {
     <header className="fixed left-0 top-0 z-40 w-full overflow-hidden bg-[rgba(255,255,255,0.75)] backdrop-blur-sm dark:bg-[rgba(0,0,0,0.75)]">
       <div className="pl-[calc(100vw-100%)]">
         <div className="container flex items-center justify-between">
-          <h1 className="truncate text-lg">{getAppTitle()}</h1>
+          <span className="truncate text-lg">{getAppTitle()}</span>
 
           <Navigation />
         </div>

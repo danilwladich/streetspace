@@ -67,7 +67,9 @@ export default async function Visitors({
   return (
     <Card className="max-w-lg">
       <CardHeader>
-        <CardTitle>{t("visitors.title")}</CardTitle>
+        <CardTitle>
+          <h1>{t("visitors.title")}</h1>
+        </CardTitle>
 
         <CardDescription>
           <Link href={`/location/${id}`}>{marker.address}</Link>

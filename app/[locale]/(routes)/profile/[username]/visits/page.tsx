@@ -64,7 +64,9 @@ export default async function Visits({
   return (
     <Card className="max-w-4xl">
       <CardHeader>
-        <CardTitle>{t("visits.title")}</CardTitle>
+        <CardTitle>
+          <h1>{t("visits.title")}</h1>
+        </CardTitle>
 
         <CardDescription>
           <Link href={`/profile/${user.username}`}>{user.username}</Link>

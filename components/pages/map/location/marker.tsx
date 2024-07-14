@@ -40,7 +40,9 @@ export default async function Marker({
     <Card className="max-w-4xl">
       <CardHeader>
         <div className="relative">
-          <CardTitle className="pr-14">{address}</CardTitle>
+          <CardTitle className="pr-14">
+            <h1>{address}</h1>
+          </CardTitle>
 
           <div className="absolute right-0 top-0">
             <Actions id={id} address={address} isVisitor={isVisitor} />

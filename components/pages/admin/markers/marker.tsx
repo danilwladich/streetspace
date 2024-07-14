@@ -56,7 +56,9 @@ export function Marker({
   return (
     <Card className="max-w-4xl">
       <CardHeader>
-        <CardTitle>{address}</CardTitle>
+        <CardTitle>
+          <h2>{address}</h2>
+        </CardTitle>
 
         <CardDescription>{`${lat}, ${lng}`}</CardDescription>
       </CardHeader>

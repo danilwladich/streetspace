@@ -19,7 +19,9 @@ export default function Auth() {
     <>
       <Card className="max-w-md">
         <CardHeader>
-          <CardTitle>{t("signUp.title")}</CardTitle>
+          <CardTitle>
+            <h1>{t("signUp.title")}</h1>
+          </CardTitle>
           <CardDescription>{t("signUp.description")}</CardDescription>
         </CardHeader>
         <CardContent>

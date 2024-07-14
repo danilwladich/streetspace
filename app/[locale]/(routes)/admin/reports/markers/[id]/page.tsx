@@ -58,7 +58,9 @@ export default async function MarkerReports({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t("title")}</CardTitle>
+        <CardTitle>
+          <h1>{t("title")}</h1>
+        </CardTitle>
 
         <CardDescription>
           <Link href={`/location/${id}`}>{marker.address}</Link>
