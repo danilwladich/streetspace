@@ -221,7 +221,7 @@
       }
     },
     "map": {
-      "title": "workout map",
+      "title": "street workout map",
       "userLocation": "Your location",
       "controls": {
         "zoomIn": "Zoom in",
