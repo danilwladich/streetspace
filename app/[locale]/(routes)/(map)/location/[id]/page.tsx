@@ -18,7 +18,14 @@ export async function generateMetadata({
 
   const marker = await getMarkerById(id);
 
-  const title = getAppTitle(marker?.address || t("notFound"), false);
+  if (!marker) {
+    return {
+      title: getAppTitle(t("notFound")),
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const title = getAppTitle(marker.address, false);
 
   const images = marker
     ? [getOpenGraphImage(marker.address, JSON.parse(marker.images)[0])]

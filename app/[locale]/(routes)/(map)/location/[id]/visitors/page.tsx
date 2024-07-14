@@ -31,7 +31,14 @@ export async function generateMetadata({
 
   const marker = await getMarkerById(id);
 
-  const title = getAppTitle(marker ? t("visitors.title") : t("notFound"));
+  if (!marker) {
+    return {
+      title: getAppTitle(t("notFound")),
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const title = getAppTitle(t("visitors.title"));
 
   return {
     title,

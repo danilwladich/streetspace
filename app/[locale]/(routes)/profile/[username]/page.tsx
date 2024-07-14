@@ -19,10 +19,16 @@ export async function generateMetadata({
 
   const user = await getUserByUsername(username);
 
-  const title = getAppTitle(user?.username || t("notFound"));
+  if (!user) {
+    return {
+      title: getAppTitle(t("notFound")),
+      robots: { index: false, follow: false },
+    };
+  }
 
-  const images =
-    user && user.avatar ? [getOpenGraphImage(username, user.avatar)] : [];
+  const title = getAppTitle(user.username);
+
+  const images = user.avatar ? [getOpenGraphImage(username, user.avatar)] : [];
 
   return {
     title,
