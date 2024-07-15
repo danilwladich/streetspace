@@ -1,6 +1,14 @@
 import { db } from "@/lib/db";
 import type { Marker } from "@prisma/client";
 
+export async function getMarkersCount() {
+  return db.marker.count({
+    where: {
+      confirmed: true,
+    },
+  });
+}
+
 export async function getMarkerById(id: string) {
   return db.marker.findFirst({
     where: {
@@ -13,6 +21,20 @@ export async function getMarkerById(id: string) {
           username: true,
         },
       },
+    },
+  });
+}
+
+export async function getAllMarkers(page: number, perPage: number) {
+  return await db.marker.findMany({
+    select: {
+      id: true,
+      updatedAt: true,
+    },
+    skip: page * perPage,
+    take: perPage,
+    orderBy: {
+      createdAt: "asc",
     },
   });
 }

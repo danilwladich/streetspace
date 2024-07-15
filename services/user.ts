@@ -1,6 +1,25 @@
 import { db } from "@/lib/db";
 import type { User } from "@prisma/client";
 
+export async function getUsersCount() {
+  return await db.user.count();
+}
+
+export async function getUsers(page: number, perPage: number) {
+  return await db.user.findMany({
+    select: {
+      id: true,
+      username: true,
+      updatedAt: true,
+    },
+    skip: page * perPage,
+    take: perPage,
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+}
+
 export async function getUserById(id: string) {
   return await db.user.findFirst({
     where: { id },
