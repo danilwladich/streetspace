@@ -8,50 +8,48 @@ import LanguageToggle from "@/components/pages/settings/language-toggle";
 import StarsButton from "@/components/pages/settings/stars-button";
 import LogOutButton from "@/components/pages/settings/log-out-button";
 import ChangePasswordButton from "@/components/pages/settings/change-password-button";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandList,
-  CommandSeparator,
-} from "@/components/ui/command";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 export default function Settings() {
-  const t = useTranslations("pages.settings.command");
+  const t = useTranslations("pages.settings");
 
   const { user: authUser } = useAuthStore();
 
   return (
     <Card className="max-w-lg">
+      <CardHeader>
+        <CardTitle>
+          <h1>{t("title")}</h1>
+        </CardTitle>
+      </CardHeader>
+
       <CardContent>
-        <Command>
-          <CommandInput tabIndex={1} placeholder={t("placeholder")} />
-          <CommandList>
-            <CommandEmpty>{t("empty")}</CommandEmpty>
+        <div className="p-1">
+          <h3 className="px-3 py-1 text-xs font-medium text-muted-foreground">
+            {t("group.general")}
+          </h3>
 
-            <CommandGroup heading={t("group.general")}>
-              <ThemeToggle />
+          <ThemeToggle />
 
-              <LanguageToggle />
+          <LanguageToggle />
 
-              <StarsButton />
-            </CommandGroup>
+          <StarsButton />
+        </div>
 
-            {!!authUser && (
-              <>
-                <CommandSeparator />
+        {!!authUser && <Separator />}
 
-                <CommandGroup heading={t("group.profile")}>
-                  <ChangePasswordButton />
+        {!!authUser && (
+          <div className="p-1">
+            <h3 className="px-3 py-1 text-xs font-medium text-muted-foreground">
+              {t("group.profile")}
+            </h3>
 
-                  <LogOutButton />
-                </CommandGroup>
-              </>
-            )}
-          </CommandList>
-        </Command>
+            <ChangePasswordButton />
+
+            <LogOutButton />
+          </div>
+        )}
       </CardContent>
     </Card>
   );

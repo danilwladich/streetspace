@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 
@@ -10,27 +9,28 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { CommandItem } from "@/components/ui/command";
+import { Button } from "@/components/ui/button";
 import { Moon, Sun, Laptop } from "lucide-react";
 
 export default function ThemeToggle({}) {
   const t = useTranslations("pages.settings.themeToggle");
 
-  const { theme, setTheme } = useTheme();
-  const [isOpen, setIsOpen] = useState(false);
+  const { setTheme } = useTheme();
 
   return (
-    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+    <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <CommandItem
-          className="flex w-full items-center gap-2"
-          onSelect={() => setIsOpen((prev) => !prev)}
+        <Button
+          className="w-full justify-start gap-2"
+          variant="ghost"
+          size="sm"
         >
           <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="flex-1">{t("label")}</span>
-        </CommandItem>
+          <span>{t("label")}</span>
+        </Button>
       </DropdownMenuTrigger>
+
       <DropdownMenuContent align="start">
         <DropdownMenuItem onClick={() => setTheme("light")}>
           <Sun className="mr-2 h-4 w-4" />

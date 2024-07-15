@@ -279,14 +279,10 @@
       }
     },
     "settings": {
-      "title": "настройки",
-      "command": {
-        "placeholder": "Поиск...",
-        "empty": "Ничего не найдено.",
-        "group": {
-          "general": "Общие",
-          "profile": "Профиль"
-        }
+      "title": "Настройки",
+      "group": {
+        "general": "Общие",
+        "profile": "Профиль"
       },
       "languageToggle": "Язык",
       "themeToggle": {

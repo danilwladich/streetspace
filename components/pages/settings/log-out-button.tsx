@@ -7,8 +7,8 @@ import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useModalStore } from "@/hooks/store/use-modal-store";
 import { useTranslations } from "next-intl";
 
+import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
-import { CommandItem } from "@/components/ui/command";
 
 export default function LogOutButton() {
   const t = useTranslations("pages.settings.logOut");
@@ -51,10 +51,14 @@ export default function LogOutButton() {
   }
 
   return (
-    <CommandItem className="flex w-full items-center gap-2" onSelect={onLogOut}>
+    <Button
+      className="w-full justify-start gap-2"
+      variant="ghost"
+      size="sm"
+      onClick={onLogOut}
+    >
       <LogOut className="h-4 w-4" />
-
-      <span className="flex-1">{t("submit")}</span>
-    </CommandItem>
+      <span>{t("submit")}</span>
+    </Button>
   );
 }

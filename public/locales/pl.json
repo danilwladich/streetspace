@@ -279,14 +279,10 @@
       }
     },
     "settings": {
-      "title": "ustawienia",
-      "command": {
-        "placeholder": "Szukaj...",
-        "empty": "Nie znaleziono wyników.",
-        "group": {
-          "general": "Ogólne",
-          "profile": "Profil"
-        }
+      "title": "Ustawienia",
+      "group": {
+        "general": "Ogólne",
+        "profile": "Profil"
       },
       "languageToggle": "Język",
       "themeToggle": {

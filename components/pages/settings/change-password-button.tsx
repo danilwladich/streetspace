@@ -3,7 +3,7 @@
 import { useModalStore } from "@/hooks/store/use-modal-store";
 import { useTranslations } from "next-intl";
 
-import { CommandItem } from "@/components/ui/command";
+import { Button } from "@/components/ui/button";
 import { KeyRound } from "lucide-react";
 
 export default function ChangePasswordButton() {
@@ -12,13 +12,14 @@ export default function ChangePasswordButton() {
   const { onOpen } = useModalStore();
 
   return (
-    <CommandItem
-      className="flex w-full items-center gap-2"
-      onSelect={() => onOpen("change password")}
+    <Button
+      className="w-full justify-start gap-2"
+      variant="ghost"
+      size="sm"
+      onClick={() => onOpen("change password")}
     >
       <KeyRound className="h-4 w-4" />
-
       <span>{t("changePassword")}</span>
-    </CommandItem>
+    </Button>
   );
 }

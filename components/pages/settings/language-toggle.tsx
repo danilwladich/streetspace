@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { locales } from "@/i18n";
 import { useRouter, usePathname } from "@/lib/navigation";
@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { CommandItem } from "@/components/ui/command";
+import { Button } from "@/components/ui/button";
 import { Languages } from "lucide-react";
 
 const localesMap: Record<(typeof locales)[number], string> = {
@@ -22,8 +22,6 @@ const localesMap: Record<(typeof locales)[number], string> = {
 
 export default function LanguageToggle() {
   const t = useTranslations("pages.settings");
-
-  const [isOpen, setIsOpen] = useState(false);
 
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
@@ -36,15 +34,16 @@ export default function LanguageToggle() {
   }
 
   return (
-    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+    <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <CommandItem
-          className="flex w-full items-center gap-2"
-          onSelect={() => setIsOpen((prev) => !prev)}
+        <Button
+          className="w-full justify-start gap-2"
+          variant="ghost"
+          size="sm"
         >
           <Languages className="h-4 w-4" />
-          <span className="flex-1">{t("languageToggle")}</span>
-        </CommandItem>
+          <span>{t("languageToggle")}</span>
+        </Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="start">
