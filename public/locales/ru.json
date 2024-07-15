@@ -279,6 +279,7 @@
       }
     },
     "settings": {
+      "title": "настройки",
       "command": {
         "placeholder": "Поиск...",
         "empty": "Ничего не найдено.",

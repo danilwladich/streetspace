@@ -279,6 +279,7 @@
       }
     },
     "settings": {
+      "title": "ustawienia",
       "command": {
         "placeholder": "Szukaj...",
         "empty": "Nie znaleziono wyników.",
