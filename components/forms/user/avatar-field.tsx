@@ -2,8 +2,6 @@
 
 import { ACCEPTED_IMAGE_TYPES } from "@/lib/form-schema";
 import { useMemo } from "react";
-import Image from "next/image";
-import { useUserImageSrc } from "@/hooks/use-user-image-src";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import type { ControllerRenderProps } from "react-hook-form";
 
@@ -14,6 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import Avatar from "@/components/ui/avatar";
 
 export default function AvatarField({
   field,
@@ -23,28 +22,24 @@ export default function AvatarField({
   isSubmitting: boolean;
 }) {
   const { user: authUser } = useAuthStore();
+  const { avatar, username } = authUser!;
 
   const value = field.value as File | undefined;
 
-  const defaultImageSrc = useUserImageSrc(authUser?.avatar);
-
-  const imageSrc = useMemo(
-    () => (value ? URL.createObjectURL(value) : defaultImageSrc),
-    [value, defaultImageSrc],
+  const avatarSrc = useMemo(
+    () => (value ? URL.createObjectURL(value) : avatar),
+    [value, avatar],
   );
-  const alt = authUser!.username;
 
   return (
     <FormItem className="[&_label]:has-[input:focus-visible]:ring-2 [&_label]:has-[input:focus-visible]:ring-ring">
       <div className="mt-4 flex justify-center">
         <FormLabel className="relative aspect-square h-24 w-24 cursor-pointer overflow-hidden rounded-full">
-          <Image
-            src={imageSrc}
-            alt={alt}
-            priority
+          <Avatar
+            avatar={avatarSrc}
+            username={username}
             width={100}
             height={100}
-            className="absolute left-0 top-0 h-full w-full object-cover"
           />
         </FormLabel>
       </div>

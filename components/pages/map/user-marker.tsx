@@ -1,18 +1,18 @@
 "use client";
 
 import { useEffect } from "react";
-import Image from "next/image";
 import ReactDOMServer from "react-dom/server";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
-import { useUserImageSrc } from "@/hooks/use-user-image-src";
 import {
   MAP_ICON_SIZE,
   useMapStore,
   type Bounds,
 } from "@/hooks/store/use-map-store";
 import { useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
 import { divIcon, type LocationEvent, Point } from "leaflet";
 
+import Avatar from "@/components/ui/avatar";
 import { Marker, Popup, useMap } from "react-leaflet";
 
 export default function UserMarker() {
@@ -27,9 +27,7 @@ export default function UserMarker() {
     setUserPosition,
     setBounds,
   } = useMapStore();
-  const { user } = useAuthStore();
-
-  const avatarSrc = useUserImageSrc(user?.avatar);
+  const { user: authUser } = useAuthStore();
 
   const map = useMap();
 
@@ -90,7 +88,11 @@ export default function UserMarker() {
   }
 
   return (
-    <Marker position={userPosition} icon={getIcon(avatarSrc)}>
+    <Marker
+      position={userPosition}
+      icon={getIcon(authUser?.avatar, authUser?.username)}
+      zIndexOffset={10}
+    >
       <Popup>
         <span className="text-sm">{t("userLocation")}</span>
       </Popup>
@@ -98,16 +100,18 @@ export default function UserMarker() {
   );
 }
 
-function getIcon(src: string) {
+function getIcon(avatar?: string | null, username?: string) {
   return divIcon({
     html: ReactDOMServer.renderToString(
-      <Image
-        src={src}
-        alt="user"
-        priority
+      <Avatar
+        avatar={avatar}
+        username={username || "user"}
         width={MAP_ICON_SIZE}
         height={MAP_ICON_SIZE}
-        className="absolute left-0 top-0 !h-full !w-full rounded-full border border-white object-cover"
+        className={cn(
+          "absolute left-0 top-0 !h-full !w-full",
+          !!avatar && "border border-white",
+        )}
       />,
     ),
     iconSize: new Point(MAP_ICON_SIZE, MAP_ICON_SIZE),

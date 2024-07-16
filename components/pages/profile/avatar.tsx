@@ -3,8 +3,6 @@
 import axios, { AxiosError } from "axios";
 import { useModalStore } from "@/hooks/store/use-modal-store";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
-import { useUserImageSrc } from "@/hooks/use-user-image-src";
-import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/lib/navigation";
 import { toast } from "sonner";
@@ -19,6 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Avatar from "@/components/ui/avatar";
 import { Fullscreen, ImagePlus, Trash2 } from "lucide-react";
 
 export default function UserAvatar({ id, username, avatar }: User) {
@@ -31,12 +30,13 @@ export default function UserAvatar({ id, username, avatar }: User) {
 
   const isOwner = id === authUser?.id;
 
-  const avatarSrc = useUserImageSrc(avatar);
   const isDefaultAvatar = !avatar;
 
   function onPreviewOpen() {
+    if (!avatar) return;
+
     const imagesData = {
-      images: [{ src: avatarSrc, alt: username }],
+      images: [{ src: avatar, alt: username }],
     };
     onOpen("fullscreen images", { imagesData });
   }
@@ -68,18 +68,16 @@ export default function UserAvatar({ id, username, avatar }: User) {
   }
 
   return (
-    <div className="aspect-square h-24 w-24 overflow-hidden rounded-full has-[button:focus-visible]:ring-2 has-[button:focus-visible]:ring-ring md:h-36 md:w-36">
+    <div className="h-24 w-24 md:h-36 md:w-36">
       {isOwner && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="relative h-full w-full">
-              <Image
-                src={avatarSrc}
-                alt={username}
-                priority
-                width={150}
-                height={150}
-                className="absolute left-0 top-0 h-full w-full object-cover"
+            <button className="relative h-full w-full rounded-full">
+              <Avatar
+                avatar={avatar}
+                username={username}
+                width={145}
+                height={145}
               />
             </button>
           </DropdownMenuTrigger>
@@ -116,30 +114,19 @@ export default function UserAvatar({ id, username, avatar }: User) {
       {!isOwner && !isDefaultAvatar && (
         <button
           onClick={() => onPreviewOpen()}
-          className="relative h-full w-full"
+          className="relative h-full w-full rounded-full"
         >
-          <Image
-            src={avatarSrc}
-            alt={username}
-            priority
-            width={150}
-            height={150}
-            className="absolute left-0 top-0 h-full w-full object-cover"
+          <Avatar
+            avatar={avatar}
+            username={username}
+            width={145}
+            height={145}
           />
         </button>
       )}
 
       {!isOwner && isDefaultAvatar && (
-        <div className="relative h-full w-full">
-          <Image
-            src={avatarSrc}
-            alt={username}
-            priority
-            width={150}
-            height={150}
-            className="absolute left-0 top-0 h-full w-full object-cover"
-          />
-        </div>
+        <Avatar avatar={avatar} username={username} width={145} height={145} />
       )}
     </div>
   );

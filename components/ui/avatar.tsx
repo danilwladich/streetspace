@@ -1,8 +1,9 @@
 "use client";
 
-import { useUserImageSrc } from "@/hooks/use-user-image-src";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+
+import { User } from "lucide-react";
 
 export default function Avatar({
   avatar,
@@ -11,14 +12,12 @@ export default function Avatar({
   height,
   className,
 }: {
-  avatar: string | null;
+  avatar?: string | null;
   username: string;
   width: number;
   height: number;
   className?: string;
 }) {
-  const avatarSrc = useUserImageSrc(avatar);
-
   return (
     <div
       className={cn(
@@ -26,13 +25,19 @@ export default function Avatar({
         className,
       )}
     >
-      <Image
-        src={avatarSrc}
-        alt={username}
-        width={width}
-        height={height}
-        className="absolute left-0 top-0 h-full w-full object-cover"
-      />
+      {avatar ? (
+        <Image
+          src={avatar}
+          alt={username}
+          width={width}
+          height={height}
+          className="absolute left-0 top-0 h-full w-full object-cover"
+        />
+      ) : (
+        <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center rounded-full border-2 border-current bg-background">
+          <User className="h-1/2 w-1/2" />
+        </div>
+      )}
     </div>
   );
 }
