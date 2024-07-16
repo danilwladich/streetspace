@@ -30,38 +30,38 @@ const protectedApiRoutes = [
   "/api/user",
   "/api/marker",
 ];
-const protectedApiPathnameRegex = RegExp(
+const protectedApiRoutesRegex = RegExp(
   `^(${protectedApiRoutes.join("|")})(/.*|/?)$`,
   "i",
 );
 
 const protectedAdminPages = ["/admin"];
-const protectedAdminPathnameRegex = RegExp(
+const protectedAdminPagesRegex = RegExp(
   `^(/(${locales.join("|")}))?(${protectedAdminPages.join("|")})(/.*|/?)$`,
   "i",
 );
 
 const protectedPages = ["/adding"];
-const protectedPathnameRegex = RegExp(
+const protectedPagesRegex = RegExp(
   `^(/(${locales.join("|")}))?(${protectedPages.join("|")})(/.*|/?)$`,
   "i",
 );
 
-const authPagePathnameRegex = RegExp(
+const authPageRegex = RegExp(
   `^(/(${locales.join("|")}))?(/auth)(/.*|/?)$`,
   "i",
 );
 
-const profilePagePathnameRegex = RegExp(
+const profilePageRegex = RegExp(
   `^(/(${locales.join("|")}))?(/profile)(/.*|/?)$`,
   "i",
 );
 
 export async function middleware(req: NextRequest) {
-  if (req.nextUrl.pathname.startsWith("/api")) {
-    const isProtectedApiRoute = protectedApiPathnameRegex.test(
-      req.nextUrl.pathname,
-    );
+  const pathname = req.nextUrl.pathname;
+
+  if (pathname.startsWith("/api")) {
+    const isProtectedApiRoute = protectedApiRoutesRegex.test(pathname);
 
     if (isProtectedApiRoute) {
       // Checking authentication status
@@ -77,7 +77,7 @@ export async function middleware(req: NextRequest) {
       }
 
       // If user is not an admin and trying to access an admin route, return a Forbidden response
-      const isAdminRoute = req.nextUrl.pathname.startsWith("/api/admin");
+      const isAdminRoute = pathname.startsWith("/api/admin");
       if (isAdminRoute && authUser.role !== "ADMIN") {
         return new NextResponse("Forbidden", { status: 403 });
       }
@@ -98,9 +98,7 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  const isProtectedAdminPage = protectedAdminPathnameRegex.test(
-    req.nextUrl.pathname,
-  );
+  const isProtectedAdminPage = protectedAdminPagesRegex.test(pathname);
 
   if (isProtectedAdminPage) {
     // Checking authentication status
@@ -120,7 +118,7 @@ export async function middleware(req: NextRequest) {
     return intlMiddleware(req);
   }
 
-  const isProtectedPage = protectedPathnameRegex.test(req.nextUrl.pathname);
+  const isProtectedPage = protectedPagesRegex.test(pathname);
 
   if (isProtectedPage) {
     // Checking authentication status
@@ -135,7 +133,7 @@ export async function middleware(req: NextRequest) {
     return intlMiddleware(req);
   }
 
-  const isAuthPage = authPagePathnameRegex.test(req.nextUrl.pathname);
+  const isAuthPage = authPageRegex.test(pathname);
 
   if (isAuthPage) {
     // Checking authentication status
@@ -156,12 +154,11 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
-  const isProfilePage = profilePagePathnameRegex.test(req.nextUrl.pathname);
+  const isProfilePage = profilePageRegex.test(pathname);
 
   if (isProfilePage) {
     // Extract the searched user from the URL
-    const searchedUser: string | undefined =
-      req.nextUrl.pathname.split("/profile")[1];
+    const searchedUser: string | undefined = pathname.split("/profile")[1];
 
     // Allow the request to proceed if searched user was provided
     if (searchedUser) {
