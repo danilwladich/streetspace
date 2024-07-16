@@ -110,7 +110,7 @@ function getIcon(avatar?: string | null, username?: string) {
         height={MAP_ICON_SIZE}
         className={cn(
           "absolute left-0 top-0 !h-full !w-full",
-          !!avatar && "border border-white",
+          !!avatar && "border border-current",
         )}
       />,
     ),

@@ -2,6 +2,8 @@ import { create } from "zustand";
 import type { LatLng } from "leaflet";
 import type { Marker } from "@prisma/client";
 
+export const MAP_MIN_ZOOM = 4;
+export const MAP_INPUT_MIN_ZOOM = 16;
 export const MAP_ICON_SIZE = 40;
 
 export interface Bounds {

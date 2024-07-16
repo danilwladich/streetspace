@@ -1,6 +1,6 @@
 "use client";
 
-import { useMapStore } from "@/hooks/store/use-map-store";
+import { useMapStore, MAP_MIN_ZOOM, MAP_INPUT_MIN_ZOOM } from "@/hooks/store/use-map-store";
 import { Link } from "@/lib/navigation";
 import { useTranslations } from "next-intl";
 import type { Map } from "leaflet";
@@ -13,7 +13,7 @@ export default function InputMarker({ map }: { map: Map }) {
 
   const { isInput, setIsInput } = useMapStore();
 
-  map.setMinZoom(4);
+  map.setMinZoom(MAP_MIN_ZOOM);
 
   if (!isInput) {
     return (
@@ -24,7 +24,12 @@ export default function InputMarker({ map }: { map: Map }) {
     );
   }
 
-  map.setMinZoom(16);
+  if (map.getZoom() < MAP_INPUT_MIN_ZOOM) {
+    setTimeout(() => map.setMinZoom(MAP_INPUT_MIN_ZOOM), 400);
+    map.flyTo(map.getCenter(), MAP_INPUT_MIN_ZOOM, { animate: true, duration: 0.4 });
+  } else {
+    map.setMinZoom(MAP_INPUT_MIN_ZOOM);
+  }
 
   const { lat, lng } = map.getCenter();
 

@@ -8,8 +8,7 @@ import {
 import { type LeafletEvent } from "leaflet";
 
 export function useMapEvents() {
-  const { setBounds, setZoom, setPosition, setSearchIsVisible } =
-    useMapStore();
+  const { setBounds, setZoom, setPosition, setSearchIsVisible } = useMapStore();
 
   const map = useMap();
 

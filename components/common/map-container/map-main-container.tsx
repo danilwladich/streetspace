@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { MAP_MIN_ZOOM } from "@/hooks/store/use-map-store";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import type { LatLngExpression, Map } from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -36,7 +37,7 @@ export default function MapMainContainer({
         zoom={zoom || 14}
         zoomControl={false}
         ref={setMap}
-        minZoom={4}
+        minZoom={MAP_MIN_ZOOM}
         maxBounds={[
           [-90, -180],
           [90, 180],

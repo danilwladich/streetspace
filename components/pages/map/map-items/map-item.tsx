@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ReactDOMServer from "react-dom/server";
 import { Marker, Popup } from "react-leaflet";
 import { Link } from "@/lib/navigation";
 import Image from "next/image";
@@ -8,7 +9,7 @@ import { divIcon, Point } from "leaflet";
 import { MAP_ICON_SIZE } from "@/hooks/store/use-map-store";
 import type { Marker as MarkerType } from "@prisma/client";
 
-import { LoaderCircle } from "lucide-react";
+import { LoaderCircle, MapPin } from "lucide-react";
 
 export default function MapItem({ id, lat, lng, address, images }: MarkerType) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -48,10 +49,15 @@ export default function MapItem({ id, lat, lng, address, images }: MarkerType) {
 
 function getIcon() {
   return divIcon({
-    html: `<img src="/assets/map-pin.png" class="h-full w-full" />`,
+    html: ReactDOMServer.renderToString(
+      <MapPin
+        strokeWidth={1}
+        className="absolute left-0 top-0 !h-full !w-full fill-red-400"
+      />,
+    ),
     iconSize: new Point(MAP_ICON_SIZE, MAP_ICON_SIZE),
     iconAnchor: new Point(MAP_ICON_SIZE / 2, MAP_ICON_SIZE),
     popupAnchor: new Point(0, -MAP_ICON_SIZE),
-    className: "",
+    className: "relative",
   });
 }
