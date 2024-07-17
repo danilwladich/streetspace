@@ -54,5 +54,5 @@ export function useMapEvents() {
       map.off("moveend", onMoveEnd);
       map.off("popupopen", onPopupOpen);
     };
-  }, [map, setBounds, setPosition, setZoom]);
+  }, [map, setBounds, setPosition, setSearchIsVisible, setZoom]);
 }

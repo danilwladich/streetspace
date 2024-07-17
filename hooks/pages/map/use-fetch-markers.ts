@@ -42,7 +42,7 @@ export function useFetchMarkers() {
 
       toast.error(t("fetchError"), { description: error.message });
     }
-  }, [t, bounds, setLoadingMarkers, setSearchIsVisible]);
+  }, [t, bounds, setLoadingMarkers, setMarkers, setSearchIsVisible]);
 
   return { fetchMarkers };
 }
