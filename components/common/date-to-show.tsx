@@ -29,7 +29,7 @@ function getDateToShow(date: Date, locale: string, withTime?: boolean) {
           hour: "numeric",
           minute: "numeric",
         }
-      : {day: "numeric",month: "numeric",},
+      : { day: "numeric", month: "numeric" },
   );
 }
 

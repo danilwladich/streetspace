@@ -15,8 +15,8 @@ export default function ChangeAvatarModal() {
   const { user } = useAuthStore();
 
   if (!user) {
-    return null
-  };
+    return null;
+  }
 
   return (
     <DialogContent className="sm:max-w-md">

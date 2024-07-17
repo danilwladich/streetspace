@@ -10,7 +10,7 @@ export default function AdminLoader() {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
-      {Array.from({ length: 2 }).map((_, i) => (
+        {Array.from({ length: 2 }).map((_, i) => (
           <Skeleton key={i} className="h-9 w-full" />
         ))}
       </CardContent>

@@ -9,7 +9,7 @@ import { AppLoader } from "@/components/ui/app-loader";
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("pages.map");
 
-  const title = getAppTitle(t("title"))
+  const title = getAppTitle(t("title"));
 
   return {
     title,
