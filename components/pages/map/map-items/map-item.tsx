@@ -50,10 +50,7 @@ export default function MapItem({ id, lat, lng, address, images }: MarkerType) {
 function getIcon() {
   return divIcon({
     html: ReactDOMServer.renderToString(
-      <MapPin
-        strokeWidth={1}
-        className="!h-full !w-full fill-red-400"
-      />,
+      <MapPin strokeWidth={1} className="!h-full !w-full fill-red-400" />,
     ),
     iconSize: new Point(MAP_ICON_SIZE, MAP_ICON_SIZE),
     iconAnchor: new Point(MAP_ICON_SIZE / 2, MAP_ICON_SIZE),

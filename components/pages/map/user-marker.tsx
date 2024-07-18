@@ -107,7 +107,7 @@ function getIcon(avatar?: string | null, username?: string) {
         username={username || "user"}
         width={MAP_ICON_SIZE}
         height={MAP_ICON_SIZE}
-        className={!!avatar ? "border border-current" : ''}
+        className={!!avatar ? "border border-current" : ""}
       />,
     ),
     iconSize: new Point(MAP_ICON_SIZE, MAP_ICON_SIZE),

@@ -22,27 +22,37 @@ export default async function Admin() {
       </CardHeader>
 
       <CardContent>
-          <Link href="/admin/markers" className="w-full">
-            <Button tabIndex={-1} variant="ghost" size="sm" className="w-full gap-2">
-              <Map className="h-4 w-4" />
-              <span>{t("markers.title")}</span>
-              <div className="flex-1" />
-              <span className="text-muted-foreground">
-                {unconfirmedMarkersCount}
-              </span>
-            </Button>
-          </Link>
+        <Link href="/admin/markers" className="w-full">
+          <Button
+            tabIndex={-1}
+            variant="ghost"
+            size="sm"
+            className="w-full gap-2"
+          >
+            <Map className="h-4 w-4" />
+            <span>{t("markers.title")}</span>
+            <div className="flex-1" />
+            <span className="text-muted-foreground">
+              {unconfirmedMarkersCount}
+            </span>
+          </Button>
+        </Link>
 
-          <Link href="/admin/reports/markers" className="w-full">
-            <Button tabIndex={-1} variant="ghost" size="sm" className="w-full gap-2">
-              <Flag className="h-4 w-4" />
-              <span>{t("reports.markers.title")}</span>
-              <div className="flex-1" />
-              <span className="text-muted-foreground">
-                {reportedMarkersCount}
-              </span>
-            </Button>
-          </Link>
+        <Link href="/admin/reports/markers" className="w-full">
+          <Button
+            tabIndex={-1}
+            variant="ghost"
+            size="sm"
+            className="w-full gap-2"
+          >
+            <Flag className="h-4 w-4" />
+            <span>{t("reports.markers.title")}</span>
+            <div className="flex-1" />
+            <span className="text-muted-foreground">
+              {reportedMarkersCount}
+            </span>
+          </Button>
+        </Link>
       </CardContent>
     </Card>
   );
