@@ -42,11 +42,11 @@ export default function MarkerInput() {
 function getIcon() {
   return divIcon({
     html: ReactDOMServer.renderToString(
-      <X strokeWidth={1} className="absolute left-0 top-0 !h-full !w-full" />,
+      <X strokeWidth={1} className="!h-full !w-full" />,
     ),
     iconSize: new Point(MAP_ICON_SIZE, MAP_ICON_SIZE),
     iconAnchor: new Point(MAP_ICON_SIZE / 2, MAP_ICON_SIZE / 2),
     popupAnchor: new Point(0, 0),
-    className: "relative",
+    className: "",
   });
 }

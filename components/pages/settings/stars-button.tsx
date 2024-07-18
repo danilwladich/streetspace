@@ -29,8 +29,9 @@ export default function StarsButton() {
       >
         <Star className="h-4 w-4" />
         <span>{t("stars")}</span>
+        <div className="flex-1" />
         {!isLoading && starsCount && (
-          <span className="text-nowrap">{`( ${starsCount} )`}</span>
+          <span className="text-muted-foreground">{starsCount}</span>
         )}
       </Button>
     </Link>

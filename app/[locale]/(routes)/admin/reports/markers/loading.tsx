@@ -19,7 +19,7 @@ export default function ReportsMarkersLoader() {
 
       <CardContent className="space-y-2">
         {Array.from({ length: REPORTED_MARKERS_PER_PAGE }).map((_, i) => (
-          <Skeleton key={i} className="h-9 w-full" />
+          <Skeleton key={i} className="h-8 w-full" />
         ))}
       </CardContent>
 

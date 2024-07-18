@@ -9,7 +9,6 @@ import {
   type Bounds,
 } from "@/hooks/store/use-map-store";
 import { useTranslations } from "next-intl";
-import { cn } from "@/lib/utils";
 import { divIcon, type LocationEvent, Point } from "leaflet";
 
 import Avatar from "@/components/ui/avatar";
@@ -108,15 +107,12 @@ function getIcon(avatar?: string | null, username?: string) {
         username={username || "user"}
         width={MAP_ICON_SIZE}
         height={MAP_ICON_SIZE}
-        className={cn(
-          "absolute left-0 top-0 !h-full !w-full",
-          !!avatar && "border border-current",
-        )}
+        className={!!avatar ? "border border-current" : ''}
       />,
     ),
     iconSize: new Point(MAP_ICON_SIZE, MAP_ICON_SIZE),
     iconAnchor: new Point(MAP_ICON_SIZE / 2, MAP_ICON_SIZE / 2),
     popupAnchor: new Point(0, -(MAP_ICON_SIZE / 2)),
-    className: "relative",
+    className: "",
   });
 }

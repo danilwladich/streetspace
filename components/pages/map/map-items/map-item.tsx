@@ -52,12 +52,12 @@ function getIcon() {
     html: ReactDOMServer.renderToString(
       <MapPin
         strokeWidth={1}
-        className="absolute left-0 top-0 !h-full !w-full fill-red-400"
+        className="!h-full !w-full fill-red-400"
       />,
     ),
     iconSize: new Point(MAP_ICON_SIZE, MAP_ICON_SIZE),
     iconAnchor: new Point(MAP_ICON_SIZE / 2, MAP_ICON_SIZE),
     popupAnchor: new Point(0, -MAP_ICON_SIZE),
-    className: "relative",
+    className: "",
   });
 }

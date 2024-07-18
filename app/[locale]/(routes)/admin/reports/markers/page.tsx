@@ -42,15 +42,16 @@ export default async function ReportedMarkers({
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="space-y-2">
+      <CardContent>
         {markers.map((m) => (
           <Link
             key={m.id}
             href={`/admin/reports/markers/${m.id}`}
-            className="block"
+            className="w-full"
           >
             <Button
-              variant="outline"
+            tabIndex={-1}
+              variant="ghost"
               size="sm"
               className="w-full justify-between gap-2"
             >
