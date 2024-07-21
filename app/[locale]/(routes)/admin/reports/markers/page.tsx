@@ -50,7 +50,7 @@ export default async function ReportedMarkers({
             className="w-full"
           >
             <Button
-            tabIndex={-1}
+              tabIndex={-1}
               variant="ghost"
               size="sm"
               className="w-full justify-between gap-2"

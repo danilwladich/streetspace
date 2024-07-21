@@ -1,5 +1,6 @@
 import { getAppTitle } from "@/lib/get-app-title";
 import { getTranslations } from "next-intl/server";
+import { getOpenGraphImages } from "@/lib/opengraph";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -7,6 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const title = getAppTitle(t("title"));
   const description = t("description");
+  const images = getOpenGraphImages(t("title"));
 
   return {
     title,
@@ -14,6 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title,
       description,
+      images,
     },
   };
 }

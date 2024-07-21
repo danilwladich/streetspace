@@ -1,10 +1,19 @@
-export function getOpenGraphImage(title: string, image: string) {
-  const url = `/api/og?title=${title}&image=${image}`;
+const base = process.env.NEXT_PUBLIC_URL_BASE || "";
 
-  return {
-    url,
-    width: 1200,
-    height: 630,
-    alt: title,
-  };
+export function getOpenGraphImages(title: string, image?: string | null) {
+  const url = new URL("/api/og", base);
+
+  url.searchParams.set("title", title);
+  if (image) {
+    url.searchParams.set("image", image);
+  }
+
+  return [
+    {
+      url,
+      width: 1200,
+      height: 630,
+      alt: title,
+    },
+  ];
 }
