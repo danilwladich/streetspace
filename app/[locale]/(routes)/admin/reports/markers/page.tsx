@@ -35,7 +35,7 @@ export default async function ReportedMarkers({
   }
 
   return (
-    <Card className="max-w-md">
+    <Card className="max-w-lg">
       <CardHeader>
         <CardTitle>
           <h1>{t("title")}</h1>

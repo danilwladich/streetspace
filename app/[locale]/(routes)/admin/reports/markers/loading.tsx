@@ -10,7 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ReportsMarkersLoader() {
   return (
-    <Card className="max-w-md">
+    <Card className="max-w-lg">
       <CardHeader>
         <CardTitle>
           <Skeleton className="h-6 w-full max-w-48" />
