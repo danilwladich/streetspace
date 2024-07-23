@@ -28,7 +28,6 @@ export function getUrl(
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     getUrl(),
-    getUrl("/location"),
     getUrl("/auth"),
     getUrl("/auth/register"),
     getUrl("/settings"),

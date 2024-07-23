@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import type { Metadata } from "next";
 
 import MarkerForm from "@/components/forms/marker/adding/marker-form";
 import {
@@ -9,6 +10,14 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import RecaptchaProvider from "@/components/providers/recaptcha-provider";
+
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function Adding() {
   const t = useTranslations("pages.map.adding");
