@@ -192,20 +192,20 @@
     "admin": {
       "title": "Admin panel",
       "markers": {
-        "title": "Unconfirmed markers",
-        "notFound": "No unconfirmed markers",
+        "title": "Unconfirmed locations",
+        "notFound": "No unconfirmed locations",
         "approve": "Approve",
         "reject": "Reject",
-        "approveError": "Approve marker error",
-        "rejectError": "Reject marker error"
+        "approveError": "Approve location error",
+        "rejectError": "Reject location error"
       },
       "reports": {
         "markers": {
-          "title": "Reported markers",
-          "notFound": "No reported markers",
+          "title": "Reported locations",
+          "notFound": "No reported locations",
           "marker": {
-            "title": "Marker reports",
-            "notFound": "Marker not found",
+            "title": "Location reports",
+            "notFound": "Location not found",
             "incorrectImages": "Incorrect images",
             "incorrectLocation": "Incorrect location",
             "inappropriateContent": "Inappropriate content",
@@ -238,7 +238,7 @@
       },
       "markers": {
         "search": "Search this area",
-        "fetchError": "Markers fetch error"
+        "fetchError": "Locations fetch error"
       },
       "location": {
         "notFound": "Location not found",

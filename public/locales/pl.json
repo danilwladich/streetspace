@@ -192,12 +192,12 @@
     "admin": {
       "title": "Panel administratora",
       "markers": {
-        "title": "Niezaakceptowane pineski",
-        "notFound": "Brak niezaakceptowanych pinesek",
+        "title": "Niezaakceptowane lokalizacje",
+        "notFound": "Brak niezaakceptowanych lokalizacji",
         "approve": "Zatwierdź",
         "reject": "Odrzuć",
-        "approveError": "Błąd zatwierdzania pineski",
-        "rejectError": "Błąd odrzucania pineski"
+        "approveError": "Błąd zatwierdzania lokalizacji",
+        "rejectError": "Błąd odrzucania lokalizacji"
       },
       "reports": {
         "markers": {
