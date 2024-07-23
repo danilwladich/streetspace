@@ -27,13 +27,16 @@ export async function generateMetadata({
   }
 
   const title = getAppTitle(user.username);
+  const description = t("description");
   const images = getOpenGraphImages(username, user.avatar);
 
   return {
     title,
+    description,
     openGraph: {
       title,
       images,
+      description,
     },
   };
 }

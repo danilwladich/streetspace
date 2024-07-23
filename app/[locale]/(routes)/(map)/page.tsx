@@ -11,13 +11,16 @@ export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("pages.map");
 
   const title = getAppTitle(t("title"));
+  const description = t("description");
   const images = getOpenGraphImages(t("title"));
 
   return {
     title,
+    description,
     openGraph: {
       title,
       images,
+      description,
     },
   };
 }

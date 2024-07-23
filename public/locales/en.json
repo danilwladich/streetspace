@@ -222,6 +222,7 @@
     },
     "map": {
       "title": "street workout map",
+      "description": "Find street workout spots near you or add new ones",
       "userLocation": "Your location",
       "controls": {
         "zoomIn": "Zoom in",
@@ -241,11 +242,13 @@
         "fetchError": "Locations fetch error"
       },
       "location": {
+        "description": "Check location details and find out who visits this place",
         "notFound": "Location not found",
         "navigate": "Navigate",
         "added": "Added",
         "visitors": {
           "title": "Visitors",
+          "description": "Check who visits {address}",
           "showAll": "Show all {count} users",
           "noVisitors": "No visitors at this location"
         },
@@ -300,6 +303,7 @@
       }
     },
     "profile": {
+      "description": "Check user profile and find out which locations he visited",
       "notFound": "User not found",
       "followers": "followers",
       "followings": "followings",
@@ -347,17 +351,20 @@
       },
       "visits": {
         "title": "Visited locations",
+        "description": "Check which locations {username} visited",
         "showAll": "Show all {count} locations",
         "noVisits": "No visited locations"
       }
     },
     "followers": {
       "title": "Followers",
+      "description": "Check who follows {username}",
       "userNotFound": "User not found",
       "followsNotFound": "No followers"
     },
     "followings": {
       "title": "Followings",
+      "description": "Check who {username} follows",
       "userNotFound": "User not found",
       "followsNotFound": "No followings"
     }

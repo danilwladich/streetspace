@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/card";
 import RecaptchaProvider from "@/components/providers/recaptcha-provider";
 
-
 export const metadata: Metadata = {
   robots: {
     index: false,

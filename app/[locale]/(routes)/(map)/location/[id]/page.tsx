@@ -26,6 +26,7 @@ export async function generateMetadata({
   }
 
   const title = getAppTitle(marker.address, false);
+  const description = t("description");
   const images = getOpenGraphImages(
     marker.address,
     JSON.parse(marker.images)[0],
@@ -33,9 +34,11 @@ export async function generateMetadata({
 
   return {
     title,
+    description,
     openGraph: {
       title,
       images,
+      description,
     },
   };
 }

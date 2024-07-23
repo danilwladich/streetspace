@@ -8,6 +8,7 @@ import { getUserByUsername } from "@/services/user";
 import { getTranslations } from "next-intl/server";
 import { authValidation } from "@/lib/auth-validation";
 import { Link } from "@/lib/navigation";
+import { getOpenGraphImages } from "@/lib/opengraph";
 import type { Metadata } from "next";
 
 import NotFound from "@/components/common/not-found";
@@ -39,11 +40,16 @@ export async function generateMetadata({
   }
 
   const title = getAppTitle(t("title"));
+  const description = t("description");
+  const images = getOpenGraphImages(username, user.avatar);
 
   return {
     title,
+    description,
     openGraph: {
       title,
+      images,
+      description,
     },
   };
 }

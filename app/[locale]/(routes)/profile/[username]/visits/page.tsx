@@ -6,6 +6,7 @@ import {
   getUserMarkersVisitsCount,
 } from "@/services/marker-visitor";
 import { getUserByUsername } from "@/services/user";
+import { getOpenGraphImages } from "@/lib/opengraph";
 import { Link } from "@/lib/navigation";
 import type { Metadata } from "next";
 
@@ -38,11 +39,16 @@ export async function generateMetadata({
   }
 
   const title = getAppTitle(t("visits.title"));
+  const description = t("visits.description", { username: user.username });
+  const images = getOpenGraphImages(username, user.avatar);
 
   return {
     title,
+    description,
     openGraph: {
       title,
+      description,
+      images,
     },
   };
 }

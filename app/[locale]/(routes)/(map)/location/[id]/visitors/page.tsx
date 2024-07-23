@@ -39,11 +39,14 @@ export async function generateMetadata({
   }
 
   const title = getAppTitle(t("visitors.title"));
+  const description = t("visitors.description", { address: marker.address });
 
   return {
     title,
+    description,
     openGraph: {
       title,
+      description,
     },
   };
 }

@@ -222,6 +222,7 @@
     },
     "map": {
       "title": "стрит воркаут карта",
+      "description": "Международная карта стрит воркаута",
       "userLocation": "Ваше местоположение",
       "controls": {
         "zoomIn": "Увеличить",
@@ -241,11 +242,13 @@
         "fetchError": "Ошибка получения маркеров"
       },
       "location": {
+        "description": "Узнайте больше о площадке и выясните, кто её посещает",
         "notFound": "Площадка не найдена",
         "navigate": "Навигировать",
         "added": "Добавлено",
         "visitors": {
           "title": "Посетители",
+          "description": "Узнайте кто посещает {address}",
           "showAll": "Показать {count, plural, few {# пользователя} other {# пользователей}}",
           "noVisitors": "Нет посетителей на этом месте"
         },
@@ -300,6 +303,7 @@
       }
     },
     "profile": {
+      "description": "Посмотрите профиль пользователя и узнайте места, которые он посещает",
       "notFound": "Пользователь не найден",
       "followers": "подписчики",
       "followings": "подписки",
@@ -347,17 +351,20 @@
       },
       "visits": {
         "title": "Посещаемые площадки",
+        "description": "Узнайте, какие площадки посещает {username}",
         "showAll": "Показать {count, plural, few {# площадки} other {# площадок}}",
         "noVisits": "Нет посещаемых локаций"
       }
     },
     "followers": {
       "title": "Подписчики",
+      "description": "Узнайте, кто подписан на {username}",
       "userNotFound": "Пользователь не найден",
       "followsNotFound": "Нет подписчиков"
     },
     "followings": {
       "title": "Подписки",
+      "description": "Узнайте на кого подписан {username}",
       "userNotFound": "Пользователь не найден",
       "followsNotFound": "Нет подписок"
     }

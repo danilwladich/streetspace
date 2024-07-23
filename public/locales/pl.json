@@ -222,6 +222,7 @@
     },
     "map": {
       "title": "mapa street workout",
+      "description": "Znajdź miejsce do street workoutu na całym świecie",
       "userLocation": "Twoja lokalizacja",
       "controls": {
         "zoomIn": "Powiększ",
@@ -241,11 +242,13 @@
         "fetchError": "Błąd pobierania pinesek"
       },
       "location": {
+        "description": "Zobacz lokalizację i poznaj ludzi, którzy ją odwiedzają",
         "notFound": "Lokalizacja nie znaleziona",
         "navigate": "Nawiguj",
         "added": "Dodano",
         "visitors": {
           "title": "Odwiedzający",
+          "description": "Zobacz kto odwiedza {address}",
           "showAll": "Pokaż {count} użytkowników",
           "noVisitors": "Brak odwiedzających na tej lokalizacji"
         },
@@ -300,6 +303,7 @@
       }
     },
     "profile": {
+      "description": "Zobacz profil użytkownika, jego odwiedzane lokalizacje i obserwujących",
       "notFound": "Nie znaleziono użytkownika",
       "followers": "obserwujących",
       "followings": "obserwowanych",
@@ -347,17 +351,20 @@
       },
       "visits": {
         "title": "Odwiedzane lokalizacje",
+        "description": "Zobacz lokalizacje które odwiedza {username}",
         "showAll": "Pokaż {count} lokalizacji",
         "noVisits": "Brak odwiedzanych lokalizacji"
       }
     },
     "followers": {
       "title": "Obserwujący",
+      "description": "Zobacz kto obserwuje {username}",
       "userNotFound": "Nie znaleziono użytkownika",
       "followsNotFound": "Brak obserwujących"
     },
     "followings": {
       "title": "Obserwowani",
+      "description": "Zobacz kogo obserwuje {username}",
       "userNotFound": "Nie znaleziono użytkownika",
       "followsNotFound": "Brak obserwowanych"
     }
