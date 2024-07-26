@@ -9,7 +9,8 @@ import { divIcon, Point } from "leaflet";
 import { MAP_ICON_SIZE } from "@/hooks/store/use-map-store";
 import type { Marker as MarkerType } from "@prisma/client";
 
-import { LoaderCircle, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function MapItem({ id, lat, lng, address, images }: MarkerType) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -24,11 +25,7 @@ export default function MapItem({ id, lat, lng, address, images }: MarkerType) {
           className="block space-y-1 !text-black dark:!text-white"
         >
           <div className="relative aspect-video w-full overflow-hidden rounded-md">
-            {!isLoaded && (
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                <LoaderCircle className="h-8 w-8 animate-spin opacity-70" />
-              </div>
-            )}
+            {!isLoaded && <Skeleton className="h-full w-full" />}
 
             <Image
               src={imageSrc}
