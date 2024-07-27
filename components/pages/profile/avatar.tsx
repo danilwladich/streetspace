@@ -78,6 +78,7 @@ export default function UserAvatar({ id, username, avatar }: User) {
                 username={username}
                 width={145}
                 height={145}
+                priority
               />
             </button>
           </DropdownMenuTrigger>
@@ -121,12 +122,19 @@ export default function UserAvatar({ id, username, avatar }: User) {
             username={username}
             width={145}
             height={145}
+            priority
           />
         </button>
       )}
 
       {!isOwner && isDefaultAvatar && (
-        <Avatar avatar={avatar} username={username} width={145} height={145} />
+        <Avatar
+          avatar={avatar}
+          username={username}
+          width={145}
+          height={145}
+          priority
+        />
       )}
     </div>
   );

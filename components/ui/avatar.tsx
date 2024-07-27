@@ -10,12 +10,14 @@ export default function Avatar({
   username,
   width,
   height,
+  priority,
   className,
 }: {
   avatar?: string | null;
   username: string;
   width: number;
   height: number;
+  priority?: boolean;
   className?: string;
 }) {
   return (
@@ -31,6 +33,7 @@ export default function Avatar({
           alt={username}
           width={width}
           height={height}
+          priority={priority}
           className="absolute left-0 top-0 !h-full !w-full object-cover"
         />
       ) : (

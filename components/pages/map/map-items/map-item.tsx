@@ -22,7 +22,7 @@ export default function MapItem({ id, lat, lng, address, images }: MarkerType) {
       <Popup autoPan={false} maxWidth={300} minWidth={300}>
         <Link
           href={`/location/${id}`}
-          className="block space-y-1 !text-black dark:!text-white"
+          className="block space-y-1 !text-current"
         >
           <div className="relative aspect-video w-full overflow-hidden rounded-md">
             {!isLoaded && <Skeleton className="h-full w-full" />}
