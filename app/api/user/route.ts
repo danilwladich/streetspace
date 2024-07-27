@@ -13,6 +13,7 @@ export async function PATCH(req: NextRequest) {
     const data = parseJsonFromFormData(await req.formData());
     const body = editProfileSchema.safeParse({
       ...data,
+      dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth) : undefined,
       socialMedia: JSON.parse(data.socialMedia || "{}"),
     });
 
@@ -47,7 +48,7 @@ export async function PATCH(req: NextRequest) {
 
     // Updating the user's info
     const user = await updateUser(authUser.id, {
-      dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : null,
+      dateOfBirth: dateOfBirth || null,
       bio: bio || null,
       coords: coords || null,
       country: country || null,

@@ -26,6 +26,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import AvatarField from "../avatar-field";
+import DateOfBirthField from "./dob-field";
 import CoordsField from "./coords-field";
 
 export default function EditProfileForm() {
@@ -38,16 +39,13 @@ export default function EditProfileForm() {
 
   // Initial values for the form
   const socialMedia = JSON.parse(authUser!.socialMedia || "{}");
-  const dateOfBirth = authUser!.dateOfBirth
-    ? authUser!.dateOfBirth.toString().split("T")[0]
-    : "";
 
   // Setting up the form using react-hook-form with Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       avatar: undefined,
-      dateOfBirth,
+      dateOfBirth: authUser!.dateOfBirth || undefined,
       bio: authUser!.bio || "",
       coords: authUser!.coords || "",
       socialMedia,
@@ -123,21 +121,7 @@ export default function EditProfileForm() {
         <FormField
           control={form.control}
           name="dateOfBirth"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("dateOfBirth")}</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type="date"
-                  autoComplete="bday"
-                  max={new Date().toISOString().split("T")[0]}
-                  disabled={isSubmitting}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          render={({ field }) => <DateOfBirthField field={field} />}
         />
 
         <FormField
