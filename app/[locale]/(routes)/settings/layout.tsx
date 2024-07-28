@@ -1,18 +1,19 @@
-import { getAppTitle } from "@/lib/get-app-title";
 import { getTranslations } from "next-intl/server";
+import { getPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
   const t = await getTranslations("pages.settings");
 
-  const title = getAppTitle(t("title"));
-
-  return {
-    title,
-    openGraph: {
-      title,
-    },
-  };
+  return getPageMetadata({
+    path: "/settings",
+    pageName: t("title"),
+    locale,
+  });
 }
 
 export default function SettingsLayout({

@@ -1,7 +1,6 @@
-import { getAppTitle } from "@/lib/get-app-title";
 import { getUserByUsername } from "@/services/user";
-import { getOpenGraphImages } from "@/lib/opengraph";
 import { getTranslations } from "next-intl/server";
+import { getPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 
 import NotFound from "@/components/common/not-found";
@@ -11,34 +10,28 @@ import UserInfo from "@/components/pages/profile/info";
 import Visits from "@/components/pages/profile/visits/visits";
 
 export async function generateMetadata({
-  params: { username },
+  params: { locale, username },
 }: {
-  params: { username: string };
+  params: { locale: string; username: string };
 }): Promise<Metadata> {
   const t = await getTranslations("pages.profile");
 
   const user = await getUserByUsername(username);
 
   if (!user) {
-    return {
-      title: getAppTitle(t("notFound")),
-      robots: { index: false, follow: false },
-    };
+    return getPageMetadata({
+      pageName: t("notFound"),
+      robots: false,
+    });
   }
 
-  const title = getAppTitle(user.username);
-  const description = t("description");
-  const images = getOpenGraphImages(username, user.avatar);
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      images,
-      description,
-    },
-  };
+  return getPageMetadata({
+    path: `/profile/${username}`,
+    pageName: username,
+    description: t("description"),
+    image: user.avatar,
+    locale,
+  });
 }
 
 export default async function Profile({

@@ -1,7 +1,6 @@
-import { getAppTitle } from "@/lib/get-app-title";
 import { getMarkerById } from "@/services/marker";
-import { getOpenGraphImages } from "@/lib/opengraph";
 import { getTranslations } from "next-intl/server";
+import { getPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 
 import NotFound from "@/components/common/not-found";
@@ -10,37 +9,29 @@ import Visitors from "@/components/pages/map/location/visitors/visitors";
 import Comments from "@/components/pages/map/location/comments/comments";
 
 export async function generateMetadata({
-  params: { id },
+  params: { locale, id },
 }: {
-  params: { id: string };
+  params: { locale: string; id: string };
 }): Promise<Metadata> {
   const t = await getTranslations("pages.map.location");
 
   const marker = await getMarkerById(id);
 
   if (!marker) {
-    return {
-      title: getAppTitle(t("notFound")),
-      robots: { index: false, follow: false },
-    };
+    return getPageMetadata({
+      pageName: t("notFound"),
+      robots: false,
+    });
   }
 
-  const title = getAppTitle(marker.address, false);
-  const description = t("description");
-  const images = getOpenGraphImages(
-    marker.address,
-    JSON.parse(marker.images)[0],
-  );
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      images,
-      description,
-    },
-  };
+  return getPageMetadata({
+    path: `/location/${id}`,
+    pageName: marker.address,
+    titleToLower: false,
+    description: t("description"),
+    image: JSON.parse(marker.images)[0],
+    locale,
+  });
 }
 
 export default async function Location({

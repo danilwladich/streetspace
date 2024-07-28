@@ -1,4 +1,3 @@
-import { getAppTitle } from "@/lib/get-app-title";
 import {
   FOLLOWS_PER_PAGE,
   getFollowersByUsername,
@@ -8,7 +7,7 @@ import { getUserByUsername } from "@/services/user";
 import { getTranslations } from "next-intl/server";
 import { authValidation } from "@/lib/auth-validation";
 import { Link } from "@/lib/navigation";
-import { getOpenGraphImages } from "@/lib/opengraph";
+import { getPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 
 import NotFound from "@/components/common/not-found";
@@ -24,34 +23,28 @@ import UserRow from "@/components/common/user/user-row";
 import Pagination from "@/components/common/pagination";
 
 export async function generateMetadata({
-  params: { username },
+  params: { locale, username },
 }: {
-  params: { username: string };
+  params: { locale: string; username: string };
 }): Promise<Metadata> {
   const t = await getTranslations("pages.followers");
 
   const user = await getUserByUsername(username);
 
   if (!user) {
-    return {
-      title: getAppTitle(t("userNotFound")),
-      robots: { index: false, follow: false },
-    };
+    return getPageMetadata({
+      pageName: t("userNotFound"),
+      robots: false,
+    });
   }
 
-  const title = getAppTitle(t("title"));
-  const description = t("description");
-  const images = getOpenGraphImages(username, user.avatar);
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      images,
-      description,
-    },
-  };
+  return getPageMetadata({
+    path: `/profile/${username}/followers`,
+    pageName: t("title"),
+    description: t("description", { username: user.username }),
+    image: user.avatar,
+    locale,
+  });
 }
 
 export default async function Followers({

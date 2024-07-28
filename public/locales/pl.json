@@ -1,7 +1,4 @@
 {
-  "metadata": {
-    "description": "Międzynarodowa mapa street workoutu"
-  },
   "forms": {
     "changePassword": {
       "title": "Zmień hasło",

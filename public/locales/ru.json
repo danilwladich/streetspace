@@ -1,7 +1,4 @@
 {
-  "metadata": {
-    "description": "Международная карта стрит воркаута"
-  },
   "forms": {
     "changePassword": {
       "title": "Изменить пароль",

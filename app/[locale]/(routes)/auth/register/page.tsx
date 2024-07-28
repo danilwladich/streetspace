@@ -1,4 +1,7 @@
 import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { getPageMetadata } from "@/lib/metadata";
+import type { Metadata } from "next";
 
 import RegisterForm from "@/components/forms/auth/register-form";
 import {
@@ -11,6 +14,21 @@ import {
 import { Link } from "@/lib/navigation";
 import { Button } from "@/components/ui/button";
 import RecaptchaProvider from "@/components/providers/recaptcha-provider";
+
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const t = await getTranslations("pages.auth");
+
+  return getPageMetadata({
+    path: "/auth/register",
+    pageName: t("title"),
+    description: t("description"),
+    locale,
+  });
+}
 
 export default function Auth() {
   const t = useTranslations("forms");

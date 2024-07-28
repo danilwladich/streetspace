@@ -1,11 +1,15 @@
+import { getTranslations } from "next-intl/server";
+import { getPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("pages.admin");
+
+  return getPageMetadata({
+    pageName: t("title"),
+    robots: false,
+  });
+}
 
 export default function AdminLayout({
   children,

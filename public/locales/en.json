@@ -1,7 +1,4 @@
 {
-  "metadata": {
-    "description": "International street workout map"
-  },
   "forms": {
     "changePassword": {
       "title": "Change password",
@@ -187,7 +184,7 @@
     },
     "auth": {
       "title": "authentication",
-      "description": "Login to your existing account or create free account now and join our community"
+      "description": "Log in to your existing account or create free account now and join our community"
     },
     "admin": {
       "title": "Admin panel",

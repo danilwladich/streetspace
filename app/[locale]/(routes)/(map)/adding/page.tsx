@@ -1,4 +1,6 @@
 import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { getPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 
 import MarkerForm from "@/components/forms/marker/adding/marker-form";
@@ -11,12 +13,14 @@ import {
 } from "@/components/ui/card";
 import RecaptchaProvider from "@/components/providers/recaptcha-provider";
 
-export const metadata: Metadata = {
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("pages.map.adding");
+
+  return getPageMetadata({
+    pageName: t("title"),
+    robots: false,
+  });
+}
 
 export default function Adding() {
   const t = useTranslations("pages.map.adding");

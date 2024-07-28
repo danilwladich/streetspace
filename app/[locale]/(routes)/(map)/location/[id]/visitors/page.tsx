@@ -1,5 +1,3 @@
-import { getAppTitle } from "@/lib/get-app-title";
-import { getTranslations } from "next-intl/server";
 import { authValidation } from "@/lib/auth-validation";
 import { getMarkerById } from "@/services/marker";
 import {
@@ -8,6 +6,8 @@ import {
   getMarkerVisitorsCount,
 } from "@/services/marker-visitor";
 import { Link } from "@/lib/navigation";
+import { getTranslations } from "next-intl/server";
+import { getPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 
 import NotFound from "@/components/common/not-found";
@@ -23,32 +23,28 @@ import UserRow from "@/components/common/user/user-row";
 import Pagination from "@/components/common/pagination";
 
 export async function generateMetadata({
-  params: { id },
+  params: { locale, id },
 }: {
-  params: { id: string };
+  params: { locale: string; id: string };
 }): Promise<Metadata> {
   const t = await getTranslations("pages.map.location");
 
   const marker = await getMarkerById(id);
 
   if (!marker) {
-    return {
-      title: getAppTitle(t("notFound")),
-      robots: { index: false, follow: false },
-    };
+    return getPageMetadata({
+      pageName: t("notFound"),
+      robots: false,
+    });
   }
 
-  const title = getAppTitle(t("visitors.title"));
-  const description = t("visitors.description", { address: marker.address });
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-    },
-  };
+  return getPageMetadata({
+    path: `/location/${id}/visitors`,
+    pageName: t("visitors.title"),
+    description: t("visitors.description", { address: marker.address }),
+    image: JSON.parse(marker.images)[0],
+    locale,
+  });
 }
 
 export default async function Visitors({

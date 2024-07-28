@@ -1,28 +1,24 @@
-import { getAppTitle } from "@/lib/get-app-title";
 import dynamic from "next/dynamic";
 import { getTranslations } from "next-intl/server";
 import { useMemo } from "react";
-import { getOpenGraphImages } from "@/lib/opengraph";
+import { getPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 
 import { AppLoader } from "@/components/ui/app-loader";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
   const t = await getTranslations("pages.map");
 
-  const title = getAppTitle(t("title"));
-  const description = t("description");
-  const images = getOpenGraphImages(t("title"));
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      images,
-      description,
-    },
-  };
+  return getPageMetadata({
+    path: "/",
+    pageName: t("title"),
+    description: t("description"),
+    locale,
+  });
 }
 
 export default function Map() {
