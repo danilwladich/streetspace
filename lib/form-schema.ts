@@ -118,16 +118,18 @@ export const editProfileSchema = z
         `Only ${ACCEPTED_IMAGE_TYPES_STRING} formats are supported`,
       ),
     dateOfBirth: z
-      .date()
+      .string()
+      .optional()
+      .or(z.literal(""))
+      .transform((date) => (date ? new Date(date) : undefined))
       .refine(
-        (date) => getYearsDiff(date) >= 16,
+        (date) => (date ? getYearsDiff(date) >= 16 : true),
         "You must be at least 16 years old",
       )
       .refine(
-        (date) => getYearsDiff(date) <= 120,
+        (date) => (date ? getYearsDiff(date) <= 120 : true),
         "You must be at most 120 years old",
-      )
-      .optional(),
+      ),
     bio: z
       .string()
       .trim()

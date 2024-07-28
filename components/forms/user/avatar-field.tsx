@@ -34,12 +34,13 @@ export default function AvatarField({
   return (
     <FormItem className="[&_label]:has-[input:focus-visible]:ring-2 [&_label]:has-[input:focus-visible]:ring-ring">
       <div className="mt-4 flex justify-center">
-        <FormLabel className="relative aspect-square h-24 w-24 cursor-pointer overflow-hidden rounded-full">
+        <FormLabel className="relative aspect-square w-28 cursor-pointer overflow-hidden rounded-full">
           <Avatar
             avatar={avatarSrc}
             username={username}
-            width={100}
-            height={100}
+            width={115}
+            height={115}
+            priority
           />
         </FormLabel>
       </div>

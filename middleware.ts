@@ -41,7 +41,7 @@ const protectedAdminPagesRegex = RegExp(
   "i",
 );
 
-const protectedPages = ["/adding"];
+const protectedPages = ["/adding", "/edit"];
 const protectedPagesRegex = RegExp(
   `^(/(${locales.join("|")}))?(${protectedPages.join("|")})(/.*|/?)$`,
   "i",

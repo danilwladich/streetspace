@@ -1,7 +1,6 @@
 import { create } from "zustand";
 
 export type ModalType =
-  | "edit profile"
   | "change username"
   | "change password"
   | "change avatar"

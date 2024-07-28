@@ -3,7 +3,6 @@
 import { useModalStore, ModalType } from "@/hooks/store/use-modal-store";
 
 import { Dialog } from "@/components/ui/dialog";
-import EditProfileModal from "@/components/modals/edit-profile-modal";
 import ChangeUsernameModal from "@/components/modals/change-username-modal";
 import ChangePasswordModal from "@/components/modals/change-password-modal";
 import ChangeAvatarModal from "@/components/modals/change-avatar-modal";
@@ -13,7 +12,6 @@ import ReportMarkerModal from "@/components/modals/report-marker-modal";
 import NewMarkerCommentModal from "@/components/modals/new-marker-comment-modal";
 
 const modalsMap: { [key in ModalType]: JSX.Element } = {
-  "edit profile": <EditProfileModal />,
   "change username": <ChangeUsernameModal />,
   "change password": <ChangePasswordModal />,
   "change avatar": <ChangeAvatarModal />,

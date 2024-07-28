@@ -3,6 +3,7 @@
 import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useModalStore } from "@/hooks/store/use-modal-store";
 import { getAppTitle } from "@/lib/get-app-title";
+import { Link } from "@/lib/navigation";
 import { useTranslations } from "next-intl";
 import type { User } from "@prisma/client";
 
@@ -79,10 +80,12 @@ export default function UserActions({
                 <span className="flex-1">{t("changeUsername")}</span>
               </DropdownMenuItem>
 
-              <DropdownMenuItem onClick={() => onOpen("edit profile")}>
-                <UserCog className="mr-2 h-4 w-4" />
-                <span className="flex-1">{t("editProfile")}</span>
-              </DropdownMenuItem>
+              <Link href="/edit/profile">
+                <DropdownMenuItem>
+                  <UserCog className="mr-2 h-4 w-4" />
+                  <span className="flex-1">{t("editProfile")}</span>
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuGroup>
 
             <DropdownMenuSeparator />

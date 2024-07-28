@@ -7,7 +7,6 @@ import * as z from "zod";
 import { editProfileSchema as formSchema } from "@/lib/form-schema";
 import { useRouter } from "@/lib/navigation";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
-import { useModalStore } from "@/hooks/store/use-modal-store";
 import { toast } from "sonner";
 import { parseFormDataFromJson } from "@/lib/formdata-parser";
 import { useTranslations } from "next-intl";
@@ -33,12 +32,7 @@ export default function EditProfileForm() {
   const t = useTranslations("forms.editProfile");
 
   const { user: authUser, setUser } = useAuthStore();
-
   const router = useRouter();
-  const { onClose } = useModalStore();
-
-  // Initial values for the form
-  const socialMedia = JSON.parse(authUser!.socialMedia || "{}");
 
   // Setting up the form using react-hook-form with Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({
@@ -48,7 +42,7 @@ export default function EditProfileForm() {
       dateOfBirth: authUser!.dateOfBirth || undefined,
       bio: authUser!.bio || "",
       coords: authUser!.coords || "",
-      socialMedia,
+      socialMedia: JSON.parse(authUser!.socialMedia || "{}"),
     },
   });
 
@@ -75,9 +69,8 @@ export default function EditProfileForm() {
       // Updating the user state with the new username
       setUser(data);
 
-      // Close the modal
-      onClose();
-
+      // Redirecting to the user profile page
+      router.replace(`/profile/${authUser!.username}`);
       router.refresh();
     } catch (e: unknown) {
       // Handling AxiosError
