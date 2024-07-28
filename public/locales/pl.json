@@ -44,6 +44,7 @@
       "title": "Edytuj profil",
       "description": "Zaktualizuj swoje informacje profilowe",
       "dateOfBirth": "Data urodzenia",
+      "dateOfBirthDescription": "Twoja data urodzenia będzie wykorzystywana do wyświetlania twojego wieku",
       "bio": "Biografia",
       "location": "Lokalizacja",
       "coords": "Współrzędne",

@@ -44,6 +44,7 @@
       "title": "Edit profile",
       "description": "Update your profile information",
       "dateOfBirth": "Date of birth",
+      "dateOfBirthDescription": "Your age will be shown on your profile",
       "bio": "Bio",
       "location": "Location",
       "coords": "Coordinates",

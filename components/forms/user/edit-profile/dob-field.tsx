@@ -10,6 +10,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription
 } from "@/components/ui/form";
 import {
   Popover,
@@ -51,7 +52,7 @@ export default function DateOfBirthField({
           </FormControl>
         </PopoverTrigger>
 
-        <PopoverContent className="w-full p-0" align="start">
+        <PopoverContent className="w-full p-0" align="center">
           <Calendar
             mode="single"
             captionLayout="dropdown"
@@ -62,6 +63,7 @@ export default function DateOfBirthField({
           />
         </PopoverContent>
       </Popover>
+      <FormDescription>{t("dateOfBirthDescription")}</FormDescription>
       <FormMessage />
     </FormItem>
   );
