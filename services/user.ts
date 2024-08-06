@@ -1,12 +1,14 @@
 import { db } from "@/lib/db";
+import { checkTokenValidity } from "@/services/sign-up-token";
 import type { User } from "@prisma/client";
 
 export async function getUsersCount() {
-  return await db.user.count();
+  return await db.user.count({ where: { confirmed: true } });
 }
 
 export async function getUsers(page: number, perPage: number) {
   return await db.user.findMany({
+    where: { confirmed: true },
     select: {
       id: true,
       username: true,
@@ -22,22 +24,54 @@ export async function getUsers(page: number, perPage: number) {
 
 export async function getUserById(id: string) {
   return await db.user.findFirst({
-    where: { id },
+    where: { id, confirmed: true },
   });
 }
 
 export async function checkUsername(username: string) {
   const user = await db.user.findFirst({
     where: { username },
-    select: { id: true },
+    select: { id: true, confirmed: true, email: true },
   });
 
-  return !!user;
+  // If the user is not found, return false
+  if (!user) {
+    return false;
+  }
+
+  // If the user is not confirmed
+  if (!user.confirmed) {
+    // Find the token
+    const signUpToken = await db.signUpToken.findFirst({
+      where: { userId: user.id },
+    });
+
+    // If the token does not exist, delete the user
+    if (!signUpToken) {
+      await db.user.delete({
+        where: {
+          id: user.id,
+        },
+      });
+
+      return false;
+    }
+
+    // Check if the token is still valid
+    const validatedToken = await checkTokenValidity(signUpToken.token);
+
+    // If the token is not valid
+    if (!validatedToken) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 export async function getUserByUsername(username: string) {
   return db.user.findFirst({
-    where: { username },
+    where: { username, confirmed: true },
   });
 }
 
@@ -52,7 +86,7 @@ export async function checkEmail(email: string) {
 
 export async function getUserByEmail(email: string) {
   return db.user.findFirst({
-    where: { email },
+    where: { email, confirmed: true },
   });
 }
 

@@ -62,6 +62,15 @@ export const registerSchema = z
     },
   );
 
+export const registerConfirmationSchema = z.object({
+  token: z
+    .string()
+    .trim()
+    .min(1, { message: "This field has to be filled" })
+    .max(100, { message: "Invalid token" }),
+  recaptchaToken: z.string().max(1000),
+});
+
 export const markerSchema = z.object({
   coords: z
     .string()

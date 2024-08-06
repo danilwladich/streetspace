@@ -14,7 +14,9 @@ model User {
   username String @unique
   password String
 
-  blocked Boolean @default(false)
+  blocked     Boolean      @default(false)
+  confirmed   Boolean      @default(false)
+  signUpToken SignUpToken?
 
   role String @default("USER")
 
@@ -34,6 +36,19 @@ model User {
   visits         MarkerVisitor[]
   markersReports MarkerReport[]
   markerComments MarkerComment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SignUpToken {
+  id Int @id @default(autoincrement())
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  token      String   @unique
+  validUntil DateTime
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

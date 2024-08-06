@@ -27,6 +27,12 @@
       "submit": "Sign up",
       "submitError": "Sign up error"
     },
+    "signUpConfirmation": {
+      "title": "Confirm sign up",
+      "description": "Confirmation token has been sent to your email",
+      "token": "Token",
+      "submit": "Confirm"
+    },
     "changeAvatar": {
       "title": "Change avatar",
       "description": "Upload new profile image",
@@ -139,6 +145,7 @@
     "Incorrect username or password": "Incorrect username or password",
     "User with this email already exists": "User with this email already exists",
     "Username already taken": "Username already taken",
+    "Waiting for email confirmation": "Waiting for email confirmation",
     "It is already your username": "It is already your username",
     "Password must be at least 6 characters": "Password must be at least 6 characters",
     "Password must contain at least 1 uppercase letter": "Password must contain at least 1 uppercase letter",
@@ -176,7 +183,8 @@
     "The location has already been added or sent for moderation": "The location has already been added or sent for moderation",
     "Provide a message": "Provide a message",
     "Geolocation is not available in your browser": "Geolocation is not available in your browser",
-    "Unable to get your location": "Unable to get your location"
+    "Unable to get your location": "Unable to get your location",
+    "Invalid token": "Invalid token"
   },
   "pages": {
     "notFound": {

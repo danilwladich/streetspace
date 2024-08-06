@@ -27,6 +27,12 @@
       "submit": "Zarejestruj się",
       "submitError": "Błąd rejestracji"
     },
+    "signUpConfirmation": {
+      "title": "Potwierdź rejestrację",
+      "description": "Token potwierdzający został wysłany na Twój email",
+      "token": "Token",
+      "submit": "Potwierdź"
+    },
     "changeAvatar": {
       "title": "Zmień zdjęcie profilowe",
       "description": "Prześlij nowe zdjęcie profilowe",
@@ -139,6 +145,7 @@
     "Incorrect username or password": "Nieprawidłowa nazwa użytkownika lub hasło",
     "User with this email already exists": "Użytkownik z tym adresem email już istnieje",
     "Username already taken": "Nazwa użytkownika jest już zajęta",
+    "Waiting for email confirmation": "Oczekiwanie na potwierdzenie emaila",
     "It is already your username": "To już jest twoja nazwa użytkownika",
     "Password must be at least 6 characters": "Hasło musi mieć co najmniej 6 znaków",
     "Password must contain at least 1 uppercase letter": "Hasło musi zawierać co najmniej 1 dużą literę",
@@ -176,7 +183,8 @@
     "The location has already been added or sent for moderation": "Lokalizacja została już dodana lub wysłana do moderacji",
     "Provide a message": "Podaj treść",
     "Geolocation is not available in your browser": "Geolokalizacja nie jest dostępna w twojej przeglądarce",
-    "Unable to get your location": "Nie można pobrać twojej lokalizacji"
+    "Unable to get your location": "Nie można pobrać twojej lokalizacji",
+    "Invalid token": "Nieprawidłowy token"
   },
   "pages": {
     "notFound": {

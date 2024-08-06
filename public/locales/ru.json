@@ -27,6 +27,12 @@
       "submit": "Зарегистрироваться",
       "submitError": "Ошибка регистрации"
     },
+    "signUpConfirmation": {
+      "title": "Подтвердите регистрацию",
+      "description": "Код подтверждения был отправлен на вашу электронную почту",
+      "token": "Код",
+      "submit": "Подтвердить"
+    },
     "changeAvatar": {
       "title": "Изменить аватар",
       "description": "Загрузите новое изображение профиля",
@@ -139,6 +145,7 @@
     "Incorrect username or password": "Неверное имя пользователя или пароль",
     "User with this email already exists": "Пользователь с таким email уже существует",
     "Username already taken": "Имя пользователя уже занято",
+    "Waiting for email confirmation": "Ожидание подтверждения email",
     "It is already your username": "Это уже ваше имя пользователя",
     "Password must be at least 6 characters": "Пароль должен содержать не менее 6 символов",
     "Password must contain at least 1 uppercase letter": "Пароль должен содержать хотя бы одну заглавную букву",
@@ -176,7 +183,8 @@
     "The location has already been added or sent for moderation": "Площадка уже добавлена или отправлена на модерацию",
     "Provide a message": "Укажите сообщение",
     "Geolocation is not available in your browser": "Геолокация в вашем браузере недоступна",
-    "Unable to get your location": "Не удалось получить ваше местоположение"
+    "Unable to get your location": "Не удалось получить ваше местоположение",
+    "Invalid token": "Недействительный код"
   },
   "pages": {
     "notFound": {

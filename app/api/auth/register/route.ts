@@ -3,8 +3,11 @@ import { registerSchema } from "@/lib/form-schema";
 import bcrypt from "bcryptjs";
 import { verifyCaptcha } from "@/lib/server-actions";
 import { jsonResponse } from "@/lib/json-response";
-import { serializeJwt } from "@/lib/serialize-jwt";
 import { checkEmail, checkUsername, createUser } from "@/services/user";
+import { checkTokenEmail, createToken } from "@/services/sign-up-token";
+import { sendMail } from "@/services/mail";
+import { render } from "@react-email/components";
+import { ConfirmSignUpEmail } from "@/components/common/emails/confirm-sign-up-email";
 
 export async function POST(req: NextRequest) {
   try {
@@ -24,6 +27,20 @@ export async function POST(req: NextRequest) {
     // Handling recaptcha verification failure
     if (!isRecaptchaCorrect) {
       return jsonResponse("Antibot system not passed", 400);
+    }
+
+    // Checking if a token was already sent to the provided email
+    const tokenAlreadySent = await checkTokenEmail(email);
+
+    // Handling token already sent error
+    if (tokenAlreadySent) {
+      return jsonResponse(
+        {
+          field: "email",
+          message: "Waiting for email confirmation",
+        },
+        400,
+      );
     }
 
     // Checking if a user with the provided email already exists
@@ -57,18 +74,23 @@ export async function POST(req: NextRequest) {
     // Hashing the password
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    // Creating a new user
+    // Creating a new unconfirmed user
     const user = await createUser({
       username,
       email,
       password: hashedPassword,
     });
 
-    // Serializing the user object into a JWT token
-    await serializeJwt(user);
+    const { token } = await createToken(user.id);
+
+    await sendMail({
+      to: email,
+      subject: "Confirm sign up | streetspace",
+      html: render(ConfirmSignUpEmail({ token })),
+    });
 
     // Returning a JSON response with user
-    return jsonResponse(user, 201);
+    return jsonResponse("User", 201);
   } catch (error) {
     // Handling internal error
     console.log("[REGISTER_POST]", error);
