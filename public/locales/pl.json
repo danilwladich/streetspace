@@ -137,7 +137,7 @@
     "Incorrect password": "Nieprawidłowe hasło",
     "Incorrect email or password": "Nieprawidłowy email lub hasło",
     "Incorrect username or password": "Nieprawidłowa nazwa użytkownika lub hasło",
-    "Email already exists": "Email już istnieje",
+    "User with this email already exists": "Użytkownik z tym adresem email już istnieje",
     "Username already taken": "Nazwa użytkownika jest już zajęta",
     "It is already your username": "To już jest twoja nazwa użytkownika",
     "Password must be at least 6 characters": "Hasło musi mieć co najmniej 6 znaków",

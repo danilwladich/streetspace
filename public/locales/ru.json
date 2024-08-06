@@ -137,7 +137,7 @@
     "Incorrect password": "Неверный пароль",
     "Incorrect email or password": "Неверный email или пароль",
     "Incorrect username or password": "Неверное имя пользователя или пароль",
-    "Email already exists": "Email уже существует",
+    "User with this email already exists": "Пользователь с таким email уже существует",
     "Username already taken": "Имя пользователя уже занято",
     "It is already your username": "Это уже ваше имя пользователя",
     "Password must be at least 6 characters": "Пароль должен содержать не менее 6 символов",
