@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import { verifyCaptcha } from "@/lib/server-actions";
 import { jsonResponse } from "@/lib/json-response";
 import { serializeJwt } from "@/lib/serialize-jwt";
-import { createUser, getUserByEmail, getUserByUsername } from "@/services/user";
+import { checkEmail, checkUsername, createUser } from "@/services/user";
 
 export async function POST(req: NextRequest) {
   try {
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Checking if a user with the provided email already exists
-    const userAlreadyExist = !!(await getUserByEmail(email));
+    const userAlreadyExist = await checkEmail(email);
 
     // Handling existing user with the provided email error
     if (userAlreadyExist) {
@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Checking if the provided username is already taken
-    const usernameAlreadyTaken = !!(await getUserByUsername(username));
+    const usernameAlreadyTaken = await checkUsername(username);
 
     // Handling existing username error
     if (usernameAlreadyTaken) {

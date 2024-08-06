@@ -41,6 +41,15 @@ export async function getUserByUsername(username: string) {
   });
 }
 
+export async function checkEmail(email: string) {
+  const user = await db.user.findFirst({
+    where: { email },
+    select: { id: true },
+  });
+
+  return !!user;
+}
+
 export async function getUserByEmail(email: string) {
   return db.user.findFirst({
     where: { email },
