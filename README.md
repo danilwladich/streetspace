@@ -14,6 +14,10 @@ DATABASE_URL="file:./dev.db"
 JWT_SECRET=jwt_secret
 
 NEXT_PUBLIC_URL_BASE=URL
+
+MAIL_HOST=HOST
+MAIL_USER=USER
+MAIL_PASSWORD=PASSWORD
 ```
 
 #### Run the development server:
