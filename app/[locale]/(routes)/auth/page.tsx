@@ -30,7 +30,11 @@ export async function generateMetadata({
   });
 }
 
-export default function Auth() {
+export default function Auth({
+  searchParams,
+}: {
+  searchParams: Record<string, string>;
+}) {
   const t = useTranslations("forms");
 
   return (
@@ -52,7 +56,10 @@ export default function Auth() {
 
       <Card className="max-w-md">
         <CardContent>
-          <Link href="/auth/register" className="block">
+          <Link
+            href={{ pathname: "/auth/register", query: searchParams }}
+            className="block"
+          >
             <Button tabIndex={-1} variant="outline" className="w-full">
               {t("signUp.title")}
             </Button>

@@ -67,10 +67,7 @@ export default function Register() {
       });
 
       // Redirecting to the confirmation page
-      const redirectParams = searchParams.get("redirect")
-        ? `?redirect=${searchParams.get("redirect")}`
-        : "";
-      router.replace(`/auth/register/confirm${redirectParams}`);
+      router.replace(`/auth/register/confirm?${searchParams.toString()}`);
     } catch (e: unknown) {
       // Handling AxiosError
       const error = e as AxiosError;
