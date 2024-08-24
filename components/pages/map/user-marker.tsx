@@ -92,7 +92,7 @@ export default function UserMarker() {
       icon={getIcon(authUser?.avatar, authUser?.username)}
       zIndexOffset={10}
     >
-      <Popup>
+      <Popup autoPan={false}>
         <span className="text-sm">{t("userLocation")}</span>
       </Popup>
     </Marker>
