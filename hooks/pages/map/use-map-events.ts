@@ -8,7 +8,7 @@ import {
 import { type LeafletEvent } from "leaflet";
 
 export function useMapEvents() {
-  const { setBounds, setZoom, setPosition, setSearchIsVisible } = useMapStore();
+  const { setBounds, setZoom, setPosition } = useMapStore();
 
   const map = useMap();
 
@@ -26,8 +26,6 @@ export function useMapEvents() {
       setPosition(e.target.getCenter());
       setZoom(e.target.getZoom());
 
-      setSearchIsVisible(true);
-
       localStorage.setItem(
         "mapData",
         JSON.stringify({
@@ -43,9 +41,8 @@ export function useMapEvents() {
       const point = map.project(e.target._popup.getLatLng());
       point.y -= MAP_ICON_SIZE + 20;
 
-      map.flyTo(map.unproject(point), map.getZoom(), {
+      map.setView(map.unproject(point), map.getZoom(), {
         animate: true,
-        duration: 0.4,
       });
     }
     map.on("popupopen", onPopupOpen);
@@ -54,5 +51,5 @@ export function useMapEvents() {
       map.off("moveend", onMoveEnd);
       map.off("popupopen", onPopupOpen);
     };
-  }, [map, setBounds, setPosition, setSearchIsVisible, setZoom]);
+  }, [map, setBounds, setPosition, setZoom]);
 }

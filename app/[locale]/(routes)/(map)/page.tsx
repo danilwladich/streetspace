@@ -1,10 +1,9 @@
-import dynamic from "next/dynamic";
+import { getAllMarkers } from "@/services/marker";
 import { getTranslations } from "next-intl/server";
-import { useMemo } from "react";
 import { getPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 
-import { AppLoader } from "@/components/ui/app-loader";
+import Map from "@/components/pages/map/map";
 
 export async function generateMetadata({
   params: { locale },
@@ -21,19 +20,12 @@ export async function generateMetadata({
   });
 }
 
-export default function Map() {
-  const MapContainer = useMemo(
-    () =>
-      dynamic(() => import("@/components/pages/map/map-container"), {
-        loading: () => <AppLoader />,
-        ssr: false,
-      }),
-    [],
-  );
+export default async function MapPage() {
+  const markers = await getAllMarkers();
 
   return (
     <div className="absolute left-0 top-0 h-dvh w-dvw">
-      <MapContainer />
+      <Map markers={markers} />
     </div>
   );
 }

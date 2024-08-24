@@ -2,23 +2,29 @@
 
 import { useState } from "react";
 import ReactDOMServer from "react-dom/server";
-import { Marker, Popup } from "react-leaflet";
+import { Marker as LMarker, Popup } from "react-leaflet";
 import { Link } from "@/lib/navigation";
 import Image from "next/image";
 import { divIcon, Point } from "leaflet";
 import { MAP_ICON_SIZE } from "@/hooks/store/use-map-store";
-import type { Marker as MarkerType } from "@prisma/client";
+import type { ConfirmedMarker } from "@/types/marker";
 
 import { MapPin } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function MapItem({ id, lat, lng, address, images }: MarkerType) {
+export default function Marker({
+  id,
+  lat,
+  lng,
+  address,
+  images,
+}: ConfirmedMarker) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const imageSrc = JSON.parse(images)[0];
 
   return (
-    <Marker position={[lat, lng]} icon={getIcon()}>
+    <LMarker position={[lat, lng]} icon={getIcon()} zIndexOffset={1}>
       <Popup autoPan={false} maxWidth={300} minWidth={300}>
         <Link
           href={`/location/${id}`}
@@ -40,7 +46,7 @@ export default function MapItem({ id, lat, lng, address, images }: MarkerType) {
           <h4 className="text-xs font-semibold">{address}</h4>
         </Link>
       </Popup>
-    </Marker>
+    </LMarker>
   );
 }
 

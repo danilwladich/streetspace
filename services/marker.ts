@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import type { ConfirmedMarker } from "@/types/marker";
 import type { Marker } from "@prisma/client";
 
 export async function getMarkersCount() {
@@ -26,10 +27,10 @@ export async function getMarkerById(id: string, confirmed?: boolean) {
   });
 }
 
-export async function getAllMarkers(page: number, perPage: number, confirmed?: boolean) {
+export async function getMarkers(page: number, perPage: number) {
   return await db.marker.findMany({
     where: {
-      confirmed
+      confirmed: true,
     },
     select: {
       id: true,
@@ -43,28 +44,11 @@ export async function getAllMarkers(page: number, perPage: number, confirmed?: b
   });
 }
 
-export async function getMarkers({
-  latMin,
-  latMax,
-  lngMin,
-  lngMax,
-}: {
-  latMin: string;
-  latMax: string;
-  lngMin: string;
-  lngMax: string;
-}) {
+
+export async function getAllMarkers(): Promise<ConfirmedMarker[]> {
   return db.marker.findMany({
     where: {
       confirmed: true,
-      lat: {
-        gte: parseFloat(latMin),
-        lte: parseFloat(latMax),
-      },
-      lng: {
-        gte: parseFloat(lngMin),
-        lte: parseFloat(lngMax),
-      },
     },
     select: {
       id: true,
@@ -72,12 +56,6 @@ export async function getMarkers({
       lng: true,
       address: true,
       images: true,
-    },
-    take: 100,
-    orderBy: {
-      visitors: {
-        _count: "desc",
-      },
     },
   });
 }

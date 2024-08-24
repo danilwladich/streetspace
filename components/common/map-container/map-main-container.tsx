@@ -22,7 +22,7 @@ export default function MapMainContainer({
   children,
 }: {
   position: LatLngExpression;
-  zoom?: number | null;
+  zoom: number;
   props?: MapContainerProps;
   singleMarker?: boolean;
   children: React.ReactNode;
@@ -34,7 +34,7 @@ export default function MapMainContainer({
     <>
       <LMapContainer
         center={position}
-        zoom={zoom || 14}
+        zoom={zoom}
         zoomControl={false}
         ref={setMap}
         minZoom={MAP_MIN_ZOOM}

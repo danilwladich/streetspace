@@ -1,19 +1,20 @@
 "use client";
 
 import { useMapEvents } from "@/hooks/pages/map/use-map-events";
+import type { ConfirmedMarker } from "@/types/marker";
 
 import UserMarker from "./user-marker";
-import MapItems from "./map-items/map-items";
+import Markers from "./markers/markers";
 import MarkerInput from "./marker-input";
 
-export default function Markers() {
+export default function MapItems({ markers }: { markers: ConfirmedMarker[] }) {
   useMapEvents();
 
   return (
     <>
       <UserMarker />
 
-      <MapItems />
+      <Markers markers={markers} />
 
       <MarkerInput />
     </>

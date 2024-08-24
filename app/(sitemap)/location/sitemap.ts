@@ -1,4 +1,4 @@
-import { getAllMarkers, getMarkersCount } from "@/services/marker";
+import { getMarkers, getMarkersCount } from "@/services/marker";
 import { MetadataRoute } from "next";
 import { getUrl } from "../sitemap";
 
@@ -13,7 +13,7 @@ export default async function sitemap({
 }: {
   id: number;
 }): Promise<MetadataRoute.Sitemap> {
-  const markers = await getAllMarkers(id, 50000, true);
+  const markers = await getMarkers(id, 50000);
 
   return markers.map((marker) =>
     getUrl(`/location/${marker.id}`, marker.updatedAt),
