@@ -9,10 +9,11 @@ export async function getMarkersCount() {
   });
 }
 
-export async function getMarkerById(id: string) {
+export async function getMarkerById(id: string, confirmed?: boolean) {
   return db.marker.findFirst({
     where: {
       id,
+      confirmed,
     },
     include: {
       addedBy: {

@@ -29,7 +29,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const t = await getTranslations("pages.map.location");
 
-  const marker = await getMarkerById(id);
+  const marker = await getMarkerById(id, true);
 
   if (!marker) {
     return getPageMetadata({
@@ -58,7 +58,7 @@ export default async function Visitors({
 }) {
   const t = await getTranslations("pages.map.location");
 
-  const marker = await getMarkerById(id);
+  const marker = await getMarkerById(id, true);
 
   if (!marker) {
     return <NotFound text={t("notFound")} />;
