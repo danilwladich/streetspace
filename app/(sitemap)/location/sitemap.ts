@@ -13,7 +13,7 @@ export default async function sitemap({
 }: {
   id: number;
 }): Promise<MetadataRoute.Sitemap> {
-  const markers = await getAllMarkers(id, 50000);
+  const markers = await getAllMarkers(id, 50000, true);
 
   return markers.map((marker) =>
     getUrl(`/location/${marker.id}`, marker.updatedAt),

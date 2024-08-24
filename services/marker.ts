@@ -26,8 +26,11 @@ export async function getMarkerById(id: string, confirmed?: boolean) {
   });
 }
 
-export async function getAllMarkers(page: number, perPage: number) {
+export async function getAllMarkers(page: number, perPage: number, confirmed?: boolean) {
   return await db.marker.findMany({
+    where: {
+      confirmed
+    },
     select: {
       id: true,
       updatedAt: true,
