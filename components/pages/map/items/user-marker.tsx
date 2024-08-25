@@ -61,7 +61,7 @@ export default function UserMarker() {
         }),
       );
 
-      map.flyTo(e.latlng, map.getZoom(), { duration: 0.5 });
+      map.setView(e.latlng, map.getZoom(), { animate: true });
     }
 
     function onLocationError() {
