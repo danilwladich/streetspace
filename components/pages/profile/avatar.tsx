@@ -6,7 +6,7 @@ import { useAuthStore } from "@/hooks/store/use-auth-store";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/lib/navigation";
 import { toast } from "sonner";
-import type { User } from "@prisma/client";
+import type { UserProfile } from "@/types/user";
 
 import {
   DropdownMenu,
@@ -20,7 +20,7 @@ import {
 import Avatar from "@/components/ui/avatar";
 import { Fullscreen, ImagePlus, Trash2 } from "lucide-react";
 
-export default function UserAvatar({ id, username, avatar }: User) {
+export default function UserAvatar({ id, username, avatar }: UserProfile) {
   const t = useTranslations("pages.profile.avatar");
 
   const router = useRouter();

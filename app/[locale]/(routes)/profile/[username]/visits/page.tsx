@@ -4,7 +4,7 @@ import {
   getUserMarkersVisits,
   getUserMarkersVisitsCount,
 } from "@/services/marker-visitor";
-import { getUserByUsername } from "@/services/user";
+import { getUserProfile } from "@/services/user";
 import { Link } from "@/lib/navigation";
 import { getPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
@@ -28,7 +28,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const t = await getTranslations("pages.profile");
 
-  const user = await getUserByUsername(username);
+  const user = await getUserProfile(username);
 
   if (!user) {
     return getPageMetadata({
@@ -57,7 +57,7 @@ export default async function Visits({
 }) {
   const t = await getTranslations("pages.profile");
 
-  const user = await getUserByUsername(username);
+  const user = await getUserProfile(username);
 
   if (!user) {
     return <NotFound text={t("notFound")} />;

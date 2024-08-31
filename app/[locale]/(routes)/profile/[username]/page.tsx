@@ -1,4 +1,4 @@
-import { getUserByUsername } from "@/services/user";
+import { getUserProfile } from "@/services/user";
 import { getTranslations } from "next-intl/server";
 import { getPageMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
@@ -16,7 +16,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const t = await getTranslations("pages.profile");
 
-  const user = await getUserByUsername(username);
+  const user = await getUserProfile(username);
 
   if (!user) {
     return getPageMetadata({
@@ -41,7 +41,7 @@ export default async function Profile({
 }) {
   const t = await getTranslations("pages.profile");
 
-  const user = await getUserByUsername(username);
+  const user = await getUserProfile(username);
 
   if (!user) {
     return <NotFound text={t("notFound")} />;

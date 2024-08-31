@@ -2,7 +2,7 @@ import { Link } from "@/lib/navigation";
 import { getUserMarkersCount } from "@/services/marker";
 import { getTranslations } from "next-intl/server";
 import { getYearsDiff } from "@/lib/dates";
-import type { User } from "@prisma/client";
+import type { UserProfile } from "@/types/user";
 
 import { Button } from "@/components/ui/button";
 import { DateToShow } from "@/components/common/date-to-show";
@@ -15,7 +15,7 @@ export default async function UserInfo({
   city,
   dateOfBirth,
   createdAt,
-}: User) {
+}: UserProfile) {
   const t = await getTranslations("pages.profile.info");
 
   const markersAdded = await getUserMarkersCount(id);

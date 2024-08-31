@@ -3,7 +3,7 @@ import {
   getFollowersByUsername,
   getFollowersCountByUsername,
 } from "@/services/follow";
-import { getUserByUsername } from "@/services/user";
+import { getUserProfile } from "@/services/user";
 import { getTranslations } from "next-intl/server";
 import { authValidation } from "@/lib/auth-validation";
 import { Link } from "@/lib/navigation";
@@ -29,7 +29,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const t = await getTranslations("pages.followers");
 
-  const user = await getUserByUsername(username);
+  const user = await getUserProfile(username);
 
   if (!user) {
     return getPageMetadata({
@@ -58,7 +58,7 @@ export default async function Followers({
 }) {
   const t = await getTranslations("pages.followers");
 
-  const user = await getUserByUsername(username);
+  const user = await getUserProfile(username);
 
   if (!user) {
     return <NotFound text={t("userNotFound")} />;

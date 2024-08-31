@@ -5,7 +5,7 @@ import { useModalStore } from "@/hooks/store/use-modal-store";
 import { getAppTitle } from "@/lib/get-app-title";
 import { Link } from "@/lib/navigation";
 import { useTranslations } from "next-intl";
-import type { User } from "@prisma/client";
+import type { UserProfile } from "@/types/user";
 
 import ShareButton from "@/components/common/dropdown/share-button";
 import LogOutButton from "./log-out-button";
@@ -28,7 +28,7 @@ export default function UserActions({
   username,
   blocked,
   isFollowing,
-}: User & {
+}: UserProfile & {
   isFollowing: boolean;
 }) {
   const t = useTranslations("pages.profile.actions");

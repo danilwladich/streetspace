@@ -1,13 +1,13 @@
 import { checkIsFollowingById } from "@/services/follow";
 import { authValidation } from "@/lib/auth-validation";
-import type { User } from "@prisma/client";
+import type { UserProfile } from "@/types/user";
 
 import UserAvatar from "./avatar";
 import UserFollowers from "./followers";
 import UserActions from "@/components/common/user/actions/actions";
 import { Card, CardContent } from "@/components/ui/card";
 
-export default async function ProfileMain(user: User) {
+export default async function ProfileMain(user: UserProfile) {
   const authUser = await authValidation();
   const isFollowing = authUser
     ? await checkIsFollowingById(authUser.id, user.id)

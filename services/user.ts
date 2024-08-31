@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { checkTokenValidity } from "@/services/sign-up-token";
+import { UserProfile } from "@/types/user";
 import type { User } from "@prisma/client";
 
 export async function getUsersCount() {
@@ -67,6 +68,26 @@ export async function checkUsername(username: string) {
   }
 
   return true;
+}
+
+export async function getUserProfile(username: string): Promise<UserProfile | null> {
+  return db.user.findFirst({
+    where: { username, confirmed: true },
+    select: {
+      id: true,
+      username: true,
+      email: true,
+      avatar: true,
+      bio: true,
+      dateOfBirth: true,
+      coords: true,
+      country: true,
+      city: true,
+      blocked: true,
+      socialMedia: true,
+      createdAt: true,
+    },
+  });
 }
 
 export async function getUserByUsername(username: string) {
