@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MAP_MIN_ZOOM } from "@/hooks/store/use-map-store";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { cn } from "@/lib/utils";
 import type { LatLngExpression, Map } from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -43,7 +44,14 @@ export default function MapMainContainer({
           [90, 180],
         ]}
         attributionControl={false}
-        className="absolute left-0 top-0 z-0 h-full w-full [&_.leaflet-control-attribution]:!bg-transparent [&_.leaflet-control-attribution]:text-current [&_.leaflet-control-attribution]:backdrop-blur-sm [&_.leaflet-popup-content-wrapper]:bg-current [&_.leaflet-popup-content-wrapper]:text-background [&_.leaflet-popup-content]:m-0 [&_.leaflet-popup-content]:p-4 [&_.leaflet-popup-content]:text-black dark:[&_.leaflet-popup-content]:text-white [&_.leaflet-popup-tip]:bg-current [&_.leaflet-popup-tip]:text-background dark:[&_.leaflet-tile]:brightness-95 dark:[&_.leaflet-tile]:contrast-[0.9] dark:[&_.leaflet-tile]:hue-rotate-180 dark:[&_.leaflet-tile]:invert"
+        className={cn(
+          "absolute left-0 top-0 z-0 h-full w-full",
+          "[&_.leaflet-control-attribution]:!bg-transparent [&_.leaflet-control-attribution]:text-current [&_.leaflet-control-attribution]:backdrop-blur-sm",
+          "[&_.leaflet-popup-content-wrapper]:bg-current [&_.leaflet-popup-content-wrapper]:text-background",
+          "[&_.leaflet-popup-content]:m-0 [&_.leaflet-popup-content]:p-4 [&_.leaflet-popup-content]:text-black dark:[&_.leaflet-popup-content]:text-white",
+          "[&_.leaflet-popup-tip]:bg-current [&_.leaflet-popup-tip]:text-background",
+          "dark:[&_.leaflet-tile]:brightness-95 dark:[&_.leaflet-tile]:contrast-[0.9] dark:[&_.leaflet-tile]:hue-rotate-180 dark:[&_.leaflet-tile]:invert",
+        )}
         {...props}
       >
         <TileLayer

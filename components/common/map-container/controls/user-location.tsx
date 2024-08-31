@@ -18,7 +18,7 @@ export default function UserLocation({ map }: { map: Map }) {
       return;
     }
 
-    map.flyTo(userPosition, 16, { duration: 0.5 });
+    map.flyTo(userPosition, 16, { animate: true });
   }, [map, userPosition]);
 
   return (
