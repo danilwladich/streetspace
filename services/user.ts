@@ -42,24 +42,8 @@ export async function checkUsername(username: string) {
 
   // If the user is not confirmed
   if (!user.confirmed) {
-    // Find the token
-    const signUpToken = await db.signUpToken.findFirst({
-      where: { userId: user.id },
-    });
-
-    // If the token does not exist, delete the user
-    if (!signUpToken) {
-      await db.user.delete({
-        where: {
-          id: user.id,
-        },
-      });
-
-      return false;
-    }
-
-    // Check if the token is still valid
-    const validatedToken = await checkToken({ token: signUpToken.token });
+    // Check sign up token
+    const validatedToken = await checkToken({ email: user.email });
 
     // If the token is not valid
     if (!validatedToken) {

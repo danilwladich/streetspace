@@ -85,7 +85,7 @@ export async function confirmUser({
   // Delete the token
   await db.signUpToken.delete({
     where: {
-      token,
+      id: signUpToken.id,
     },
   });
 
