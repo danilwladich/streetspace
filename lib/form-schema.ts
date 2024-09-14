@@ -66,8 +66,7 @@ export const registerConfirmationSchema = z.object({
   token: z
     .string()
     .trim()
-    .min(1, { message: "This field has to be filled" })
-    .max(100, { message: "Invalid token" }),
+    .length(6, { message: "This field has to be filled" }),
   email: z.string().trim().email("This is not a valid email").toLowerCase(),
   recaptchaToken: z.string().max(1000),
 });

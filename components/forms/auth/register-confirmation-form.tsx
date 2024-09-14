@@ -23,7 +23,12 @@ import {
   FormMessage,
   FormRootError,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+  InputOTPSeparator,
+} from "@/components/ui/input-otp";
 
 export default function RegisterConfirmation() {
   const t = useTranslations("forms.signUpConfirmation");
@@ -108,11 +113,24 @@ export default function RegisterConfirmation() {
             <FormItem>
               <FormLabel>{t("token")}</FormLabel>
               <FormControl>
-                <Input
+                <InputOTP
                   {...field}
-                  placeholder={t("token")}
+                  maxLength={6}
                   disabled={isSubmitting}
-                />
+                  onComplete={form.handleSubmit(onSubmit)}
+                >
+                  <InputOTPGroup>
+                    <InputOTPSlot index={0} />
+                    <InputOTPSlot index={1} />
+                    <InputOTPSlot index={2} />
+                  </InputOTPGroup>
+                  <InputOTPSeparator />
+                  <InputOTPGroup>
+                    <InputOTPSlot index={3} />
+                    <InputOTPSlot index={4} />
+                    <InputOTPSlot index={5} />
+                  </InputOTPGroup>
+                </InputOTP>
               </FormControl>
               <FormMessage />
             </FormItem>
