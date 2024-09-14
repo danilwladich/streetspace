@@ -29,8 +29,8 @@
     },
     "signUpConfirmation": {
       "title": "Confirm sign up",
-      "description": "Confirmation token has been sent to your email",
-      "token": "Token",
+      "description": "Confirmation code has been sent to your email",
+      "token": "Code",
       "submit": "Confirm"
     },
     "changeAvatar": {

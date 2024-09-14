@@ -29,8 +29,8 @@
     },
     "signUpConfirmation": {
       "title": "Potwierdź rejestrację",
-      "description": "Token potwierdzający został wysłany na Twój email",
-      "token": "Token",
+      "description": "Kod potwierdzenia został wysłany na Twój email",
+      "token": "Kod",
       "submit": "Potwierdź"
     },
     "changeAvatar": {
