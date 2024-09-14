@@ -4,9 +4,8 @@ import bcrypt from "bcryptjs";
 import { verifyCaptcha } from "@/lib/server-actions";
 import { jsonResponse } from "@/lib/json-response";
 import { checkEmail, checkUsername, createUser } from "@/services/user";
-import { checkTokenEmail, createToken } from "@/services/sign-up-token";
+import { checkToken, createToken } from "@/services/sign-up-token";
 import { sendMail } from "@/services/mail";
-import { render } from "@react-email/components";
 import { ConfirmSignUpEmail } from "@/components/common/emails/confirm-sign-up-email";
 
 export async function POST(req: NextRequest) {
@@ -30,7 +29,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Checking if a token was already sent to the provided email
-    const tokenAlreadySent = await checkTokenEmail(email);
+    const tokenAlreadySent = await checkToken({ email });
 
     // Handling token already sent error
     if (tokenAlreadySent) {
@@ -86,7 +85,7 @@ export async function POST(req: NextRequest) {
     await sendMail({
       to: email,
       subject: "Confirm sign up | streetspace",
-      html: render(ConfirmSignUpEmail({ token })),
+      html: ConfirmSignUpEmail({ token, email }),
     });
 
     // Returning a JSON response with user

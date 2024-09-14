@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { checkTokenValidity } from "@/services/sign-up-token";
+import { checkToken } from "@/services/sign-up-token";
 import { UserProfile } from "@/types/user";
 import type { User } from "@prisma/client";
 
@@ -59,7 +59,7 @@ export async function checkUsername(username: string) {
     }
 
     // Check if the token is still valid
-    const validatedToken = await checkTokenValidity(signUpToken.token);
+    const validatedToken = await checkToken({ token: signUpToken.token });
 
     // If the token is not valid
     if (!validatedToken) {
@@ -70,7 +70,9 @@ export async function checkUsername(username: string) {
   return true;
 }
 
-export async function getUserProfile(username: string): Promise<UserProfile | null> {
+export async function getUserProfile(
+  username: string,
+): Promise<UserProfile | null> {
   return db.user.findFirst({
     where: { username, confirmed: true },
     select: {

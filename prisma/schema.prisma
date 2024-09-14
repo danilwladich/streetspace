@@ -47,7 +47,7 @@ model SignUpToken {
   userId String @unique
   user   User   @relation(fields: [userId], references: [id])
 
-  token      String   @unique
+  token      String
   validUntil DateTime
 
   createdAt DateTime @default(now())

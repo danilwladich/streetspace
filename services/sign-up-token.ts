@@ -1,7 +1,10 @@
 import { db } from "@/lib/db";
-import { nanoid } from "nanoid";
+import { customAlphabet } from "nanoid";
 
 export async function createToken(userId: string) {
+  const nanoid = customAlphabet("1234567890", 6);
+
+  // Generate a token and set the expiration date to 10 minutes from now
   const token = nanoid();
   const validUntil = new Date(new Date().getTime() + 1000 * 60 * 10);
 
@@ -14,12 +17,19 @@ export async function createToken(userId: string) {
   });
 }
 
-export async function checkTokenEmail(email: string) {
+export async function checkToken({
+  token,
+  email,
+}: {
+  token?: string;
+  email: string;
+}) {
   const signUpToken = await db.signUpToken.findFirst({
     where: {
       user: {
         email,
       },
+      token,
     },
   });
 
@@ -38,38 +48,6 @@ export async function checkTokenEmail(email: string) {
 
     await db.user.delete({
       where: {
-        email,
-      },
-    });
-
-    return false;
-  }
-
-  return true;
-}
-
-export async function checkTokenValidity(token: string) {
-  const signUpToken = await db.signUpToken.findFirst({
-    where: {
-      token,
-    },
-  });
-
-  // If the token does not exist, return false
-  if (!signUpToken) {
-    return false;
-  }
-
-  // If the token is expired, delete it and the user
-  if (signUpToken.validUntil < new Date()) {
-    await db.signUpToken.delete({
-      where: {
-        token,
-      },
-    });
-
-    await db.user.delete({
-      where: {
         id: signUpToken.userId,
       },
     });
@@ -80,8 +58,14 @@ export async function checkTokenValidity(token: string) {
   return signUpToken;
 }
 
-export async function confirmUser(token: string) {
-  const signUpToken = await checkTokenValidity(token);
+export async function confirmUser({
+  token,
+  email,
+}: {
+  token: string;
+  email: string;
+}) {
+  const signUpToken = await checkToken({ token, email });
 
   // If the token is invalid, return null
   if (!signUpToken) {

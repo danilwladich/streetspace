@@ -34,6 +34,7 @@ export default function Auth() {
           </CardTitle>
           <CardDescription>{t("description")}</CardDescription>
         </CardHeader>
+
         <CardContent>
           <RecaptchaProvider>
             <RegisterConfirmation />

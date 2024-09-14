@@ -67,7 +67,9 @@ export default function Register() {
       });
 
       // Redirecting to the confirmation page
-      router.replace(`/auth/register/confirm?${searchParams.toString()}`);
+      router.replace(
+        `/auth/register/confirm?email=${values.email}&${searchParams.toString()}`,
+      );
     } catch (e: unknown) {
       // Handling AxiosError
       const error = e as AxiosError;

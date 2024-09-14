@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
       return jsonResponse("Validation Error", 400);
     }
 
-    const { token, recaptchaToken } = body.data;
+    const { token, email, recaptchaToken } = body.data;
 
     // Verifying the recaptcha token
     const isRecaptchaCorrect = await verifyCaptcha(recaptchaToken);
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Confirming the user
-    const user = await confirmUser(token);
+    const user = await confirmUser({ token, email });
 
     // Handling invalid token
     if (!user) {

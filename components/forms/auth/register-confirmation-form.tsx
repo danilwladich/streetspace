@@ -28,11 +28,16 @@ import { Input } from "@/components/ui/input";
 export default function RegisterConfirmation() {
   const t = useTranslations("forms.signUpConfirmation");
 
+  // Accessing query parameters from the URL
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
   // Setting up the form using react-hook-form with Zod resolver
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       token: "",
+      email: searchParams.get("email") || "",
       recaptchaToken: "",
     },
   });
@@ -41,10 +46,6 @@ export default function RegisterConfirmation() {
 
   // Checking if the form is currently submitting
   const isSubmitting = form.formState.isSubmitting;
-
-  // Accessing query parameters from the URL
-  const searchParams = useSearchParams();
-  const router = useRouter();
 
   const { setUser } = useAuthStore();
 
