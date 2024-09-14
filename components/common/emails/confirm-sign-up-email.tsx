@@ -17,7 +17,7 @@ export function ConfirmSignUpEmail({
 
       <Tailwind>
         <Text>
-          Your sign up token: <b>{token}</b>
+          Your sign up code: <b>{token}</b>
         </Text>
 
         <Text>Token valid for 10 minutes</Text>
