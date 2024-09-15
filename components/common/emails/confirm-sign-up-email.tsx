@@ -13,7 +13,14 @@ import {
 } from "@react-email/components";
 import { getAppTitle } from "@/lib/get-app-title";
 import { cn } from "@/lib/utils";
-import { inter } from "@/app/[locale]/layout";
+import { Inter } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  adjustFontFallback: false,
+});
 
 const URL_BASE = process.env.NEXT_PUBLIC_URL_BASE;
 

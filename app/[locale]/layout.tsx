@@ -9,7 +9,7 @@ import { AuthProvider } from "@/components/providers/auth-provider";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { Toaster } from "@/components/ui/sonner";
 
-export const inter = Inter({
+const inter = Inter({
   subsets: ["latin", "cyrillic"],
   weight: ["400", "500", "600"],
   display: "swap",
