@@ -9,7 +9,7 @@ import { AuthProvider } from "@/components/providers/auth-provider";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { Toaster } from "@/components/ui/sonner";
 
-const font = Inter({
+export const inter = Inter({
   subsets: ["latin", "cyrillic"],
   weight: ["400", "500", "600"],
   display: "swap",
@@ -62,7 +62,7 @@ export default function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={font.className}>
+      <body className={inter.className}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider>
             <AuthProvider>

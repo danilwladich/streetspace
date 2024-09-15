@@ -7,6 +7,9 @@ import { checkEmail, checkUsername, createUser } from "@/services/user";
 import { checkToken, createToken } from "@/services/sign-up-token";
 import { sendMail } from "@/services/mail";
 import { ConfirmSignUpEmail } from "@/components/common/emails/confirm-sign-up-email";
+import { getTranslations } from "next-intl/server";
+import { cookies } from "next/headers";
+import { defaultLocale } from "@/i18n";
 
 export async function POST(req: NextRequest) {
   try {
@@ -80,12 +83,19 @@ export async function POST(req: NextRequest) {
       password: hashedPassword,
     });
 
+    // Creating a new token for the user
     const { token } = await createToken(user.id);
 
+    // Sending a confirmation email
+    const locale = cookies().get("NEXT_LOCALE")?.value || defaultLocale;
+    const t = await getTranslations({
+      locale,
+      namespace: "emails.confirmSignUp",
+    });
     await sendMail({
       to: email,
-      subject: "Confirm sign up | streetspace",
-      html: ConfirmSignUpEmail({ token, email }),
+      subject: t("subject"),
+      html: ConfirmSignUpEmail({ token, email, t, locale }),
     });
 
     // Returning a JSON response with user

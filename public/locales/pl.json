@@ -374,5 +374,15 @@
       "userNotFound": "Nie znaleziono użytkownika",
       "followsNotFound": "Brak obserwowanych"
     }
+  },
+  "emails": {
+    "confirmSignUp": {
+      "subject": "Potwierdź rejestrację",
+      "main": "Dziękujemy za rejestrację! Chcemy się upewnić, że to naprawdę Ty. Wprowadź poniższy kod weryfikacyjny, gdy zostaniesz o to poproszony lub kliknij następujący link: ",
+      "code": "Twój kod potwierdzenia",
+      "valid": "(Kod jest ważny przez 10 minut)",
+      "ignore": "Jeśli nie chcesz utworzyć konta, możesz zignorować tę wiadomość",
+      "copyright": "Ta wiadomość została wyprodukowana i dystrybuowana przez {title}. Wszelkie prawa zastrzeżone. {title} jest zarejestrowanym znakiem towarowym "
+    }
   }
 }
