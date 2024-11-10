@@ -24,6 +24,7 @@ export async function reverseGeocode(
 ): Promise<{ address?: Address; success: boolean }> {
   const { data } = await axios.get<{ address: Address; error: any }>(
     `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`,
+    { headers: { "User-Agent": "Mozilla/5.0" } },
   );
 
   if (data.error || !data.address) {
