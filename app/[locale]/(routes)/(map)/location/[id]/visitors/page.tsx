@@ -8,6 +8,7 @@ import {
 import { Link } from "@/lib/navigation";
 import { getTranslations } from "next-intl/server";
 import { getPageMetadata } from "@/lib/metadata";
+import { addressToString } from "@/lib/address-helper";
 import type { Metadata } from "next";
 
 import NotFound from "@/components/common/not-found";
@@ -41,8 +42,10 @@ export async function generateMetadata({
   return getPageMetadata({
     path: `/location/${id}/visitors`,
     pageName: t("visitors.title"),
-    description: t("visitors.description", { address: marker.address }),
-    image: JSON.parse(marker.images)[0],
+    description: t("visitors.description", {
+      address: addressToString(marker.address),
+    }),
+    image: (marker.images as string[])[0],
     locale,
   });
 }
@@ -78,7 +81,9 @@ export default async function Visitors({
         </CardTitle>
 
         <CardDescription>
-          <Link href={`/location/${id}`}>{marker.address}</Link>
+          <Link href={`/location/${id}`}>
+            {addressToString(marker.address)}
+          </Link>
         </CardDescription>
       </CardHeader>
 

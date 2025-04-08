@@ -24,7 +24,10 @@ export async function uploadImage(image: File, dir: string) {
   const filename = `${Date.now()}_${nanoid()}.jpeg`;
 
   // Saving image to disk
-  await fs.writeFile(path.join(filepath, filename), optimizedBuffer);
+  await fs.writeFile(
+    path.join(filepath, filename),
+    new Uint8Array(optimizedBuffer),
+  );
 
   // Return image path
   return path.join("/uploads", dir, filename);

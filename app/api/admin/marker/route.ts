@@ -17,7 +17,7 @@ export async function DELETE(req: NextRequest) {
       return jsonResponse("Invalid Request", 400);
     }
 
-    const images = JSON.parse(marker.images) as string[];
+    const images = marker.images as string[];
 
     for (const imageUrl of images) {
       await deleteImage(imageUrl);

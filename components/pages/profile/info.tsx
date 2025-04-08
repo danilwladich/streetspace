@@ -20,10 +20,7 @@ export default async function UserInfo({
 
   const markersAdded = await getUserMarkersCount(id);
 
-  const socialMediaJson: Record<string, string> = JSON.parse(
-    socialMedia || "{}",
-  );
-  const socialMediaEntries = socialMedia ? Object.entries(socialMediaJson) : [];
+  const socialMediaEntries = socialMedia ? Object.entries(socialMedia) : [];
 
   return (
     <Card className="max-w-4xl">

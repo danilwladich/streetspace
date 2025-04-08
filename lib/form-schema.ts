@@ -1,4 +1,4 @@
-import * as z from "zod";
+import { z } from "zod";
 import { getYearsDiff } from "@/lib/dates";
 
 const MAX_FILE_SIZE = 1024 * 1024 * 10;

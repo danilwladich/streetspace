@@ -3,7 +3,7 @@
 import axios, { AxiosError } from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
+import { z } from "zod";
 import { editProfileSchema as formSchema } from "@/lib/form-schema";
 import { useRouter } from "@/lib/navigation";
 import { useAuthStore } from "@/hooks/store/use-auth-store";
@@ -42,7 +42,13 @@ export default function EditProfileForm() {
       dateOfBirth: authUser!.dateOfBirth || undefined,
       bio: authUser!.bio || "",
       coords: authUser!.coords || "",
-      socialMedia: JSON.parse(authUser!.socialMedia || "{}"),
+      socialMedia:
+        (authUser!.socialMedia as {
+          facebook?: string;
+          twitter?: string;
+          instagram?: string;
+          youtube?: string;
+        }) || undefined,
     },
   });
 
@@ -56,10 +62,7 @@ export default function EditProfileForm() {
   // Handler for form submission
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const formData = parseFormDataFromJson({
-        ...values,
-        socialMedia: JSON.stringify(values.socialMedia),
-      });
+      const formData = parseFormDataFromJson(values);
 
       // Making a PATCH request to the user avatar API endpoint
       const { data } = await axios.patch("/api/user", formData, {

@@ -1,4 +1,5 @@
 import { checkAuthIsMarkerVisitor } from "@/services/marker-visitor";
+import { addressToString } from "@/lib/address-helper";
 import type { Prisma } from "@prisma/client";
 
 import MarkerImages from "@/components/common/marker/marker-images";
@@ -36,16 +37,18 @@ export default async function Marker({
 }: MarkerType) {
   const isVisitor = await checkAuthIsMarkerVisitor(id);
 
+  const addressString = addressToString(address);
+
   return (
     <Card className="max-w-4xl">
       <CardHeader>
         <div className="relative">
           <CardTitle className="pr-14">
-            <h1>{address}</h1>
+            <h1>{addressString}</h1>
           </CardTitle>
 
           <div className="absolute right-0 top-0">
-            <Actions id={id} address={address} isVisitor={isVisitor} />
+            <Actions id={id} address={addressString} isVisitor={isVisitor} />
           </div>
         </div>
 
@@ -53,7 +56,7 @@ export default async function Marker({
       </CardHeader>
 
       <CardContent className="space-y-2">
-        <MarkerImages images={images} alt={address} />
+        <MarkerImages images={images as string[]} alt={addressString} />
 
         <MapSingle lat={lat} lng={lng} />
       </CardContent>

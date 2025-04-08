@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -21,52 +21,56 @@ model User {
   role String @default("USER")
 
   avatar      String?
-  socialMedia String?
+  socialMedia Json?     @map("social_media")
   coords      String?
   city        String?
   country     String?
-  dateOfBirth DateTime?
+  dateOfBirth DateTime? @map("date_of_birth")
   bio         String?
 
-  followings Follow[] @relation(name: "followings")
-  followers  Follow[] @relation(name: "followers")
+  followings Follow[] @relation("followings")
+  followers  Follow[] @relation("followers")
 
-  addedMarkers Marker[] @relation(name: "addedMarkers")
+  addedMarkers Marker[] @relation("addedMarkers")
 
   visits         MarkerVisitor[]
   markersReports MarkerReport[]
   markerComments MarkerComment[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("user")
 }
 
 model SignUpToken {
   id Int @id @default(autoincrement())
 
-  userId String @unique
+  userId String @unique @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
 
   token      String
-  validUntil DateTime
+  validUntil DateTime @map("valid_until")
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("sign_up_token")
 }
 
 model Marker {
   id String @id @default(cuid())
 
-  address String
+  address Json
 
   lat Float
   lng Float
 
   confirmed Boolean @default(false)
 
-  images String
+  images Json
 
-  addedByUserId String
+  addedByUserId String @map("added_by_user_id")
   addedBy       User   @relation(name: "addedMarkers", fields: [addedByUserId], references: [id])
 
   comments MarkerComment[]
@@ -74,68 +78,75 @@ model Marker {
 
   reports MarkerReport[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("marker")
 }
 
 model MarkerVisitor {
   id Int @id @default(autoincrement())
 
-  markerId String
+  markerId String @map("marker_id")
   marker   Marker @relation(fields: [markerId], references: [id])
 
-  userId String
+  userId String @map("user_id")
   user   User   @relation(fields: [userId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@unique([markerId, userId])
+  @@map("marker_visitor")
 }
 
 model MarkerReport {
   id Int @id @default(autoincrement())
 
-  markerId String
+  markerId String @map("marker_id")
   marker   Marker @relation(fields: [markerId], references: [id])
 
-  reportedByUserId String
+  reportedByUserId String @map("reported_by_user_id")
   reportedBy       User   @relation(fields: [reportedByUserId], references: [id])
 
   type    String
   message String?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@unique([markerId, reportedByUserId])
+  @@map("marker_report")
 }
 
 model MarkerComment {
   id Int @id @default(autoincrement())
 
-  markerId String
+  markerId String @map("marker_id")
   marker   Marker @relation(fields: [markerId], references: [id])
 
-  commentedByUserId String
+  commentedByUserId String @map("commented_by_user_id")
   commentedBy       User   @relation(fields: [commentedByUserId], references: [id])
 
   message String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("marker_comment")
 }
 
 model Follow {
   id Int @id @default(autoincrement())
 
-  whoFollowUserId  String
+  whoFollowUserId  String @map("who_follow_user_id")
   whoFollowUser    User   @relation(name: "followings", fields: [whoFollowUserId], references: [id])
-  whomFollowUserId String
+  whomFollowUserId String @map("whom_follow_user_id")
   whomFollowUser   User   @relation(name: "followers", fields: [whomFollowUserId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@unique([whoFollowUserId, whomFollowUserId])
+  @@map("follow")
 }

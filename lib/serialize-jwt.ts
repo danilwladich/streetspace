@@ -8,8 +8,10 @@ const COOKIE_MAX_AGE = 60 * 60 * 24 * 28;
 const jwtSecret = process.env.JWT_SECRET || "jwt_secret";
 
 export async function serializeJwt(user: User) {
+  const { password, ...userWithoutPassword } = user;
+
   // Generating a JWT token with user information excluding the password
-  const jwtToken = await new SignJWT(user)
+  const jwtToken = await new SignJWT(userWithoutPassword)
     .setProtectedHeader({ alg: "HS256" })
     .setJti(nanoid())
     .setIssuedAt()

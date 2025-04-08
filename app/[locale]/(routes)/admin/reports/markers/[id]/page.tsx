@@ -7,6 +7,7 @@ import {
 import { Link } from "@/lib/navigation";
 import { columns } from "@/components/pages/admin/reports/markers/columns";
 import { getTranslations } from "next-intl/server";
+import { addressToString } from "@/lib/address-helper";
 
 import NotFound from "@/components/common/not-found";
 import { DataTable } from "@/components/pages/admin/reports/markers/data-table";
@@ -63,7 +64,9 @@ export default async function MarkerReports({
         </CardTitle>
 
         <CardDescription>
-          <Link href={`/location/${id}`}>{marker.address}</Link>
+          <Link href={`/location/${id}`}>
+            {addressToString(marker.address)}
+          </Link>
         </CardDescription>
       </CardHeader>
 

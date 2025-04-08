@@ -1,6 +1,7 @@
 import { Link } from "@/lib/navigation";
 import Image from "next/image";
 import type { Marker } from "@prisma/client";
+import { addressToString } from "@/lib/address-helper";
 
 export default function VisitMarker({
   id,
@@ -8,14 +9,20 @@ export default function VisitMarker({
   images,
   priorityImg = false,
 }: Marker & { priorityImg?: boolean }) {
-  const imageSrc = JSON.parse(images)[0];
+  const imageSrc = (images as string[])[0];
+
+  if (!address) {
+    return null;
+  }
+
+  const addressString = addressToString(address);
 
   return (
     <Link href={`/location/${id}`} className="block space-y-1">
       <div className="relative aspect-video w-full overflow-hidden rounded-md">
         <Image
           src={imageSrc}
-          alt={address}
+          alt={addressString}
           width={280}
           height={280}
           priority={priorityImg}
@@ -23,7 +30,7 @@ export default function VisitMarker({
         />
       </div>
 
-      <h4 className="text-xs font-semibold">{address}</h4>
+      <h4 className="text-xs font-semibold">{addressString}</h4>
     </Link>
   );
 }

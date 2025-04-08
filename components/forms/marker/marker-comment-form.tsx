@@ -3,7 +3,7 @@
 import axios, { AxiosError } from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
+import { z } from "zod";
 import { markerCommentSchema as formSchema } from "@/lib/form-schema";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useRouter } from "@/lib/navigation";

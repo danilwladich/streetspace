@@ -5,6 +5,7 @@ import {
   getReportedMarkersCount,
   REPORTED_MARKERS_PER_PAGE,
 } from "@/services/marker-report";
+import { addressToString } from "@/lib/address-helper";
 
 import NotFound from "@/components/common/not-found";
 import {
@@ -55,7 +56,7 @@ export default async function ReportedMarkers({
               size="sm"
               className="w-full justify-between gap-2"
             >
-              <span className="truncate">{m.address}</span>
+              <span className="truncate">{addressToString(m.address)}</span>
               <span className="text-muted-foreground">{m._count.reports}</span>
             </Button>
           </Link>

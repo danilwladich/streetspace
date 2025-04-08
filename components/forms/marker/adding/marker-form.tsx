@@ -3,7 +3,7 @@
 import axios, { AxiosError } from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
+import { z } from "zod";
 import { useMapStore } from "@/hooks/store/use-map-store";
 import { markerSchema as formSchema } from "@/lib/form-schema";
 import { parseFormDataFromJson } from "@/lib/formdata-parser";

@@ -6,7 +6,9 @@ export const locales = ["en", "pl", "ru"] as const;
 export const localePrefix = "as-needed";
 
 export default getRequestConfig(async ({ locale }) => {
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(locale as (typeof locales)[number])) {
+    notFound();
+  }
 
   return {
     messages: (await import(`/public/locales/${locale}.json`)).default,

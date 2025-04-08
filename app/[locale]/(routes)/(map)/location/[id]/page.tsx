@@ -1,6 +1,7 @@
 import { getMarkerById } from "@/services/marker";
 import { getTranslations } from "next-intl/server";
 import { getPageMetadata } from "@/lib/metadata";
+import { addressToString } from "@/lib/address-helper";
 import type { Metadata } from "next";
 
 import NotFound from "@/components/common/not-found";
@@ -26,10 +27,10 @@ export async function generateMetadata({
 
   return getPageMetadata({
     path: `/location/${id}`,
-    pageName: marker.address,
+    pageName: addressToString(marker.address),
     titleToLower: false,
     description: t("description"),
-    image: JSON.parse(marker.images)[0],
+    image: (marker.images as string[])[0],
     locale,
   });
 }
@@ -60,7 +61,7 @@ export default async function Location({
       <Comments
         searchParams={searchParams}
         markerId={id}
-        address={marker.address}
+        address={addressToString(marker.address)}
       />
     </>
   );

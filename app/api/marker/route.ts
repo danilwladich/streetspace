@@ -62,8 +62,13 @@ export async function POST(req: NextRequest) {
     const marker = await createMarker({
       lat,
       lng,
-      address: `${road}, ${city || village}, ${postcode}, ${country}`,
-      images: JSON.stringify(imagesUrl),
+      address: {
+        road,
+        city: city || village || "",
+        postcode,
+        country,
+      },
+      images: imagesUrl,
       confirmed: authUser.role === "ADMIN",
       addedByUserId: authUser.id,
     });

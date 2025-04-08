@@ -24,7 +24,7 @@ const modalsMap: { [key in ModalType]: JSX.Element } = {
 export function ModalProvider() {
   const { isOpen, type, onClose } = useModalStore();
 
-  if (!type || !isOpen) {
+  if (!type) {
     return null;
   }
 

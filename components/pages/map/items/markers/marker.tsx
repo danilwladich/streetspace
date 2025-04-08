@@ -7,6 +7,7 @@ import { Link } from "@/lib/navigation";
 import Image from "next/image";
 import { divIcon, Point } from "leaflet";
 import { MAP_ICON_SIZE } from "@/hooks/store/use-map-store";
+import { addressToString } from "@/lib/address-helper";
 import type { ConfirmedMarker } from "@/types/marker";
 
 import { MapPin } from "lucide-react";
@@ -21,7 +22,8 @@ export default function Marker({
 }: ConfirmedMarker) {
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const imageSrc = JSON.parse(images)[0];
+  const imageSrc = (images as string[])[0];
+  const addressString = addressToString(address);
 
   return (
     <LMarker position={[lat, lng]} icon={getIcon()} zIndexOffset={1}>
@@ -35,7 +37,7 @@ export default function Marker({
 
             <Image
               src={imageSrc}
-              alt={address}
+              alt={addressString}
               width={270}
               height={270}
               onLoad={() => setIsLoaded(true)}
@@ -43,7 +45,7 @@ export default function Marker({
             />
           </div>
 
-          <h4 className="text-xs font-semibold">{address}</h4>
+          <h4 className="text-xs font-semibold">{addressString}</h4>
         </Link>
       </Popup>
     </LMarker>

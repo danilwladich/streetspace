@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { checkToken } from "@/services/sign-up-token";
 import { UserProfile } from "@/types/user";
-import type { User } from "@prisma/client";
+import { Prisma, type User } from "@prisma/client";
 
 export async function getUsersCount() {
   return await db.user.count({ where: { confirmed: true } });
@@ -110,6 +110,10 @@ export async function createUser(data: {
 export async function updateUser(id: string, data: Partial<User>) {
   return db.user.update({
     where: { id },
-    data,
+    data: {
+      ...data,
+      socialMedia:
+        data.socialMedia === null ? Prisma.JsonNull : data.socialMedia,
+    },
   });
 }

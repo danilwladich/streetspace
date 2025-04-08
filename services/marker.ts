@@ -44,7 +44,6 @@ export async function getMarkers(page: number, perPage: number) {
   });
 }
 
-
 export async function getAllMarkers(): Promise<ConfirmedMarker[]> {
   return db.marker.findMany({
     where: {
@@ -120,13 +119,21 @@ export async function getUnconfirmedMarkersCount() {
 export async function createMarker(data: {
   lat: number;
   lng: number;
-  address: string;
-  images: string;
+  address: {
+    road: string;
+    city: string;
+    postcode: string;
+    country: string;
+  };
+  images: string[];
   addedByUserId: string;
   confirmed: boolean;
 }) {
   return db.marker.create({
-    data,
+    data: {
+      ...data,
+      address: JSON.parse(JSON.stringify(data.address)),
+    },
   });
 }
 
@@ -135,7 +142,11 @@ export async function updateMarker(id: string, data: Partial<Marker>) {
     where: {
       id,
     },
-    data,
+    data: {
+      ...data,
+      address: data.address || undefined,
+      images: data.images || undefined,
+    },
   });
 }
 

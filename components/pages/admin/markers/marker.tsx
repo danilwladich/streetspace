@@ -2,6 +2,7 @@ import { Link } from "@/lib/navigation";
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
+import { addressToString } from "@/lib/address-helper";
 import type { Prisma } from "@prisma/client";
 
 import MarkerImages from "@/components/common/marker/marker-images";
@@ -53,18 +54,20 @@ export function Marker({
     [],
   );
 
+  const addressString = addressToString(address);
+
   return (
     <Card className="max-w-4xl">
       <CardHeader>
         <CardTitle>
-          <h2>{address}</h2>
+          <h2>{addressString}</h2>
         </CardTitle>
 
         <CardDescription>{`${lat}, ${lng}`}</CardDescription>
       </CardHeader>
 
       <CardContent className="space-y-2">
-        <MarkerImages images={images} alt={address} />
+        <MarkerImages images={images as string[]} alt={addressString} />
 
         <div className="relative aspect-video overflow-hidden rounded">
           <Link

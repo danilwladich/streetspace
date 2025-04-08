@@ -11,10 +11,7 @@ export async function PATCH(req: NextRequest) {
   try {
     // Parsing and validating the request body
     const data = parseJsonFromFormData(await req.formData());
-    const body = editProfileSchema.safeParse({
-      ...data,
-      socialMedia: JSON.parse(data.socialMedia || "{}"),
-    });
+    const body = editProfileSchema.safeParse(data);
 
     // Handling validation errors
     if (!body.success) {
@@ -52,7 +49,7 @@ export async function PATCH(req: NextRequest) {
       coords: coords || null,
       country: country || null,
       city: city || village || null,
-      socialMedia: JSON.stringify(socialMedia || {}),
+      socialMedia: socialMedia || {},
     });
 
     // Returning a JSON response with user information

@@ -8,16 +8,14 @@ export default function MarkerImages({
   images,
   alt,
 }: {
-  images: string;
+  images: string[];
   alt: string;
 }) {
   const { onOpen } = useModalStore();
 
-  const imagesSrc = JSON.parse(images) as string[];
-
   function onModalOpen(index: number) {
     const imagesData = {
-      images: imagesSrc.map((src) => ({ src, alt })),
+      images: images.map((src) => ({ src, alt })),
       startIndex: index,
     };
     onOpen("fullscreen images", { imagesData });
@@ -25,7 +23,7 @@ export default function MarkerImages({
 
   return (
     <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-      {imagesSrc.map((src, index) => (
+      {images.map((src, index) => (
         <MarkerImage
           key={src}
           src={src}
