@@ -4,7 +4,6 @@ import {
   CardHeader,
   CardFooter,
 } from "@/components/ui/card";
-import { FOLLOWS_PER_PAGE } from "@/services/follow";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -18,7 +17,7 @@ export default function FollowsLoader() {
       </CardHeader>
 
       <CardContent className="space-y-1">
-        {Array.from({ length: FOLLOWS_PER_PAGE }).map((_, i) => (
+        {Array.from({ length: 5 }).map((_, i) => (
           <Item key={i} />
         ))}
       </CardContent>
