@@ -9,11 +9,11 @@ import AddedBy from "./added-by";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
   CardFooter,
 } from "@/components/ui/card";
+import Rates from "@/components/common/rates";
 
 type MarkerType = Prisma.MarkerGetPayload<{
   include: {
@@ -24,7 +24,10 @@ type MarkerType = Prisma.MarkerGetPayload<{
       };
     };
   };
-}>;
+}> & {
+  avgRate: number;
+  ratesCount: number;
+};
 
 export default async function Marker({
   id,
@@ -34,6 +37,8 @@ export default async function Marker({
   images,
   addedBy,
   createdAt,
+  avgRate,
+  ratesCount,
 }: MarkerType) {
   const isVisitor = await checkAuthIsMarkerVisitor(id);
 
@@ -52,7 +57,7 @@ export default async function Marker({
           </div>
         </div>
 
-        <CardDescription>{`${lat}, ${lng}`}</CardDescription>
+        <Rates avg={avgRate} count={ratesCount} />
       </CardHeader>
 
       <CardContent className="space-y-2">

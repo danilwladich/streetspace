@@ -285,6 +285,9 @@
             "submitError": "Delete location error"
           }
         }
+      },
+      "rate": {
+        "title": "Rate this location"
       }
     },
     "settings": {
@@ -381,7 +384,7 @@
       "main": "Thank you for signing up! We want to make sure it's really you. Please enter the following verification code when prompted or click the link here: ",
       "code": "Your confirmation code",
       "valid": "(This code is valid for 10 minutes)",
-      "ignore": "If you don't want to create an account, you can ignore this message", 
+      "ignore": "If you don't want to create an account, you can ignore this message",
       "copyright": "This message was produced and distributed by {title}. All rights reserved. {title} is a registered trademark of "
     }
   }

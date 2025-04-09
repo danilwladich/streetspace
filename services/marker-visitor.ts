@@ -103,5 +103,29 @@ export async function getUserMarkersVisits(
     },
   });
 
-  return marker.map((m) => m.marker);
+  const markerIds = marker.map((m) => m.marker.id);
+  const rates = await db.markerRate.groupBy({
+    by: ["markerId"],
+    where: {
+      markerId: {
+        in: markerIds,
+      },
+    },
+    _avg: {
+      rate: true,
+    },
+    _count: {
+      _all: true,
+    },
+  });
+
+  return marker.map((m) => {
+    const markerRate = rates.find((v) => v.markerId === m.marker.id);
+
+    return {
+      ...m.marker,
+      avgRate: markerRate?._avg.rate ?? 0,
+      countRate: markerRate?._count._all ?? 0,
+    };
+  });
 }

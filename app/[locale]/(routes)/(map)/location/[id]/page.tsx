@@ -8,6 +8,7 @@ import NotFound from "@/components/common/not-found";
 import Marker from "@/components/pages/map/location/marker";
 import Visitors from "@/components/pages/map/location/visitors/visitors";
 import Comments from "@/components/pages/map/location/comments/comments";
+import EditRate from "@/components/pages/map/location/edit-rate/edit-rate";
 
 export async function generateMetadata({
   params: { locale, id },
@@ -55,6 +56,8 @@ export default async function Location({
   return (
     <>
       <Marker {...marker} />
+
+      <EditRate id={id} avg={marker.avgRate} />
 
       <Visitors id={id} />
 

@@ -33,9 +33,10 @@ model User {
 
   addedMarkers Marker[] @relation("addedMarkers")
 
-  visits         MarkerVisitor[]
-  markersReports MarkerReport[]
-  markerComments MarkerComment[]
+  visits          MarkerVisitor[]
+  markersReports  MarkerReport[]
+  markersComments MarkerComment[]
+  markersRates    MarkerRate[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -75,6 +76,7 @@ model Marker {
 
   comments MarkerComment[]
   visitors MarkerVisitor[]
+  rates    MarkerRate[]
 
   reports MarkerReport[]
 
@@ -82,6 +84,24 @@ model Marker {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("marker")
+}
+
+model MarkerRate {
+  id Int @id @default(autoincrement())
+
+  rate Int
+
+  markerId String @map("marker_id")
+  marker   Marker @relation(fields: [markerId], references: [id])
+
+  userId String @map("user_id")
+  user   User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([markerId, userId])
+  @@map("marker_rate")
 }
 
 model MarkerVisitor {

@@ -285,6 +285,9 @@
             "submitError": "Błąd usuwania lokalizacji"
           }
         }
+      },
+      "rate": {
+        "title": "Oceń lokalizację"
       }
     },
     "settings": {

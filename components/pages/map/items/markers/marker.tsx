@@ -12,6 +12,7 @@ import type { ConfirmedMarker } from "@/types/marker";
 
 import { MapPin } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import Rates from "@/components/common/rates";
 
 export default function Marker({
   id,
@@ -19,6 +20,8 @@ export default function Marker({
   lng,
   address,
   images,
+  avgRate,
+  ratesCount,
 }: ConfirmedMarker) {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -44,6 +47,8 @@ export default function Marker({
               className="absolute left-0 top-0 h-full w-full rounded object-cover"
             />
           </div>
+
+          <Rates avg={avgRate} count={ratesCount} />
 
           <h4 className="text-xs font-semibold">{addressString}</h4>
         </Link>

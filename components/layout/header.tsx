@@ -16,14 +16,12 @@ export function Header() {
 
   return (
     <header className="fixed left-0 top-0 z-40 w-full overflow-hidden bg-background/75 backdrop-blur-sm">
-      <div className="pl-[calc(100vw-100%)]">
-        <div className="container flex items-center justify-between">
-          <Link href="/" className="truncate text-lg">
-            {getAppTitle()}
-          </Link>
+      <div className="container flex items-center justify-between">
+        <Link href="/" className="truncate text-lg">
+          {getAppTitle()}
+        </Link>
 
-          <Navigation />
-        </div>
+        <Navigation />
       </div>
 
       <Separator />

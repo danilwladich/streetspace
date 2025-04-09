@@ -8,4 +8,7 @@ export type ConfirmedMarker = Prisma.MarkerGetPayload<{
     address: true;
     images: true;
   };
-}>;
+}> & {
+  avgRate: number;
+  ratesCount: number;
+};

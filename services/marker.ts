@@ -1,5 +1,4 @@
 import { db } from "@/lib/db";
-import type { ConfirmedMarker } from "@/types/marker";
 import type { Marker } from "@prisma/client";
 
 export async function getMarkersCount() {
@@ -11,7 +10,7 @@ export async function getMarkersCount() {
 }
 
 export async function getMarkerById(id: string, confirmed?: boolean) {
-  return db.marker.findFirst({
+  const marker = await db.marker.findFirst({
     where: {
       id,
       confirmed,
@@ -25,6 +24,30 @@ export async function getMarkerById(id: string, confirmed?: boolean) {
       },
     },
   });
+
+  if (!marker) {
+    return null;
+  }
+
+  const rates = await db.markerRate.aggregate({
+    where: {
+      marker: {
+        id,
+      },
+    },
+    _avg: {
+      rate: true,
+    },
+    _count: {
+      _all: true,
+    },
+  });
+
+  return {
+    ...marker,
+    avgRate: rates._avg.rate ?? 0,
+    ratesCount: rates._count._all ?? 0,
+  };
 }
 
 export async function getMarkers(page: number, perPage: number) {
@@ -44,8 +67,8 @@ export async function getMarkers(page: number, perPage: number) {
   });
 }
 
-export async function getAllMarkers(): Promise<ConfirmedMarker[]> {
-  return db.marker.findMany({
+export async function getAllMarkers() {
+  const markers = await db.marker.findMany({
     where: {
       confirmed: true,
     },
@@ -56,6 +79,30 @@ export async function getAllMarkers(): Promise<ConfirmedMarker[]> {
       address: true,
       images: true,
     },
+  });
+
+  const rates = await db.markerRate.groupBy({
+    by: ["markerId"],
+    where: {
+      marker: {
+        confirmed: true,
+      },
+    },
+    _avg: {
+      rate: true,
+    },
+    _count: {
+      _all: true,
+    },
+  });
+
+  return markers.map((marker) => {
+    const markerRates = rates.find((rate) => rate.markerId === marker.id);
+    return {
+      ...marker,
+      avgRate: markerRates?._avg.rate ?? 0,
+      ratesCount: markerRates?._count._all ?? 0,
+    };
   });
 }
 
