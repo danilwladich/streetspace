@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { getAuthMarkerRate } from "@/services/marker-rate";
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -11,7 +11,7 @@ export default async function EditRate({
   id: string;
   avg: number;
 }) {
-  const t = useTranslations("pages.map.rate");
+  const t = await getTranslations("pages.map.rate");
 
   const authRate = await getAuthMarkerRate(id);
 
